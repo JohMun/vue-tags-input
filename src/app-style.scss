@@ -1,0 +1,47 @@
+@import "~colors";
+
+*, *:before, *:after {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0px;
+  padding: 0px;
+  height: 100%;
+  outline: none;
+}
+
+body {
+  font-family: "Helvetica Neue", sans-serif;
+  box-sizing: border-box;
+  overflow-y: scroll;
+}
+
+a {
+  cursor: pointer;
+}
+
+a, a:hover, a:focus  {
+  text-decoration: none;
+  outline: none;
+}
+
+button:focus {
+  outline: none;
+  border: none;
+  box-shadow: none;
+}
+
+ul {
+  list-style-type: none;
+  margin: 0px;
+  padding: 0px;
+}
+
+.clearfix:after {
+  content: ".";
+  clear: both;
+  display: block;
+  visibility: hidden;
+  height: 0px;
+}
