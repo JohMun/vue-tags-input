@@ -1,9 +1,27 @@
 <template lang="html">
   <div class="vue-tags-input">
     <div class="input">
-      <ul class="tags">
-        <li v-for="(tag, index) in tags" :key="index" :class="[tag.classes]">
-          {{ tag.text }}
+      <ul class="tags" v-if="tagsCopy">
+        <li
+          v-for="(tag, index) in tagsCopy"
+          :key="index"
+          class="tag"
+          :class="[tag.classes]">
+          <span
+            @click="toggleEdit(index); focus()"
+            v-if="!tagsEditStatus[index]">
+            {{ tag.text }}
+          </span>
+          <input
+            type="text"
+            v-else
+            :maxlength="maxlength"
+            ref="tagInput"
+            v-model="tag.text"
+            @input="validateChangedTag(index, tag)"
+            @blur="cancelChanging(index)"
+            @keydown.enter="saveTag(index, tag)"
+          />
         </li>
       </ul>
       <input
@@ -22,6 +40,8 @@
         <li
           v-for="(item, index) in filteredAutocompleteItems"
           :key="index"
+          class="item"
+          :class="item.classes"
           @click="addTag(item, 'autocomplete')">
           {{ item.text }}
         </li>
@@ -46,6 +66,10 @@ export default {
       type: Array,
       default: () => [],
     },
+    allowEditTags: {
+      type: Boolean,
+      default: true,
+    },
     autocompleteFilterDuplicates: {
       default: true,
       type: Boolean,
@@ -68,15 +92,22 @@ export default {
   data() {
     return {
       newTag: null,
+      tagsCopy: null,
+      tagsEditStatus: null,
     };
   },
   computed: {
     filteredAutocompleteItems() {
-      if (!this.autocompleteFilterDuplicates) return this.autocompleteItems;
-      return this.autocompleteItems.filter(i => !this.tags.find(t => t.text === i.text));
+      const items = this.autocompleteItems.map(i => this.createTag(i));
+      if (!this.autocompleteFilterDuplicates) return items;
+      return items.filter(i => !this.tags.find(t => t.text === i.text));
     },
   },
   methods: {
+    toggleEdit(index) {
+      if (!this.allowEditTags) return;
+      this.$set(this.tagsEditStatus, index, !this.tagsEditStatus[index]);
+    },
     clone(items) {
       return JSON.parse(JSON.stringify(items));
     },
@@ -85,17 +116,48 @@ export default {
         .filter(val => !new RegExp(val.rule).test(text))
         .map(val => val.type);
     },
+    validateChangedTag(index, tag) {
+      this.$set(this.tagsCopy, index, this.createTag(tag));
+    },
+    createTag(tag) {
+      const t = this.clone(tag);
+      const validation = this.validate(t.text);
+      const valid = validation.length === 0;
+      const classes = `${validation.join(' ')} ${valid ? 'valid' : 'invalid'}`;
+      t.classes = classes;
+      t.valid = valid;
+      return t;
+    },
+    focus() {
+      this.$nextTick(() => this.$refs.tagInput[0].focus());
+    },
+    cancelChanging(index) {
+      this.tagsCopy[index] = Object.assign({}, this.tags[index]);
+      this.$set(this.tagsEditStatus, index, false);
+    },
+    saveTag(index, tag) {
+      tag = this.createTag(tag);
+      if (!tag.valid) this.$emit('adding-invalid-tag', tag);
+      if (!tag.valid && this.hasForbiddingAddRule(tag.classes)) return;
+      this.$set(this.tagsCopy, index, tag);
+      this.toggleEdit(index);
+      this.$emit('tags-changed', this.tagsCopy);
+    },
+    hasForbiddingAddRule(classes) {
+      const validation = classes.split(' ');
+      return validation.some(type => {
+        const rule = this.validation.find(rule => type === rule.type);
+        return rule ? rule.disableAdd : false;
+      });
+    },
     addTag(newTag) {
       if (this.maxTags && this.maxTags === this.tags.length) return;
       let tag = this.clone(newTag);
       if (typeof newTag === 'string') tag = { text: newTag };
       const tags = this.clone(this.tags);
-      const validation = this.validate(tag.text);
-      const valid = validation.length === 0;
-      const classes = `${validation.join(' ')} ${valid ? 'valid' : 'invalid'}`;
-      tag.classes = classes;
-      tag.valid = valid;
-
+      tag = this.createTag(tag);
+      if (!tag.valid) this.$emit('adding-invalid-tag', tag);
+      if (!tag.valid && this.hasForbiddingAddRule(tag.classes)) return;
       tags.push(tag);
       this.$emit('tags-changed', tags);
     },
@@ -104,14 +166,25 @@ export default {
       this.newTag = value;
       this.$emit('input', value);
     },
+    initTags() {
+      this.tagsCopy = this.clone(this.tags.map(t => this.createTag(t)));
+      this.tagsEditStatus = this.clone(this.tags).map(() => false);
+    },
   },
   watch:{
     value(newValue){
       this.newTag = newValue;
     },
+    tags: {
+      handler() {
+        this.initTags();
+      },
+      deep: true,
+    },
   },
   mounted() {
     this.newTag = this.value;
+    this.initTags();
   },
 };
 </script>

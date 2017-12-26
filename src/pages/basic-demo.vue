@@ -4,11 +4,11 @@
       v-model="tag"
       :validation="validation"
       :tags="tags"
-      :max-tags="3"
       :autocomplete-items="autocompleteItems"
       @tags-changed="newTags => tags = newTags">
     </vue-tags-input>
     {{ tags }}
+    <button type="button" @click="addTag">add</button>
   </div>
 </template>
 
@@ -24,13 +24,14 @@ export default {
     return {
       tag: '',
       tags: [{
-        text: 'tag1',
+        text: 't1',
       }, {
         text: 'tag2',
       }],
       validation: [{
         type: 'min-length',
         rule: '^.{4,}$',
+        disableAdd: true,
       }, {
         type: 'only-numbers',
         rule: '[0-9]',
@@ -42,12 +43,18 @@ export default {
     };
   },
   methods: {
+    addInvalidOnPurpose(tag) {
+      this.tags.push(tag);
+    },
     setAutocompleteItems() {
       this.autocompleteItems = this.countries
         .filter(c => new RegExp(this.tag, 'i').test(c))
         .map(text => {
           return { text, test: 'nlub' };
         });
+    },
+    addTag() {
+      this.tags.push({ text: ('hu') });
     },
   },
   watch: {
