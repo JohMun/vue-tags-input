@@ -1,6 +1,6 @@
 <template>
   <div ref="app" id="app">
-    <main>
+    <main class="pagewidth">
       <basic-demo></basic-demo>
     </main>
   </div>
@@ -17,3 +17,9 @@ export default {
   },
 };
 </script>
+
+<style lang="scss" scoped>
+#app {
+  width: 100%;
+}
+</style>

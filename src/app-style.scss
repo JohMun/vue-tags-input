@@ -17,31 +17,9 @@ body {
   overflow-y: scroll;
 }
 
-a {
-  cursor: pointer;
-}
-
-a, a:hover, a:focus  {
-  text-decoration: none;
-  outline: none;
-}
-
-button:focus {
-  outline: none;
-  border: none;
-  box-shadow: none;
-}
-
-ul {
-  list-style-type: none;
-  margin: 0px;
-  padding: 0px;
-}
-
-.clearfix:after {
-  content: ".";
-  clear: both;
-  display: block;
-  visibility: hidden;
-  height: 0px;
+.pagewidth {
+  max-width: 1200px;
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
 }
