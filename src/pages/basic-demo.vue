@@ -4,6 +4,7 @@
       v-model="tag"
       :validation="validation"
       :tags="tags"
+      @before-adding-tag="test"
       :autocomplete-items="autocompleteItems"
       @tags-changed="newTags => tags = newTags">
     </vue-tags-input>
@@ -43,6 +44,9 @@ export default {
     };
   },
   methods: {
+    test(obj) {
+      obj.addTag(true);
+    },
     addInvalidOnPurpose(tag) {
       this.tags.push(tag);
     },

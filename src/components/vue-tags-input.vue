@@ -31,7 +31,7 @@
         :placeholder="placeholder"
         v-model="newTag"
         :maxlength="maxlength"
-        @keydown.enter="addTag(newTag, 'input')"
+        @keydown.enter="performAddTag(newTag, 'input')"
         @input="updateNewTag"
       />
     </div>
@@ -42,7 +42,7 @@
           :key="index"
           class="item"
           :class="item.classes"
-          @click="addTag(item, 'autocomplete')">
+          @click="performAddTag(item, 'autocomplete')">
           {{ item.text }}
         </li>
       </ul>
@@ -132,7 +132,7 @@ export default {
       this.$nextTick(() => this.$refs.tagInput[0].focus());
     },
     cancelChanging(index) {
-      this.tagsCopy[index] = Object.assign({}, this.tags[index]);
+      this.tagsCopy[index] = Object.assign({}, this.createTag(this.tags[index]));
       this.$set(this.tagsEditStatus, index, false);
     },
     saveTag(index, tag) {
@@ -150,7 +150,15 @@ export default {
         return rule ? rule.disableAdd : false;
       });
     },
-    addTag(newTag) {
+    performAddTag(newTag) {
+      if (!this._events['before-adding-tag']) this.addTag(newTag);
+      this.$emit('before-adding-tag', {
+        tag: newTag,
+        addTag: (goOn) => this.addTag(newTag, goOn),
+      });
+    },
+    addTag(newTag, goOn) {
+      if (goOn === false) return;
       if (this.maxTags && this.maxTags === this.tags.length) return;
       let tag = this.clone(newTag);
       if (typeof newTag === 'string') tag = { text: newTag };
