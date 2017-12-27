@@ -9,9 +9,7 @@
           :class="[tag.classes]">
           <span
             @click="toggleEdit(index); focus()"
-            v-if="!tagsEditStatus[index]">
-            {{ tag.text }}
-          </span>
+            v-if="!tagsEditStatus[index]">{{ tag.text }}</span>
           <input
             type="text"
             v-else

@@ -11,7 +11,8 @@
     "analyze-build": "cross-env NODE_ENV=production ANALYZE=true webpack",
     "precommit": "lint-staged",
     "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
-    "lint-fix": "eslint --fix --ignore-path .gitignore ."
+    "lint-fix": "eslint --fix --ignore-path .gitignore .",
+    "e2e": "testcafe all e2e/*test* --app \"npm run dev\" --app-init-delay 10000 -S -s screenshots"
   },
   "lint-staged": {
     "*.js": "eslint",
@@ -43,6 +44,8 @@
     "postcss-loader": "^2.0.9",
     "sass-loader": "^6.0.6",
     "style-loader": "^0.18.2",
+    "testcafe": "^0.18.5",
+    "testcafe-vue-selectors": "^2.1.0",
     "vue-loader": "^13.6.0",
     "vue-template-compiler": "^2.5.11",
     "webpack": "^3.10.0",
