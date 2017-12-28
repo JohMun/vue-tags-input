@@ -5,7 +5,7 @@ fixture `Getting Started`
 
 test('Add new Tag', async t => {
   await t
-    .typeText(Selector('.getting-started .vue-tags-input .new-tag'), 'e2eTag')
+    .typeText(Selector('.getting-started .vue-tags-input .new-tag-input'), 'e2eTag')
     .pressKey('enter')
     .expect(Selector('.getting-started .vue-tags-input .tags li').count).eql(2);
 
