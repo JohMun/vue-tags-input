@@ -5,7 +5,10 @@
       v-model="tag"
       :validation="validation"
       :tags="tags"
-      @before-adding-tag="test"
+      :max-tags="4"
+      :seperators="['.', 'i']"
+      @before-adding-tag="decideAdding"
+      @before-deleting-tag="decideDeleting"
       :autocomplete-items="autocompleteItems"
       @tags-changed="newTags => tags = newTags">
     </vue-tags-input>
@@ -26,6 +29,7 @@ export default {
       tag: '',
       tags: [{
         text: 't1',
+        classes: 'test1 test2',
       }, {
         text: 'tag2',
       }],
@@ -44,7 +48,10 @@ export default {
     };
   },
   methods: {
-    test(obj) {
+    decideDeleting(obj) {
+      obj.deleteTag(true);
+    },
+    decideAdding(obj) {
       obj.addTag(true);
     },
     addInvalidOnPurpose(tag) {
@@ -73,11 +80,19 @@ export default {
 <style lang="scss">
 @import '~colors';
 
-.tags-input .invalid.min-length {
+.tag.invalid.min-length {
   background-color: $error;
 }
 
-.tags-input .invalid.only-numbers {
+.tag.invalid.only-numbers {
   background-color: $warn;
+}
+
+.new-tag-input.invalid.min-length {
+  color: $error;
+}
+
+.new-tag-input.invalid.only-numbers {
+  color: $warn;
 }
 </style>
