@@ -19,9 +19,9 @@
               size="1"
               ref="tagInput"
               v-model="tag.text"
-              @input="validateChangedTag(index, tag)"
+              @input="createdChangedTag(index, tag)"
               @blur="cancelChanging(index)"
-              @keydown.enter="saveTag(index, tag)"
+              @keydown.enter="performSaveTag(index, tag)"
             />
           </div>
           <div class="actions">
@@ -129,23 +129,23 @@ export default {
     clone(items) {
       return JSON.parse(JSON.stringify(items));
     },
-    validate(text) {
+    validateUserRuls(text) {
       return this.validation
         .filter(val => !new RegExp(val.rule).test(text))
         .map(val => val.type);
     },
-    validateChangedTag(index, tag) {
+    createdChangedTag(index, tag) {
       this.$set(this.tagsCopy, index, this.createTag(tag));
     },
     createTiClasses(text) {
-      const validation = this.validate(text);
+      const validation = this.validateUserRuls(text);
       const valid = validation.length === 0;
       return `${validation.join(' ')}${valid ? 'valid' : ' invalid'}`;
     },
     createTag(tag) {
       const t = this.clone(tag);
       t.tiClasses = this.createTiClasses(t.text);
-      t.valid = this.validate(t.text).length === 0;
+      t.valid = this.validateUserRuls(t.text).length === 0;
       return t;
     },
     focus() {
@@ -158,14 +158,6 @@ export default {
       this.tagsCopy[index] = Object.assign({}, this.createTag(this.tags[index]));
       this.$set(this.tagsEditStatus, index, false);
     },
-    saveTag(index, tag) {
-      tag = this.createTag(tag);
-      if (!tag.valid) this.$emit('adding-invalid-tag', tag);
-      if (!tag.valid && this.hasForbiddingAddRule(tag.tiClasses)) return;
-      this.$set(this.tagsCopy, index, tag);
-      this.toggleEdit(index);
-      this.$emit('tags-changed', this.tagsCopy);
-    },
     hasForbiddingAddRule(tiClasses) {
       const validation = tiClasses.split(' ');
       return validation.some(type => {
@@ -177,20 +169,6 @@ export default {
       const regex = new RegExp(this.seperators.map(s => this.quote(s)).join('|'));
       return string.split(regex).map(text => {
         return { text };
-      });
-    },
-    performAddTags(tag) {
-      let tags = [];
-      if (typeof tag === 'object') tags = [tag];
-      if (typeof tag === 'string') tags = this.createTagTexts(tag);
-
-      tags.forEach(tag => {
-        tag = this.createTag(tag);
-        if (!this._events['before-adding-tag']) this.addTag(tag);
-        this.$emit('before-adding-tag', {
-          tag,
-          addTag: (goOn) => this.addTag(tag, goOn),
-        });
       });
     },
     performDeleteTag(index, tag) {
@@ -206,13 +184,44 @@ export default {
       this.tagsCopy.splice(index, 1);
       this.$emit('tags-changed', this.tagsCopy);
     },
+    performAddTags(tag) {
+      let tags = [];
+      if (typeof tag === 'object') tags = [tag];
+      if (typeof tag === 'string') tags = this.createTagTexts(tag);
+
+      tags.forEach(tag => {
+        tag = this.createTag(tag);
+        if (!this._events['before-adding-tag']) this.addTag(tag);
+        this.$emit('before-adding-tag', {
+          tag,
+          addTag: (goOn) => this.addTag(tag, goOn),
+        });
+      });
+    },
     addTag(tag, goOn) {
+      if (tag.text.length === 0) return;
       if (goOn === false) return;
       const maximumReached = this.maxTags && this.maxTags === this.tagsCopy.length;
-      if (maximumReached) return this.$emit('max-tags-reached');
+      if (maximumReached) return this.$emit('max-tags-reached', tag);
       if (!tag.valid && this.hasForbiddingAddRule(tag.tiClasses)) return;
       this.$emit('input', '');
       this.tagsCopy.push(tag);
+      this.$emit('tags-changed', this.tagsCopy);
+    },
+    performSaveTag(index, tag) {
+      if (!this._events['before-saving-tag']) this.saveTag(index, tag);
+      this.$emit('before-saving-tag', {
+        index,
+        tag,
+        saveTag: (goOn) => this.saveTag(index, tag, goOn),
+      });
+    },
+    saveTag(index, tag, goOn) {
+      if (tag.text.length === 0) return;
+      if (goOn === false) return;
+      if (!tag.valid && this.hasForbiddingAddRule(tag.tiClasses)) return;
+      this.$set(this.tagsCopy, index, tag);
+      this.toggleEdit(index);
       this.$emit('tags-changed', this.tagsCopy);
     },
     updateNewTag(ievent) {

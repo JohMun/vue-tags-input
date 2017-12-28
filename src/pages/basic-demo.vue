@@ -9,6 +9,7 @@
       :seperators="['.', 'i']"
       @before-adding-tag="decideAdding"
       @before-deleting-tag="decideDeleting"
+      @before-saving-tag="decideSaving"
       :autocomplete-items="autocompleteItems"
       @tags-changed="newTags => tags = newTags">
     </vue-tags-input>
@@ -36,7 +37,6 @@ export default {
       validation: [{
         type: 'min-length',
         rule: '^.{4,}$',
-        disableAdd: true,
       }, {
         type: 'only-numbers',
         rule: '[0-9]',
@@ -53,6 +53,9 @@ export default {
     },
     decideAdding(obj) {
       obj.addTag(true);
+    },
+    decideSaving(obj) {
+      obj.saveTag(true);
     },
     addInvalidOnPurpose(tag) {
       this.tags.push(tag);
