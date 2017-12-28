@@ -5,8 +5,7 @@
       v-model="tag"
       :validation="validation"
       :tags="tags"
-      :max-tags="4"
-      :seperators="['.', 'i']"
+      @duplicate="foundDuplicate"
       @before-adding-tag="decideAdding"
       @before-deleting-tag="decideDeleting"
       @before-saving-tag="decideSaving"
@@ -42,12 +41,15 @@ export default {
         rule: '[0-9]',
       }],
       countries: [
-        'Germany', 'Holland', 'France', '09879',
+        'Germany', 'Holland', 'France', '09879', 't1',
       ],
       autocompleteItems: [],
     };
   },
   methods: {
+    foundDuplicate(tag) {
+      console.log(tag);
+    },
     decideDeleting(obj) {
       obj.deleteTag(true);
     },
@@ -82,6 +84,10 @@ export default {
 
 <style lang="scss">
 @import '~colors';
+
+.basic-demo .tag.duplicate {
+  background-color: #141f2d;
+}
 
 .tag.invalid.min-length {
   background-color: $error;

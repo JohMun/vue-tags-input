@@ -42,6 +42,8 @@
         v-bind="$attrs"
         type="text"
         size="1"
+        ref="newTagInput"
+        @paste="addFromPaste"
         :placeholder="placeholder"
         v-model="newTag"
         :maxlength="maxlength"
@@ -106,6 +108,14 @@ export default {
       type: Array,
       default: () => [';'],
     },
+    tagsFilterDuplicates: {
+      type: Boolean,
+      default: true,
+    },
+    addTagsFromPaste: {
+      type: Boolean,
+      default: true,
+    },
   },
   data() {
     return {
@@ -122,6 +132,10 @@ export default {
     },
   },
   methods: {
+    addFromPaste() {
+      if (!this.addTagsFromPaste) return;
+      setTimeout(() => this.performAddTags(this.newTag), 10);
+    },
     toggleEdit(index) {
       if (!this.allowEditTags) return;
       this.$set(this.tagsEditStatus, index, !this.tagsEditStatus[index]);
@@ -135,16 +149,22 @@ export default {
         .map(val => val.type);
     },
     createdChangedTag(index, tag) {
-      this.$set(this.tagsCopy, index, this.createTag(tag));
+      this.$set(this.tagsCopy, index, this.createTag(tag, true));
     },
-    createTiClasses(text) {
+    createTiClasses(text, checkDuplicatesFromInside) {
       const validation = this.validateUserRuls(text);
+      let d = '';
+      if (checkDuplicatesFromInside) {
+        if (this.tags.filter(t => t.text === text).length > 1) d = 'duplicate ';
+      } else {
+        if (this.tags.map(t => t.text).includes(text)) d = 'duplicate ';
+      }
       const valid = validation.length === 0;
-      return `${validation.join(' ')}${valid ? 'valid' : ' invalid'}`;
+      return `${d}${validation.join(' ')}${valid ? 'valid' : ' invalid'}`;
     },
-    createTag(tag) {
+    createTag(tag, checkDuplicatesFromTags) {
       const t = this.clone(tag);
-      t.tiClasses = this.createTiClasses(t.text);
+      t.tiClasses = this.createTiClasses(t.text, checkDuplicatesFromTags);
       t.valid = this.validateUserRuls(t.text).length === 0;
       return t;
     },
@@ -155,7 +175,7 @@ export default {
       return regex.replace(/([()[{*+.$^\\|?])/g, '\\$1');
     },
     cancelChanging(index) {
-      this.tagsCopy[index] = Object.assign({}, this.createTag(this.tags[index]));
+      this.tagsCopy[index] = Object.assign({}, this.createTag(this.tags[index], true));
       this.$set(this.tagsEditStatus, index, false);
     },
     hasForbiddingAddRule(tiClasses) {
@@ -188,7 +208,6 @@ export default {
       let tags = [];
       if (typeof tag === 'object') tags = [tag];
       if (typeof tag === 'string') tags = this.createTagTexts(tag);
-
       tags.forEach(tag => {
         tag = this.createTag(tag);
         if (!this._events['before-adding-tag']) this.addTag(tag);
@@ -203,6 +222,8 @@ export default {
       if (goOn === false) return;
       const maximumReached = this.maxTags && this.maxTags === this.tagsCopy.length;
       if (maximumReached) return this.$emit('max-tags-reached', tag);
+      const dup = this.tagsFilterDuplicates && this.tagsCopy.map(t => t.text).includes(tag.text);
+      if (dup) return this.$emit('duplicate', tag);
       if (!tag.valid && this.hasForbiddingAddRule(tag.tiClasses)) return;
       this.$emit('input', '');
       this.tagsCopy.push(tag);
@@ -219,6 +240,8 @@ export default {
     saveTag(index, tag, goOn) {
       if (tag.text.length === 0) return;
       if (goOn === false) return;
+      const dup = this.tagsFilterDuplicates && this.tagsCopy.map(t => t.text).includes(tag.text);
+      if (dup) return this.$emit('duplicate', tag);
       if (!tag.valid && this.hasForbiddingAddRule(tag.tiClasses)) return;
       this.$set(this.tagsCopy, index, tag);
       this.toggleEdit(index);
@@ -230,7 +253,7 @@ export default {
       this.$emit('input', value);
     },
     initTags() {
-      this.tagsCopy = this.clone(this.tags.map(t => this.createTag(t)));
+      this.tagsCopy = this.clone(this.tags.map(t => this.createTag(t, true)));
       this.tagsEditStatus = this.clone(this.tags).map(() => false);
     },
   },
