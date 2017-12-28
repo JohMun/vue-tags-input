@@ -1,6 +1,7 @@
 <template lang="html">
   <div class="basic-demo">
     <vue-tags-input
+      class="tags-input"
       v-model="tag"
       :validation="validation"
       :tags="tags"
@@ -8,7 +9,6 @@
       :autocomplete-items="autocompleteItems"
       @tags-changed="newTags => tags = newTags">
     </vue-tags-input>
-    {{ tags }}
     <button type="button" @click="addTag">add</button>
   </div>
 </template>
@@ -71,11 +71,13 @@ export default {
 </script>
 
 <style lang="scss">
-.invalid.min-length {
-  color: red;
+@import '~colors';
+
+.tags-input .invalid.min-length {
+  background-color: $error;
 }
 
-.invalid.only-numbers {
-  color: yellow;
+.tags-input .invalid.only-numbers {
+  background-color: $warn;
 }
 </style>
