@@ -149,7 +149,7 @@ export default {
         .map(val => val.type);
     },
     createdChangedTag(index, tag) {
-      this.$set(this.tagsCopy, index, this.createTag(tag, true));
+      this.$set(this.tagsCopy, index, this.createTag(tag));
     },
     createTiClasses(text, checkDuplicatesFromInside) {
       const validation = this.validateUserRuls(text);
@@ -240,7 +240,7 @@ export default {
     saveTag(index, tag, goOn) {
       if (tag.text.length === 0) return;
       if (goOn === false) return;
-      const dup = this.tagsFilterDuplicates && this.tagsCopy.map(t => t.text).includes(tag.text);
+      const dup = this.tagsFilterDuplicates && this.tags.map(t => t.text).includes(tag.text);
       if (dup) return this.$emit('duplicate', tag);
       if (!tag.valid && this.hasForbiddingAddRule(tag.tiClasses)) return;
       this.$set(this.tagsCopy, index, tag);

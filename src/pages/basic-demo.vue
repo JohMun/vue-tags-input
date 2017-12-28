@@ -5,6 +5,8 @@
       v-model="tag"
       :validation="validation"
       :tags="tags"
+      :autocomplete-filter-duplicates="false"
+      :tags-filter-duplicates="false"
       @duplicate="foundDuplicate"
       @before-adding-tag="decideAdding"
       @before-deleting-tag="decideDeleting"
