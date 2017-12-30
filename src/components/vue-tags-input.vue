@@ -25,13 +25,19 @@
             />
           </div>
           <div class="actions">
-            <svg @click="cancelChanging(index)" v-if="tagsEditStatus[index]" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+            <svg @click="cancelChanging(index)" v-if="tagsEditStatus[index]"
+              xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
               version="1.1" x="0px" y="0px" viewBox="0 0 436.48 436.48" xml:space="preserve">
-              <path d="M224,143.573c-56.427,0-107.84,21.013-147.2,55.467L0,122.24v192h192l-77.12-77.12 c29.547-24.853,67.413-40.213,109.12-40.213c75.627,0,139.627,49.173,162.027,117.333l50.453-16.64 C407.147,208.213,323.2,143.573,224,143.573z" />
+              <path d="M224,143.573c-56.427,0-107.84,21.013-147.2,55.467L0,
+                122.24v192h192l-77.12-77.12c29.547-24.853,67.413-40.213,109.12-40.213c75.627,0,
+                139.627,49.173,162.027,117.333l50.453-16.64
+                C407.147,208.213,323.2,143.573,224,143.573z" />
             </svg>
-            <svg @click="performDeleteTag(index, tag)" v-else class="delete" xmlns="http://www.w3.org/2000/svg"
-              xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px" viewBox="0 0 357 357" xml:space="preserve">
-              <polygon points="357,35.7 321.3,0 178.5,142.8 35.7,0 0,35.7 142.8,178.5 0,321.3 35.7,357 178.5,214.2 321.3,357 357,321.3 214.2,178.5" />
+            <svg @click="performDeleteTag(index, tag)" v-else class="delete"
+              xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+              version="1.1" x="0px" y="0px" viewBox="0 0 357 357" xml:space="preserve">
+              <polygon points="357,35.7 321.3,0 178.5,142.8 35.7,0 0,35.7
+                142.8,178.5 0,321.3 35.7,357 178.5,214.2 321.3,357 357,321.3 214.2,178.5" />
             </svg>
           </div>
         </li>

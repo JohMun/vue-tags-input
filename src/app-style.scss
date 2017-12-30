@@ -12,14 +12,55 @@ html, body {
 }
 
 body {
-  font-family: "Helvetica Neue", sans-serif;
+  font-family: 'Raleway', sans-serif;
+  color:#2E2E2E;
+  overflow-y: hidden;
   box-sizing: border-box;
-  overflow-y: scroll;
+  font-size: 1.1em;
 }
 
-.pagewidth {
-  max-width: 1200px;
-  width: 80%;
-  margin-left: auto;
-  margin-right: auto;
+ul {
+  margin: 0px;
+  padding: 0px;
+  list-style-type: none;
+}
+
+a {
+  text-decoration: none;
+  font-weight: bold;
+  color: inherit;
+}
+
+input:focus {
+  outline: none;
+}
+
+::-moz-selection {
+  color: #fff;
+  background: $primary;
+}
+::selection {
+  color: #fff;
+  background: $primary;
+}
+
+h1, h2, h3, h4 {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 500;
+}
+
+h2 {
+  margin-top: 30px;
+  margin-bottom: 15px;
+}
+
+// v-highlightjs
+
+pre {
+  margin: 0px;  
+}
+
+.hljs {
+  background-color: #fffeec;
+  padding: 15px;
 }
