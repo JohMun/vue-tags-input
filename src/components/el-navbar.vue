@@ -15,7 +15,7 @@
             <i v-show="activeLink" class="material-icons">chevron_right</i>
             <span v-if="activeLink">{{ activeLink.label }}</span>
           </div>
-          <i v-show="activeLink" @click="active = false" class="material-icons">keyboard_return</i>
+          <i v-show="activeLink" @click="active = false" class="material-icons">keyboard_backspace</i>
         </div>
         <div class="nav-items" :class="{ 'on-2': active }">
           <ul class="lvl-1">

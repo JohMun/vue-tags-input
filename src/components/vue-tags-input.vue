@@ -298,6 +298,10 @@ input:focus {
   outline: none;
 }
 
+.vue-tags-input {
+  max-width: 450px;
+}
+
 .input {
   border: 1px solid #ccc;
   display: flex;

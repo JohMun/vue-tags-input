@@ -7,17 +7,23 @@
       :tags="tags"
       @tags-changed="newTags => tags = newTags">
     </vue-tags-input>
+    <div class="data">
+      <span>tag</span>
+      <el-code :code="tag"></el-code>
+      <span>tags</span>
+      <el-code :code="tags"></el-code>
+    </div>
     <h2>Install</h2>
     <span>Install vue-tags-input with npm</span>
-    <pre v-highlightjs>
-      <code class="console">npm install vue-tags-input --save</code>
-    </pre>
+    <el-code>
+      <code class="nohighlight">npm install vue-tags-input --save</code>
+    </el-code>
     <span>Or via CDN</span>
-    <pre v-highlightjs>
-      <code class="xml">&lt;link href=&quot;https://fonts.googleapis.com/css?family=Montserrat:400,500|Raleway:400,500&quot;rel=&quot;stylesheet&quot;&gt;</code>
-    </pre>
+    <el-code>
+      <code>&lt;link href=&quot;https://fonts.googleapis.com/css?family=Montserrat:400,500|Raleway:400,500&quot; rel=&quot;stylesheet&quot;&gt;</code>
+    </el-code>
     <h2>Usage</h2>
-    <pre v-highlightjs>
+    <el-code>
       <code class="vue">
 &lt;template&gt;
   &lt;div&gt;
@@ -41,23 +47,31 @@ export default {
 };
 &lt;/script&gt;
       </code>
-    </pre>
+    </el-code>
   </div>
 </template>
 
 <script>
 import VueTagsInput from '../components/vue-tags-input';
+import ElCode from '../components/el-code';
 
 export default {
   name: 'GettingStarted',
   components: {
     VueTagsInput,
+    ElCode,
   },
   data() {
     return {
       tag: '',
-      tags: [{ text: 'new Tag' }],
+      tags: [],
     };
   },
 };
 </script>
+
+<style lang="scss" scoped>
+.data {
+  margin-top: 20px;
+}
+</style>

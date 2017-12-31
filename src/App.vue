@@ -116,6 +116,13 @@ header {
   .menu-toggle i {
     font-size: 32px;
     cursor: pointer;
+    display: none;
+  }
+
+  @media (max-width: 940px) {
+    .menu-toggle i {
+      display: block;
+    }
   }
 
   > div {
