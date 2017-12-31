@@ -6,7 +6,7 @@
           v-for="(tag, index) in tagsCopy"
           :key="index"
           class="tag"
-          :class="[tag.tiClasses, tag.classes]">
+          :class="[tag.tiClasses, tag.classes, { 'deletion-mark': isMarked(index) }]">
           <div class="content">
             <span
               @click="toggleEdit(index); focus()"
@@ -54,6 +54,7 @@
         v-model="newTag"
         :maxlength="maxlength"
         @keydown.enter="performAddTags(newTag, 'input')"
+        @keydown.8="invokeDelete"
         @input="updateNewTag"
       />
     </div>
@@ -122,12 +123,18 @@ export default {
       type: Boolean,
       default: true,
     },
+    deleteOnBackslash: {
+      default: true,
+      type: Boolean,
+    },
   },
   data() {
     return {
       newTag: null,
       tagsCopy: null,
       tagsEditStatus: null,
+      deletionMark: null,
+      deletionMarkTime: null,
     };
   },
   computed: {
@@ -138,6 +145,21 @@ export default {
     },
   },
   methods: {
+    isMarked(index) {
+      return this.deletionMark === index;
+    },
+    invokeDelete() {
+      if (!this.deleteOnBackslash || this.newTag.length > 0) return;
+      const lastIndex = this.tagsCopy.length - 1;
+      if (this.deletionMark === null) {
+        this.deletionMarkTime = setTimeout(() => this.deletionMark = null, 1000);
+        this.deletionMark = lastIndex;
+      } else {
+        this.deleteTag(lastIndex);
+        this.deletionMark = null;
+        clearTimeout(this.deletionMarkTime);
+      }
+    },
     addFromPaste() {
       if (!this.addTagsFromPaste) return;
       setTimeout(() => this.performAddTags(this.newTag), 10);

@@ -92,19 +92,23 @@ export default {
   background-color: #141f2d;
 }
 
-.tag.invalid.min-length {
+.basic-demo .tag.invalid.min-length {
   background-color: $error;
 }
 
-.tag.invalid.only-numbers {
+.basic-demo .tag.invalid.only-numbers {
   background-color: $warn;
 }
 
-.new-tag-input.invalid.min-length {
+.basic-demo .new-tag-input.invalid.min-length {
   color: $error;
 }
 
-.new-tag-input.invalid.only-numbers {
+.basic-demo .new-tag-input.invalid.only-numbers {
   color: $warn;
+}
+
+#app .basic-demo .tag.deletion-mark {
+  background-color: $error;
 }
 </style>
