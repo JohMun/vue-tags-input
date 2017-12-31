@@ -16,9 +16,6 @@
       @tags-changed="newTags => tags = newTags">
     </vue-tags-input>
     <button type="button" @click="addTag">add</button>
-    <div class="code">
-      Das ist ein Test
-    </div>
   </div>
 </template>
 

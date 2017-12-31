@@ -159,19 +159,17 @@ export default {
     },
     createTiClasses(text, checkDuplicatesFromInside) {
       const validation = this.validateUserRuls(text);
-      let d = '';
       if (checkDuplicatesFromInside) {
-        if (this.tags.filter(t => t.text === text).length > 1) d = 'duplicate ';
+        if (this.tags.filter(t => t.text === text).length > 1) validation.push('duplicate');
       } else {
-        if (this.tags.map(t => t.text).includes(text)) d = 'duplicate ';
+        if (this.tags.map(t => t.text).includes(text)) validation.push('duplicate');
       }
-      const valid = validation.length === 0;
-      return `${d}${validation.join(' ')}${valid ? 'valid' : ' invalid'}`;
+      validation.length === 0 ? validation.push('valid') : validation.push('invalid');
+      return validation;
     },
     createTag(tag, checkDuplicatesFromTags) {
       const t = this.clone(tag);
       t.tiClasses = this.createTiClasses(t.text, checkDuplicatesFromTags);
-      t.valid = this.validateUserRuls(t.text).length === 0;
       return t;
     },
     focus() {
@@ -185,8 +183,7 @@ export default {
       this.$set(this.tagsEditStatus, index, false);
     },
     hasForbiddingAddRule(tiClasses) {
-      const validation = tiClasses.split(' ');
-      return validation.some(type => {
+      return tiClasses.some(type => {
         const rule = this.validation.find(rule => type === rule.type);
         return rule ? rule.disableAdd : false;
       });
