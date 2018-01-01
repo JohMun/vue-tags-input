@@ -1,5 +1,5 @@
 <template lang="html">
-  <div class="vue-tags-input">
+  <div class="vue-tags-input" :class="{ disabled }">
     <div class="input">
       <ul class="tags" v-if="tagsCopy">
         <li
@@ -55,16 +55,27 @@
         :maxlength="maxlength"
         @keydown.enter="performAddTags(newTag, 'input')"
         @keydown.8="invokeDelete"
+        @keydown.38="selectItem($event, 'before')"
+        @keydown.40="selectItem($event, 'after')"
         @input="updateNewTag"
+        :disabled="disabled"
       />
     </div>
-    <div class="autocomplete">
+    <div
+      class="autocomplete"
+      @mouseout="selectedItem = null"
+      v-if="filteredAutocompleteItems.length > 0">
       <ul>
         <li
           v-for="(item, index) in filteredAutocompleteItems"
           :key="index"
           class="item"
-          :class="[item.tiClasses, item.classes]"
+          @mouseover="selectedItem = item"
+          :class="[
+            item.tiClasses,
+            item.classes,
+            { 'selected-item': isSelected(item) }
+          ]"
           @click="performAddTags(item, 'autocomplete')">
           {{ item.text }}
         </li>
@@ -97,6 +108,14 @@ export default {
       default: true,
       type: Boolean,
     },
+    addOnlyFromAutocomplete: {
+      type: Boolean,
+      default: false,
+    },
+    disabled: {
+      type: Boolean,
+      default: false,
+    },
     placeholder: {
       type: String,
       default: 'Add Tag',
@@ -111,7 +130,7 @@ export default {
       type: Array,
       default: () => [],
     },
-    seperators: {
+    separators: {
       type: Array,
       default: () => [';'],
     },
@@ -135,6 +154,7 @@ export default {
       tagsEditStatus: null,
       deletionMark: null,
       deletionMarkTime: null,
+      selectedItem: null,
     };
   },
   computed: {
@@ -145,11 +165,37 @@ export default {
     },
   },
   methods: {
+    findIndex(array, predicate) {
+      let index = -1;
+      while (++index < array.length) {
+        if (predicate(array[index], index, array)) return index;
+      }
+      return -1;
+    },
+    getSelectedIndex(methods) {
+      const items = this.filteredAutocompleteItems;
+      if (items.length === 0) return;
+      if (!this.selectedItem) return 0;
+      let index = this.findIndex(items, i => i.text === this.selectedItem.text);
+      if (methods === 'before' && index === 0) index = items.length - 1;
+      else if (methods === 'after' && index === items.length - 1) index = 0;
+      else if (index === -1) index = 0;
+      else methods === 'after' ? index++ : index--;
+      return index;
+    },
+    selectItem(e, method) {
+      e.preventDefault();
+      if (!this.addOnlyFromAutocomplete) return;
+      this.selectedItem = this.filteredAutocompleteItems[this.getSelectedIndex(method)];
+    },
+    isSelected(item) {
+      return this.selectedItem && item.text === this.selectedItem.text;
+    },
     isMarked(index) {
       return this.deletionMark === index;
     },
     invokeDelete() {
-      if (!this.deleteOnBackslash || this.newTag.length > 0) return;
+      if (!this.deleteOnBackslash || this.newTag.length > 0 || this.disabled) return;
       const lastIndex = this.tagsCopy.length - 1;
       if (this.deletionMark === null) {
         this.deletionMarkTime = setTimeout(() => this.deletionMark = null, 1000);
@@ -165,7 +211,7 @@ export default {
       setTimeout(() => this.performAddTags(this.newTag), 10);
     },
     toggleEdit(index) {
-      if (!this.allowEditTags) return;
+      if (!this.allowEditTags || this.disabled) return;
       this.$set(this.tagsEditStatus, index, !this.tagsEditStatus[index]);
     },
     clone(items) {
@@ -211,7 +257,7 @@ export default {
       });
     },
     createTagTexts(string) {
-      const regex = new RegExp(this.seperators.map(s => this.quote(s)).join('|'));
+      const regex = new RegExp(this.separators.map(s => this.quote(s)).join('|'));
       return string.split(regex).map(text => {
         return { text };
       });
@@ -226,6 +272,7 @@ export default {
     },
     deleteTag(index, goOn) {
       if (goOn === false) return;
+      if (this.disabled) return;
       this.tagsCopy.splice(index, 1);
       this.$emit('tags-changed', this.tagsCopy);
     },
@@ -233,6 +280,7 @@ export default {
       let tags = [];
       if (typeof tag === 'object') tags = [tag];
       if (typeof tag === 'string') tags = this.createTagTexts(tag);
+      if (this.addOnlyFromAutocomplete && this.selectedItem) tags = [this.selectedItem];
       tags.forEach(tag => {
         tag = this.createTag(tag);
         if (!this._events['before-adding-tag']) this.addTag(tag);
@@ -245,11 +293,17 @@ export default {
     addTag(tag, goOn) {
       if (tag.text.length === 0) return;
       if (goOn === false) return;
+      if (this.disabled) return;
+      const options = this.filteredAutocompleteItems.map(i => i.text);
+      if (this.addOnlyFromAutocomplete && !options.includes(tag.text)) return;
       const maximumReached = this.maxTags && this.maxTags === this.tagsCopy.length;
       if (maximumReached) return this.$emit('max-tags-reached', tag);
       const dup = this.tagsFilterDuplicates && this.tagsCopy.map(t => t.text).includes(tag.text);
       if (dup) return this.$emit('duplicate', tag);
       if (!tag.valid && this.hasForbiddingAddRule(tag.tiClasses)) return;
+      if (this.addOnlyFromAutocomplete && this.filteredAutocompleteItems.length > 0) {
+        this.selectedItem = this.filteredAutocompleteItems[0];
+      }
       this.$emit('input', '');
       this.tagsCopy.push(tag);
       this.$emit('tags-changed', this.tagsCopy);
@@ -282,7 +336,7 @@ export default {
       this.tagsEditStatus = this.clone(this.tags).map(() => false);
     },
   },
-  watch:{
+  watch: {
     value(newValue){
       this.newTag = newValue;
     },
@@ -291,6 +345,12 @@ export default {
         this.initTags();
       },
       deep: true,
+    },
+    autocompleteItems() {
+      if (!this.addOnlyFromAutocomplete) return;
+      if (this.filteredAutocompleteItems.length > 0) {
+        this.selectedItem = this.filteredAutocompleteItems[0];
+      } else this.selectedItem = null;
     },
   },
   mounted() {
@@ -317,8 +377,16 @@ input:focus {
   outline: none;
 }
 
+input[disabled] {
+  background-color: transparent;
+}
+
 .vue-tags-input {
   max-width: 450px;
+}
+
+.vue-tags-input.disabled {
+  opacity: 0.6;
 }
 
 .input {
@@ -337,7 +405,7 @@ input:focus {
   display: flex;
   align-items: center;
   border-radius: 2px;
-  padding: 3px 4px;
+  padding: 4px;
   background-color: $primary;
   color: #fff;
   margin: 2px;
@@ -363,6 +431,10 @@ input:focus {
     margin-left: 5px;
     display: flex;
     align-items: center;
+
+    svg {
+      cursor: pointer;
+    }
   }
 
   &:last-child {
@@ -398,6 +470,21 @@ input:focus {
   flex: 1 0 auto;
   min-width: 100px;
   border: none;
-  margin: 0 2px;
+  margin: 2px;
+}
+
+.autocomplete {
+  border: 1px solid #ccc;
+  border-top: none;
+}
+
+.item {
+  padding: 3px 6px;
+  cursor: pointer;
+}
+
+.selected-item {
+  background-color: $primary;
+  color: #fff;
 }
 </style>

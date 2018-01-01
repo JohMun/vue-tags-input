@@ -6,8 +6,9 @@
       v-model="tag"
       :validation="validation"
       :tags="tags"
-      :autocomplete-filter-duplicates="false"
+      :autocomplete-filter-duplicates="true"
       :tags-filter-duplicates="false"
+      :add-only-from-autocomplete="false"
       @duplicate="foundDuplicate"
       @before-adding-tag="decideAdding"
       @before-deleting-tag="decideDeleting"
@@ -15,7 +16,6 @@
       :autocomplete-items="autocompleteItems"
       @tags-changed="newTags => tags = newTags">
     </vue-tags-input>
-    <button type="button" @click="addTag">add</button>
   </div>
 </template>
 
@@ -66,6 +66,7 @@ export default {
       this.tags.push(tag);
     },
     setAutocompleteItems() {
+      // if (this.tag.length === 0) return this.autocompleteItems = [];
       this.autocompleteItems = this.countries
         .filter(c => new RegExp(this.tag, 'i').test(c))
         .map(text => {

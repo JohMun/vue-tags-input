@@ -75,6 +75,9 @@ export default {
           label: 'Events',
           route: '',
         }, {
+          label: 'Classes',
+          route: '',
+        }, {
           label: 'Slots',
           route: '',
         }, {
