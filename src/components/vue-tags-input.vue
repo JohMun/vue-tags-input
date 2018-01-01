@@ -58,6 +58,7 @@
         @keydown.38="selectItem($event, 'before')"
         @keydown.40="selectItem($event, 'after')"
         @input="updateNewTag"
+        @click="selectedItem = null"
         :disabled="disabled"
       />
     </div>
@@ -185,7 +186,6 @@ export default {
     },
     selectItem(e, method) {
       e.preventDefault();
-      if (!this.addOnlyFromAutocomplete) return;
       this.selectedItem = this.filteredAutocompleteItems[this.getSelectedIndex(method)];
     },
     isSelected(item) {
@@ -280,7 +280,7 @@ export default {
       let tags = [];
       if (typeof tag === 'object') tags = [tag];
       if (typeof tag === 'string') tags = this.createTagTexts(tag);
-      if (this.addOnlyFromAutocomplete && this.selectedItem) tags = [this.selectedItem];
+      if (this.selectedItem) tags = [this.selectedItem];
       tags.forEach(tag => {
         tag = this.createTag(tag);
         if (!this._events['before-adding-tag']) this.addTag(tag);
@@ -303,7 +303,7 @@ export default {
       if (!tag.valid && this.hasForbiddingAddRule(tag.tiClasses)) return;
       if (this.addOnlyFromAutocomplete && this.filteredAutocompleteItems.length > 0) {
         this.selectedItem = this.filteredAutocompleteItems[0];
-      }
+      } else this.selectedItem = null;
       this.$emit('input', '');
       this.tagsCopy.push(tag);
       this.$emit('tags-changed', this.tagsCopy);
@@ -338,6 +338,7 @@ export default {
   },
   watch: {
     value(newValue){
+      if (!this.addOnlyFromAutocomplete) this.selectedItem = null;
       this.newTag = newValue;
     },
     tags: {
@@ -347,9 +348,8 @@ export default {
       deep: true,
     },
     autocompleteItems() {
-      if (!this.addOnlyFromAutocomplete) return;
       if (this.filteredAutocompleteItems.length > 0) {
-        this.selectedItem = this.filteredAutocompleteItems[0];
+        if (this.addOnlyFromAutocomplete) this.selectedItem = this.filteredAutocompleteItems[0];
       } else this.selectedItem = null;
     },
   },
@@ -450,6 +450,10 @@ input[disabled] {
 
   .delete {
     width: 10px;
+  }
+
+  &.invalid, &.tag.deletion-mark {
+    background-color: $error;
   }
 }
 

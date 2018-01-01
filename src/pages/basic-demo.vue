@@ -6,9 +6,9 @@
       v-model="tag"
       :validation="validation"
       :tags="tags"
-      :autocomplete-filter-duplicates="true"
+      :autocomplete-filter-duplicates="false"
       :tags-filter-duplicates="false"
-      :add-only-from-autocomplete="false"
+      :add-only-from-autocomplete="true"
       @duplicate="foundDuplicate"
       @before-adding-tag="decideAdding"
       @before-deleting-tag="decideDeleting"
@@ -93,10 +93,6 @@ export default {
   background-color: #141f2d;
 }
 
-.basic-demo .tag.invalid.min-length {
-  background-color: $error;
-}
-
 .basic-demo .tag.invalid.only-numbers {
   background-color: $warn;
 }
@@ -107,9 +103,5 @@ export default {
 
 .basic-demo .new-tag-input.invalid.only-numbers {
   color: $warn;
-}
-
-#app .basic-demo .tag.deletion-mark {
-  background-color: $error;
 }
 </style>
