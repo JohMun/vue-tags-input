@@ -15,7 +15,11 @@
             <i v-show="activeLink" class="material-icons">chevron_right</i>
             <span v-if="activeLink">{{ activeLink.label }}</span>
           </div>
-          <i v-show="activeLink" @click="active = false" class="material-icons">keyboard_backspace</i>
+          <i
+            v-show="activeLink"
+            @click="active = false"
+            class="material-icons">keyboard_backspace
+          </i>
         </div>
         <div class="nav-items" :class="{ 'on-2': active }">
           <ul class="lvl-1">
@@ -58,13 +62,23 @@ export default {
         route: '/start',
       }, {
         label: 'Examples',
-        disabled: true,
         children: [{
+          label: 'Autocomplete',
+          route: '/examples/autocomplete',
+        }, {
+          label: 'Validation',
+          route: '',
+          disabled: true,
+        }, {
           label: 'Styling',
           route: '/examples/styling',
           disabled: true,
         }, {
-          label: 'Validation',
+          label: 'Hooks',
+          route: '',
+          disabled: true,
+        }, {
+          label: 'Templating',
           route: '',
           disabled: true,
         }],
@@ -79,15 +93,19 @@ export default {
         }, {
           label: 'Events',
           route: '',
+          disabled: true,
         }, {
           label: 'Classes',
           route: '',
+          disabled: true,
         }, {
           label: 'Slots',
           route: '',
+          disabled: true,
         }, {
-          label: 'Refs',
+          label: 'Ref',
           route: '',
+          disabled: true,
         }],
       }, {
         label: 'Caveats',

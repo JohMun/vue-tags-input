@@ -30,7 +30,8 @@ export default {
 .code-block {
   background-color: #fffeec;
   padding: 15px;
-
+  line-height: 1.5em;
+  
   pre {
     margin: 10px 0px 20px 0px;
   }

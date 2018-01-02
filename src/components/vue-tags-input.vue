@@ -41,41 +41,43 @@
             </svg>
           </div>
         </li>
+        <li class="new-tag-input">
+          <input
+            :class="[createTiClasses(newTag)]"
+            v-bind="$attrs"
+            type="text"
+            size="1"
+            ref="newTagInput"
+            @paste="addFromPaste"
+            :placeholder="placeholder"
+            v-model="newTag"
+            :maxlength="maxlength"
+            @keydown.enter="performAddTags(newTag, 'input')"
+            @keydown.8="invokeDelete"
+            @keydown.38="selectItem($event, 'before')"
+            @keydown.40="selectItem($event, 'after')"
+            @input="updateNewTag"
+            @focus="focused = true"
+            @click="addOnlyFromAutocomplete ? false: selectedItem = null"
+            :disabled="disabled"
+          />
+        </li>
       </ul>
-      <input
-        class="new-tag-input"
-        :class="[createTiClasses(newTag)]"
-        v-bind="$attrs"
-        type="text"
-        size="1"
-        ref="newTagInput"
-        @paste="addFromPaste"
-        :placeholder="placeholder"
-        v-model="newTag"
-        :maxlength="maxlength"
-        @keydown.enter="performAddTags(newTag, 'input')"
-        @keydown.8="invokeDelete"
-        @keydown.38="selectItem($event, 'before')"
-        @keydown.40="selectItem($event, 'after')"
-        @input="updateNewTag"
-        @click="addOnlyFromAutocomplete ? false: selectedItem = null"
-        :disabled="disabled"
-      />
     </div>
     <div
       class="autocomplete"
       @mouseout="selectedItem = null"
-      v-if="filteredAutocompleteItems.length > 0">
+      v-if="autocompleteOpen">
       <ul>
         <li
           v-for="(item, index) in filteredAutocompleteItems"
           :key="index"
           class="item"
-          @mouseover="disabled ? false : selectedItem = item"
+          @mouseover="disabled ? false : selectedItem = index"
           :class="[
             item.tiClasses,
             item.classes,
-            { 'selected-item': isSelected(item) }
+            { 'selected-item': isSelected(index) }
           ]"
           @click="performAddTags(item, 'autocomplete')">
           {{ item.text }}
@@ -103,13 +105,21 @@ export default {
     },
     allowEditTags: {
       type: Boolean,
-      default: true,
+      default: false,
     },
     autocompleteFilterDuplicates: {
       default: true,
       type: Boolean,
     },
     addOnlyFromAutocomplete: {
+      type: Boolean,
+      default: false,
+    },
+    autocompleteMinLength: {
+      type: Number,
+      default: 1,
+    },
+    autocompleteAlwaysOpen: {
       type: Boolean,
       default: false,
     },
@@ -156,9 +166,16 @@ export default {
       deletionMark: null,
       deletionMarkTime: null,
       selectedItem: null,
+      focused: null,
     };
   },
   computed: {
+    autocompleteOpen() {
+      if (this.autocompleteAlwaysOpen) return true;
+      return this.newTag.length >= this.autocompleteMinLength &&
+        this.filteredAutocompleteItems.length > 0 &&
+        this.focused;
+    },
     filteredAutocompleteItems() {
       const items = this.autocompleteItems.map(i => this.createTag(i));
       if (!this.autocompleteFilterDuplicates) return items;
@@ -176,20 +193,19 @@ export default {
     getSelectedIndex(methods) {
       const items = this.filteredAutocompleteItems;
       if (items.length === 0) return;
-      if (!this.selectedItem) return 0;
-      let index = this.findIndex(items, i => i.text === this.selectedItem.text);
-      if (methods === 'before' && index === 0) index = items.length - 1;
-      else if (methods === 'after' && index === items.length - 1) index = 0;
-      else if (index === -1) index = 0;
-      else methods === 'after' ? index++ : index--;
+      if (this.selectedItem === null) return 0;
+      let index = 0;
+      if (methods === 'before' && this.selectedItem === 0) index = items.length - 1;
+      else if (methods === 'after' && this.selectedItem === items.length - 1) index = 0;
+      else methods === 'after' ? index = this.selectedItem + 1 : index = this.selectedItem - 1;
       return index;
     },
     selectItem(e, method) {
       e.preventDefault();
-      this.selectedItem = this.filteredAutocompleteItems[this.getSelectedIndex(method)];
+      this.selectedItem = this.getSelectedIndex(method);
     },
-    isSelected(item) {
-      return this.selectedItem && item.text === this.selectedItem.text;
+    isSelected(index) {
+      return this.selectedItem === index;
     },
     isMarked(index) {
       return this.deletionMark === index;
@@ -278,7 +294,7 @@ export default {
       let tags = [];
       if (typeof tag === 'object') tags = [tag];
       if (typeof tag === 'string') tags = this.createTagTexts(tag);
-      if (this.selectedItem) tags = [this.selectedItem];
+      if (this.selectedItem !== null) tags = [this.filteredAutocompleteItems[this.selectedItem]];
       tags.forEach(tag => {
         tag = this.createTag(tag);
         if (!this._events['before-adding-tag']) this.addTag(tag);
@@ -300,7 +316,7 @@ export default {
       if (dup) return this.$emit('duplicate', tag);
       if (!tag.valid && this.hasForbiddingAddRule(tag.tiClasses)) return;
       if (this.addOnlyFromAutocomplete && this.filteredAutocompleteItems.length > 0) {
-        this.selectedItem = this.filteredAutocompleteItems[0];
+        this.selectedItem = 0;
       } else this.selectedItem = null;
       this.$emit('input', '');
       this.tagsCopy.push(tag);
@@ -347,13 +363,17 @@ export default {
     },
     autocompleteItems() {
       if (this.filteredAutocompleteItems.length > 0) {
-        if (this.addOnlyFromAutocomplete) this.selectedItem = this.filteredAutocompleteItems[0];
+        if (this.addOnlyFromAutocomplete) this.selectedItem = 0;
       } else this.selectedItem = null;
     },
   },
-  mounted() {
+  created() {
     this.newTag = this.value;
     this.initTags();
+  },
+  mounted() {
+    document.addEventListener('click', () => this.focused = false);
+    this.$el.addEventListener('click', event => event.stopPropagation());
   },
 };
 </script>
@@ -381,6 +401,7 @@ input[disabled] {
 
 .vue-tags-input {
   max-width: 450px;
+  position: relative;
 }
 
 .vue-tags-input.vue-tags-input.disabled {
@@ -401,6 +422,7 @@ input[disabled] {
 .tags {
   display: flex;
   flex-wrap: wrap;
+  width: 100%;
 }
 
 .tag {
@@ -473,15 +495,24 @@ input[disabled] {
 }
 
 .new-tag-input {
+  display: flex;
   flex: 1 0 auto;
-  min-width: 100px;
-  border: none;
-  margin: 2px;
+
+  input {
+    flex: 1 0 auto;
+    min-width: 100px;
+    border: none;
+    margin: 2px;
+    background-color: #fff;
+  }
 }
 
 .autocomplete {
   border: 1px solid #ccc;
   border-top: none;
+  position: absolute;
+  width: 100%;
+  background-color: #fff;
 }
 
 .item {

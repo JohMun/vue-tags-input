@@ -26,7 +26,6 @@ ul {
 }
 
 a {
-  text-decoration: none;
   font-weight: bold;
   color: inherit;
 }
@@ -49,7 +48,17 @@ h1, h2, h3, h4 {
   font-weight: 500;
 }
 
+h1 {
+  margin-top: 45px;
+  margin-bottom: 15px;
+}
+
 h2 {
   margin-top: 35px;
   margin-bottom: 15px;
+}
+
+.code {
+  background-color: #fffeec;
+  font-family: consolas;
 }

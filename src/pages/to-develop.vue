@@ -6,7 +6,7 @@
       v-model="tag"
       :validation="validation"
       :tags="tags"
-      :autocomplete-filter-duplicates="false"
+      :autocomplete-filter-duplicates="true"
       :tags-filter-duplicates="false"
       :add-only-from-autocomplete="false"
       @duplicate="foundDuplicate"
@@ -44,7 +44,7 @@ export default {
         rule: '[0-9]',
       }],
       countries: [
-        'Germany', 'Holland', 'France', '09879', 't1',
+        'Germany', 'Holland', 'France', '09879', 't1', 't1',
       ],
       autocompleteItems: [],
     };
