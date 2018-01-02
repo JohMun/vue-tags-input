@@ -23,7 +23,7 @@
 import VueTagsInput from '../components/vue-tags-input';
 
 export default {
-  name: 'BasicDemo',
+  name: 'ToDevelop',
   components: {
     VueTagsInput,
   },

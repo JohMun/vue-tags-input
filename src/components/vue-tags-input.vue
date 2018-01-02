@@ -71,7 +71,7 @@
           v-for="(item, index) in filteredAutocompleteItems"
           :key="index"
           class="item"
-          @mouseover="selectedItem = item"
+          @mouseover="disabled ? false : selectedItem = item"
           :class="[
             item.tiClasses,
             item.classes,
@@ -195,16 +195,12 @@ export default {
       return this.deletionMark === index;
     },
     invokeDelete() {
-      if (!this.deleteOnBackslash || this.newTag.length > 0 || this.disabled) return;
+      if (!this.deleteOnBackslash || this.newTag.length > 0) return;
       const lastIndex = this.tagsCopy.length - 1;
       if (this.deletionMark === null) {
         this.deletionMarkTime = setTimeout(() => this.deletionMark = null, 1000);
         this.deletionMark = lastIndex;
-      } else {
-        this.deleteTag(lastIndex);
-        this.deletionMark = null;
-        clearTimeout(this.deletionMarkTime);
-      }
+      } else this.performDeleteTag(lastIndex);
     },
     addFromPaste() {
       if (!this.addTagsFromPaste) return;
@@ -273,6 +269,8 @@ export default {
     deleteTag(index, goOn) {
       if (goOn === false) return;
       if (this.disabled) return;
+      this.deletionMark = null;
+      clearTimeout(this.deletionMarkTime);
       this.tagsCopy.splice(index, 1);
       this.$emit('tags-changed', this.tagsCopy);
     },
@@ -385,8 +383,12 @@ input[disabled] {
   max-width: 450px;
 }
 
-.vue-tags-input.disabled {
+.vue-tags-input.vue-tags-input.disabled {
   opacity: 0.6;
+
+  * {
+    cursor: default;
+  }
 }
 
 .input {

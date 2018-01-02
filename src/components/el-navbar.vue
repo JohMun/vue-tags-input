@@ -22,8 +22,8 @@
             <li
             v-for="(item, index) in links"
             :key="index"
-            @click="moveTo(item)"
-            :class="{ active: isActive(item) }">
+            @click="item.disabled ? false : moveTo(item)"
+            :class="{ active: isActive(item), disabled: item.disabled }">
               <div>
                 <span>{{ item.label }}</span>
                 <i v-show="item.children" class="material-icons">more_horiz</i>
@@ -33,8 +33,8 @@
           <ul class="lvl-2">
             <li v-for="(item, index) in childs"
               :key="index"
-              @click="moveTo(item)"
-              :class="{ active: isActive(item) }">
+              @click="item.disabled ? false : moveTo(item)"
+              :class="{ active: isActive(item), disabled: item.disabled }">
               <div><span>{{ item.label }}</span></div>
             </li>
           </ul>
@@ -51,26 +51,31 @@ export default {
     return {
       active: null,
       links: [{
-        label: 'All Demo',
+        label: 'Features',
         route: '/',
       }, {
         label: 'Getting Started',
         route: '/start',
       }, {
         label: 'Examples',
+        disabled: true,
         children: [{
           label: 'Styling',
           route: '/examples/styling',
+          disabled: true,
         }, {
           label: 'Validation',
           route: '',
+          disabled: true,
         }],
       }, {
         label: 'API',
         route: '',
+        disabled: true,
         children: [{
           label: 'Props',
           route: '',
+          disabled: true,
         }, {
           label: 'Events',
           route: '',
@@ -86,6 +91,7 @@ export default {
         }],
       }, {
         label: 'Caveats',
+        disabled: true,
         route: '',
       }],
     };
@@ -280,8 +286,13 @@ export default {
         background-color: $primary;
       }
 
-      &:hover {
+      &:hover:not(.disabled) {
         color: $primary;
+      }
+
+      &.disabled {
+        cursor: default;
+        opacity: 0.4;
       }
     }
   }

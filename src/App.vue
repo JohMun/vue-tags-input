@@ -46,14 +46,10 @@
 <script>
 import './app-style.scss';
 import ElNavbar from './components/el-navbar';
-import BasicDemo from './pages/basic-demo';
-import GettingStarted from './pages/getting-started';
 
 export default {
   name: 'app',
   components: {
-    BasicDemo,
-    GettingStarted,
     ElNavbar,
   },
   data() {
