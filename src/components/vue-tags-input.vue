@@ -58,7 +58,7 @@
         @keydown.38="selectItem($event, 'before')"
         @keydown.40="selectItem($event, 'after')"
         @input="updateNewTag"
-        @click="selectedItem = null"
+        @click="addOnlyFromAutocomplete ? false: selectedItem = null"
         :disabled="disabled"
       />
     </div>

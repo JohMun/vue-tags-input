@@ -1,9 +1,23 @@
 {
   "name": "vue-tags-input",
-  "description": "Vue Tags Input ",
   "version": "1.0.0",
   "author": "Johannes Munari <johannesm@hotmail.de>",
-  "private": true,
+  "licenses": "MIT",
+  "description": "Tags Input Component For VueJS",
+  "homepage": "http://www.vue-tags-input.com",
+  "private": false,
+  "keywords": [
+    "javascript",
+    "vue",
+    "tags",
+    "vue-tags-input",
+    "vue-component",
+    "autocomplete"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JohMun/vue-tags-input.git"
+  },
   "scripts": {
     "dev": "cross-env NODE_ENV=dev webpack-dev-server --open --hot",
     "test-sw": "hs -c 0 -p 8111 ./dist & cross-env NODE_ENV=production webpack -w",

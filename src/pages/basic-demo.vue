@@ -8,7 +8,7 @@
       :tags="tags"
       :autocomplete-filter-duplicates="false"
       :tags-filter-duplicates="false"
-      :add-only-from-autocomplete="true"
+      :add-only-from-autocomplete="false"
       @duplicate="foundDuplicate"
       @before-adding-tag="decideAdding"
       @before-deleting-tag="decideDeleting"
