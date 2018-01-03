@@ -88,20 +88,40 @@
 </template>
 
 <script>
+const propValidatorTag = value => {
+  return !value.some(t => {
+    const invalidText = !t.text;
+    if (invalidText) console.warn('Missing property "text"', t);
+
+    let invalidClasses = false;
+    if (t.classes) invalidClasses = typeof t.classes !== 'string';
+    if (invalidClasses) console.warn('Property "classes" must be type of string', t);
+
+    return invalidText || invalidClasses;
+  });
+};
+
 export default {
   name: 'VueTagsInput',
   props: {
     value: {
       type: String,
       default: '',
+      required: true,
     },
     tags: {
       type: Array,
-      default: [],
+      default: () => [],
+      validator(value) {
+        return propValidatorTag(value);
+      },
     },
     autocompleteItems: {
       type: Array,
       default: () => [],
+      validator(value) {
+        return propValidatorTag(value);
+      },
     },
     allowEditTags: {
       type: Boolean,
@@ -139,11 +159,34 @@ export default {
     },
     validation: {
       type: Array,
-      default: () => [],
+      validator(value) {
+        return !value.some(v => {
+          const missingRule = !v.rule;
+          if (missingRule) console.warn('Property "rule" is missing', v);
+
+          const invalidRule = v.rule && typeof v.rule !== 'string';
+          if (invalidRule) console.warn('A rule must be type of string. Found:', v);
+
+          const missingType = !v.type;
+          if (missingType) console.warn('Property "type" is missing', v);
+
+          const invalidType = v.type && typeof v.type !== 'string';
+          if (invalidType) console.warn('Property "type" must be type of string. Found:', v);
+
+          return invalidRule || missingRule || missingType || invalidType;
+        });
+      },
     },
     separators: {
       type: Array,
       default: () => [';'],
+      validator(value) {
+        return !value.some(s => {
+          const invalidType = typeof s !== 'string';
+          if (invalidType) console.warn('Separators must be type of string. Found:', s);
+          return invalidType;
+        });
+      },
     },
     tagsFilterDuplicates: {
       type: Boolean,
@@ -183,6 +226,9 @@ export default {
     },
   },
   methods: {
+    test() {
+      console.log('test');
+    },
     findIndex(array, predicate) {
       let index = -1;
       while (++index < array.length) {

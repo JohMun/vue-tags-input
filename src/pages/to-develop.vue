@@ -32,9 +32,9 @@ export default {
       tag: '',
       tags: [{
         text: 't1',
-        classes: 'test1 test2',
+        classes: 'test',
       }, {
-        text: 'tag2',
+        text: 't5',
       }],
       validation: [{
         type: 'min-length',

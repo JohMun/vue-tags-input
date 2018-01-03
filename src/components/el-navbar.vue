@@ -177,6 +177,7 @@ export default {
     nav {
       width: 100%;
       position: absolute;
+      z-index: 999;
     }
   }
 
