@@ -3,14 +3,33 @@ const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanPlugin = require('clean-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const env = process.env.NODE_ENV;
+
+const output = {
+  path: path.resolve(__dirname, './dist'),
+  publicPath: '/',
+  filename: '[name].[hash].js',
+};
+
+if (env === 'buildLib') {
+  output.publicPath = '/dist/';
+  output.filename = 'vue-tags-input.js';
+  output.library = 'vueTagsInput';
+  output.libraryTarget = 'umd';
+}
 
 module.exports = {
-  entry: ['babel-polyfill', './src/main.js'],
-  output: {
-    path: path.resolve(__dirname, './dist'),
-    publicPath: '/',
-    filename: '[name].[hash].js',
+  entry: env === 'buildLib' ? './publish.js' : ['babel-polyfill', './src/main.js'],
+  output,
+  externals:{
+    vue: env === 'buildLib' ? {
+      root: 'vue',
+      commonjs2: 'vue',
+      commonjs: 'vue',
+      amd: 'vue',
+    } : false,
   },
   module: {
     rules: [
@@ -111,11 +130,8 @@ module.exports = {
     new CleanPlugin(['./dist']),
     new webpack.DefinePlugin({
       'process.env': {
-        NODE_ENV: JSON.stringify(process.env.NODE_ENV),
+        NODE_ENV: JSON.stringify(env),
       },
-    }),
-    new HtmlWebpackPlugin({
-      template: path.join(__dirname, './index.html'),
     }),
   ],
   resolve: {
@@ -137,13 +153,29 @@ module.exports = {
   devtool: '#eval-source-map',
 };
 
+if (env === 'buildDocs') {
+  module.exports.plugins = (module.exports.plugins || []).concat([
+    new CopyWebpackPlugin([
+      { from: './.htaccess' },
+    ]),
+  ]);
+}
+
+if (env !== 'buildLib') {
+  module.exports.plugins = (module.exports.plugins || []).concat([
+    new HtmlWebpackPlugin({
+      template: path.join(__dirname, './index.html'),
+    }),
+  ]);
+}
+
 if (process.env.ANALYZE === 'true') {
   module.exports.plugins = (module.exports.plugins || []).concat([
     new BundleAnalyzerPlugin(),
   ]);
 }
 
-if (process.env.NODE_ENV === 'prod') {
+if (env === 'buildLib' || env === 'buildDocs') {
   module.exports.devtool = '#source-map';
   // http://vue-loader.vuejs.org/en/workflow/production.html
   module.exports.plugins = (module.exports.plugins || []).concat([

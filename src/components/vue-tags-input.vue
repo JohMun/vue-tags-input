@@ -476,7 +476,7 @@ input[disabled] {
   display: flex;
   align-items: center;
   border-radius: 2px;
-  padding: 4px;
+  padding: 3px;
   background-color: $primary;
   color: #fff;
   margin: 2px;

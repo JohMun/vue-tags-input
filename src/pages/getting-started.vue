@@ -17,11 +17,7 @@
     <h2>Install</h2>
     <span>Install vue-tags-input with npm</span>
     <el-code class="bash">
-      <code>npm install vue-tags-input --save</code>
-    </el-code>
-    <span>Or via CDN</span>
-    <el-code>
-      <code>&lt;link href=&quot;https://fonts.googleapis.com/css?family=Montserrat:400,500|Raleway:400,500&quot; rel=&quot;stylesheet&quot;&gt;</code>
+      <code>npm install @johmun/vue-tags-input --save</code>
     </el-code>
     <h2>Usage</h2>
     <el-code>
