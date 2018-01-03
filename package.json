@@ -20,7 +20,7 @@
   },
   "main": "dist/vue-tags-input.js",
   "scripts": {
-    "prepublishOnly": "npm run buildLib",
+    "prepublish": "npm run buildLib",
     "dev": "cross-env NODE_ENV=dev webpack-dev-server --open --hot",
     "test-sw": "hs -c 0 -p 8111 ./dist & cross-env NODE_ENV=production webpack -w",
     "buildLib": "cross-env NODE_ENV=buildLib webpack --hide-modules",
