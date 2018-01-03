@@ -159,6 +159,7 @@ export default {
     },
     validation: {
       type: Array,
+      default: () => [],
       validator(value) {
         return !value.some(v => {
           const missingRule = !v.rule;
@@ -275,7 +276,7 @@ export default {
     clone(items) {
       return JSON.parse(JSON.stringify(items));
     },
-    validateUserRuls(text) {
+    validateUserRules(text) {
       return this.validation
         .filter(val => !new RegExp(val.rule).test(text))
         .map(val => val.type);
@@ -284,7 +285,7 @@ export default {
       this.$set(this.tagsCopy, index, this.createTag(tag));
     },
     createTiClasses(text, checkDuplicatesFromInside) {
-      const validation = this.validateUserRuls(text);
+      const validation = this.validateUserRules(text);
       if (checkDuplicatesFromInside) {
         if (this.tags.filter(t => t.text === text).length > 1) validation.push('duplicate');
       } else {

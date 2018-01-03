@@ -2,6 +2,10 @@
   <div class="examples-autocomplete">
     <section>
       <h1>Simple Autocomplete</h1>
+      <span>
+        todo: autocomplete items hardcoded: spain .germany ...
+        useful props: autocompleteMinLength, addOnlyFromAutocomplete, autocompleteAlwaysOpen
+      </span>
       <vue-tags-input
         v-model="example1.tag"
         :tags="example1.tags"
@@ -23,10 +27,9 @@
 &lt;/template&gt;
 
 &lt;script&gt;
-import VueTagsInput from '../components/vue-tags-input';
+import VueTagsInput from 'vue-tags-input';
 
 export default {
-  name: 'ExamplesAutocomplete',
   components: {
     VueTagsInput,
   },
@@ -76,7 +79,7 @@ export default {
         <div class="spinner" v-if="example2.loading">Loading</div>
       </div>
     </section>
-    <el-code>
+    <el-code class="html">
       <code>
 &lt;template&gt;
   &lt;div&gt;
@@ -91,13 +94,12 @@ export default {
 &lt;/template&gt;
       </code>
     </el-code>
-    <el-code>
-      <code class="javascript">
+    <el-code class="javascript">
+      <code>
 &lt;script&gt;
-import VueTagsInput from '../components/vue-tags-input';
+import VueTagsInput from 'vue-tags-input';
 
 export default {
-  name: 'ExamplesAutocomplete',
   components: {
     VueTagsInput,
   },
@@ -118,6 +120,7 @@ export default {
       if (this.tag.length === 0) return;
       const url = `https://itunes.apple.com/search?term=
         ${this.tag}&amp;entity=allArtist&amp;attribute=allArtistTerm&amp;limit=6`;
+
       clearTimeout(this.debounce);
       this.debounce = setTimeout(() => {
         axios.get(url).then(response => {

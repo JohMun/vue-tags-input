@@ -5,6 +5,7 @@
     <vue-tags-input
       v-model="tag"
       :tags="tags"
+      :tagsFilterDuplicates="false"
       @tags-changed="newTags => tags = newTags">
     </vue-tags-input>
     <div class="data">
@@ -15,8 +16,8 @@
     </div>
     <h2>Install</h2>
     <span>Install vue-tags-input with npm</span>
-    <el-code>
-      <code class="nohighlight">npm install vue-tags-input --save</code>
+    <el-code class="bash">
+      <code>npm install vue-tags-input --save</code>
     </el-code>
     <span>Or via CDN</span>
     <el-code>
@@ -24,10 +25,14 @@
     </el-code>
     <h2>Usage</h2>
     <el-code>
-      <code class="vue">
+      <code>
 &lt;template&gt;
   &lt;div&gt;
-    &lt;vue-tags-input v-model=&quot;tag&quot; :tags=&quot;tags&quot; @tags-changed=&quot;newTags =&gt; tags = newTags&quot; /&gt;
+    &lt;vue-tags-input
+      v-model=&quot;tag&quot;
+      :tags=&quot;tags&quot;
+      @tags-changed=&quot;newTags =&gt; tags = newTags&quot;
+    /&gt;
   &lt;/div&gt;
 &lt;/template&gt;
 

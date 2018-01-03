@@ -28,10 +28,12 @@ export default {
 
 <style lang="scss">
 .code-block {
-  background-color: #fffeec;
   padding: 15px;
   line-height: 1.5em;
-  
+  background-color: #474949;
+  color: #8abeb7;
+  font-family: monospace, serif;
+
   pre {
     margin: 10px 0px 20px 0px;
   }

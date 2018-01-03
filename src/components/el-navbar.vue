@@ -83,7 +83,7 @@ export default {
           disabled: true,
         }],
       }, {
-        label: 'API',
+        label: 'Full Docs',
         route: '',
         disabled: true,
         children: [{
@@ -243,7 +243,7 @@ export default {
   .breadcrumbs {
     height: 18px;
     color: $primary;
-    font-size: 14px;
+    font-size: 12px;
     text-transform: uppercase;
     display: flex;
     align-items: center;
