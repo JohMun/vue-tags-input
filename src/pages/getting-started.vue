@@ -33,7 +33,7 @@
 &lt;/template&gt;
 
 &lt;script&gt;
-import VueTagsInput from 'vue-tags-input';
+import VueTagsInput from '@johmun/vue-tags-input';
 
 export default {
   components: {

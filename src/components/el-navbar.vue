@@ -67,12 +67,10 @@ export default {
           route: '/examples/autocomplete',
         }, {
           label: 'Validation',
-          route: '',
-          disabled: true,
+          route: '/examples/validation',
         }, {
           label: 'Styling',
           route: '/examples/styling',
-          disabled: true,
         }, {
           label: 'Hooks',
           route: '',

@@ -9,7 +9,7 @@
           :class="[tag.tiClasses, tag.classes, { 'deletion-mark': isMarked(index) }]">
           <div class="content">
             <span
-              @click="toggleEdit(index); focus()"
+              @click="openEdit(index)"
               :class="{ hidden: tagsEditStatus[index] }">{{ tag.text }}</span>
             <input
               type="text"
@@ -25,7 +25,8 @@
             />
           </div>
           <div class="actions">
-            <svg @click="cancelChanging(index)" v-if="tagsEditStatus[index]"
+            <svg role="img" aria-label="Discard changes"
+              @click="cancelChanging(index)" v-if="tagsEditStatus[index]"
               xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
               version="1.1" x="0px" y="0px" viewBox="0 0 436.48 436.48" xml:space="preserve">
               <path d="M224,143.573c-56.427,0-107.84,21.013-147.2,55.467L0,
@@ -33,7 +34,8 @@
                 139.627,49.173,162.027,117.333l50.453-16.64
                 C407.147,208.213,323.2,143.573,224,143.573z" />
             </svg>
-            <svg @click="performDeleteTag(index, tag)" v-else class="delete"
+            <svg role="img" aria-label="Delete tag"
+              @click="performDeleteTag(index, tag)" v-else class="delete"
               xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
               version="1.1" x="0px" y="0px" viewBox="0 0 357 357" xml:space="preserve">
               <polygon points="357,35.7 321.3,0 178.5,142.8 35.7,0 0,35.7
@@ -41,8 +43,9 @@
             </svg>
           </div>
         </li>
-        <li class="new-tag-input">
+        <li class="new-tag-input-wrapper">
           <input
+            class="new-tag-input"
             :class="[createTiClasses(newTag)]"
             v-bind="$attrs"
             type="text"
@@ -227,9 +230,6 @@ export default {
     },
   },
   methods: {
-    test() {
-      console.log('test');
-    },
     findIndex(array, predicate) {
       let index = -1;
       while (++index < array.length) {
@@ -268,6 +268,11 @@ export default {
     addFromPaste() {
       if (!this.addTagsFromPaste) return;
       setTimeout(() => this.performAddTags(this.newTag), 10);
+    },
+    openEdit(index) {
+      if (!this.allowEditTags) return;
+      this.toggleEdit(index);
+      this.focus();
     },
     toggleEdit(index) {
       if (!this.allowEditTags || this.disabled) return;
@@ -476,16 +481,16 @@ input[disabled] {
   display: flex;
   align-items: center;
   border-radius: 2px;
-  padding: 3px;
+  padding: 3px 5px;
   background-color: $primary;
   color: #fff;
   margin: 2px;
+  font-size: 12px;
 
   .content {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    font-size: 12px;
   }
 
   span {
@@ -541,7 +546,7 @@ input[disabled] {
   display: none;
 }
 
-.new-tag-input {
+.new-tag-input-wrapper {
   display: flex;
   flex: 1 0 auto;
 

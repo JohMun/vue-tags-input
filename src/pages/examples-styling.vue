@@ -1,14 +1,258 @@
 <template>
   <div>
-    styling
+    <section id="styling-example">
+      <h1>Styling Elements</h1>
+      <p>
+        all the possible classes
+        (
+          classes from user: custom-class, dynamic classes from validate
+          dynamic classes from tagsinput: duplicate, deletion-mark, valid, invalid,
+        ).
+        not only tags get classes, input and autocomplete-items too.
+      </p>
+      <vue-tags-input
+        v-model="tag"
+        :tags="tags"
+        :allow-edit-tags="true"
+        :validation="validation"
+        :autocomplete-items="filteredItems"
+        @tags-changed="newTags => tags = newTags">
+      </vue-tags-input>
+    </section>
+    <el-code class="javascript">
+      <code>
+/* Uther stuff before, like template, import tagsinput ... */
+
+data() {
+  return {
+    tag: 'Also valid8ted',
+    tags: [{
+      text: 'custom class',
+      classes: 'custom-class',
+    }, {
+      text: 'valid tag',
+    }, {
+      text: 'toShort',
+    }, {
+      text: '8 is invalid',
+    }, {
+      text: 'duplicate',
+    }, {
+      text: 'duplicate',
+    }],
+    autocompleteItems: [{
+      text: 'invalid',
+    }, {
+      text: 'Invalid cause of "1"',
+    }, {
+      text: 'valid item',
+    }],
+    validation: [{
+      type: 'min-length',
+      rule: '^.{8,}$',
+    }, {
+      type: 'no-numbers',
+      rule: '^([^0-9]*)$',
+    }],
+  };
+},
+
+/* Computed properties, methods and more ... */
+      </code>
+    </el-code>
+    <el-code class="css">
+      <code>
+&lt;style lang=&quot;css&quot;&gt;
+
+.vue-tags-input .input {
+  padding: 4px 10px;
+  border: none;
+  border-bottom: 1px solid #ccc;
+}
+
+.tag {
+  position: relative;
+}
+
+.tag.valid {
+  background-color: #04B404;
+}
+
+.tag.custom-class {
+  background-color: #fff;
+  color: rgba(100 ,100, 100, 1);
+  font-weight: bold;
+  text-transform: uppercase;
+  box-shadow: 2px 2px 0px 0px rgba(100, 100, 100, 1);
+  margin-right: 4px;
+  border: 1px solid rgba(100, 100, 100, 1);
+  border-radius: 0px;
+  font-size: 13px;
+}
+
+.tag.custom-class svg {
+  fill: rgba(100, 100, 100, 1);
+}
+
+.tag.no-numbers {
+  background-color: #FE9A2E;
+}
+
+.duplicate {
+  text-decoration: line-through;
+}
+
+.new-tag-input.invalid, .item.invalid {
+  color: #e54d42;
+}
+
+.new-tag-input.no-numbers, .item.no-numbers {
+  color: #FE9A2E;
+}
+
+.tag:after {
+  transition: transform .2s;
+  position: absolute;
+  content: '';
+  height: 2px;
+  width: 108%;
+  left: -4%;
+  top: calc(50% - 1px);
+  background-color: #000;
+  transform: scaleX(0);
+}
+
+.deletion-mark :after {
+  transform: scaleX(1);
+}
+
+&lt;/style&gt;
+      </code>
+    </el-code>
   </div>
 </template>
 
 <script>
+import VueTagsInput from '../components/vue-tags-input';
+import ElCode from '../components/el-code';
+
 export default {
   name: 'ExamplesStyling',
+  components: {
+    VueTagsInput,
+    ElCode,
+  },
+  data() {
+    return {
+      tag: 'Also valid8ted',
+      tags: [{
+        text: 'custom class',
+        classes: 'custom-class',
+      }, {
+        text: 'valid tag',
+      }, {
+        text: 'toShort',
+      }, {
+        text: '8 is invalid',
+      }, {
+        text: 'duplicate',
+      }, {
+        text: 'duplicate',
+      }],
+      autocompleteItems: [{
+        text: 'invalid',
+      }, {
+        text: 'Invalid cause of "1"',
+      }, {
+        text: 'valid item',
+      }],
+      validation: [{
+        type: 'min-length',
+        rule: '^.{8,}$',
+      }, {
+        type: 'no-numbers',
+        rule: '^([^0-9]*)$',
+      }],
+    };
+  },
+  computed: {
+    filteredItems() {
+      return this.autocompleteItems.filter(i => {
+        return new RegExp(this.tag, 'i').test(i.text);
+      });
+    },
+  },
 };
 </script>
+
+<style lang="scss">
+
+#styling-example {
+  .vue-tags-input .input {
+    padding: 4px 10px;
+    border: none;
+    border-bottom: 1px solid #ccc;
+  }
+
+  .tag.valid {
+    background-color: #04B404;
+  }
+
+  .tag.custom-class {
+    background-color: #fff;
+    color: rgba(100,100,100,1);
+    font-weight: bold;
+    text-transform: uppercase;
+    box-shadow: 2px 2px 0px 0px rgba(100,100,100,1);
+    margin-right: 4px;
+    border: 1px solid rgba(100,100,100,1);
+    border-radius: 0px;
+    font-size: 13px;
+  }
+
+  .tag.custom-class svg {
+    fill: rgba(100,100,100,1);
+  }
+
+  .tag.no-numbers {
+    background-color: #FE9A2E;
+  }
+
+  .duplicate {
+    text-decoration: line-through;
+  }
+
+  .new-tag-input.invalid, .item.invalid {
+    color: #e54d42;
+  }
+
+  .new-tag-input.no-numbers, .item.no-numbers {
+    color: #FE9A2E;
+  }
+
+  .tag {
+    position: relative;
+
+    &:after {
+      transition: transform .2s;
+      position: absolute;
+      content: '';
+      height: 2px;
+      width: 108%;
+      left: -4%;
+      top: calc(50% - 1px);
+      background-color: #000;
+      transform: scaleX(0);
+    }
+  }
+
+  .deletion-mark {
+    &:after {
+      transform: scaleX(1);
+    }
+  }
+}
+</style>
 
 <style scoped lang="scss">
 </style>

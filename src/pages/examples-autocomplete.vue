@@ -2,10 +2,12 @@
   <div class="examples-autocomplete">
     <section>
       <h1>Simple Autocomplete</h1>
-      <span>
-        todo: autocomplete items hardcoded: spain .germany ...
-        useful props: autocompleteMinLength, addOnlyFromAutocomplete, autocompleteAlwaysOpen
-      </span>
+      <p>
+        The property <span class="code">autocomplete-items</span> expects an array.
+        We pass through the computed property <span class="code">filteredItems</span>, which is a
+        filtered collection based on the string <span class="code">tag</span>
+        and the possible items: Spain, France, USA, Germany and China.
+      </p>
       <vue-tags-input
         v-model="example1.tag"
         :tags="example1.tags"
@@ -27,7 +29,7 @@
 &lt;/template&gt;
 
 &lt;script&gt;
-import VueTagsInput from 'vue-tags-input';
+import VueTagsInput from '@johmun/vue-tags-input';
 
 export default {
   components: {
@@ -61,12 +63,12 @@ export default {
     </el-code>
     <section>
       <h1>Add only from autocomplete and http</h1>
-      <span>
-        In this example music artists can be found with the autocomplete.
-        As http library <a href="https://github.com/axios/axios" target="_blank">axios</a> is used.
-        The prop <span class="code">add-only-from-autocomplete</span> disables adding tags from input directly.
+      <p>
+        In this example music artists can be found with the autocomplete function.
+        As supporting http library <a href="https://github.com/axios/axios" target="_blank">axios</a> is used.
+        The property <span class="code">add-only-from-autocomplete</span> disables adding tags from input directly.
         A debounce avoid too much requests when typing.
-      </span>
+      </p>
       <div class="searchbox">
         <vue-tags-input
           class="example-input"
@@ -97,7 +99,8 @@ export default {
     <el-code class="javascript">
       <code>
 &lt;script&gt;
-import VueTagsInput from 'vue-tags-input';
+import VueTagsInput from '@johmun/vue-tags-input';
+import axios from 'axios';
 
 export default {
   components: {
