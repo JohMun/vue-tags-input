@@ -6,6 +6,7 @@ import Gettingstarted from './pages/getting-started';
 import ExamplesStyling from './pages/examples-styling';
 import ExamplesAutocomplete from './pages/examples-autocomplete';
 import ExamplesValidation from './pages/examples-validation';
+import ExamplesHooks from './pages/examples-hooks';
 
 Vue.use(Router);
 
@@ -29,6 +30,10 @@ const routes = [{
   path: '/examples/validation',
   name: 'examples.validation',
   component: ExamplesValidation,
+}, {
+  path: '/examples/hooks',
+  name: 'examples.hooks',
+  component: ExamplesHooks,
 }, {
   path: '/develop',
   name: 'develop',

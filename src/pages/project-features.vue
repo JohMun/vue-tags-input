@@ -64,7 +64,7 @@ export default {
         text: 'Add tags on paste',
         style: 'background-color:  #f49a3e',
       }, {
-        text: 'Small size: 18kb minified | gzipped 6kb',
+        text: 'Small size: 25kb minified | gzipped 8kb',
         style: 'background-color: #3ea489',
       }, {
         text: 'Autocompletion',

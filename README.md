@@ -12,7 +12,7 @@ A tags input component for VueJs with autocompletion, custom validation, templat
 * Edit tags after creation (click me)
 * Delete tags on backslash
 * Add tags on paste
-* Small size: 18kb minified | gzipped 6kb
+* Small size: 25kb minified | gzipped 8kb
 * Autocompletion
 * Many customization options
 * Own templates (coming soon)

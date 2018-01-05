@@ -73,8 +73,7 @@ export default {
           route: '/examples/styling',
         }, {
           label: 'Hooks',
-          route: '',
-          disabled: true,
+          route: '/examples/hooks',
         }, {
           label: 'Templating',
           route: '',
