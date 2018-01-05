@@ -91,10 +91,7 @@ module.exports = {
       },
       {
         test: /\.(ttf|eot|woff|woff2|otf)$/,
-        loader: 'file-loader',
-        options: {
-          name: 'fonts/[name].[ext]',
-        },
+        loader: 'url-loader',
       },
       {
         test: /\.(mp3|mp4|webm)$/,

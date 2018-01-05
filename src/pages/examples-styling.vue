@@ -9,11 +9,14 @@
           dynamic classes from tagsinput: duplicate, deletion-mark, valid, invalid,
         ).
         not only tags get classes, input and autocomplete-items too.
+
+        style property erwähnen in tags und items
+
+        propertry tagFilterDuplicate is true at default
       </p>
       <vue-tags-input
         v-model="tag"
         :tags="tags"
-        :allow-edit-tags="true"
         :validation="validation"
         :autocomplete-items="filteredItems"
         @tags-changed="newTags => tags = newTags">
@@ -21,7 +24,7 @@
     </section>
     <el-code class="javascript">
       <code>
-/* Uther stuff before, like template, import tagsinput ... */
+/* Other stuff before, like template, import tagsinput ... */
 
 data() {
   return {

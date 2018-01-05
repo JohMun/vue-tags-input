@@ -6,6 +6,7 @@
           v-for="(tag, index) in tagsCopy"
           :key="index"
           class="tag"
+          :style="tag.style"
           :class="[tag.tiClasses, tag.classes, { 'deletion-mark': isMarked(index) }]">
           <div class="content">
             <span
@@ -20,27 +21,21 @@
               ref="tagInput"
               v-model="tag.text"
               @input="createdChangedTag(index, tag)"
-              @blur="cancelChanging(index)"
+              @blur="cancelEdit(index)"
               @keydown.enter="performSaveTag(index, tag)"
             />
           </div>
           <div class="actions">
-            <svg role="img" aria-label="Discard changes"
-              @click="cancelChanging(index)" v-if="tagsEditStatus[index]"
-              xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-              version="1.1" x="0px" y="0px" viewBox="0 0 436.48 436.48" xml:space="preserve">
-              <path d="M224,143.573c-56.427,0-107.84,21.013-147.2,55.467L0,
-                122.24v192h192l-77.12-77.12c29.547-24.853,67.413-40.213,109.12-40.213c75.627,0,
-                139.627,49.173,162.027,117.333l50.453-16.64
-                C407.147,208.213,323.2,143.573,224,143.573z" />
-            </svg>
-            <svg role="img" aria-label="Delete tag"
-              @click="performDeleteTag(index, tag)" v-else class="delete"
-              xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-              version="1.1" x="0px" y="0px" viewBox="0 0 357 357" xml:space="preserve">
-              <polygon points="357,35.7 321.3,0 178.5,142.8 35.7,0 0,35.7
-                142.8,178.5 0,321.3 35.7,357 178.5,214.2 321.3,357 357,321.3 214.2,178.5" />
-            </svg>
+            <i
+              @click="cancelEdit(index)"
+              v-if="tagsEditStatus[index]"
+              class="icon-undo">
+            </i>
+            <i
+              @click="performDeleteTag(index, tag)"
+              v-else
+              class="icon-close">
+            </i>
           </div>
         </li>
         <li class="new-tag-input-wrapper">
@@ -77,6 +72,7 @@
           :key="index"
           class="item"
           @mouseover="disabled ? false : selectedItem = index"
+          :style="item.style"
           :class="[
             item.tiClasses,
             item.classes,
@@ -310,7 +306,7 @@ export default {
     quote(regex) {
       return regex.replace(/([()[{*+.$^\\|?])/g, '\\$1');
     },
-    cancelChanging(index) {
+    cancelEdit(index) {
       this.tagsCopy[index] = Object.assign({}, this.createTag(this.tags[index], true));
       this.$set(this.tagsEditStatus, index, false);
     },
@@ -433,6 +429,38 @@ export default {
 <style scoped lang="scss">
 @import '~colors';
 
+@font-face {
+  font-family: 'icomoon';
+  src:  url('../assets/fonts/custom/icomoon.eot?7grlse');
+  src:  url('../assets/fonts/custom/icomoon.eot?7grlse#iefix') format('embedded-opentype'),
+    url('../assets/fonts/custom/icomoon.ttf?7grlse') format('truetype'),
+    url('../assets/fonts/custom/icomoon.woff?7grlse') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+[class^="icon-"], [class*=" icon-"] {
+  font-family: 'icomoon' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-check:before {
+  content: "\e902";
+}
+.icon-close:before {
+  content: "\e901";
+}
+.icon-undo:before {
+  content: "\e900";
+}
+
 ul {
   margin: 0px;
   padding: 0px;
@@ -485,16 +513,12 @@ input[disabled] {
   background-color: $primary;
   color: #fff;
   margin: 2px;
-  font-size: 12px;
+  font-size: .75em;
 
   .content {
     display: flex;
     flex-direction: column;
     justify-content: center;
-  }
-
-  span {
-    white-space: pre;
   }
 
   span.hidden {
@@ -504,28 +528,18 @@ input[disabled] {
   }
 
   .actions{
-    margin-left: 5px;
+    margin-left: 2px;
     display: flex;
     align-items: center;
+    font-size: 1.2em;
 
-    svg {
+    i {
       cursor: pointer;
     }
   }
 
   &:last-child {
     margin-right: 4px;
-  }
-
-  svg {
-    display: flex;
-    fill: #fff;
-    height: 14px;
-    width: 14px;
-  }
-
-  .delete {
-    width: 10px;
   }
 
   &.invalid, &.tag.deletion-mark {
@@ -535,8 +549,8 @@ input[disabled] {
 
 .tag-input {
   background-color: transparent;
+  color: inherit;
   border: none;
-  color: #fff;
   padding: 0px;
   margin: 0px;
   display: flex;
