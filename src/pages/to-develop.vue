@@ -9,10 +9,12 @@
       :autocomplete-filter-duplicates="true"
       :tags-filter-duplicates="false"
       :add-only-from-autocomplete="false"
+      :allow-edit-tags="true"
       @duplicate="foundDuplicate"
       @before-adding-tag="decideAdding"
       @before-deleting-tag="decideDeleting"
       @before-saving-tag="decideSaving"
+      @before-editing-tag="decideEdit"
       :autocomplete-items="autocompleteItems"
       @tags-changed="newTags => tags = newTags">
     </vue-tags-input>
@@ -55,6 +57,9 @@ export default {
     },
     decideDeleting(obj) {
       obj.deleteTag(true);
+    },
+    decideEdit(obj) {
+      obj.editTag(true);
     },
     decideAdding(obj) {
       obj.addTag(true);

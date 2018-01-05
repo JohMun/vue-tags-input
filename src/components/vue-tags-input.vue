@@ -10,7 +10,7 @@
           :class="[tag.tiClasses, tag.classes, { 'deletion-mark': isMarked(index) }]">
           <div class="content">
             <span
-              @click="openEdit(index)"
+              @click="performEditTag(index, tag)"
               :class="{ hidden: tagsEditStatus[index] }">{{ tag.text }}</span>
             <input
               type="text"
@@ -266,8 +266,17 @@ export default {
       if (!this.addTagsFromPaste) return;
       setTimeout(() => this.performAddTags(this.newTag), 10);
     },
-    openEdit(index) {
+    performEditTag(index, tag) {
       if (!this.allowEditTags) return;
+      if (!this._events['before-editing-tag']) this.editTag(index);
+      this.$emit('before-editing-tag', {
+        index,
+        tag,
+        editTag: (goOn) => this.editTag(index, goOn),
+      });
+    },
+    editTag(index, goOn) {
+      if (!this.allowEditTags || goOn === false) return;
       this.toggleEdit(index);
       this.focus();
     },

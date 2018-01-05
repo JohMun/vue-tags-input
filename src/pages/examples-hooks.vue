@@ -6,6 +6,7 @@
       <span class="code">@before-adding-tag</span>&nbsp;
       <span class="code">@before-deleting-tag</span>&nbsp;
       <span class="code">@before-saving-tag</span>&nbsp;
+      <span class="code">@before-editing-tag</span>&nbsp;
     </span>
     <section>
       <h2>Example 1</h2>
