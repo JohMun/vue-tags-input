@@ -26,14 +26,15 @@
             />
           </div>
           <div class="actions">
+            <!-- down use v-if and v-else here -> different event calling when click -->
             <i
               @click="cancelEdit(index)"
-              v-if="tagsEditStatus[index]"
+              v-show="tagsEditStatus[index]"
               class="icon-undo">
             </i>
             <i
               @click="performDeleteTag(index, tag)"
-              v-else
+              v-show="!tagsEditStatus[index]"
               class="icon-close">
             </i>
           </div>

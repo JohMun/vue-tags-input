@@ -1,19 +1,48 @@
 <template>
   <div>
     <section id="styling-example">
-      <h1>Styling Elements</h1>
-      <p>
-        all the possible classes
-        (
-          classes from user: custom-class, dynamic classes from validate
-          dynamic classes from tagsinput: duplicate, deletion-mark, valid, invalid,
-        ).
-        not only tags get classes, input and autocomplete-items too.
-
-        style property erwähnen in tags und items
-
-        propertry tagFilterDuplicate is true at default
-      </p>
+      <div class="explanation">
+        <h1>Styling Elements</h1>
+        <p>
+          Possible options a user can add CSS classes to tags, the input element or
+          to autocomplete items:
+        </p>
+        <ul>
+          <li>
+            In a validation item, the value of the property
+            <span class="code">type</span>
+            is added as class, if the rule match.</li>
+          <li>
+            The value of the property <span class="code">classes</span>
+            in a tag or an autocomplete item, is always appended.
+          </li>
+        </ul>
+        <p>
+          CSS Classes which are added from tag input:
+        </p>
+        <ul>
+          <li>
+            The class "duplicate" is added if an element exists twice.
+            Duplicates can't be added at default. To achieve that, The property
+            <span class="code">tagsFilterDuplicates</span> have to be set to
+            <span class="code">false</span>.
+          </li>
+          <li>
+            The class "deletion-mark" is appended for a short time,
+            if the user deletes a tag with backspace.
+          </li>
+          <li>
+            The class "valid" is added if a tag came through the validation,
+            "invalid" if not.
+          </li>
+        </ul>
+        <p>
+          Styles can also be changed with the property
+          <span class="code">style</span> in an autocomplete item or a tag.
+          But be aware that those styles have a high priority,
+          because they will be set inline.
+        </p>
+      </div>
       <vue-tags-input
         v-model="tag"
         :tags="tags"
@@ -42,6 +71,9 @@ data() {
       text: 'duplicate',
     }, {
       text: 'duplicate',
+    }, {
+      text: 'Inline style',
+      style: 'color: #000; background-color: transparent; border: 1px solid #ccc',
     }],
     autocompleteItems: [{
       text: 'invalid',
@@ -161,6 +193,9 @@ export default {
         text: 'duplicate',
       }, {
         text: 'duplicate',
+      }, {
+        text: 'Inline style',
+        style: 'color: #000; background-color: transparent; border: 1px solid #ccc',
       }],
       autocompleteItems: [{
         text: 'invalid',
@@ -258,4 +293,15 @@ export default {
 </style>
 
 <style scoped lang="scss">
+span, p {
+  line-height: 1.5em;
+  max-width: 900px;
+}
+
+.explanation {
+  ul {
+    padding-left: 20px;
+    list-style-type: disc;
+  }
+}
 </style>

@@ -113,6 +113,16 @@ header {
   }
 }
 
+@media (max-width: 600px) {
+  header {
+    position:fixed;
+    background-color: #fff;
+    width: 100%;
+    height: 50px;
+    z-index: 2;
+  }
+}
+
 .gt-link {
   display: flex;
   align-items: center;

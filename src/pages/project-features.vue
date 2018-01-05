@@ -6,7 +6,8 @@
         <h2>Vue Tags Input</h2>
       </div>
       <p>
-        A tags input component for VueJs with autocomplete, validation, templating and much more.
+        A tags input component for VueJs with autocompletion, custom validation,
+        templating and much more
       </p>
     </div>
     <!-- todo: cool gif with features-->
@@ -25,7 +26,8 @@
     <!--<div class="browser-support">
       <p>browser support</p>
     </div>-->
-    <p class="license">License: <a href="https://opensource.org/licenses/MIT" target="_blank">MIT</a></p>
+    <p class="license">License:
+      <a href="https://opensource.org/licenses/MIT" target="_blank">MIT</a></p>
     <p>Copyright (c) 2018 Johannes Munari</p>
   </div>
 </template>
@@ -52,7 +54,7 @@ export default {
         text: 'Hooks: Before adding, Before deleting ...',
         style: 'background-color: #3ea489',
       }, {
-        text: 'Option to edit tags after creation',
+        text: 'Edit tags after creation (click me)',
         style: 'background-color: #F5DA81',
         classes: 'dark-font',
       }, {
@@ -76,7 +78,7 @@ export default {
         text: 'Own templates (coming soon)',
         style: 'background-color:  #f49a3e',
       }, {
-        text: 'Demos & Docs',
+        text: 'Examples & Docs',
         style: 'background-color: #586565',
       }],
       todo: [
@@ -143,6 +145,11 @@ export default {
 
 <style lang="scss" scoped>
 #project-features {
+  max-width: 900px;
+}
+
+span, p {
+  line-height: 1.5em;
   max-width: 900px;
 }
 

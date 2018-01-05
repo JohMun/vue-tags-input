@@ -65,7 +65,8 @@ export default {
       <h1>Add only from autocomplete and http</h1>
       <p>
         In this example music artists can be found with the autocomplete function.
-        As supporting http library <a href="https://github.com/axios/axios" target="_blank">axios</a> is used.
+        The <a href="https://itunes.apple.com/" target="_blank">iTunes API</a> is requested as data source.
+        As supporting http library, <a href="https://github.com/axios/axios" target="_blank">axios</a> is used.
         The property <span class="code">add-only-from-autocomplete</span> disables adding tags from input directly.
         A debounce avoid too much requests when typing.
       </p>
@@ -219,6 +220,7 @@ export default {
 .examples-autocomplete {
   span, p {
     line-height: 1.5em;
+    max-width: 900px;
   }
 }
 

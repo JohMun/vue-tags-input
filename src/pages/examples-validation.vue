@@ -3,8 +3,10 @@
     <section>
       <h1>Validation</h1>
       <p>
-        Explain what we see here (which autocomplet items exists).
-        Which one can be added
+        To validate tags, autocomplete items or the user input, a validation array
+        can be passed to the tags input component. In this example, a tag has to be
+        at least 8 characters long, can't contain a number and must not start
+        with the string "Cannot".
       </p>
       <vue-tags-input
         v-model="tag"
@@ -20,14 +22,20 @@
         <el-code :code="tags"></el-code>
       </div>
       <p>
-        Validation Array can be defined. Type will be added as css class if rule match a tag, the input or
-        an autocomplete item. If the rule is valid, the class "valid", or if not "invalid" is added too.
-        If tagsinput find a duplicate item, the classe duplicate will be added.
+        Each item in the validation array must have the properties
+        <span class="code">type</span> and <span class="code">rule</span>.
+        Type will be added as css class, if the appropriated
+        rule match a tag, the user input or an autocomplete item.
+        If the rule is valid, the class "valid", or if not, "invalid" is also added.
+        If the  tag input component find a duplicate item, the class "duplicate" is appended.
         In chapter <router-link :to="{ path: '/examples/styling'}">Styling</router-link>
         we will see how to use this css classes in detail.
       </p>
       <p>
-        Prop <span class="code">disableAdd</span> erwähnen
+        If a validation item holds the property <span class="code">disableAdd: true</span>,
+        a tag, which does match the appropriated rule, won't get just some css classes.
+        In this case, the tag can't be added to the tags array.
+        Like every tag which starts with "Cannot" in this example.
       </p>
       <el-code class="html">
         <code>
@@ -123,10 +131,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.examples-validation {
-  span, p {
-    line-height: 1.5em;
-  }
+span, p {
+  line-height: 1.5em;
+  max-width: 900px;
 }
 
 .data {

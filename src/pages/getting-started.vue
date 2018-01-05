@@ -75,4 +75,9 @@ export default {
 .data {
   margin-top: 20px;
 }
+
+span, p {
+  line-height: 1.5em;
+  max-width: 900px;
+}
 </style>
