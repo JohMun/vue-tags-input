@@ -18,6 +18,40 @@ A tags input component for VueJs with autocompletion, custom validation, templat
 * Own templates (coming soon)
 * Examples & Docs
 
+## Getting Started
+
+`npm install @johmun/vue-tags-input --save`
+
+```html
+<template>
+  <div>
+    <vue-tags-input
+      v-model="tag"
+      :tags="tags"
+      @tags-changed="newTags => tags = newTags"
+    />
+  </div>
+</template>
+```
+
+```javascript
+<script>
+import VueTagsInput from '@johmun/vue-tags-input';
+
+export default {
+  components: {
+    VueTagsInput,
+  },
+  data() {
+    return {
+      tag: '',
+      tags: [],
+    };
+  },
+};
+</script>
+```
+
 ## License
 
 [MIT](https://opensource.org/licenses/MIT)

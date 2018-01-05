@@ -24,12 +24,12 @@
       <el-code class="html">
         <code>
 &lt;vue-tags-input
-   v-model=&quot;tag&quot;
-   :tags=&quot;tags&quot;
-   @tags-changed=&quot;newTags =&gt; tags = newTags&quot;
-   @before-adding-tag=&quot;obj =&gt; handler = obj.addTag&quot;
- /&gt;
- &lt;div class=&quot;actions&quot; v-if=&quot;example1.handler&quot;&gt;
+  v-model=&quot;tag&quot;
+  :tags=&quot;tags&quot;
+  @tags-changed=&quot;newTags =&gt; tags = newTags&quot;
+  @before-adding-tag=&quot;obj =&gt; handler = obj.addTag&quot;
+/&gt;
+&lt;div class=&quot;actions&quot; v-if=&quot;handler&quot;&gt;
   &lt;button @click=&quot;cancel&quot;&gt;Cancel&lt;/button&gt;
   &lt;button @click=&quot;add&quot;&gt;Add&lt;/button&gt;
 &lt;/div&gt;

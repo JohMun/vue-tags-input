@@ -125,10 +125,6 @@ data() {
   font-size: 13px;
 }
 
-.tag.custom-class svg {
-  fill: rgba(100, 100, 100, 1);
-}
-
 .tag.no-numbers {
   background-color: #FE9A2E;
 }
@@ -246,10 +242,6 @@ export default {
     border: 1px solid rgba(100,100,100,1);
     border-radius: 0px;
     font-size: 13px;
-  }
-
-  .tag.custom-class svg {
-    fill: rgba(100,100,100,1);
   }
 
   .tag.no-numbers {
