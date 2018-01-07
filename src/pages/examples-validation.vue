@@ -5,7 +5,7 @@
       <p>
         To validate tags, autocomplete items or the user input, a validation array
         can be passed to the tags input component. In this example, a tag has to be
-        at least 8 characters long, can't contain a number and must not start
+        at least 8 characters long, can't contain a number and must not starts
         with the string "Cannot".
       </p>
       <vue-tags-input

@@ -20,8 +20,12 @@ A tags input component for VueJs with autocompletion, custom validation, templat
 
 ## Getting Started
 
-`npm install @johmun/vue-tags-input --save`
+Install:
+```
+npm install @johmun/vue-tags-input --save
+```
 
+Usage:
 ```html
 <template>
   <div>

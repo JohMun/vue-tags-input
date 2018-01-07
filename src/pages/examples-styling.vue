@@ -23,7 +23,7 @@
         <ul>
           <li>
             The class "duplicate" is added if an element exists twice.
-            Duplicates can't be added at default. To achieve that, The property
+            Duplicates can't be added by default. To achieve that, The property
             <span class="code">tagsFilterDuplicates</span> have to be set to
             <span class="code">false</span>.
           </li>
