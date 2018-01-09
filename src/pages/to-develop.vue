@@ -15,8 +15,16 @@
       @before-deleting-tag="decideDeleting"
       @before-saving-tag="decideSaving"
       @before-editing-tag="decideEdit"
+      @tag-clicked="tagClicked"
       :autocomplete-items="autocompleteItems"
       @tags-changed="newTags => tags = newTags">
+      <div slot="tagLeft" slot-scope="props">
+        <span @click="props.performOpenEdit(props.index, props.tag)">left</span>
+      </div>
+      <div slot="tagRight" slot-scope="props">RIGHT</div>
+      <div slot="tagActions" slot-scope="props">
+        <span @click="props.performDelete(props.index, props.tag)">delete</span>
+      </div>
     </vue-tags-input>
   </div>
 </template>
@@ -52,6 +60,9 @@ export default {
     };
   },
   methods: {
+    tagClicked(obj) {
+      console.log(obj);
+    },
     foundDuplicate(tag) {
       console.log(tag);
     },

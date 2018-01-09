@@ -6,37 +6,84 @@
           v-for="(tag, index) in tagsCopy"
           :key="index"
           class="tag"
+          @click="$emit('tag-clicked', { tag, index })"
           :style="tag.style"
           :class="[tag.tiClasses, tag.classes, { 'deletion-mark': isMarked(index) }]">
           <div class="content">
-            <span
-              @click="performEditTag(index, tag)"
-              :class="{ hidden: tagsEditStatus[index] }">{{ tag.text }}</span>
-            <input
-              type="text"
-              class="tag-input"
-              v-if="tagsEditStatus[index]"
-              :maxlength="maxlength"
-              size="1"
-              ref="tagInput"
-              v-model="tag.text"
-              @input="createdChangedTag(index, tag)"
-              @blur="cancelEdit(index)"
-              @keydown.enter="performSaveTag(index, tag)"
-            />
+            <div
+              class="tag-left"
+              v-if="$scopedSlots.tagLeft">
+              <slot
+                name="tagLeft"
+                :tag="tag"
+                :index="index"
+                :edit="tagsEditStatus[index]"
+                :perform-save="performSaveTag"
+                :perform-delete="performDeleteTag"
+                :perform-cancel-edit="cancelEdit"
+                :perform-open-edit="performEditTag"
+                :deletion-mark="isMarked(index)">
+              </slot>
+            </div>
+            <div class="tag-center">
+              <span
+                @click="performEditTag(index, tag)"
+                :class="{ hidden: tagsEditStatus[index] }">{{ tag.text }}</span>
+              <input
+                type="text"
+                class="tag-input"
+                v-if="tagsEditStatus[index]"
+                :maxlength="maxlength"
+                size="1"
+                ref="tagInput"
+                v-model="tag.text"
+                @input="createdChangedTag(index, tag)"
+                @blur="cancelEdit(index)"
+                @keydown.enter="performSaveTag(index, tag)"
+              />
+            </div>
+            <div
+              v-if="$scopedSlots.tagRight"
+              class="tag-right">
+              <slot
+                name="tagRight"
+                :tag="tag"
+                :index="index"
+                :edit="tagsEditStatus[index]"
+                :perform-save="performSaveTag"
+                :perform-delete="performDeleteTag"
+                :perform-cancel-edit="cancelEdit"
+                :perform-open-edit="performEditTag"
+                :deletion-mark="isMarked(index)">
+              </slot>
+            </div>
           </div>
           <div class="actions">
             <!-- down use v-if and v-else here -> different event calling when click -->
             <i
               @click="cancelEdit(index)"
+              v-if="!$scopedSlots.tagActions"
               v-show="tagsEditStatus[index]"
               class="icon-undo">
             </i>
             <i
               @click="performDeleteTag(index, tag)"
+              v-if="!$scopedSlots.tagActions"
               v-show="!tagsEditStatus[index]"
               class="icon-close">
             </i>
+            <slot
+              v-if="$scopedSlots.tagActions"
+              :tag="tag"
+              :index="index"
+              :edit="tagsEditStatus[index]"
+              :perform-save="performSaveTag"
+              :perform-delete="performDeleteTag"
+              :perform-cancel-edit="cancelEdit"
+              :perform-open-edit="performEditTag"
+              :deletion-mark="isMarked(index)"
+              name="tagActions">
+            </slot>
           </div>
         </li>
         <li class="new-tag-input-wrapper">
@@ -227,13 +274,6 @@ export default {
     },
   },
   methods: {
-    findIndex(array, predicate) {
-      let index = -1;
-      while (++index < array.length) {
-        if (predicate(array[index], index, array)) return index;
-      }
-      return -1;
-    },
     getSelectedIndex(methods) {
       const items = this.filteredAutocompleteItems;
       if (items.length === 0) return;
@@ -521,12 +561,16 @@ input[disabled] {
   color: #fff;
   border-radius: 2px;
   display: flex;
-  align-items: center;
   padding: 3px 5px;
   margin: 2px;
   font-size: .85em;
 
   .content {
+    display: flex;
+    align-items: center;
+  }
+
+  .tag-center {
     position: relative;
   }
 
