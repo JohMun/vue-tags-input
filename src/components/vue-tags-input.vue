@@ -110,6 +110,7 @@
         </li>
       </ul>
     </div>
+    <slot name="between-elements"></slot>
     <div
       class="autocomplete"
       @mouseout="selectedItem = null"
@@ -125,9 +126,19 @@
             item.tiClasses,
             item.classes,
             { 'selected-item': isSelected(index) }
-          ]"
-          @click="performAddTags(item, 'autocomplete')">
-          {{ item.text }}
+          ]">
+          <div
+            @click="performAddTags(item, 'autocomplete')"
+            v-if="!$scopedSlots.autocompleteItem">{{ item.text }}
+          </div>
+          <slot
+            v-else
+            :item="item"
+            :index="index"
+            :perform-add="performAddTags"
+            :is-selected="isSelected(index)"
+            name="autocompleteItem">
+          </slot>
         </li>
       </ul>
     </div>
@@ -642,8 +653,11 @@ input[disabled] {
 }
 
 .item {
-  padding: 3px 6px;
-  cursor: pointer;
+  > div {
+    cursor: pointer;
+    padding: 3px 6px;
+    width: 100%;
+  }
 }
 
 .selected-item {

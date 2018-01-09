@@ -25,6 +25,9 @@
       <div slot="tagActions" slot-scope="props">
         <span @click="props.performDelete(props.index, props.tag)">delete</span>
       </div>
+      <div slot="autocompleteItem" slot-scope="props">
+        <div @click="props.performAdd(props.item)">{{ props}}</div>
+      </div>
     </vue-tags-input>
   </div>
 </template>
