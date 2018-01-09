@@ -76,8 +76,7 @@ export default {
           route: '/examples/hooks',
         }, {
           label: 'Templating',
-          route: '',
-          disabled: true,
+          route: '/examples/templates',
         }],
       }, {
         label: 'Full Docs',

@@ -18,7 +18,7 @@
                 :tag="tag"
                 :index="index"
                 :edit="tagsEditStatus[index]"
-                :perform-save="performSaveTag"
+                :perform-save-edit="performSaveTag"
                 :perform-delete="performDeleteTag"
                 :perform-cancel-edit="cancelEdit"
                 :perform-open-edit="performEditTag"
@@ -50,7 +50,7 @@
                 :tag="tag"
                 :index="index"
                 :edit="tagsEditStatus[index]"
-                :perform-save="performSaveTag"
+                :perform-save-edit="performSaveTag"
                 :perform-delete="performDeleteTag"
                 :perform-cancel-edit="cancelEdit"
                 :perform-open-edit="performEditTag"
@@ -77,7 +77,7 @@
               :tag="tag"
               :index="index"
               :edit="tagsEditStatus[index]"
-              :perform-save="performSaveTag"
+              :perform-save-edit="performSaveTag"
               :perform-delete="performDeleteTag"
               :perform-cancel-edit="cancelEdit"
               :perform-open-edit="performEditTag"
@@ -136,7 +136,7 @@
             :item="item"
             :index="index"
             :perform-add="performAddTags"
-            :is-selected="isSelected(index)"
+            :selected="isSelected(index)"
             name="autocompleteItem">
           </slot>
         </li>
@@ -564,7 +564,6 @@ input[disabled] {
   display: flex;
   flex-wrap: wrap;
   width: 100%;
-
 }
 
 .tag {
