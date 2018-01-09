@@ -107,36 +107,37 @@ export default {
 
 <style lang="scss">
 @import '~colors';
+.examples-templates {
+  .vue-tags-input .input {
+    height: 48px;
+  }
 
-.vue-tags-input .input {
-  height: 48px;
-}
+  .tag.tag {
+    background-color: #F2F2F2;
+    color: #000;
+  }
 
-.examples-templates .tag.tag {
-  background-color: #F2F2F2;
-  color: #000;
-}
+  .tag-left {
+    margin-right: 5px;
+  }
 
-.tag-left {
-  margin-right: 5px;
-}
+  .my-item, .my-tag-left {
+    display: flex;
+    align-items: center;
+  }
 
-.my-item, .my-tag-left {
-  display: flex;
-  align-items: center;
-}
+  .my-tag-left {
+    max-width: 30px;
+    width: 30px;
+  }
 
-.my-tag-left {
-  max-width: 30px;
-  width: 30px;
-}
+  .my-item i {
+    margin-right: 5px;
+  }
 
-.my-item i {
-  margin-right: 5px;
-}
-
-.deletion-mark.deletion-mark {
-  background-color: $error;
+  .deletion-mark.deletion-mark {
+    background-color: $error;
+  }
 }
 </style>
 
