@@ -113,7 +113,7 @@ export default {
     padding: 4px 12px;
   }
 
-  .tag {
+  .tags li {
     padding: 5px 8px;
     font-size: 18px;
     margin:3px;
@@ -131,10 +131,6 @@ export default {
   .tag.deletion-mark  {
     background-color: $error !important;
     color: #fff;
-  }
-
-  .new-tag-input {
-    margin: 7px;
   }
 
   .actions {

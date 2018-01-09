@@ -127,7 +127,9 @@ module.exports = {
     new CleanPlugin(['./dist']),
     new webpack.DefinePlugin({
       'process.env': {
-        NODE_ENV: JSON.stringify(env),
+        NODE_ENV: JSON.stringify(
+          env === 'buildDocs' || env === 'buildLib' ? 'production' : 'develop'
+        ),
       },
     }),
   ],

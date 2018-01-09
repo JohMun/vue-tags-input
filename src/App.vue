@@ -36,7 +36,7 @@ export default {
   },
   methods: {
     scrollTop() {
-      setTimeout(() => this.$refs.scrollArea.scrollTo(0, 0), 0);
+      setTimeout(() => this.$refs.scrollArea.scrollTop = 0, 10);
     },
   },
   watch: {
@@ -67,6 +67,7 @@ main {
   flex: 1 0 calc(100% - 350px);
   flex-direction: column;
   height: 100%;
+  width: 100%;
   overflow-y: scroll;
 }
 

@@ -513,26 +513,25 @@ input[disabled] {
   display: flex;
   flex-wrap: wrap;
   width: 100%;
+
 }
 
 .tag {
-  display: flex;
-  align-items: center;
-  border-radius: 2px;
-  padding: 3px 5px;
   background-color: $primary;
   color: #fff;
+  border-radius: 2px;
+  display: flex;
+  align-items: center;
+  padding: 3px 5px;
   margin: 2px;
-  font-size: .75em;
+  font-size: .85em;
 
   .content {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+    position: relative;
   }
 
   span.hidden {
-    padding-left: 14px;
+    padding-left: 15px;
     visibility: hidden;
     height: 0px;
   }
@@ -564,6 +563,9 @@ input[disabled] {
   padding: 0px;
   margin: 0px;
   display: flex;
+  top: 0px;
+  position: absolute;
+  width: 100%;
 }
 
 .tag-input::-ms-clear {
@@ -573,12 +575,16 @@ input[disabled] {
 .new-tag-input-wrapper {
   display: flex;
   flex: 1 0 auto;
+  padding: 3px 5px;
+  margin: 2px;
+  font-size: .85em;
 
   input {
     flex: 1 0 auto;
     min-width: 100px;
     border: none;
-    margin: 2px;
+    padding: 0px;
+    margin: 0px;
     background-color: #fff;
   }
 }
