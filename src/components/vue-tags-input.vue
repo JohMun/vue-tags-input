@@ -344,7 +344,7 @@ export default {
         .map(val => val.type);
     },
     createdChangedTag(index, tag) {
-      this.$set(this.tagsCopy, index, this.createTag(tag));
+      this.$set(this.tagsCopy, index, this.createTag(tag, true));
     },
     createTiClasses(text, checkDuplicatesFromInside) {
       const validation = this.validateUserRules(text);
