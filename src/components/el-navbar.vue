@@ -81,15 +81,12 @@ export default {
       }, {
         label: 'Full Docs',
         route: '',
-        disabled: true,
         children: [{
           label: 'Props',
-          route: '',
-          disabled: true,
+          route: '/docs/props',
         }, {
           label: 'Events',
-          route: '',
-          disabled: true,
+          route: '/docs/events',
         }, {
           label: 'Classes',
           route: '',

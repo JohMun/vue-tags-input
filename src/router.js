@@ -8,6 +8,8 @@ import ExamplesAutocomplete from './pages/examples-autocomplete';
 import ExamplesValidation from './pages/examples-validation';
 import ExamplesHooks from './pages/examples-hooks';
 import ExamplesTemplates from './pages/examples-templates';
+import DocsProps from './pages/docs-props';
+import DocsEvents from './pages/docs-events';
 
 Vue.use(Router);
 
@@ -39,6 +41,14 @@ const routes = [{
   path: '/examples/templates',
   name: 'examples.templates',
   component: ExamplesTemplates,
+}, {
+  path: '/docs/props',
+  name: 'docs.props',
+  component: DocsProps,
+}, {
+  path: '/docs/events',
+  name: 'docs.events',
+  component: DocsEvents,
 }, {
   path: '/develop',
   name: 'develop',
