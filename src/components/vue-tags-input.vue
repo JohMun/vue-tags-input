@@ -89,7 +89,7 @@
         <li class="new-tag-input-wrapper">
           <input
             class="new-tag-input"
-            :class="[createTiClasses(newTag)]"
+            :class="[createClasses(newTag, tags, validation)]"
             v-bind="$attrs"
             type="text"
             size="1"
@@ -146,6 +146,8 @@
 </template>
 
 <script>
+import { createTags, createTag, createClasses } from './create-tags';
+
 const propValidatorTag = value => {
   return !value.some(t => {
     const invalidText = !t.text;
@@ -262,6 +264,7 @@ export default {
   },
   data() {
     return {
+      createClasses,
       newTag: null,
       tagsCopy: null,
       tagsEditStatus: null,
@@ -279,7 +282,7 @@ export default {
         this.focused;
     },
     filteredAutocompleteItems() {
-      const items = this.autocompleteItems.map(i => this.createTag(i));
+      const items = this.autocompleteItems.map(i => createTag(i, this.tags, this.validation));
       if (!this.autocompleteFilterDuplicates) return items;
       return items.filter(i => !this.tagsCopy.find(t => t.text === i.text));
     },
@@ -338,28 +341,8 @@ export default {
     clone(items) {
       return JSON.parse(JSON.stringify(items));
     },
-    validateUserRules(text) {
-      return this.validation
-        .filter(val => !new RegExp(val.rule).test(text))
-        .map(val => val.type);
-    },
     createdChangedTag(index, tag) {
-      this.$set(this.tagsCopy, index, this.createTag(tag, true));
-    },
-    createTiClasses(text, checkDuplicatesFromInside) {
-      const validation = this.validateUserRules(text);
-      if (checkDuplicatesFromInside) {
-        if (this.tags.filter(t => t.text === text).length > 1) validation.push('duplicate');
-      } else {
-        if (this.tags.map(t => t.text).includes(text)) validation.push('duplicate');
-      }
-      validation.length === 0 ? validation.push('valid') : validation.push('invalid');
-      return validation;
-    },
-    createTag(tag, checkDuplicatesFromTags) {
-      const t = this.clone(tag);
-      t.tiClasses = this.createTiClasses(t.text, checkDuplicatesFromTags);
-      return t;
+      this.$set(this.tagsCopy, index, createTag(tag, this.tags, this.validation, true));
     },
     focus() {
       this.$nextTick(() => this.$refs.tagInput[0].focus());
@@ -368,7 +351,9 @@ export default {
       return regex.replace(/([()[{*+.$^\\|?])/g, '\\$1');
     },
     cancelEdit(index) {
-      this.tagsCopy[index] = Object.assign({}, this.createTag(this.tags[index], true));
+      this.tagsCopy[index] = Object.assign({},
+        createTag(this.tags[index], this.tags, this.validation, true)
+      );
       this.$set(this.tagsEditStatus, index, false);
     },
     hasForbiddingAddRule(tiClasses) {
@@ -405,7 +390,7 @@ export default {
       if (typeof tag === 'string') tags = this.createTagTexts(tag);
       if (this.selectedItem !== null) tags = [this.filteredAutocompleteItems[this.selectedItem]];
       tags.forEach(tag => {
-        tag = this.createTag(tag);
+        tag = createTag(tag, this.tags, this.validation);
         if (!this._events['before-adding-tag']) this.addTag(tag);
         this.$emit('before-adding-tag', {
           tag,
@@ -455,7 +440,7 @@ export default {
       this.$emit('input', value);
     },
     initTags() {
-      this.tagsCopy = this.clone(this.tags.map(t => this.createTag(t, true)));
+      this.tagsCopy = createTags(this.tags, this.validation, true);
       this.tagsEditStatus = this.clone(this.tags).map(() => false);
     },
   },

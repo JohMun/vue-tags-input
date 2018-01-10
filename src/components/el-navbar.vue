@@ -3,7 +3,6 @@
     <div class="content">
       <div class="logo">
         <div @click="goHome">
-          <i class="material-icons">loyalty</i>
           <h2>Vue Tags Input</h2>
         </div>
         <i class="material-icons close-nav" @click="$emit('close-nav')">clear</i>

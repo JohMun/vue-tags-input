@@ -2,7 +2,6 @@
   <div id="project-features">
     <div class="basic">
       <div class="logo">
-        <i class="material-icons">loyalty</i>
         <h2>Vue Tags Input</h2>
       </div>
       <p>
