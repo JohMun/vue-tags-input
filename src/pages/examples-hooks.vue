@@ -1,16 +1,26 @@
 <template lang="html">
   <div class="examples-hooks">
     <h1>Hooks</h1>
-    <!--todo: <span>What are Hooks good for?</span>-->
-    <span>
-      <span class="code">@before-adding-tag</span>&nbsp;
-      <span class="code">@before-deleting-tag</span>&nbsp;
-      <span class="code">@before-saving-tag</span>&nbsp;
-      <span class="code">@before-editing-tag</span>&nbsp;
-    </span>
+    <p>
+      The tags input component provides different hooks.
+      Callback functions can be registered, to control the behaviour of tags input.
+      For example <span class="code">@before-adding-tag="myCallback"</span>.
+      Before a tag will be added, the function <span class="code">myCallback</span> is invoked
+      and gets an object as paramter. The object contains the properties
+      <span class="code">tag</span>, which is the to adding tag and a function named
+      <span class="code">addTag</span>. If these funcion is invoked,
+      <span class="code">tag</span> will be added.
+      You find more information here (link docs), how the other hooks work.
+    </p>
     <section>
       <h2>Example 1</h2>
-      <!--todo: Explain what happens here <p></p> -->
+      <p>
+        In this example, we save the <span class="code">addTag</span> function
+        in <span class="code">handler</span>, when the
+        <span class="code">before-adding-tag</span> hook fires.
+        If <span class="code">handler</span> is not <span class="code">null</span>,
+        we show two buttons. The "Add" button invokes the saved function on click and add the tag.
+      </p>
       <vue-tags-input
          v-model="example1.tag"
          :tags="example1.tags"
@@ -62,7 +72,11 @@ methods: {
     </section>
     <section>
       <h2>Example 2</h2>
-      <!--todo: Explain what happens here <p></p> -->
+      <p>
+        In the <span class="code">checkTag</span> function, which is called
+        by the <span class="code">before-adding-tag</span> hook, a check is executed.
+        If a to adding tag contains the letter "e", an alert box is shown.
+      </p>
       <vue-tags-input
          v-model="example2.tag"
          :tags="example2.tags"
@@ -137,6 +151,11 @@ export default {
 </script>
 
 <style lang="css" scoped>
+span, p {
+  line-height: 1.5em;
+  max-width: 900px;
+}
+
 .actions {
   display: flex;
 }
