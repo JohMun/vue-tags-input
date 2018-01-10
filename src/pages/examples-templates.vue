@@ -118,7 +118,7 @@ export default {
   }
 
   .tag-left {
-    margin-right: 5px;
+    margin-right: 2px;
   }
 
   .my-item, .my-tag-left {
@@ -127,8 +127,8 @@ export default {
   }
 
   .my-tag-left {
-    max-width: 30px;
-    width: 30px;
+    max-width: 24px;
+    width: 24px;
   }
 
   .my-item i {

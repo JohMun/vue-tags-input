@@ -22,10 +22,41 @@
         @tags-changed="newTags => tags = newTags"
       />
     </div>
-    <!-- todo: add broswe support -->
-    <!--<div class="browser-support">
-      <p>browser support</p>
-    </div>-->
+    <h3>Browser support</h3>
+    <div class="browser-support">
+      <div>
+        <img src="https://cdnjs.cloudflare.com/ajax/libs/browser-logos/45.1.0/archive/internet-explorer-tile_10-11/internet-explorer-tile_10-11_48x48.png" />
+        <span>IE 10 +</span>
+      </div>
+      <div>
+        <img src="../assets/img/apple-logo.png" />
+        <span>iPhone 9 +</span>
+      </div>
+      <div>
+        <img src="https://cdnjs.cloudflare.com/ajax/libs/browser-logos/45.1.0/safari-ios/safari-ios_48x48.png" />
+        <span>Safari 9.1 +</span>
+      </div>
+      <div>
+        <img src="../assets/img/android-logo.png" />
+        <span>Android 4.4 +</span>
+      </div>
+      <div>
+        <img src="https://cdnjs.cloudflare.com/ajax/libs/browser-logos/45.1.0/archive/chrome_1-11/chrome_1-11_48x48.png" />
+        <span>Chrome <i class="material-icons">check</i></span>
+      </div>
+      <div>
+        <img src="https://cdnjs.cloudflare.com/ajax/libs/browser-logos/45.1.0/firefox/firefox_48x48.png" />
+        <span>Firefox <i class="material-icons">check</i></span>
+      </div>
+      <div>
+        <img src="https://cdnjs.cloudflare.com/ajax/libs/browser-logos/45.1.0/archive/opera_10-14/opera_10-14_48x48.png" />
+        <span>Opera 35+</span>
+      </div>
+      <div>
+        <img src="https://cdnjs.cloudflare.com/ajax/libs/browser-logos/45.1.0/edge/edge_48x48.png" />
+        <span>Edge 12+</span>
+      </div>
+    </div>
     <p class="license">License:
       <a href="https://opensource.org/licenses/MIT" target="_blank">MIT</a></p>
     <p>Copyright (c) 2018 Johannes Munari</p>
@@ -44,7 +75,7 @@ export default {
     return {
       tag: '',
       tags: [{
-        text: 'Fast setup',
+        text: 'No dependencies',
         style: 'background-color: #f49a3e',
       }, {
         text: 'Custom validation rules',
@@ -58,10 +89,10 @@ export default {
         style: 'background-color: #F5DA81',
         classes: 'dark-font',
       }, {
-        text: 'Delete tags on backslash',
+        text: 'Fast setup',
         style: 'background-color: #586565',
       }, {
-        text: 'Add tags on paste',
+        text: 'Works with Vuex',
         style: 'background-color:  #f49a3e',
       }, {
         text: 'Small size: 25kb minified | gzipped 8kb',
@@ -75,11 +106,19 @@ export default {
         style: 'background-color: #F5DA81',
         classes: 'dark-font',
       }, {
-        text: 'Own templates (coming soon)',
+        text: 'Own templates',
         style: 'background-color:  #f49a3e',
       }, {
-        text: 'Examples & Docs',
+        text: 'Delete tags on backslash',
         style: 'background-color: #586565',
+      }, {
+        text: 'Add tags on paste',
+        style: 'background-color: #cdede5',
+        classes: 'dark-font',
+      }, {
+        text: 'Examples & Docs',
+        style: 'background-color: #F5DA81',
+        classes: 'dark-font',
       }],
       todo: [
         'Animation support',
@@ -177,5 +216,40 @@ span, p {
   h2 {
     text-align: center;
   }
+}
+
+.browser-support {
+  display: flex;
+  background-color: #FAFAFA;
+  flex-wrap: wrap;
+
+  > div {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    align-items: center;
+    font-size: 14px;
+    min-width: 85px;
+    margin: 8px;
+  }
+
+  img {
+    width: 26px;
+    margin-bottom: 3px;
+  }
+
+  span {
+    display: flex;
+    align-items: center;
+
+    i {
+      margin-left: 3px;
+      font-size: 15px;
+    }
+  }
+}
+
+.license {
+  margin-top: 40px;
 }
 </style>

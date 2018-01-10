@@ -4,8 +4,8 @@
       <div class="explanation">
         <h1>Styling Elements</h1>
         <p>
-          Possible options a user can add CSS classes to tags, the input element or
-          to autocomplete items:
+          You can add CSS classes to tags, the input element or
+          to autocomplete items, in the following ways:
         </p>
         <ul>
           <li>

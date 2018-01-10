@@ -247,7 +247,7 @@ export default {
         });
       },
     },
-    tagsFilterDuplicates: {
+    avoidAddingDuplicates: {
       type: Boolean,
       default: true,
     },
@@ -421,8 +421,8 @@ export default {
       if (this.addOnlyFromAutocomplete && !options.includes(tag.text)) return;
       const maximumReached = this.maxTags && this.maxTags === this.tagsCopy.length;
       if (maximumReached) return this.$emit('max-tags-reached', tag);
-      const dup = this.tagsFilterDuplicates && this.tagsCopy.map(t => t.text).includes(tag.text);
-      if (dup) return this.$emit('duplicate', tag);
+      const dup = this.avoidAddingDuplicates && this.tagsCopy.map(t => t.text).includes(tag.text);
+      if (dup) return this.$emit('adding-duplicate', tag);
       if (!tag.valid && this.hasForbiddingAddRule(tag.tiClasses)) return;
       if (this.addOnlyFromAutocomplete && this.filteredAutocompleteItems.length > 0) {
         this.selectedItem = 0;
@@ -442,8 +442,8 @@ export default {
     saveTag(index, tag, goOn) {
       if (tag.text.length === 0) return;
       if (goOn === false) return;
-      const dup = this.tagsFilterDuplicates && this.tags.map(t => t.text).includes(tag.text);
-      if (dup) return this.$emit('duplicate', tag);
+      const dup = this.avoidAddingDuplicates && this.tags.map(t => t.text).includes(tag.text);
+      if (dup) return this.$emit('saving-duplicate', tag);
       if (!tag.valid && this.hasForbiddingAddRule(tag.tiClasses)) return;
       this.$set(this.tagsCopy, index, tag);
       this.toggleEdit(index);

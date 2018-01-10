@@ -6,16 +6,18 @@ A tags input component for VueJs with autocompletion, custom validation, templat
 
 ## Features
 
-* Fast setup
+* No dependencies
 * Custom validation rules
 * Hooks: Before adding, Before deleting ...
 * Edit tags after creation (click me)
-* Delete tags on backslash
-* Add tags on paste
+* Fast setup
+* Works with Vuex
 * Small size: 25kb minified | gzipped 8kb
 * Autocompletion
 * Many customization options
-* Own templates (coming soon)
+* Own templates
+* Delete tags on backslash
+* Add tags on paste
 * Examples & Docs
 
 ## Getting Started

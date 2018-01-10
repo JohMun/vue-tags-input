@@ -5,7 +5,7 @@
       <p>
         To validate tags, autocomplete items or the user input, a validation array
         can be passed to the tags input component. In this example, a tag has to be
-        at least 8 characters long, can't contain a number and must not starts
+        at least 8 characters long, can't contain a number and must not start
         with the string "Cannot".
       </p>
       <vue-tags-input
@@ -24,12 +24,12 @@
       <p>
         Each item in the validation array must have the properties
         <span class="code">type</span> and <span class="code">rule</span>.
-        Type will be added as css class, if the appropriated
-        rule match a tag, the user input or an autocomplete item.
+        <span class="code">type</span> will be added as css class, if the appropriated
+        <span class="code">rule</span> match a tag, the user input or an autocomplete item.
         If the rule is valid, the class "valid", or if not, "invalid" is also added.
-        If the  tag input component find a duplicate item, the class "duplicate" is appended.
+        If the tag input component find a duplicate item, the class "duplicate" is appended.
         In chapter <router-link :to="{ path: '/examples/styling'}">Styling</router-link>
-        we will see how to use this css classes in detail.
+        we will see how to use these css classes in detail.
       </p>
       <p>
         If a validation item holds the property <span class="code">disableAdd: true</span>,
