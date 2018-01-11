@@ -19,6 +19,12 @@
       <li>addTagsFromPaste</li>
       <li>deleteOnBackslash</li>
     </ul>
+    <!--
+      name: v-model
+      type: String
+      description: dadsada das das dasd adasd asd sd a
+      default: ''
+    -->
   </div>
 </template>
 

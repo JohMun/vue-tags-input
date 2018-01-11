@@ -33,6 +33,18 @@
     <p>
       And the slot named between-elements: Between tags and autocomplete -> maybe someone need it.
     </p>
+    <!--
+      SLOT PROPS
+
+      name: tag
+      type: Object
+      description: dadsada das das dasd adasd asd sd a
+      default: ''
+
+      name: performDelete
+      type: function
+
+    -->
   </div>
 </template>
 
