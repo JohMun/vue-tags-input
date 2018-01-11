@@ -70,15 +70,19 @@ export default {
       console.log(tag);
     },
     decideDeleting(obj) {
+      console.log(obj.tag);
       obj.deleteTag(true);
     },
     decideEdit(obj) {
+      console.log(obj.tag);
       obj.editTag(true);
     },
     decideAdding(obj) {
+      console.log(obj.tag);
       obj.addTag(true);
     },
     decideSaving(obj) {
+      console.log(obj.tag);
       obj.saveTag(true);
     },
     addInvalidOnPurpose(tag) {

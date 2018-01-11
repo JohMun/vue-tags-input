@@ -88,16 +88,13 @@ export default {
           route: '/docs/events',
         }, {
           label: 'Classes',
-          route: '',
-          disabled: true,
+          route: '/docs/classes',
         }, {
           label: 'Slots',
-          route: '',
-          disabled: true,
+          route: '/docs/slots',
         }, {
-          label: 'Ref',
-          route: '',
-          disabled: true,
+          label: 'Create Tags Helper',
+          route: '/docs/create-tags-helper',
         }],
       }, {
         label: 'Caveats',

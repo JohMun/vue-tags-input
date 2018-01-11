@@ -2,7 +2,8 @@
   <div class="examples-templates">
     <h1>Templating</h1>
     <p>
-      Explain what we see here. tags can be changed to some material icon definition e.g. reorder, work
+      Templates are a powerful tool to customize tags or autocomplete items.
+      <!-- sagen das material icon font verwendet wird -->
     </p>
     <vue-tags-input
       class="tags-input"
@@ -24,55 +25,126 @@
         slot="tagLeft"
         class="my-tag-left"
         slot-scope="props"
-        @click="props.performOpenEdit(props.index, props.tag)">
+        @click="props.performOpenEdit(props.index)">
         <i class="material-icons" :style="{ color: props.tag.iconColor }">
           {{props.tag.text}}
         </i>
       </div>
     </vue-tags-input>
-    <section>
-      <h2>Tags</h2>
-      <h3>Slots:</h3>
-      <span class="code">tagLeft</span>
-      <span class="code">tagRight</span>
-      <span class="code">tagActions</span>
-      <h3>Slot props</h3>
-      <ul>
-        <li><span class="code">tag - object</span></li>
-        <li><span class="code">index - number</span></li>
-        <li><span class="code">edit - boolean</span></li>
-        <li><span class="code">deletion-mark- boolean</span></li>
-        <li><span class="code">performDelete - function - expect: index, tag</span></li>
-        <li><span class="code">performOpenEdit - function - expect: index, tag</span></li>
-        <li><span class="code">performCancelEdit - function - expect: index, tag</span></li>
-        <li><span class="code">performSaveEdit - function - expect: index, tag</span></li>
-      </ul>
-    </section>
-    <section>
-      <h2>Automcomplete-items</h2>
-      <h3>Slots</h3>
-      <span class="code">autocompleteItem</span>
-      <h3>Slot props</h3>
-      <ul>
-        <li><span class="code">item - object</span></li>
-        <li><span class="code">index - number</span></li>
-        <li><span class="code">selected - boolean</span></li>
-        <li><span class="code">performAdd - function - expect: item</span></li>
-      </ul>
-    </section>
+    <el-code class="html">
+      <code>
+&lt;vue-tags-input
+  class=&quot;tags-input&quot;
+  v-model=&quot;tag&quot;
+  :tags=&quot;tags&quot;
+  :allow-edit-tags=&quot;true&quot;
+  @tags-changed=&quot;newTags =&gt; tags = newTags&quot;
+  :autocomplete-items=&quot;items&quot;&gt;
+  &lt;div
+    slot=&quot;autocompleteItem&quot;
+    class=&quot;my-item&quot;
+    slot-scope=&quot;props&quot;
+    @click=&quot;props.performAdd(props.item)&quot;&gt;
+    &lt;i class=&quot;material-icons&quot; :style=&quot;{ color: props.item.iconColor }&quot;&gt;
+      {{ tagText }}
+    &lt;/i&gt;{{ tagText }}
+  &lt;/div&gt;
+  &lt;div
+    slot=&quot;tagLeft&quot;
+    class=&quot;my-tag-left&quot;
+    slot-scope=&quot;props&quot;
+    @click=&quot;props.performOpenEdit(props.index)&quot;&gt;
+    &lt;i class=&quot;material-icons&quot; :style=&quot;{ color: props.tag.iconColor }&quot;&gt;
+      {{ itemText }}
+    &lt;/i&gt;
+  &lt;/div&gt;
+&lt;/vue-tags-input&gt;
+      </code>
+    </el-code>
+    <el-code class="javascript">
+      <code>
+/* Other stuff before, like template, import tagsinput ... */
+
+data() {
+  return {
+    tag: '',
+    tags: [],
+    icons: [{
+      text: 'done',
+      iconColor: '#086A87',
+    }, {
+      text: 'fingerprint',
+      iconColor: '#8A0886',
+    }, {
+      text: 'label',
+      iconColor: '#B43104',
+    }, {
+      text: 'pregnant_woman',
+    }, {
+      text: 'touch_app',
+      iconColor: '#AC58FA',
+    }, {
+      text: 'group_work',
+    }, {
+      text: 'pets',
+      iconColor: '#8A4B08',
+    }],
+  };
+},
+computed: {
+  items() {
+    return this.icons.filter(i => new RegExp(this.tag, 'i').test(i.text));
+  },
+},
+      </code>
+    </el-code>
+    <el-code class="css">
+      <code>
+.tags-input .input {
+  height: 48px;
+}
+
+.tags-input .tag.tag {
+  background-color: #F2F2F2;
+  color: #000;
+}
+
+.tags-input .tag-left {
+  margin-right: 2px;
+  width: 24px;
+}
+
+.tags-input .my-item, .tags-input  .my-tag-left {
+  display: flex;
+  align-items: center;
+}
+
+.tags-input  .my-item i {
+  margin-right: 5px;
+}
+
+.tags-input .deletion-mark {
+  background-color: #e54d42;
+}
+      </code>
+    </el-code>
   </div>
 </template>
 
 <script>
 import VueTagsInput from '../components/vue-tags-input';
+import ElCode from '../components/el-code';
 
 export default {
   name: 'ExamplesTemplates',
   components: {
     VueTagsInput,
+    ElCode,
   },
   data() {
     return {
+      itemText: '{{ props.item.text }}',
+      tagText: '{{ props.tag.text }}',
       tag: '',
       tags: [],
       icons: [{
@@ -108,34 +180,30 @@ export default {
 <style lang="scss">
 @import '~colors';
 .examples-templates {
-  .vue-tags-input .input {
+  .tags-input .input {
     height: 48px;
   }
 
-  .tag.tag {
+  .tags-input .tag.tag {
     background-color: #F2F2F2;
     color: #000;
   }
 
-  .tag-left {
+  .tags-input .tag-left {
     margin-right: 2px;
+    width: 24px;
   }
 
-  .my-item, .my-tag-left {
+  .tags-input .my-item, .tags-input  .my-tag-left {
     display: flex;
     align-items: center;
   }
 
-  .my-tag-left {
-    max-width: 24px;
-    width: 24px;
-  }
-
-  .my-item i {
+  .tags-input  .my-item i {
     margin-right: 5px;
   }
 
-  .deletion-mark.deletion-mark {
+  .tags-input .deletion-mark {
     background-color: $error;
   }
 }

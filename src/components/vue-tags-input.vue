@@ -27,7 +27,7 @@
             </div>
             <div class="tag-center">
               <span
-                @click="performEditTag(index, tag)"
+                @click="performEditTag(index)"
                 :class="{ hidden: tagsEditStatus[index] }">{{ tag.text }}</span>
               <input
                 type="text"
@@ -39,7 +39,7 @@
                 v-model="tag.text"
                 @input="createdChangedTag(index, tag)"
                 @blur="cancelEdit(index)"
-                @keydown.enter="performSaveTag(index, tag)"
+                @keydown.enter="performSaveTag(index)"
               />
             </div>
             <div
@@ -67,7 +67,7 @@
               class="icon-undo">
             </i>
             <i
-              @click="performDeleteTag(index, tag)"
+              @click="performDeleteTag(index)"
               v-if="!$scopedSlots.tagActions"
               v-show="!tagsEditStatus[index]"
               class="icon-close">
@@ -98,7 +98,7 @@
             :placeholder="placeholder"
             v-model="newTag"
             :maxlength="maxlength"
-            @keydown.enter="performAddTags(newTag, 'input')"
+            @keydown.enter="performAddTags(newTag)"
             @keydown.8="invokeDelete"
             @keydown.38="selectItem($event, 'before')"
             @keydown.40="selectItem($event, 'after')"
@@ -128,7 +128,7 @@
             { 'selected-item': isSelected(index) }
           ]">
           <div
-            @click="performAddTags(item, 'autocomplete')"
+            @click="performAddTags(item)"
             v-if="!$scopedSlots.autocompleteItem">{{ item.text }}
           </div>
           <slot
@@ -320,12 +320,12 @@ export default {
       if (!this.addTagsFromPaste) return;
       setTimeout(() => this.performAddTags(this.newTag), 10);
     },
-    performEditTag(index, tag) {
+    performEditTag(index) {
       if (!this.allowEditTags) return;
       if (!this._events['before-editing-tag']) this.editTag(index);
       this.$emit('before-editing-tag', {
         index,
-        tag,
+        tag: this.tagsCopy[index],
         editTag: (goOn) => this.editTag(index, goOn),
       });
     },
@@ -368,11 +368,11 @@ export default {
         return { text };
       });
     },
-    performDeleteTag(index, tag) {
+    performDeleteTag(index) {
       if (!this._events['before-deleting-tag']) this.deleteTag(index);
       this.$emit('before-deleting-tag', {
         index,
-        tag,
+        tag: this.tagsCopy[index],
         deleteTag: (goOn) => this.deleteTag(index, goOn),
       });
     },
@@ -416,12 +416,12 @@ export default {
       this.tagsCopy.push(tag);
       this.$emit('tags-changed', this.tagsCopy);
     },
-    performSaveTag(index, tag) {
-      if (!this._events['before-saving-tag']) this.saveTag(index, tag);
+    performSaveTag(index) {
+      if (!this._events['before-saving-tag']) this.saveTag(index, this.tagsCopy[index]);
       this.$emit('before-saving-tag', {
         index,
-        tag,
-        saveTag: (goOn) => this.saveTag(index, tag, goOn),
+        tag: this.tagsCopy[index],
+        saveTag: (goOn) => this.saveTag(index, this.tagsCopy[index], goOn),
       });
     },
     saveTag(index, tag, goOn) {
