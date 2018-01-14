@@ -25,22 +25,39 @@
                 :deletion-mark="isMarked(index)">
               </slot>
             </div>
-            <div class="tag-center">
+            <div class="tag-center" ref="tagCenter">
               <span
                 @click="performEditTag(index)"
+                v-if="!$scopedSlots.tagCenter"
                 :class="{ hidden: tagsEditStatus[index] }">{{ tag.text }}</span>
-              <input
-                type="text"
-                class="tag-input"
-                v-if="tagsEditStatus[index]"
+              <tag-input
+                v-if="!$scopedSlots.tagCenter"
+                :scope="{
+                  edit: tagsEditStatus[index],
+                  maxlength,
+                  tag,
+                  index,
+                  createdChangedTag,
+                  cancelEdit,
+                  performSaveTag,
+                }">
+              </tag-input>
+              <slot
+                class="tag-center-slot"
+                name="tagCenter"
+                :tag="tag"
+                :index="index"
                 :maxlength="maxlength"
-                size="1"
-                ref="tagInput"
-                v-model="tag.text"
-                @input="createdChangedTag(index, tag)"
-                @blur="cancelEdit(index)"
-                @keydown.enter="performSaveTag(index)"
-              />
+                :edit="tagsEditStatus[index]"
+                :perform-save-edit="performSaveTag"
+                :perform-delete="performDeleteTag"
+                :perform-cancel-edit="cancelEdit"
+                :created-changed-tag="createdChangedTag"
+                :cancel-edit="cancelEdit"
+                :perform-save-tag="performSaveTag"
+                :perform-open-edit="performEditTag"
+                :deletion-mark="isMarked(index)">
+              </slot>
             </div>
             <div
               v-if="$scopedSlots.tagRight"
@@ -147,6 +164,7 @@
 
 <script>
 import { createTags, createTag, createClasses } from './create-tags';
+import TagInput from './tag-input';
 
 const propValidatorTag = value => {
   return !value.some(t => {
@@ -163,6 +181,9 @@ const propValidatorTag = value => {
 
 export default {
   name: 'VueTagsInput',
+  components: {
+    TagInput,
+  },
   props: {
     value: {
       type: String,
@@ -332,7 +353,7 @@ export default {
     editTag(index, goOn) {
       if (!this.allowEditTags || goOn === false) return;
       this.toggleEdit(index);
-      this.focus();
+      this.focus(index);
     },
     toggleEdit(index) {
       if (!this.allowEditTags || this.disabled) return;
@@ -344,8 +365,11 @@ export default {
     createdChangedTag(index, tag) {
       this.$set(this.tagsCopy, index, createTag(tag, this.tags, this.validation, true));
     },
-    focus() {
-      this.$nextTick(() => this.$refs.tagInput[0].focus());
+    focus(index) {
+      this.$nextTick(() => {
+        const el = this.$refs.tagCenter[index].querySelector('input.tag-input');
+        if (el) el.focus();
+      });
     },
     quote(regex) {
       return regex.replace(/([()[{*+.$^\\|?])/g, '\\$1');
@@ -595,22 +619,6 @@ input[disabled] {
   }
 }
 
-.tag-input {
-  background-color: transparent;
-  color: inherit;
-  border: none;
-  padding: 0px;
-  margin: 0px;
-  display: flex;
-  top: 0px;
-  position: absolute;
-  width: 100%;
-}
-
-.tag-input::-ms-clear {
-  display: none;
-}
-
 .new-tag-input-wrapper {
   display: flex;
   flex: 1 0 auto;
@@ -648,4 +656,25 @@ input[disabled] {
   background-color: $primary;
   color: #fff;
 }
+</style>
+
+<style lang="scss">
+.vue-tags-input .tag-center {
+  .tag-input {
+    background-color: transparent;
+    color: inherit;
+    border: none;
+    padding: 0px;
+    margin: 0px;
+    display: flex;
+    top: 0px;
+    position: absolute;
+    width: 100%;
+  }
+
+  .tag-input::-ms-clear {
+    display: none;
+  }
+}
+
 </style>
