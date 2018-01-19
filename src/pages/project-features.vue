@@ -40,7 +40,7 @@
         <span>Android 4.4 +</span>
       </div>
       <div>
-        <img src="https://cdnjs.cloudflare.com/ajax/libs/browser-logos/45.1.0/archive/chrome_1-11/chrome_1-11_48x48.png" />
+        <img src="https://cdnjs.cloudflare.com/ajax/libs/browser-logos/45.2.0/chrome/chrome_48x48.png" />
         <span>Chrome <i class="material-icons">check</i></span>
       </div>
       <div>
@@ -123,6 +123,7 @@ export default {
         'Animation support',
         'addOnKey="Some Keycode"',
         'Autocomplete Highlighting',
+        'Groups',
       ],
     };
   },

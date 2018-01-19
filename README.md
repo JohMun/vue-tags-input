@@ -9,7 +9,7 @@ A tags input component for VueJs with autocompletion, custom validation, templat
 * No dependencies
 * Custom validation rules
 * Hooks: Before adding, Before deleting ...
-* Edit tags after creation (click me)
+* Edit tags after creation
 * Fast setup
 * Works with Vuex
 * Small size: 25kb minified | gzipped 8kb

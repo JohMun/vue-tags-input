@@ -1,36 +1,99 @@
 <template lang="html">
   <div class="docs-props">
     <ul>
-      <li>v-model</li>
-      <li>tags</li>
-      <li>autocompleteItems</li>
-      <li>allowEditTags</li>
-      <li>autocompleteFilterDuplicates</li>
-      <li>addOnlyFromAutocomplete</li>
-      <li>autocompleteMinLength</li>
-      <li>autocompleteAlwaysOpen</li>
-      <li>disabled</li>
-      <li>placeholder</li>
-      <li>maxTags</li>
-      <li>maxlength</li>
-      <li>validation</li>
-      <li>separators</li>
-      <li>avoidAddingDuplicates</li>
-      <li>addTagsFromPaste</li>
-      <li>deleteOnBackslash</li>
+      <div class="docs-item" v-for="(p, index) in props" :key="index">
+        <docs-item :item="p"></docs-item>
+      </div>
     </ul>
-    <!--
-      name: v-model
-      type: String
-      description: dadsada das das dasd adasd asd sd a
-      default: ''
-    -->
   </div>
 </template>
 
 <script>
+import DocsItem from '../components/docs-item';
+
 export default {
   name: 'DocsProps',
+  components: {
+    DocsItem,
+  },
+  data() {
+    return {
+      props: [{
+        name: 'v-model',
+        type: 'String',
+        required: 'true',
+      }, {
+        name: 'tags',
+        type: 'Array',
+        required: 'true',
+        // schreiben wie ein tag aufgebaut sein muss und welche extra props er haben kann
+      }, {
+        name: 'autocompleteItems',
+        type: 'Array',
+        default: '[]',
+        // schreiben wie ein item aufgebaut sein muss und welche extra props es haben kann
+      }, {
+        name: 'allowEditTags',
+        type: 'Boolean',
+        default: 'false',
+      }, {
+        name: 'autocompleteFilterDuplicates',
+        type: 'Boolean',
+        default: 'true',
+      }, {
+        name: 'addOnlyFromAutocomplete',
+        type: 'Boolean',
+        default: 'false',
+      }, {
+        name: 'autocompleteMinLength',
+        type: 'Number',
+        default: '1',
+      }, {
+        name: 'autocompleteAlwaysOpen',
+        type: 'Boolean',
+        default: 'false',
+      }, {
+        name: 'disabled',
+        type: 'Boolean',
+        default: 'false',
+      }, {
+        name: 'placeholder',
+        type: 'String',
+        default: 'Add Tag',
+      }, {
+        name: 'maxTags',
+        type: 'Number',
+      }, {
+        name: 'maxlength',
+        type: 'Number',
+      }, {
+        name: 'validation',
+        type: 'Array',
+        default: '[]',
+        // schreiben wie validation aufgebaut sein muss und welche extra props es haben kann
+      }, {
+        name: 'separators',
+        type: 'Array',
+        default: '[";"]',
+      }, {
+        name: 'avoidAddingDuplicates',
+        type: 'Boolean',
+        default: 'true',
+      }, {
+        name: 'addOnBlur',
+        type: 'Boolean',
+        default: 'true',
+      }, {
+        name: 'addFromPaste',
+        type: 'Boolean',
+        default: 'true',
+      }, {
+        name: 'deleteOnBackslash',
+        type: 'Boolean',
+        default: 'true',
+      }],
+    };
+  },
 };
 </script>
 

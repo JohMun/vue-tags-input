@@ -7,7 +7,7 @@ export default {
     v-if="scope.edit"
     :maxlength="scope.maxlength"
     size="1"
-    @input="scope.createdChangedTag(scope.index, scope.tag)"
+    @input="scope.validateTag(scope.index)"
     @blur="scope.cancelEdit(scope.index)"
     @keydown.enter="scope.performSaveTag(scope.index)"
   />`,

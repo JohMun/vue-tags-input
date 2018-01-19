@@ -1,6 +1,7 @@
 <template lang="html">
   <div class="examples-templates">
     <h1>Templating</h1>
+    <h2>Slot: tagLeft & autocompleteItem</h2>
     <p>
       Templates are a powerful tool to customize tags or autocomplete items.
       <!-- sagen das material icon font verwendet wird -->
@@ -128,7 +129,7 @@ computed: {
 }
       </code>
     </el-code>
-    <h2>Slot: tagCenter - select</h2>
+    <h2>Slot: tagCenter (experimental) with select</h2>
     <vue-tags-input
       class="tags-input-2"
       v-model="example2.tag"
@@ -145,7 +146,7 @@ computed: {
         <div class="inputs" v-else>
           <select
             v-model="props.tag.text"
-            @change="props.createdChangedTag(props.index, props.tag)">
+            @change="props.validateTag(props.index, props.tag)">
             <option v-for="(animal, index) in animals" :key="index">{{ animal }}</option>
           </select>
           <i class="material-icons" @click="props.performSaveTag(props.index)">check</i>
@@ -171,7 +172,7 @@ computed: {
     &lt;div class=&quot;inputs&quot; v-else&gt;
       &lt;select
         v-model=&quot;props.tag.text&quot;
-        @change=&quot;props.createdChangedTag(props.index, props.tag)&quot;&gt;
+        @change=&quot;props.validateTag(props.index, props.tag)&quot;&gt;
         &lt;option v-for=&quot;(animal, index) in animals&quot; :key=&quot;index&quot;&gt;{{ example2.animal }}&lt;/option&gt;
       &lt;/select&gt;
       &lt;i class=&quot;material-icons&quot; @click=&quot;props.performSaveTag(props.index)&quot;&gt;check&lt;/i&gt;
@@ -214,7 +215,7 @@ computed: {
 }
       </code>
     </el-code>
-    <h2>Slot: tagCenter - input helper</h2>
+    <h2>Slot: tagCenter (experimental) with input helper</h2>
     <p>
       This is the default behaviour recreated with the slot.
       The component <span class="code">tag-input</span> is a helper to fastly build
@@ -239,7 +240,7 @@ computed: {
     </el-code>
     <el-code class="javascript">
       <code>
-import TagInput from '../components/tag-input';
+import { TagInput } from '@johmun/vue-tags-input';
 
 export default {
   components: {

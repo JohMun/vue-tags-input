@@ -1,27 +1,51 @@
 import { Selector } from 'testcafe';
 
+// checking the default options for a simple tagsinput
+
 fixture `Getting Started`
   .page('http://localhost:3000/#/start');
-
-const lastTag = Selector('.getting-started .vue-tags-input .tags li:last-child span');
 
 test('test basic functions', async t => {
   await t
     .typeText(Selector('.getting-started .vue-tags-input .new-tag-input'), 'e2eTag')
     .pressKey('enter')
-    .expect(Selector('.getting-started .vue-tags-input .tags li').count).eql(1)
-    .expect(lastTag.innerText).eql('e2eTag');
+    .expect(Selector('.getting-started .vue-tags-input .tags li').count).eql(2)
+    .expect(Selector('.getting-started .vue-tags-input .tag:nth-child(1) span')
+      .textContent).eql('e2eTag');
 
   // add second tag
   await t
     .typeText(Selector('.getting-started .vue-tags-input .new-tag-input'), 'e2eTag 2')
     .pressKey('enter')
-    .expect(Selector('.getting-started .vue-tags-input .tags li').count).eql(2)
-    .expect(lastTag.innerText).eql('e2eTag 2');
+    .expect(Selector('.getting-started .vue-tags-input .tags li').count).eql(3)
+    .expect(Selector('.getting-started .vue-tags-input .tag:nth-child(2) span')
+      .innerText).eql('e2eTag 2');
 
   // delete first tag
   await t
-    .click(Selector('.getting-started .tags:nth-child(1) .actions .delete'))
-    .expect(Selector('.getting-started .vue-tags-input .tags li').count).eql(1)
-    .expect(lastTag.innerText).eql('e2eTag 2');
+    .click(Selector('.getting-started .tag:nth-child(1) .actions .icon-close'))
+    .expect(Selector('.getting-started .vue-tags-input .tags li').count).eql(2)
+    .expect(Selector('.getting-started .vue-tags-input .tag:nth-child(1) span')
+      .innerText).eql('e2eTag 2');
+
+  // add tag on blur
+  await t
+    .typeText(Selector('.getting-started .vue-tags-input .new-tag-input'), 'e2eTag 3')
+    .click(Selector('.getting-started h1'))
+    .expect(Selector('.getting-started .vue-tags-input .tags li').count).eql(3)
+    .expect(Selector('.getting-started .vue-tags-input .tag:nth-child(2) span')
+      .innerText).eql('e2eTag 3');
+
+  // delete last tag on backslash
+  await t
+    .click(Selector('.getting-started .vue-tags-input .new-tag-input'))
+    .pressKey('backspace')
+    .expect(Selector('.getting-started .vue-tags-input .tag:nth-child(2)')
+      .hasClass('deletion-mark')).eql(true)
+    .wait(2000)
+    .expect(Selector('.getting-started .vue-tags-input .tag:nth-child(2)')
+      .hasClass('deletion-mark')).eql(false)
+    .pressKey('backspace')
+    .pressKey('backspace')
+    .expect(Selector('.getting-started .vue-tags-input .tags li').count).eql(2);
 });

@@ -3,7 +3,7 @@
     import helper functions and VueTagsInput
     <el-code class="javascript">
       <code>
-        import { VueTagsInput, createTag, createTags } from '@johmun/vue-tags-input';
+import { VueTagsInput, createTag, createTags } from '@johmun/vue-tags-input';
       </code>
     </el-code>
     // auf $ref und performAddTag hinweisen

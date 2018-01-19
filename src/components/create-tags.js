@@ -8,9 +8,11 @@ const validateUserRules = (text, validation) => {
     .map(val => val.type);
 };
 
-const createClasses = (text, tags, validation, checkDuplicatesFromInside) => {
+const createClasses = (text, tags, validation, checkFromInside) => {
+  if (!validation) validation = [];
+  if (checkFromInside === undefined) checkFromInside = true;
   const classes = validateUserRules(text, validation);
-  if (checkDuplicatesFromInside) {
+  if (checkFromInside) {
     if (tags.filter(t => t.text === text).length > 1) classes.push('duplicate');
   } else {
     if (tags.map(t => t.text).includes(text)) classes.push('duplicate');
@@ -19,15 +21,15 @@ const createClasses = (text, tags, validation, checkDuplicatesFromInside) => {
   return classes;
 };
 
-const createTag = (tag, tags, validation, checkDuplicatesFromTags) => {
+const createTag = (tag, tags, validation, checkFromInside) => {
   if (tag.text === undefined) tag = { text: tag };
   const t = clone(tag);
-  t.tiClasses = createClasses(t.text, tags, validation, checkDuplicatesFromTags);
+  t.tiClasses = createClasses(t.text, tags, validation, checkFromInside);
   return t;
 };
 
-const createTags = (tags, validation, checkDuplicatesFromTags) => {
-  return tags.map(t => createTag(t, tags, validation, checkDuplicatesFromTags));
+const createTags = (tags, validation, checkFromInside) => {
+  return tags.map(t => createTag(t, tags, validation, checkFromInside));
 };
 
 export {

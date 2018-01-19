@@ -7,6 +7,7 @@ fixture `Getting Started`
 
 test('Move to page "Getting Started"', async t => {
   await t
+    .resizeWindow(1280, 1024)
     .click(Selector('.el-navbar .nav-items li').withText('Getting Started'));
 
   await t

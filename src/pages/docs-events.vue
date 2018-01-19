@@ -1,17 +1,6 @@
 <template lang="html">
   <div class="docs-events">
     <ul>
-      <li>tag-clicked</li>
-      <li>tags-changed</li>
-      <li>saving-duplicate</li>
-      <li>adding-duplicate</li>
-      <li>max-tags-reached</li>
-      <li>before-adding-tag</li>
-      <li>before-editing-tag</li>
-      <li>before-deleting-tag</li>
-      <li>before-saving-tag</li>
-    </ul>
-    <ul>
       <div class="docs-item" v-for="(e, index) in events" :key="index">
         <docs-item :item="e"></docs-item>
       </div>
@@ -30,24 +19,62 @@ export default {
   data() {
     return {
       events: [{
+        name: 'tag-clicked',
+        type: 'Event',
+        parameters: [{
+          type: 'Object',
+          name: 'tag',
+        }, {
+          type: 'Number',
+          name: 'index',
+        }],
+      }, {
+        name: 'tags-changed',
+        type: 'Event',
+        parameters: [{
+          type: 'Array',
+          name: 'tags',
+        }],
+      }, {
+        name: 'saving-duplicate',
+        type: 'Event',
+        parameters: [{
+          type: 'Object',
+          name: 'tag',
+        }],
+      }, {
+        name: 'adding-duplicate',
+        type: 'Event',
+      }, {
+        name: 'max-tags-reached',
+        type: 'Event',
+      }, {
         name: 'before-adding-tag',
         type: 'Event / Hook',
-        description: `Lorem ipsum dolor sit amet, consetetur sadipscing elitr,
-          sed diam nonumy eirmod tempor invidunt`,
+        description: 'Lorem ipsum dolor sit amet ...',
         parameters: [{
-          index: 0,
           type: 'Object',
-          description: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr',
         }],
       }, {
         name: 'before-editing-tag',
         type: 'Event / Hook',
-        description: `Lorem ipsum dolor sit amet, consetetur sadipscing elitr,
-          sed diam nonumy eirmod tempor invidunt`,
+        description: 'Lorem ipsum dolor sit amet ...',
         parameters: [{
-          index: 1,
           type: 'Object',
-          description: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr',
+        }],
+      }, {
+        name: 'before-deleting-tag',
+        type: 'Event / Hook',
+        description: 'Lorem ipsum dolor sit amet ...',
+        parameters: [{
+          type: 'Object',
+        }],
+      }, {
+        name: 'before-saving-tag',
+        type: 'Event / Hook',
+        description: 'Lorem ipsum dolor sit amet ...',
+        parameters: [{
+          type: 'Object',
         }],
       }],
     };

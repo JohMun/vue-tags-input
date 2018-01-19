@@ -3,6 +3,7 @@
     <div class="input">
       <ul class="tags" v-if="tagsCopy">
         <li
+          :tabindex="index + 1"
           v-for="(tag, index) in tagsCopy"
           :key="index"
           class="tag"
@@ -37,7 +38,7 @@
                   maxlength,
                   tag,
                   index,
-                  createdChangedTag,
+                  validateTag: createChangedTag,
                   cancelEdit,
                   performSaveTag,
                 }">
@@ -52,7 +53,7 @@
                 :perform-save-edit="performSaveTag"
                 :perform-delete="performDeleteTag"
                 :perform-cancel-edit="cancelEdit"
-                :created-changed-tag="createdChangedTag"
+                :validate-tag="createChangedTag"
                 :cancel-edit="cancelEdit"
                 :perform-save-tag="performSaveTag"
                 :perform-open-edit="performEditTag"
@@ -111,11 +112,11 @@
             type="text"
             size="1"
             ref="newTagInput"
-            @paste="addFromPaste"
+            @paste="addTagsFromPaste"
             :placeholder="placeholder"
             v-model="newTag"
             :maxlength="maxlength"
-            @keydown.enter="performAddTags(newTag)"
+            @keydown.enter="performAddTags(filteredAutocompleteItems[selectedItem] || newTag)"
             @keydown.8="invokeDelete"
             @keydown.38="selectItem($event, 'before')"
             @keydown.40="selectItem($event, 'after')"
@@ -274,7 +275,11 @@ export default {
       type: Boolean,
       default: true,
     },
-    addTagsFromPaste: {
+    addOnBlur: {
+      type: Boolean,
+      default: true,
+    },
+    addFromPaste: {
       type: Boolean,
       default: true,
     },
@@ -303,7 +308,9 @@ export default {
         this.focused;
     },
     filteredAutocompleteItems() {
-      const items = this.autocompleteItems.map(i => createTag(i, this.tags, this.validation));
+      const items = this.autocompleteItems.map(i => {
+        return createTag(i, this.tags, this.validation, false);
+      });
       if (!this.autocompleteFilterDuplicates) return items;
       return items.filter(i => !this.tagsCopy.find(t => t.text === i.text));
     },
@@ -337,8 +344,8 @@ export default {
         this.deletionMark = lastIndex;
       } else this.performDeleteTag(lastIndex);
     },
-    addFromPaste() {
-      if (!this.addTagsFromPaste) return;
+    addTagsFromPaste() {
+      if (!this.addFromPaste) return;
       setTimeout(() => this.performAddTags(this.newTag), 10);
     },
     performEditTag(index) {
@@ -362,8 +369,9 @@ export default {
     clone(items) {
       return JSON.parse(JSON.stringify(items));
     },
-    createdChangedTag(index, tag) {
-      this.$set(this.tagsCopy, index, createTag(tag, this.tags, this.validation, true));
+    createChangedTag(index) {
+      const tags = this.tagsCopy;
+      this.$set(this.tagsCopy, index, createTag(tags[index], tags, this.validation));
     },
     focus(index) {
       this.$nextTick(() => {
@@ -376,7 +384,7 @@ export default {
     },
     cancelEdit(index) {
       this.tagsCopy[index] = Object.assign({},
-        createTag(this.tags[index], this.tags, this.validation, true)
+        createTag(this.tags[index], this.tags, this.validation)
       );
       this.$set(this.tagsEditStatus, index, false);
     },
@@ -409,12 +417,13 @@ export default {
       this.$emit('tags-changed', this.tagsCopy);
     },
     performAddTags(tag) {
+      if (this.disabled) return;
+      if (typeof tag === 'string' && tag.length === 0) return;
       let tags = [];
       if (typeof tag === 'object') tags = [tag];
       if (typeof tag === 'string') tags = this.createTagTexts(tag);
-      if (this.selectedItem !== null) tags = [this.filteredAutocompleteItems[this.selectedItem]];
       tags.forEach(tag => {
-        tag = createTag(tag, this.tags, this.validation);
+        tag = createTag(tag, this.tags, this.validation, false);
         if (!this._events['before-adding-tag']) this.addTag(tag);
         this.$emit('before-adding-tag', {
           tag,
@@ -423,13 +432,11 @@ export default {
       });
     },
     addTag(tag, goOn) {
-      if (tag.text.length === 0) return;
       if (goOn === false) return;
-      if (this.disabled) return;
       const options = this.filteredAutocompleteItems.map(i => i.text);
       if (this.addOnlyFromAutocomplete && !options.includes(tag.text)) return;
       const maximumReached = this.maxTags && this.maxTags === this.tagsCopy.length;
-      if (maximumReached) return this.$emit('max-tags-reached', tag);
+      if (maximumReached) return this.$emit('max-tags-reached');
       const dup = this.avoidAddingDuplicates && this.tagsCopy.map(t => t.text).includes(tag.text);
       if (dup) return this.$emit('adding-duplicate', tag);
       if (!tag.valid && this.hasForbiddingAddRule(tag.tiClasses)) return;
@@ -441,15 +448,17 @@ export default {
       this.$emit('tags-changed', this.tagsCopy);
     },
     performSaveTag(index) {
-      if (!this._events['before-saving-tag']) this.saveTag(index, this.tagsCopy[index]);
+      const tag = this.tagsCopy[index];
+      if (this.disabled) return;
+      if (tag.text.length === 0) return;
+      if (!this._events['before-saving-tag']) this.saveTag(index, tag);
       this.$emit('before-saving-tag', {
         index,
-        tag: this.tagsCopy[index],
-        saveTag: (goOn) => this.saveTag(index, this.tagsCopy[index], goOn),
+        tag,
+        saveTag: (goOn) => this.saveTag(index, tag, goOn),
       });
     },
     saveTag(index, tag, goOn) {
-      if (tag.text.length === 0) return;
       if (goOn === false) return;
       const dup = this.avoidAddingDuplicates && this.tags.map(t => t.text).includes(tag.text);
       if (dup) return this.$emit('saving-duplicate', tag);
@@ -464,7 +473,7 @@ export default {
       this.$emit('input', value);
     },
     initTags() {
-      this.tagsCopy = createTags(this.tags, this.validation, true);
+      this.tagsCopy = createTags(this.tags, this.validation);
       this.tagsEditStatus = this.clone(this.tags).map(() => false);
     },
   },
@@ -490,7 +499,10 @@ export default {
     this.initTags();
   },
   mounted() {
-    document.addEventListener('click', () => this.focused = false);
+    document.addEventListener('click', () => {
+      if (this.addOnBlur) this.performAddTags(this.newTag);
+      this.focused = false;
+    });
     this.$el.addEventListener('click', event => event.stopPropagation());
   },
 };
@@ -584,6 +596,10 @@ input[disabled] {
   margin: 2px;
   font-size: .85em;
 
+  &:focus {
+    outline: none;
+  }
+
   .content {
     display: flex;
     align-items: center;
@@ -594,7 +610,7 @@ input[disabled] {
   }
 
   span.hidden {
-    padding-left: 15px;
+    padding-left: 16px;
     visibility: hidden;
     height: 0px;
   }
@@ -603,7 +619,7 @@ input[disabled] {
     margin-left: 2px;
     display: flex;
     align-items: center;
-    font-size: 1.2em;
+    font-size: 1.15em;
 
     i {
       cursor: pointer;
