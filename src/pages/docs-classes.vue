@@ -1,10 +1,10 @@
 <template lang="html">
   <div class="docs-classes">
     <ul>
-      <li>duplicate</li>
-      <li>deletion-mark</li>
-      <li>valid</li>
-      <li>invalid</li>
+      <li><span class="code">duplicate</span></li>
+      <li><span class="code">deletion-mark</span></li>
+      <li><span class="code">valid</span></li>
+      <li><span class="code">invalid</span></li>
     </ul>
   </div>
 </template>

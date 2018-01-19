@@ -264,7 +264,7 @@ export default {
     flex: 1 0 auto;
 
     ul {
-      transition: transform .3s ease-in-out;
+      transition: transform .2s ease-in-out;
     }
 
     li {

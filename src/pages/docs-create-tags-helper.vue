@@ -6,7 +6,7 @@
 import { VueTagsInput, createTag, createTags } from '@johmun/vue-tags-input';
       </code>
     </el-code>
-    // auf $ref und performAddTag hinweisen
+    <!-- auf $ref und performAddTag hinweisen -->
   </div>
 </template>
 

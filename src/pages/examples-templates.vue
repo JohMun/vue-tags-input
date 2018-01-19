@@ -233,7 +233,7 @@ computed: {
       @click=&quot;props.performOpenEdit(props.index)&quot;
       :class=&quot;{ hidden: props.edit }&quot;&gt;{{ example2.tagText }}
     &lt;/span&gt;
-    &lt;tag-input :scope=&quot;props&quot; /&gt;
+    &lt;tag-input :scope=&quot;props&quot; v-if=&quot;props.edit&quot; /&gt;
   &lt;/div&gt;
 &lt;/vue-tags-input&gt;
       </code>

@@ -107,7 +107,7 @@
         <li class="new-tag-input-wrapper">
           <input
             class="new-tag-input"
-            :class="[createClasses(newTag, tags, validation)]"
+            :class="[createClasses(newTag, tags, validation, false)]"
             v-bind="$attrs"
             type="text"
             size="1"
@@ -476,6 +476,13 @@ export default {
       this.tagsCopy = createTags(this.tags, this.validation);
       this.tagsEditStatus = this.clone(this.tags).map(() => false);
     },
+    blurred() {
+      if (this.addOnBlur) this.performAddTags(this.newTag);
+      this.focused = false;
+    },
+    stopPropagation(event) {
+      event.stopPropagation();
+    },
   },
   watch: {
     value(newValue){
@@ -499,11 +506,12 @@ export default {
     this.initTags();
   },
   mounted() {
-    document.addEventListener('click', () => {
-      if (this.addOnBlur) this.performAddTags(this.newTag);
-      this.focused = false;
-    });
-    this.$el.addEventListener('click', event => event.stopPropagation());
+    document.addEventListener('click', this.blurred);
+    this.$el.addEventListener('click', this.stopPropagation);
+  },
+  destroyed() {
+    document.removeEventListener('click', this.blurred);
+    this.$el.removeEventListener('click', this.stopPropagation);
   },
 };
 </script>
@@ -564,6 +572,7 @@ input[disabled] {
 .vue-tags-input {
   max-width: 450px;
   position: relative;
+  background-color: #fff;
 }
 
 .vue-tags-input.vue-tags-input.disabled {
@@ -615,7 +624,7 @@ input[disabled] {
     height: 0px;
   }
 
-  .actions{
+  .actions {
     margin-left: 2px;
     display: flex;
     align-items: center;
@@ -648,7 +657,6 @@ input[disabled] {
     border: none;
     padding: 0px;
     margin: 0px;
-    background-color: #fff;
   }
 }
 
@@ -690,6 +698,14 @@ input[disabled] {
 
   .tag-input::-ms-clear {
     display: none;
+  }
+
+  input:focus {
+    outline: none;
+  }
+
+  input[disabled] {
+    background-color: transparent;
   }
 }
 
