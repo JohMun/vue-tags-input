@@ -17,23 +17,23 @@
         <li><span class="code">performCancelEdit - function - expect: index</span></li>
         <li><span class="code">performSaveEdit - function - expect: index</span></li>
       </ul>
-      <h2>Slot:</h2>
-      <span class="code">tagCenter (experimental)</span>
+      <h2>Slot: (experimental)</h2>
+      <span class="code">tagCenter</span>
       <h3>Slot props</h3>
       <ul>
         <li><span class="code">tag - object</span></li>
         <li><span class="code">index - number</span></li>
-        <li><span class="code">edit</span></li>
-        <li><span class="code">maxlength</span></li>
+        <li><span class="code">edit - boolean</span></li>
+        <li><span class="code">maxlength - number</span></li>
         <li><span class="code">deletion-mark- boolean</span></li>
         <li><span class="code">performDelete - function - expect: index</span></li>
         <li><span class="code">performOpenEdit - function - expect: index</span></li>
         <li><span class="code">performCancelEdit - function - expect: index</span></li>
         <li><span class="code">performSaveEdit - function - expect: index</span></li>
-        <li><span class="code">validateTag</span></li>
-        <li><span class="code">cancelEdit</span></li>
+        <li><span class="code">validateTag - function - expect: index</span></li>
+        <li><span class="code">cancelEdit - function - expect: index</span></li>
       </ul>
-      <p>Explain tag-input component</p>
+      <!--<p>Explain tag-input component</p>-->
     </section>
     <section>
       <h1>Automcomplete-items</h1>
@@ -48,7 +48,9 @@
       </ul>
     </section>
     <p class="other-slots">
-      And the slot named between-elements: Between tags and autocomplete -> maybe someone need it.
+      And the slot <span class="code">between-elements</span>
+      is positioned between the tags and the autocomplete layer.
+      Maybe someone needs it.
     </p>
     <!--
       SLOT PROPS

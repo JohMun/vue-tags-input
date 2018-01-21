@@ -18,7 +18,7 @@
           </li>
         </ul>
         <p>
-          CSS Classes which are added from tag input:
+          CSS Classes which are added from tags input:
         </p>
         <ul>
           <li>

@@ -3,14 +3,15 @@
     <h1>Hooks</h1>
     <p>
       The tags input component provides different hooks.
-      Callback functions can be registered, to control the behaviour of tags input.
+      A callback function can be registered, to control the behaviour of tags input.
       For example <span class="code">@before-adding-tag="myCallback"</span>.
-      Before a tag will be added, the function <span class="code">myCallback</span> is invoked
+      Before a tag is added, the function <span class="code">myCallback</span> is invoked
       and gets an object as paramter. The object contains the properties
       <span class="code">tag</span>, which is the to adding tag and a function named
-      <span class="code">addTag</span>. If these funcion is invoked,
+      <span class="code">addTag</span>. If this funcion is invoked,
       <span class="code">tag</span> will be added.
-      You find more information here (link docs), how the other hooks work.
+      You find more information in the <a @click="$router.push({ path: '/docs/events' })">documentations</a>,
+      how the other hooks work.
     </p>
     <section>
       <h2>Example 1</h2>
@@ -19,7 +20,8 @@
         in <span class="code">handler</span>, when the
         <span class="code">before-adding-tag</span> hook fires.
         If <span class="code">handler</span> is not <span class="code">null</span>,
-        we show two buttons. The "Add" button invokes the saved function on click and add the tag.
+        we show two buttons. The "Add" button invokes the saved function on click
+        and the tag will be added.
       </p>
       <vue-tags-input
          v-model="example1.tag"
@@ -154,6 +156,10 @@ export default {
 span, p {
   line-height: 1.5em;
   max-width: 900px;
+}
+
+a {
+  text-decoration: underline;
 }
 
 .actions {

@@ -2,9 +2,47 @@
   <div class="examples-templates">
     <h1>Templating</h1>
     <h2>Slot: tagLeft & autocompleteItem</h2>
+    <div class="tag-picture">
+      <div class="tag">
+        <div class="tag-left">
+          <span class="code">tagLeft</span>
+        </div>
+        <div class="tag-center">
+          <span class="code">tagCenter</span>
+          <span>Contains: text & input</span>
+          <span>| experimental |</span>
+        </div>
+        <div class="tag-right">
+          <span class="code">tagRight</span>
+        </div>
+        <div class="tag-actions">
+          <span class="code">tagActions</span>
+          <span>
+            Contains:
+            <i class="material-icons">undo</i>
+            <i class="material-icons">clear</i>
+          </span>
+        </div>
+      </div>
+      <div class="description">All possible slots in a tag</div>
+    </div>
     <p>
-      Templates are a powerful tool to customize tags or autocomplete items.
-      <!-- sagen das material icon font verwendet wird -->
+      Templates are a powerful tool to customize tags input even more.
+      In this example we use the slots
+      <span class="code">tagLeft</span> and
+      <span class="code">autocompleteItem</span> to insert
+      <a href="https://material.io/icons/" target="_blanc">material icons</a>
+      beside each tag and autocomplete item.
+      The property <span class="code">allow-edit-tags</span> is set to <span class="code">true</span>,
+      to enable editing tags after creation.
+      <!-- erklären welche props in den scope gelangen -->
+    </p>
+    <p>
+      Via <span class="code">slot-scope</span> we access some properties and helper functions.
+      The automcomplete item slot for example, gets the <span class="code">performAdd</span>
+      function, which add a new tag to the collection by passing an index.
+      You can read the <a @click="$router.push({ path: '/docs/slots' })">documentations</a>
+      for further information.
     </p>
     <vue-tags-input
       class="tags-input-1"
@@ -146,7 +184,7 @@ computed: {
         <div class="inputs" v-else>
           <select
             v-model="props.tag.text"
-            @change="props.validateTag(props.index, props.tag)">
+            @change="props.validateTag(props.index)">
             <option v-for="(animal, index) in animals" :key="index">{{ animal }}</option>
           </select>
           <i class="material-icons" @click="props.performSaveTag(props.index)">check</i>
@@ -172,7 +210,7 @@ computed: {
     &lt;div class=&quot;inputs&quot; v-else&gt;
       &lt;select
         v-model=&quot;props.tag.text&quot;
-        @change=&quot;props.validateTag(props.index, props.tag)&quot;&gt;
+        @change=&quot;props.validateTag(props.index)&quot;&gt;
         &lt;option v-for=&quot;(animal, index) in animals&quot; :key=&quot;index&quot;&gt;{{ example2.animal }}&lt;/option&gt;
       &lt;/select&gt;
       &lt;i class=&quot;material-icons&quot; @click=&quot;props.performSaveTag(props.index)&quot;&gt;check&lt;/i&gt;
@@ -217,9 +255,10 @@ computed: {
     </el-code>
     <h2>Slot: tagCenter (experimental) with input helper</h2>
     <p>
-      This is the default behaviour recreated with the slot.
-      The component <span class="code">tag-input</span> is a helper to fastly build
-      the standard text input.
+      This is the default behaviour of every tag recreated with the slot
+      <span class="code">tagCenter</span>.
+      The component <span class="code">TagInput</span> is a helper to fastly build
+      the standard text input to enable editing tags after creation.
     </p>
     <el-code class="html">
       <code>
@@ -240,10 +279,11 @@ computed: {
     </el-code>
     <el-code class="javascript">
       <code>
-import { TagInput } from '@johmun/vue-tags-input';
+import { VueTagsInput, TagInput } from '@johmun/vue-tags-input';
 
 export default {
   components: {
+    VueTagsInput,
     TagInput,
   },
   data() {
@@ -342,7 +382,7 @@ export default {
     }
 
     .tag.tag {
-      background-color: #F2F2F2;
+      background-color: #E6E6E6;
       color: #000;
     }
 
@@ -373,7 +413,67 @@ span, p {
   max-width: 900px;
 }
 
-.tags-input-1  {
+a {
+  text-decoration: underline;
+}
+
+.tags-input-1 {
   margin-top: 15px;
+}
+
+.tag-picture {
+  max-width: 600px;
+  display: flex;
+  flex-direction: column;
+
+  .tag {
+    display: flex;
+    border-radius: 12px;
+    height: 120px;
+    background-color: rgba(92, 107, 192, 0.6);
+    margin-bottom: 10px;
+
+    > div {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+    }
+
+    span {
+      margin: 2px;
+      font-size: 0.8em;
+    }
+
+    span:not(.code) {
+      color: #fff;
+      display: flex;
+      align-items: center;
+    }
+
+    i {
+      padding-left: 3px;
+      font-size: 18px;
+    }
+  }
+
+  .description {
+    font-style: italic;
+    font-size: 0.9em;
+  }
+
+  .tag-left, .tag-right, .tag-actions {
+    width: 120px;
+  }
+
+  .tag-center {
+    border-left: 1px solid #fff;
+    border-right: 1px solid #fff;
+    flex: 1;
+  }
+
+  .tag-actions {
+    border-left: 1px solid #fff;
+  }
 }
 </style>
