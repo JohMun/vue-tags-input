@@ -259,6 +259,8 @@ computed: {
       <span class="code">tagCenter</span>.
       The component <span class="code">TagInput</span> is a helper to fastly build
       the standard text input to enable editing tags after creation.
+      The css class <span class="code">hidden</span> is provided by tags input.
+      It's a helper class which enlarges a tag while the user is typing.
     </p>
     <el-code class="html">
       <code>
@@ -272,7 +274,7 @@ computed: {
       @click=&quot;props.performOpenEdit(props.index)&quot;
       :class=&quot;{ hidden: props.edit }&quot;&gt;{{ example2.tagText }}
     &lt;/span&gt;
-    &lt;tag-input :scope=&quot;props&quot; v-if=&quot;props.edit&quot; /&gt;
+    &lt;tag-input :scope=&quot;props&quot; /&gt;
   &lt;/div&gt;
 &lt;/vue-tags-input&gt;
       </code>

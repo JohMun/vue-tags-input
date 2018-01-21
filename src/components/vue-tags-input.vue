@@ -477,7 +477,7 @@ export default {
       this.tagsEditStatus = this.clone(this.tags).map(() => false);
     },
     blurred() {
-      if (this.addOnBlur) this.performAddTags(this.newTag);
+      if (this.addOnBlur && this.focused) this.performAddTags(this.newTag);
       this.focused = false;
     },
     stopPropagation(event) {
