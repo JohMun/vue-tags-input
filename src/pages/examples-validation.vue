@@ -5,7 +5,7 @@
       <p>
         To validate tags, autocomplete items or the user input, a validation array
         can be passed to the tags input component. In this example, a tag has to be
-        at least 8 characters long, can't contain a number and must not start
+        at least 8 characters long, can't contain a number or a brace and must not start
         with the string "Cannot".
       </p>
       <vue-tags-input
@@ -22,14 +22,18 @@
         <el-code :code="tags"></el-code>
       </div>
       <p>
-        Each item in the validation array must have the properties
+        Each item in the validation array must contain the properties
         <span class="code">type</span> and <span class="code">rule</span>.
-        <span class="code">type</span> will be added as css class, if the appropriated
+        <span class="code">type</span> will be added as a css class, if the appropriated
         <span class="code">rule</span> match a tag, the user input or an autocomplete item.
+        The rule can by type of RegExp or function. In chapter <router-link :to="{ path: '/examples/styling'}">Styling</router-link>
+        we will see how to use these css classes in detail.
+      </p>
+      <p>
         If the rule is valid, the class "valid", or if not, "invalid" is also added.
         If the tag input component find a duplicate item, the class "duplicate" is appended.
-        In chapter <router-link :to="{ path: '/examples/styling'}">Styling</router-link>
-        we will see how to use these css classes in detail.
+        By default the prop <span class="code">avoid-adding-duplicates</span> is true.
+        So in this example it is impossible to add duplicates.
       </p>
       <p>
         If a validation item holds the property <span class="code">disableAdd: true</span>,
@@ -64,17 +68,24 @@ data() {
       text: 'I am valid',
     }, {
       text: 'Cannot be added',
+    }, {
+      text: 'Invalid cause of "{"',
     }],
     validation: [{
       type: 'min-length',
-      rule: '^.{8,}$',
+      rule: /^.{8,}$/,
     }, {
       type: 'no-numbers',
-      rule: '^([^0-9]*)$',
+      rule: /^([^0-9]*)$/,
     }, {
       type: 'avoid-item',
-      rule: '^(?!Cannot).*$',
+      rule: /^(?!Cannot).*$/,
       disableAdd: true,
+    }, {
+      type: 'no-braces',
+      rule(text) {
+        return text.indexOf('{') !== -1 || text.indexOf('}') !== -1;
+      },
     }],
   };
 },
@@ -108,17 +119,24 @@ export default {
         text: 'I am valid',
       }, {
         text: 'Cannot be added',
+      }, {
+        text: 'Invalid cause of "{"',
       }],
       validation: [{
         type: 'min-length',
-        rule: '^.{8,}$',
+        rule: /^.{8,}$/,
       }, {
         type: 'no-numbers',
         rule: '^([^0-9]*)$',
       }, {
         type: 'avoid-item',
-        rule: '^(?!Cannot).*$',
+        rule: /^(?!Cannot).*$/,
         disableAdd: true,
+      }, {
+        type: 'no-braces',
+        rule(text) {
+          return text.indexOf('{') !== -1 || text.indexOf('}') !== -1;
+        },
       }],
     };
   },

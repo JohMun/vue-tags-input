@@ -13,6 +13,7 @@ import DocsEvents from './pages/docs-events';
 import DocsClasses from './pages/docs-classes';
 import DocsSlots from './pages/docs-slots';
 import DocsCreateTagsHelper from './pages/docs-create-tags-helper';
+import E2eValidation from './pages/e2e-helper/validation';
 
 Vue.use(Router);
 
@@ -64,6 +65,9 @@ const routes = [{
   path: '/docs/create-tags-helper',
   name: 'docs.create-tags-helper',
   component: DocsCreateTagsHelper,
+}, {
+  path: '/e2e-helper-validation',
+  component: E2eValidation,
 }, {
   path: '/develop',
   name: 'develop',

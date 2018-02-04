@@ -4,7 +4,12 @@ const clone = items => {
 
 const validateUserRules = (text, validation) => {
   return validation
-    .filter(val => !new RegExp(val.rule).test(text))
+    .filter(val => {
+      if (typeof val.rule === 'string') return !new RegExp(val.rule).test(text);
+      if (val.rule instanceof RegExp) return !val.rule.test(text);
+      const isFunction = {}.toString.call(val.rule) === '[object Function]';
+      if (isFunction) return val.rule(text);
+    })
     .map(val => val.type);
 };
 

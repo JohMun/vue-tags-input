@@ -48,4 +48,18 @@ test('test basic functions', async t => {
     .pressKey('backspace')
     .pressKey('backspace')
     .expect(Selector('.getting-started .vue-tags-input .tags li').count).eql(2);
+
+  // add a tag on paste
+
+  /* testcafe doesnt fire the paste event when setting the option paste: true
+    https://github.com/DevExpress/testcafe/issues/2075
+  */
+
+  // await t
+  //   .typeText(
+  //     Selector('.getting-started .vue-tags-input .new-tag-input'), 'fromPaste', { paste: true }
+  //   )
+  //   .expect(Selector('.getting-started .vue-tags-input .tags li').count).eql(3)
+  //   .expect(Selector('.getting-started .vue-tags-input .tag:nth-child(2) span')
+  //     .textContent).eql('fromPaste');
 });

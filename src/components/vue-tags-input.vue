@@ -247,8 +247,18 @@ export default {
           const missingRule = !v.rule;
           if (missingRule) console.warn('Property "rule" is missing', v);
 
-          const invalidRule = v.rule && typeof v.rule !== 'string';
-          if (invalidRule) console.warn('A rule must be type of string. Found:', v);
+          const validRule = v.rule && (
+            typeof v.rule === 'string' ||
+            v.rule instanceof RegExp ||
+            {}.toString.call(v.rule) === '[object Function]'
+          );
+
+          if (!validRule) {
+            console.warn(
+              'A rule must be type of string, RegExp or function. Found:',
+              JSON.stringify(v.rule)
+            );
+          }
 
           const missingType = !v.type;
           if (missingType) console.warn('Property "type" is missing', v);
@@ -256,7 +266,7 @@ export default {
           const invalidType = v.type && typeof v.type !== 'string';
           if (invalidType) console.warn('Property "type" must be type of string. Found:', v);
 
-          return invalidRule || missingRule || missingType || invalidType;
+          return !validRule || missingRule || missingType || invalidType;
         });
       },
     },
@@ -576,7 +586,7 @@ input[disabled] {
 }
 
 .vue-tags-input.vue-tags-input.disabled {
-  opacity: 0.6;
+  opacity: 0.5;
 
   * {
     cursor: default;
@@ -666,6 +676,7 @@ input[disabled] {
   position: absolute;
   width: 100%;
   background-color: #fff;
+  z-index: 20;
 }
 
 .item {
