@@ -60,12 +60,13 @@ data() {
 },
 methods: {
   cancel() {
-    this.handler = null;
+    // for some reason we need nexTick here
+    this.$nextTick(() => this.handler = null);
     this.tag = '';
   },
   add() {
     this.handler();
-    this.handler = null;
+    this.$nextTick(() => this.handler = null);
   },
 },
 
@@ -137,12 +138,12 @@ export default {
   },
   methods: {
     cancel1() {
-      this.example1.handler = null;
+      this.$nextTick(() => this.example1.handler = null);
       this.example1.tag = '';
     },
     add1() {
       this.example1.handler();
-      this.example1.handler = null;
+      this.$nextTick(() => this.example1.handler = null);
     },
     checkTag(obj) {
       if (obj.tag.text.includes('e')) alert('Letter "e" is forbidden');
