@@ -20,7 +20,7 @@ const createClasses = (text, tags, validation, checkFromInside) => {
   if (checkFromInside) {
     if (tags.filter(t => t.text === text).length > 1) classes.push('duplicate');
   } else {
-    if (tags.map(t => t.text).includes(text)) classes.push('duplicate');
+    if (tags.map(t => t.text).indexOf(text) !== -1) classes.push('duplicate');
   }
   classes.length === 0 ? classes.push('valid') : classes.push('invalid');
   return classes;

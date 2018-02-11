@@ -85,8 +85,8 @@
     slot-scope=&quot;props&quot;
     @click=&quot;props.performAdd(props.item)&quot;&gt;
     &lt;i class=&quot;material-icons&quot; :style=&quot;{ color: props.item.iconColor }&quot;&gt;
-      {{ example1.tagText }}
-    &lt;/i&gt;{{ example1.tagText }}
+      {{ example1.itemText }}
+    &lt;/i&gt;{{ example1.itemText }}
   &lt;/div&gt;
   &lt;div
     slot=&quot;tagLeft&quot;
@@ -94,7 +94,7 @@
     slot-scope=&quot;props&quot;
     @click=&quot;props.performOpenEdit(props.index)&quot;&gt;
     &lt;i class=&quot;material-icons&quot; :style=&quot;{ color: props.tag.iconColor }&quot;&gt;
-      {{ example1.itemText }}
+      {{ example1.tagText }}
     &lt;/i&gt;
   &lt;/div&gt;
 &lt;/vue-tags-input&gt;

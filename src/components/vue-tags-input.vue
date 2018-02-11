@@ -77,7 +77,7 @@
             </div>
           </div>
           <div class="actions">
-            <!-- down use v-if and v-else here -> different event calling when click -->
+            <!-- dont use v-if and v-else here -> different event calling when click -->
             <i
               @click="cancelEdit(index)"
               v-if="!$scopedSlots.tagActions"
@@ -116,7 +116,9 @@
             :placeholder="placeholder"
             v-model="newTag"
             :maxlength="maxlength"
-            @keydown.enter="performAddTags(filteredAutocompleteItems[selectedItem] || newTag)"
+            @keydown.enter.prevent="performAddTags(
+              filteredAutocompleteItems[selectedItem] || newTag
+            )"
             @keydown.8="invokeDelete"
             @keydown.38="selectItem($event, 'before')"
             @keydown.40="selectItem($event, 'after')"
@@ -428,7 +430,7 @@ export default {
     },
     performAddTags(tag) {
       if (this.disabled) return;
-      if (typeof tag === 'string' && tag.length === 0) return;
+      if (typeof tag === 'string' && tag.trim().length === 0) return;
       let tags = [];
       if (typeof tag === 'object') tags = [tag];
       if (typeof tag === 'string') tags = this.createTagTexts(tag);
@@ -444,10 +446,11 @@ export default {
     addTag(tag, goOn) {
       if (goOn === false) return;
       const options = this.filteredAutocompleteItems.map(i => i.text);
-      if (this.addOnlyFromAutocomplete && !options.includes(tag.text)) return;
+      if (this.addOnlyFromAutocomplete && options.indexOf(tag.text) === -1) return;
       const maximumReached = this.maxTags && this.maxTags === this.tagsCopy.length;
       if (maximumReached) return this.$emit('max-tags-reached');
-      const dup = this.avoidAddingDuplicates && this.tagsCopy.map(t => t.text).includes(tag.text);
+      const dup = this.avoidAddingDuplicates &&
+        this.tagsCopy.map(t => t.text).indexOf(tag.text) !== -1;
       if (dup) return this.$emit('adding-duplicate', tag);
       if (!tag.valid && this.hasForbiddingAddRule(tag.tiClasses)) return;
       if (this.addOnlyFromAutocomplete && this.filteredAutocompleteItems.length > 0) {
@@ -460,7 +463,7 @@ export default {
     performSaveTag(index) {
       const tag = this.tagsCopy[index];
       if (this.disabled) return;
-      if (tag.text.length === 0) return;
+      if (tag.text.trim().length === 0) return;
       if (!this._events['before-saving-tag']) this.saveTag(index, tag);
       this.$emit('before-saving-tag', {
         index,
@@ -470,7 +473,8 @@ export default {
     },
     saveTag(index, tag, goOn) {
       if (goOn === false) return;
-      const dup = this.avoidAddingDuplicates && this.tags.map(t => t.text).includes(tag.text);
+      const dup = this.avoidAddingDuplicates &&
+        this.tagsCopy.map(t => t.text).indexOf(tag.text) !== -1;
       if (dup) return this.$emit('saving-duplicate', tag);
       if (!tag.valid && this.hasForbiddingAddRule(tag.tiClasses)) return;
       this.$set(this.tagsCopy, index, tag);
