@@ -474,7 +474,7 @@ export default {
     saveTag(index, tag, goOn) {
       if (goOn === false) return;
       const dup = this.avoidAddingDuplicates &&
-        this.tagsCopy.map(t => t.text).indexOf(tag.text) !== -1;
+        this.tagsCopy.filter(t => t.text === tag.text).length > 1;
       if (dup) return this.$emit('saving-duplicate', tag);
       if (!tag.valid && this.hasForbiddingAddRule(tag.tiClasses)) return;
       this.$set(this.tagsCopy, index, tag);
