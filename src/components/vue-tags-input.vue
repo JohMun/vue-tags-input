@@ -123,7 +123,8 @@
             @keydown.38="selectItem($event, 'before')"
             @keydown.40="selectItem($event, 'after')"
             @input="updateNewTag"
-            @focus="focused = true"
+            @blur="$emit('blur', $event)"
+            @focus="focused = true; $emit('focus', $event)"
             @click="addOnlyFromAutocomplete ? false: selectedItem = null"
             :disabled="disabled"
           />
