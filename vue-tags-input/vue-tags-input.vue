@@ -488,12 +488,15 @@ export default {
       this.tagsCopy = createTags(this.tags, this.validation);
       this.tagsEditStatus = this.clone(this.tags).map(() => false);
     },
-    blurred() {
+    blurred(e) {
+      // if the click occur on tagsinput -> dont hide
+      if (this.$el.contains(e.target)) return;
+
+      // if we should add tags before blur -> add tag
       if (this.addOnBlur && this.focused) this.performAddTags(this.newTag);
+
+      // hide tagsinput
       this.focused = false;
-    },
-    stopPropagation(event) {
-      event.stopPropagation();
     },
   },
   watch: {
@@ -519,11 +522,9 @@ export default {
   },
   mounted() {
     document.addEventListener('click', this.blurred);
-    this.$el.addEventListener('click', this.stopPropagation);
   },
   destroyed() {
     document.removeEventListener('click', this.blurred);
-    this.$el.removeEventListener('click', this.stopPropagation);
   },
 };
 </script>

@@ -1,11 +1,9 @@
-<template lang="html">
+<template>
   <div class="e2e-suite autocomplete">
     <vue-tags-input
       class="input-0"
       v-model="tag"
       :tags="tags"
-      :autocomplete-filter-duplicates="false"
-      :autocomplete-always-open="true"
       :autocomplete-items="autocompleteItems"
       @tags-changed="newTags => tags = newTags">
     </vue-tags-input>
@@ -13,8 +11,8 @@
       class="input-1"
       v-model="tag"
       :tags="tags"
-      :autocomplete-filter-duplicates="false"
-      :autocomplete-always-open="true"
+      :add-only-from-autocomplete="true"
+      :autocomplete-min-length="0"
       :autocomplete-items="autocompleteItems"
       @tags-changed="newTags => tags = newTags">
     </vue-tags-input>
@@ -22,8 +20,9 @@
       class="input-2"
       v-model="tag"
       :tags="tags"
-      :add-only-from-autocomplete="true"
-      :autocomplete-min-length="0"
+      :avoid-adding-duplicates="false"
+      :autocomplete-filter-duplicates="false"
+      :autocomplete-always-open="true"
       :autocomplete-items="autocompleteItems"
       @tags-changed="newTags => tags = newTags">
     </vue-tags-input>
@@ -60,5 +59,9 @@ export default {
 .e2e-suite.autocomplete {
   display: flex;
   flex-direction: column;
+
+  > div {
+    min-height: 150px;
+  }
 }
 </style>
