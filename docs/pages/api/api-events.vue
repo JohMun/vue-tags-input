@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import DocsItem from '../components/docs-item';
+import DocsItem from '../../components/docs-item';
 
 export default {
   name: 'DocsEvents',

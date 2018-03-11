@@ -53,7 +53,7 @@ export default {
 </template>
 
 <script>
-import VueTagsInput from '../components/vue-tags-input';
+import VueTagsInput from '../../vue-tags-input/vue-tags-input';
 import ElCode from '../components/el-code';
 
 export default {

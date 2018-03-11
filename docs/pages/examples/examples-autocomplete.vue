@@ -146,8 +146,8 @@ export default {
 </template>
 
 <script>
-import VueTagsInput from '../components/vue-tags-input';
-import ElCode from '../components/el-code';
+import VueTagsInput from '../../../vue-tags-input/vue-tags-input';
+import ElCode from '../../components/el-code';
 import axios from 'axios';
 
 export default {

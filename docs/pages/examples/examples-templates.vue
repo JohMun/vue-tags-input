@@ -300,9 +300,9 @@ export default {
 </template>
 
 <script>
-import VueTagsInput from '../components/vue-tags-input';
-import ElCode from '../components/el-code';
-import TagInput from '../components/tag-input';
+import VueTagsInput from '../../../vue-tags-input/vue-tags-input';
+import ElCode from '../../components/el-code';
+import TagInput from '../../../vue-tags-input/tag-input';
 
 export default {
   name: 'ExamplesTemplates',

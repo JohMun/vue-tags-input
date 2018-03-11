@@ -11,7 +11,7 @@ import { VueTagsInput, createTag, createTags } from '@johmun/vue-tags-input';
 </template>
 
 <script>
-import ElCode from '../components/el-code';
+import ElCode from '../../components/el-code';
 
 export default {
   name: 'CreateTagsHelper',

@@ -536,10 +536,10 @@ export default {
 
 @font-face {
   font-family: 'icomoon';
-  src:  url('../assets/fonts/custom/icomoon.eot?7grlse');
-  src:  url('../assets/fonts/custom/icomoon.eot?7grlse#iefix') format('embedded-opentype'),
-    url('../assets/fonts/custom/icomoon.ttf?7grlse') format('truetype'),
-    url('../assets/fonts/custom/icomoon.woff?7grlse') format('woff');
+  src:  url('./assets/fonts/icomoon.eot?7grlse');
+  src:  url('./assets/fonts/icomoon.eot?7grlse#iefix') format('embedded-opentype'),
+    url('./assets/fonts/icomoon.ttf?7grlse') format('truetype'),
+    url('./assets/fonts/icomoon.woff?7grlse') format('woff');
   font-weight: normal;
   font-style: normal;
 }

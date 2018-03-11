@@ -164,8 +164,8 @@ data() {
 </template>
 
 <script>
-import VueTagsInput from '../components/vue-tags-input';
-import ElCode from '../components/el-code';
+import VueTagsInput from '../../../vue-tags-input/vue-tags-input';
+import ElCode from '../../components/el-code';
 
 export default {
   name: 'ExamplesStyling',
