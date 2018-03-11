@@ -316,7 +316,8 @@ export default {
   computed: {
     autocompleteOpen() {
       if (this.autocompleteAlwaysOpen) return true;
-      return this.newTag.length >= this.autocompleteMinLength &&
+      return this.newTag !== null &&
+        this.newTag.length >= this.autocompleteMinLength &&
         this.filteredAutocompleteItems.length > 0 &&
         this.focused;
     },
@@ -338,6 +339,11 @@ export default {
       else if (methods === 'after' && this.selectedItem === items.length - 1) index = 0;
       else methods === 'after' ? index = this.selectedItem + 1 : index = this.selectedItem - 1;
       return index;
+    },
+    selectDefaultItem() {
+      if (this.addOnlyFromAutocomplete && this.filteredAutocompleteItems.length > 0) {
+        this.selectedItem = 0;
+      } else this.selectedItem = null;
     },
     selectItem(e, method) {
       e.preventDefault();
@@ -367,11 +373,11 @@ export default {
       this.$emit('before-editing-tag', {
         index,
         tag: this.tagsCopy[index],
-        editTag: (goOn) => this.editTag(index, goOn),
+        editTag: () => this.editTag(index),
       });
     },
-    editTag(index, goOn) {
-      if (!this.allowEditTags || goOn === false) return;
+    editTag(index) {
+      if (!this.allowEditTags) return;
       this.toggleEdit(index);
       this.focus(index);
     },
@@ -418,11 +424,10 @@ export default {
       this.$emit('before-deleting-tag', {
         index,
         tag: this.tagsCopy[index],
-        deleteTag: (goOn) => this.deleteTag(index, goOn),
+        deleteTag: () => this.deleteTag(index),
       });
     },
-    deleteTag(index, goOn) {
-      if (goOn === false) return;
+    deleteTag(index) {
       if (this.disabled) return;
       this.deletionMark = null;
       clearTimeout(this.deletionMarkTime);
@@ -440,12 +445,11 @@ export default {
         if (!this._events['before-adding-tag']) this.addTag(tag);
         this.$emit('before-adding-tag', {
           tag,
-          addTag: (goOn) => this.addTag(tag, goOn),
+          addTag: () => this.addTag(tag),
         });
       });
     },
-    addTag(tag, goOn) {
-      if (goOn === false) return;
+    addTag(tag) {
       const options = this.filteredAutocompleteItems.map(i => i.text);
       if (this.addOnlyFromAutocomplete && options.indexOf(tag.text) === -1) return;
       const maximumReached = this.maxTags && this.maxTags === this.tagsCopy.length;
@@ -454,9 +458,6 @@ export default {
         this.tagsCopy.map(t => t.text).indexOf(tag.text) !== -1;
       if (dup) return this.$emit('adding-duplicate', tag);
       if (!tag.valid && this.hasForbiddingAddRule(tag.tiClasses)) return;
-      if (this.addOnlyFromAutocomplete && this.filteredAutocompleteItems.length > 0) {
-        this.selectedItem = 0;
-      } else this.selectedItem = null;
       this.$emit('input', '');
       this.tagsCopy.push(tag);
       this.$emit('tags-changed', this.tagsCopy);
@@ -469,11 +470,10 @@ export default {
       this.$emit('before-saving-tag', {
         index,
         tag,
-        saveTag: (goOn) => this.saveTag(index, tag, goOn),
+        saveTag: () => this.saveTag(index, tag),
       });
     },
-    saveTag(index, tag, goOn) {
-      if (goOn === false) return;
+    saveTag(index, tag) {
       const dup = this.avoidAddingDuplicates &&
         this.tagsCopy.filter(t => t.text === tag.text).length > 1;
       if (dup) return this.$emit('saving-duplicate', tag);
@@ -491,12 +491,15 @@ export default {
       this.tagsCopy = createTags(this.tags, this.validation);
       this.tagsEditStatus = this.clone(this.tags).map(() => false);
     },
-    blurred() {
+    blurred(e) {
+      // if the click occur on tagsinput -> dont hide
+      if (this.$el.contains(e.target)) return;
+
+      // if we should add tags before blur -> add tag
       if (this.addOnBlur && this.focused) this.performAddTags(this.newTag);
+
+      // hide tagsinput
       this.focused = false;
-    },
-    stopPropagation(event) {
-      event.stopPropagation();
     },
   },
   watch: {
@@ -510,10 +513,8 @@ export default {
       },
       deep: true,
     },
-    autocompleteItems() {
-      if (this.filteredAutocompleteItems.length > 0) {
-        if (this.addOnlyFromAutocomplete) this.selectedItem = 0;
-      } else this.selectedItem = null;
+    autocompleteOpen() {
+      this.selectDefaultItem();
     },
   },
   created() {
@@ -521,12 +522,11 @@ export default {
     this.initTags();
   },
   mounted() {
+    this.selectDefaultItem();
     document.addEventListener('click', this.blurred);
-    this.$el.addEventListener('click', this.stopPropagation);
   },
   destroyed() {
     document.removeEventListener('click', this.blurred);
-    this.$el.removeEventListener('click', this.stopPropagation);
   },
 };
 </script>
@@ -536,10 +536,10 @@ export default {
 
 @font-face {
   font-family: 'icomoon';
-  src:  url('../assets/fonts/custom/icomoon.eot?7grlse');
-  src:  url('../assets/fonts/custom/icomoon.eot?7grlse#iefix') format('embedded-opentype'),
-    url('../assets/fonts/custom/icomoon.ttf?7grlse') format('truetype'),
-    url('../assets/fonts/custom/icomoon.woff?7grlse') format('woff');
+  src:  url('./assets/fonts/icomoon.eot?7grlse');
+  src:  url('./assets/fonts/icomoon.eot?7grlse#iefix') format('embedded-opentype'),
+    url('./assets/fonts/icomoon.ttf?7grlse') format('truetype'),
+    url('./assets/fonts/icomoon.woff?7grlse') format('woff');
   font-weight: normal;
   font-style: normal;
 }
@@ -634,9 +634,10 @@ input[disabled] {
   }
 
   span.hidden {
-    padding-left: 16px;
+    padding-left: 18px;
     visibility: hidden;
     height: 0px;
+    white-space: pre;
   }
 
   .actions {

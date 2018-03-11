@@ -14,10 +14,10 @@
 </template>
 
 <script>
-import VueTagsInput from '../../components/vue-tags-input';
+import VueTagsInput from '../../vue-tags-input/vue-tags-input';
 
 export default {
-  name: 'e2eValidation',
+  name: 'Validation',
   components: {
     VueTagsInput,
   },
@@ -61,7 +61,3 @@ export default {
   },
 };
 </script>
-
-<style scoped lang="scss">
-
-</style>

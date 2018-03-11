@@ -21,7 +21,7 @@ if (env === 'buildLib') {
 }
 
 module.exports = {
-  entry: env === 'buildLib' ? './publish.js' : ['babel-polyfill', './src/main.js'],
+  entry: env === 'buildLib' ? './publish.js' : ['babel-polyfill', './docs/main.js'],
   output,
   externals:{
     vue: env === 'buildLib' ? {
@@ -134,7 +134,7 @@ module.exports = {
   resolve: {
     extensions: ['.js', '.vue'],
     alias: {
-      'colors': path.resolve(__dirname, './src/colors.scss'),
+      'colors': path.resolve(__dirname, './docs/colors.scss'),
       'vue$': 'vue/dist/vue.esm.js',
     },
   },

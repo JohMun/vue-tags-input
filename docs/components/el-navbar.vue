@@ -82,19 +82,19 @@ export default {
         route: '',
         children: [{
           label: 'Props',
-          route: '/docs/props',
+          route: '/api/props',
         }, {
           label: 'Events',
-          route: '/docs/events',
+          route: '/api/events',
         }, {
           label: 'Classes',
-          route: '/docs/classes',
+          route: '/api/classes',
         }, {
           label: 'Slots',
-          route: '/docs/slots',
+          route: '/api/slots',
         }, {
           label: 'Create Tags Helper',
-          route: '/docs/create-tags-helper',
+          route: '/api/create-tags-helper',
         }],
       }, {
         label: 'Caveats',

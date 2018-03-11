@@ -1,6 +1,6 @@
-import VueTagsInput from './src/components/vue-tags-input.vue';
-import { createClasses, createTag, createTags } from './src/components/create-tags';
-import TagInput from './src/components/tag-input.vue';
+import VueTagsInput from './vue-tags-input/vue-tags-input.vue';
+import { createClasses, createTag, createTags } from './vue-tags-input/create-tags';
+import TagInput from './vue-tags-input/tag-input.vue';
 
 export {
   VueTagsInput,
