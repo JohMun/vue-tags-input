@@ -316,7 +316,8 @@ export default {
   computed: {
     autocompleteOpen() {
       if (this.autocompleteAlwaysOpen) return true;
-      return this.newTag.length >= this.autocompleteMinLength &&
+      return this.newTag !== null &&
+        this.newTag.length >= this.autocompleteMinLength &&
         this.filteredAutocompleteItems.length > 0 &&
         this.focused;
     },
@@ -338,6 +339,11 @@ export default {
       else if (methods === 'after' && this.selectedItem === items.length - 1) index = 0;
       else methods === 'after' ? index = this.selectedItem + 1 : index = this.selectedItem - 1;
       return index;
+    },
+    selectDefaultItem() {
+      if (this.addOnlyFromAutocomplete && this.filteredAutocompleteItems.length > 0) {
+        this.selectedItem = 0;
+      } else this.selectedItem = null;
     },
     selectItem(e, method) {
       e.preventDefault();
@@ -452,9 +458,6 @@ export default {
         this.tagsCopy.map(t => t.text).indexOf(tag.text) !== -1;
       if (dup) return this.$emit('adding-duplicate', tag);
       if (!tag.valid && this.hasForbiddingAddRule(tag.tiClasses)) return;
-      if (this.addOnlyFromAutocomplete && this.filteredAutocompleteItems.length > 0) {
-        this.selectedItem = 0;
-      } else this.selectedItem = null;
       this.$emit('input', '');
       this.tagsCopy.push(tag);
       this.$emit('tags-changed', this.tagsCopy);
@@ -510,10 +513,8 @@ export default {
       },
       deep: true,
     },
-    autocompleteItems() {
-      if (this.filteredAutocompleteItems.length > 0) {
-        if (this.addOnlyFromAutocomplete) this.selectedItem = 0;
-      } else this.selectedItem = null;
+    autocompleteOpen() {
+      this.selectDefaultItem();
     },
   },
   created() {
@@ -521,6 +522,7 @@ export default {
     this.initTags();
   },
   mounted() {
+    this.selectDefaultItem();
     document.addEventListener('click', this.blurred);
   },
   destroyed() {
@@ -632,9 +634,10 @@ input[disabled] {
   }
 
   span.hidden {
-    padding-left: 16px;
+    padding-left: 18px;
     visibility: hidden;
     height: 0px;
+    white-space: pre;
   }
 
   .actions {
