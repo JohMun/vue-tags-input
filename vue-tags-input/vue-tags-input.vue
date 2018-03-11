@@ -367,11 +367,11 @@ export default {
       this.$emit('before-editing-tag', {
         index,
         tag: this.tagsCopy[index],
-        editTag: (goOn) => this.editTag(index, goOn),
+        editTag: () => this.editTag(index),
       });
     },
-    editTag(index, goOn) {
-      if (!this.allowEditTags || goOn === false) return;
+    editTag(index) {
+      if (!this.allowEditTags) return;
       this.toggleEdit(index);
       this.focus(index);
     },
@@ -418,11 +418,10 @@ export default {
       this.$emit('before-deleting-tag', {
         index,
         tag: this.tagsCopy[index],
-        deleteTag: (goOn) => this.deleteTag(index, goOn),
+        deleteTag: () => this.deleteTag(index),
       });
     },
-    deleteTag(index, goOn) {
-      if (goOn === false) return;
+    deleteTag(index) {
       if (this.disabled) return;
       this.deletionMark = null;
       clearTimeout(this.deletionMarkTime);
@@ -440,12 +439,11 @@ export default {
         if (!this._events['before-adding-tag']) this.addTag(tag);
         this.$emit('before-adding-tag', {
           tag,
-          addTag: (goOn) => this.addTag(tag, goOn),
+          addTag: () => this.addTag(tag),
         });
       });
     },
-    addTag(tag, goOn) {
-      if (goOn === false) return;
+    addTag(tag) {
       const options = this.filteredAutocompleteItems.map(i => i.text);
       if (this.addOnlyFromAutocomplete && options.indexOf(tag.text) === -1) return;
       const maximumReached = this.maxTags && this.maxTags === this.tagsCopy.length;
@@ -469,11 +467,10 @@ export default {
       this.$emit('before-saving-tag', {
         index,
         tag,
-        saveTag: (goOn) => this.saveTag(index, tag, goOn),
+        saveTag: () => this.saveTag(index, tag),
       });
     },
-    saveTag(index, tag, goOn) {
-      if (goOn === false) return;
+    saveTag(index, tag) {
       const dup = this.avoidAddingDuplicates &&
         this.tagsCopy.filter(t => t.text === tag.text).length > 1;
       if (dup) return this.$emit('saving-duplicate', tag);
