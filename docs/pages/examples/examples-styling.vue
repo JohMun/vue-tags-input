@@ -57,7 +57,7 @@
 
 data() {
   return {
-    tag: 'Also valid8ted',
+    tag: 'Also valid8ed',
     tags: [{
       text: 'custom class',
       classes: 'custom-class',
@@ -175,7 +175,7 @@ export default {
   },
   data() {
     return {
-      tag: 'Also valid8ted',
+      tag: 'Also valid8ed',
       tags: [{
         text: 'custom class',
         classes: 'custom-class',

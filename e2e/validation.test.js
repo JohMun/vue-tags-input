@@ -1,6 +1,6 @@
 import { Selector } from 'testcafe';
 
-fixture `Getting Started`
+fixture `Check validation`
   .page('http://localhost:3000/#/e2e-suite/validation');
 
 test('Test validation', async t => {

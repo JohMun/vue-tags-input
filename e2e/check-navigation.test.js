@@ -2,7 +2,7 @@ import { Selector, ClientFunction } from 'testcafe';
 
 const getLocation = ClientFunction(() => document.location.href);
 
-fixture `Getting Started`
+fixture `Check Docs Navigation`
   .page('http://localhost:3000');
 
 test('Move to page "Getting Started"', async t => {
