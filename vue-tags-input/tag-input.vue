@@ -7,7 +7,7 @@
     size="1"
     @input="scope.validateTag(scope.index)"
     @blur="scope.cancelEdit(scope.index)"
-    @keydown.enter.prevent="scope.performSaveTag(scope.index)"
+    @keydown="scope.performSaveTag(scope.index, $event)"
   />
 </template>
 
