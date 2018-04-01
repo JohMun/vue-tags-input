@@ -1,6 +1,7 @@
 import Validation from './validation';
 import Autocomplete from './autocomplete';
 import Hooks from './hooks';
+import EditTag from './edit-tag';
 
 export default [{
   path: '/e2e-suite/validation',
@@ -11,4 +12,7 @@ export default [{
 }, {
   path: '/e2e-suite/hooks',
   component: Hooks,
+}, {
+  path: '/e2e-suite/edit-tag',
+  component: EditTag,
 }];

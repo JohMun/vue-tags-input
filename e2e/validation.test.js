@@ -3,6 +3,10 @@ import { Selector } from 'testcafe';
 fixture `Check validation`
   .page('http://localhost:3000/#/e2e-suite/validation');
 
+
+/* because of https://github.com/DevExpress/testcafe/issues/1770 we dont make a difference between
+ *  fixture and test explanation
+ */
 test('Test validation', async t => {
 
 
