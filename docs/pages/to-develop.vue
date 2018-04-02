@@ -1,17 +1,17 @@
 <template lang="html">
   <div class="basic-demo">
     <h1>All Demo</h1>
-    tag: {{tag}}
-    <vue-tags-input
-      class="tags-input"
-      v-model="tag"
-      :tags="tags"
-      :add-on-key="[188, 187]"
-      :save-on-key="[188, 13, 38]"
-      :allow-edit-tags="true"
-      :autocomplete-items="autocompleteItems"
-      @tags-changed="newTags => tags = newTags">
-    </vue-tags-input>
+      <vue-tags-input
+        class="tags-input"
+        v-model="tag"
+        :tags="tags"
+        :add-on-key="[188, 186, 13]"
+        :save-on-key="[188, 38, 13]"
+        :allow-edit-tags="true"
+        :separators="[',']"
+        :autocomplete-items="autocompleteItems"
+        @tags-changed="newTags => tags = newTags">
+      </vue-tags-input>
   </div>
 </template>
 
@@ -73,7 +73,7 @@ export default {
     setAutocompleteItems() {
       // if (this.tag.length === 0) return this.autocompleteItems = [];
       this.autocompleteItems = this.countries
-        .filter(c => new RegExp(this.tag, 'i').test(c))
+        .filter(c => c.toLowerCase().indexOf(this.tag.toLowerCase()) !== -1)
         .map(text => {
           return { text, test: 'nlub' };
         });

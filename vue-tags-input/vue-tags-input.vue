@@ -1,6 +1,5 @@
 <template lang="html">
   <div class="vue-tags-input" :class="{ disabled }">
-    newtag: {{newTag}}
     <div class="input">
       <ul class="tags" v-if="tagsCopy">
         <li
@@ -150,14 +149,14 @@
             { 'selected-item': isSelected(index) }
           ]">
           <div
-            @click="performAddTags(item, $event)"
+            @click="performAddTags(item)"
             v-if="!$scopedSlots.autocompleteItem">{{ item.text }}
           </div>
           <slot
             v-else
             :item="item"
             :index="index"
-            :perform-add="performAddTags"
+            :perform-add="propValidatorNumeric"
             :selected="isSelected(index)"
             name="autocompleteItem">
           </slot>
@@ -421,6 +420,7 @@ export default {
       return regex.replace(/([()[{*+.$^\\|?])/g, '\\$1');
     },
     cancelEdit(index) {
+      if (!this.tags[index]) return;
       this.tagsCopy[index] = Object.assign({},
         createTag(this.tags[index], this.tags, this.validation)
       );
@@ -663,7 +663,7 @@ input[disabled] {
   }
 
   span.hidden {
-    padding-left: 18px;
+    padding-left: 20px;
     visibility: hidden;
     height: 0px;
     white-space: pre;
