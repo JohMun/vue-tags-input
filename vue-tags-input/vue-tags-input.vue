@@ -116,8 +116,8 @@
             :placeholder="placeholder"
             v-model="newTag"
             :maxlength="maxlength"
-            @keydown.enter.prevent="performAddTags(
-              filteredAutocompleteItems[selectedItem] || newTag
+            @keydown="performAddTags(
+              filteredAutocompleteItems[selectedItem] || newTag, $event
             )"
             @keydown.8="invokeDelete"
             @keydown.38="selectItem($event, 'before')"
@@ -156,7 +156,7 @@
             v-else
             :item="item"
             :index="index"
-            :perform-add="performAddTags"
+            :perform-add="propValidatorNumeric"
             :selected="isSelected(index)"
             name="autocompleteItem">
           </slot>
@@ -180,6 +180,14 @@ const propValidatorTag = value => {
     if (invalidClasses) console.warn('Property "classes" must be type of string', t);
 
     return invalidText || invalidClasses;
+  });
+};
+
+const propValidatorNumeric = value => {
+  return !value.some(v => {
+    const numeric = typeof v === 'number' && isFinite(v) && Math.floor(v) === v;
+    if (!numeric) console.warn('Only numerics are allowed for this prop. Found:', v);
+    return !numeric;
   });
 };
 
@@ -235,6 +243,16 @@ export default {
     placeholder: {
       type: String,
       default: 'Add Tag',
+    },
+    addOnKey: {
+      type: Array,
+      default: () => [13],
+      validator: propValidatorNumeric,
+    },
+    saveOnKey: {
+      type: Array,
+      default: () => [13],
+      validator: propValidatorNumeric,
     },
     maxTags: {
       type: Number,
@@ -402,6 +420,7 @@ export default {
       return regex.replace(/([()[{*+.$^\\|?])/g, '\\$1');
     },
     cancelEdit(index) {
+      if (!this.tags[index]) return;
       this.tagsCopy[index] = Object.assign({},
         createTag(this.tags[index], this.tags, this.validation)
       );
@@ -434,8 +453,13 @@ export default {
       this.tagsCopy.splice(index, 1);
       this.$emit('tags-changed', this.tagsCopy);
     },
-    performAddTags(tag) {
-      if (this.disabled) return;
+    noTriggerKey(event, category) {
+      const triggerKey = this[category].indexOf(event.keyCode) !== -1;
+      if (triggerKey) event.preventDefault();
+      return !triggerKey;
+    },
+    performAddTags(tag, event) {
+      if (this.disabled || event && this.noTriggerKey(event, 'addOnKey')) return;
       if (typeof tag === 'string' && tag.trim().length === 0) return;
       let tags = [];
       if (typeof tag === 'object') tags = [tag];
@@ -458,11 +482,15 @@ export default {
         this.tagsCopy.map(t => t.text).indexOf(tag.text) !== -1;
       if (dup) return this.$emit('adding-duplicate', tag);
       if (!tag.valid && this.hasForbiddingAddRule(tag.tiClasses)) return;
-      this.$emit('input', '');
-      this.tagsCopy.push(tag);
-      this.$emit('tags-changed', this.tagsCopy);
+      this.$nextTick(() => {
+        this.newTag = '';
+        this.$emit('input', '');
+        this.tagsCopy.push(tag);
+        this.$emit('tags-changed', this.tagsCopy);
+      });
     },
-    performSaveTag(index) {
+    performSaveTag(index, event) {
+      if (event && this.noTriggerKey(event, 'saveOnKey')) return;
       const tag = this.tagsCopy[index];
       if (this.disabled) return;
       if (tag.text.trim().length === 0) return;
@@ -504,6 +532,7 @@ export default {
   },
   watch: {
     value(newValue){
+      // if v-model change outside, update newTag here
       if (!this.addOnlyFromAutocomplete) this.selectedItem = null;
       this.newTag = newValue;
     },
@@ -634,7 +663,7 @@ input[disabled] {
   }
 
   span.hidden {
-    padding-left: 18px;
+    padding-left: 20px;
     visibility: hidden;
     height: 0px;
     white-space: pre;

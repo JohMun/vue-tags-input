@@ -45,6 +45,14 @@ export default {
         type: 'Boolean',
         default: 'false',
       }, {
+        name: 'addOnKey',
+        type: 'Array',
+        default: '[13]',
+      }, {
+        name: 'saveOnKey',
+        type: 'Array',
+        default: '[13]',
+      }, {
         name: 'autocompleteMinLength',
         type: 'Number',
         default: '1',

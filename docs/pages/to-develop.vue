@@ -1,34 +1,17 @@
 <template lang="html">
   <div class="basic-demo">
     <h1>All Demo</h1>
-    <vue-tags-input
-      class="tags-input"
-      v-model="tag"
-      :validation="validation"
-      :tags="tags"
-      :autocomplete-filter-duplicates="true"
-      :tags-filter-duplicates="false"
-      :add-only-from-autocomplete="false"
-      :allow-edit-tags="true"
-      @duplicate="foundDuplicate"
-      @before-adding-tag="decideAdding"
-      @before-deleting-tag="decideDeleting"
-      @before-saving-tag="decideSaving"
-      @before-editing-tag="decideEdit"
-      @tag-clicked="tagClicked"
-      :autocomplete-items="autocompleteItems"
-      @tags-changed="newTags => tags = newTags">
-      <div slot="tagLeft" slot-scope="props">
-        <span @click="props.performOpenEdit(props.index, props.tag)">left</span>
-      </div>
-      <div slot="tagRight" slot-scope="props">RIGHT</div>
-      <div slot="tagActions" slot-scope="props">
-        <span @click="props.performDelete(props.index, props.tag)">delete</span>
-      </div>
-      <div slot="autocompleteItem" slot-scope="props">
-        <div @click="props.performAdd(props.item)">{{ props}}</div>
-      </div>
-    </vue-tags-input>
+      <vue-tags-input
+        class="tags-input"
+        v-model="tag"
+        :tags="tags"
+        :add-on-key="[188, 186, 13]"
+        :save-on-key="[188, 38, 13]"
+        :allow-edit-tags="true"
+        :separators="[',']"
+        :autocomplete-items="autocompleteItems"
+        @tags-changed="newTags => tags = newTags">
+      </vue-tags-input>
   </div>
 </template>
 
@@ -66,23 +49,22 @@ export default {
     tagClicked(obj) {
       console.log(obj);
     },
+    test(i) {
+      console.log(i);
+    },
     foundDuplicate(tag) {
       console.log(tag);
     },
     decideDeleting(obj) {
-      console.log(obj.tag);
       obj.deleteTag(true);
     },
     decideEdit(obj) {
-      console.log(obj.tag);
       obj.editTag(true);
     },
     decideAdding(obj) {
-      console.log(obj.tag);
       obj.addTag(true);
     },
     decideSaving(obj) {
-      console.log(obj.tag);
       obj.saveTag(true);
     },
     addInvalidOnPurpose(tag) {
@@ -91,7 +73,7 @@ export default {
     setAutocompleteItems() {
       // if (this.tag.length === 0) return this.autocompleteItems = [];
       this.autocompleteItems = this.countries
-        .filter(c => new RegExp(this.tag, 'i').test(c))
+        .filter(c => c.toLowerCase().indexOf(this.tag.toLowerCase()) !== -1)
         .map(text => {
           return { text, test: 'nlub' };
         });
