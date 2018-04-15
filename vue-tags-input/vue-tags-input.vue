@@ -156,7 +156,7 @@
             v-else
             :item="item"
             :index="index"
-            :perform-add="propValidatorNumeric"
+            :perform-add="performAddTags"
             :selected="isSelected(index)"
             name="autocompleteItem">
           </slot>
