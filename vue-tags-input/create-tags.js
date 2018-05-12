@@ -8,6 +8,7 @@ const validateUserRules = (text, validation) => {
     // if we deal with a function, invoke it
     const isFunction = {}.toString.call(val.rule) === '[object Function]';
     if (isFunction) return val.rule(text);
+
   }).map(val => val.type);
 };
 
