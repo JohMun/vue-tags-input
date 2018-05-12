@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import VueTagsInput from '../../vue-tags-input/vue-tags-input';
+import VueTagsInput from '../../vue-tags-input/vue-tags-input.vue';
 
 export default {
   name: 'ToDevelop',
