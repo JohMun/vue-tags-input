@@ -99,10 +99,16 @@ export default {
     clone(items) {
       return JSON.parse(JSON.stringify(items));
     },
-    createChangedTag(index) {
-      // If the text of a tag changes → we create a new one with new validation
-      const tags = this.tagsCopy;
-      this.$set(this.tagsCopy, index, createTag(tags[index], tags, this.validation));
+    // only called by the @input event from TagInput.
+    // Creates a new tag model and applys it to this.tagsCopy[index]
+    createChangedTag(index, event) {
+      // If the text of a tag changes → we create a new one with a new validation.
+      // we take the value from event as text if possible, because on google android phones
+      // this.tagsCopy[index].text is incorrect, when typing a space on the virtual keyboard.
+      // yes, this sucks ...
+      const tag = this.tagsCopy[index];
+      tag.text = event ? event.target.value : this.tagsCopy[index].text;
+      this.$set(this.tagsCopy, index, createTag(tag, this.tagsCopy, this.validation));
     },
     // Focuses the input of tag
     focus(index) {
@@ -117,9 +123,7 @@ export default {
     // Cancels the edit mode for a tag → resets the tag to it's original model!
     cancelEdit(index) {
       if (!this.tags[index]) return;
-      this.tagsCopy[index] = Object.assign({},
-        createTag(this.tags[index], this.tags, this.validation)
-      );
+      this.tagsCopy[index] = this.clone(createTag(this.tags[index], this.tags, this.validation));
       this.$set(this.tagsEditStatus, index, false);
     },
     hasForbiddingAddRule(tiClasses) {

@@ -5,7 +5,7 @@
     v-if="scope.edit"
     :maxlength="scope.maxlength"
     size="1"
-    @input="scope.validateTag(scope.index)"
+    @input="scope.validateTag(scope.index, $event)"
     @blur="scope.cancelEdit(scope.index)"
     @keydown="scope.performSaveTag(scope.index, $event)"
   />

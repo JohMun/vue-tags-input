@@ -16,7 +16,7 @@ const createClasses = (text, tags, validation = [], checkFromInside = true) => {
   // create css classes from the user validation array
   const classes = validateUserRules(text, validation);
 
-  // check wheter the tag is a duplicate or not
+  // check wether the tag is a duplicate or not
   const duplicate = checkFromInside ? tags.filter(t => t.text === text).length > 1 :
     tags.map(t => t.text).indexOf(text) !== -1;
 
@@ -32,9 +32,11 @@ const createClasses = (text, tags, validation = [], checkFromInside = true) => {
  * @params: tag|object, tags|array, validation|array|optional, checkFromInside|boolean|optional
  */
 const createTag = (tag, ...rest) => {
+  // if text is undefined, a string is passed. let's make a tag out of it
+  if (tag.text === undefined) tag = { text: tag };
+
   // we better make a clone to not getting reference trouble
-  let t = Object.assign({}, tag);
-  if (t.text === undefined) t = { text: t };
+  const t = JSON.parse(JSON.stringify(tag));
 
   // create the validation classes
   t.tiClasses = createClasses(t.text, ...rest);
