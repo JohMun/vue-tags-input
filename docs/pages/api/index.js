@@ -1,27 +1,27 @@
-import ApiProps from './api-props';
-import ApiEvents from './api-events';
-import ApiClasses from './api-classes';
-import ApiSlots from './api-slots';
-import ApiCreateTagsHelper from './api-create-tags-helper';
+import Props from './props';
+import Events from './events';
+import Classes from './classes';
+import Slots from './slots';
+import CreateTagsHelper from './create-tags-helper';
 
 export default [{
   path: '/api/props',
   name: 'api.props',
-  component: ApiProps,
+  component: Props,
 }, {
   path: '/api/events',
   name: 'api.events',
-  component: ApiEvents,
+  component: Events,
 }, {
   path: '/api/classes',
   name: 'api.classes',
-  component: ApiClasses,
+  component: Classes,
 }, {
   path: '/api/slots',
   name: 'api.slots',
-  component: ApiSlots,
+  component: Slots,
 }, {
   path: '/api/create-tags-helper',
   name: 'api.create-tags-helper',
-  component: ApiCreateTagsHelper,
+  component: CreateTagsHelper,
 }];

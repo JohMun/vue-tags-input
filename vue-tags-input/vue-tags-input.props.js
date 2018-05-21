@@ -1,3 +1,5 @@
+// The file contains all props and validators which are provided by the component
+
 const propValidatorTag = value => {
   return !value.some(t => {
     const invalidText = !t.text;

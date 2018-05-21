@@ -1,3 +1,8 @@
+<!--
+  Entry Point for the component.
+  The file contains the template and includes the script and style files.
+-->
+
 <template>
   <div class="vue-tags-input" :class="{ disabled }">
     <div class="input">
@@ -114,7 +119,7 @@
             ref="newTagInput"
             @paste="addTagsFromPaste"
             :placeholder="placeholder"
-            v-model="newTag"
+            :value="newTag"
             :maxlength="maxlength"
             @keydown="performAddTags(
               filteredAutocompleteItems[selectedItem] || newTag, $event
@@ -168,5 +173,4 @@
 
 <!-- js and scss resources → I separated it into different files, because they became huge -->
 <script src="./vue-tags-input.js"></script>
-<style lang="scss" src="./vue-tags-input.scoped.scss" scoped></style>
-<style lang="scss" src="./vue-tags-input.unscoped.scss"></style>
+<style lang="scss" src="./vue-tags-input.scss" scoped></style>

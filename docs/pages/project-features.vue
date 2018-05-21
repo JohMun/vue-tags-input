@@ -9,7 +9,7 @@
         templating and much more
       </p>
     </div>
-    <!-- todo: cool gif with features-->
+    <!-- todo: cool video with features-->
     <div class="features">
       <vue-tags-input
         class="tags-input"

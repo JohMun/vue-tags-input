@@ -269,13 +269,10 @@ computed: {
   :tags=&quot;tags&quot;
   :allow-edit-tags=&quot;true&quot;
   @tags-changed=&quot;newTags =&gt; tags = newTags&quot;&gt;
-  &lt;div slot=&quot;tagCenter&quot; slot-scope=&quot;props&quot;&gt;
-    &lt;span
-      @click=&quot;props.performOpenEdit(props.index)&quot;
-      :class=&quot;{ hidden: props.edit }&quot;&gt;{{ example2.tagText }}
-    &lt;/span&gt;
+  &lt;template slot=&quot;tagCenter&quot; slot-scope=&quot;props&quot;&gt;
+    &lt;span @click=&quot;props.performOpenEdit(props.index)&quot; :class=&quot;{ hidden: props.edit }&quot;&gt;{{ example2.tagText }}&lt;/span&gt;
     &lt;tag-input :scope=&quot;props&quot; /&gt;
-  &lt;/div&gt;
+  &lt;/template&gt;
 &lt;/vue-tags-input&gt;
       </code>
     </el-code>

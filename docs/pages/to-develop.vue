@@ -17,11 +17,13 @@
 
 <script>
 import VueTagsInput from '../../vue-tags-input/vue-tags-input.vue';
+import TagInput from '../../vue-tags-input/tag-input.vue';
 
 export default {
   name: 'ToDevelop',
   components: {
     VueTagsInput,
+    TagInput,
   },
   data() {
     return {

@@ -1,3 +1,6 @@
+// helper functions
+// they are outside of the main app logic, because maybe the user likes to import them
+
 const validateUserRules = (text, validation) => {
   return validation.filter(val => {
     // if the rule is a string, we convert it to RegExp

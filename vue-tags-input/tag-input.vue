@@ -1,3 +1,5 @@
+<!-- A helper component used by VueTagsInput and can be put into the tagCenter slot -->
+
 <template>
   <input type="text"
     class="tag-input"
@@ -19,3 +21,29 @@ export default {
 };
 
 </script>
+
+<style lang="css" scoped>
+.tag-input {
+  background-color: transparent;
+  color: inherit;
+  border: none;
+  padding: 0px;
+  margin: 0px;
+  display: flex;
+  top: 0px;
+  position: absolute;
+  width: 100%;
+}
+
+.tag-input::-ms-clear {
+  display: none;
+}
+
+input:focus {
+  outline: none;
+}
+
+input[disabled] {
+  background-color: transparent;
+}
+</style>

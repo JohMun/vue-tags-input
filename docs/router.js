@@ -2,7 +2,7 @@ import Vue from 'vue';
 import Router from 'vue-router';
 import ToDevelop from './pages/to-develop';
 import ProjectFeatures from './pages/project-features';
-import Gettingstarted from './pages/getting-started';
+import GettingStarted from './pages/getting-started';
 import api from './pages/api';
 import examples from './pages/examples';
 import e2eSuite from '../e2e/suite/';
@@ -16,7 +16,7 @@ const routes = [{
 }, {
   path: '/start',
   name: 'gettingStarted',
-  component: Gettingstarted,
+  component: GettingStarted,
 },
 ...api,
 ...examples,

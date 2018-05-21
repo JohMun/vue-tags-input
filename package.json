@@ -22,9 +22,9 @@
   "scripts": {
     "dev": "cross-env NODE_ENV=dev webpack-dev-server --hot",
     "test-sw": "hs -c 0 -p 8111 ./dist & cross-env NODE_ENV=production webpack -w",
-    "buildLib": "cross-env NODE_ENV=buildLib webpack --hide-modules",
-    "buildDocs": "cross-env NODE_ENV=buildDocs webpack --hide-modules",
-    "analyzeBuild": "cross-env NODE_ENV=buildLib ANALYZE=true webpack",
+    "build-lib": "cross-env NODE_ENV=buildLib webpack --hide-modules",
+    "build-docs": "cross-env NODE_ENV=buildDocs webpack --hide-modules",
+    "analyze-build": "cross-env NODE_ENV=buildLib ANALYZE=true webpack",
     "precommit": "lint-staged",
     "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
     "lint-fix": "eslint --fix --ignore-path .gitignore .",
