@@ -76,6 +76,9 @@ export default {
         }, {
           label: 'Templating',
           route: '/examples/templates',
+        }, {
+          label: 'Nuxt',
+          route: '/examples/nuxt',
         }],
       }, {
         label: 'Full Docs',

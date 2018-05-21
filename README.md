@@ -27,10 +27,10 @@ NPM
 npm install @johmun/vue-tags-input --save
 ```
 
-<!-- CDN
+CDN
 ```
-<script src="https://unpkg.com/@johmun/vue-tags-input@1.3.7/dist/vue-tags-input.js"></script>
-``` -->
+<script src="https://unpkg.com/@johmun/vue-tags-input/dist/vue-tags-input.js"></script>
+```
 
 ## Usage
 
