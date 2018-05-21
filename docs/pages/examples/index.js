@@ -3,6 +3,7 @@ import ExamplesAutocomplete from './examples-autocomplete';
 import ExamplesValidation from './examples-validation';
 import ExamplesHooks from './examples-hooks';
 import ExamplesTemplates from './examples-templates';
+import ExamplesNuxt from './examples-nuxt';
 
 export default [{
   path: '/examples/styling',
@@ -24,4 +25,8 @@ export default [{
   path: '/examples/templates',
   name: 'examples.templates',
   component: ExamplesTemplates,
+}, {
+  path: '/examples/nuxt',
+  name: 'examples.nuxt',
+  component: ExamplesNuxt,
 }];
