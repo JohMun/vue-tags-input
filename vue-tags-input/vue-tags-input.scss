@@ -1,0 +1,170 @@
+$primary: #5C6BC0;
+$error: #e54d42;
+$success: #68cd86;
+$warn: #ffb648;
+
+@font-face {
+  font-family: 'icomoon';
+  src:  url('./assets/fonts/icomoon.eot?7grlse');
+  src:  url('./assets/fonts/icomoon.eot?7grlse#iefix') format('embedded-opentype'),
+    url('./assets/fonts/icomoon.ttf?7grlse') format('truetype'),
+    url('./assets/fonts/icomoon.woff?7grlse') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+[class^="icon-"], [class*=" icon-"] {
+  font-family: 'icomoon' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-check:before {
+  content: "\e902";
+}
+
+.icon-close:before {
+  content: "\e901";
+}
+
+.icon-undo:before {
+  content: "\e900";
+}
+
+ul {
+  margin: 0px;
+  padding: 0px;
+  list-style-type: none;
+}
+
+*, *:before, *:after {
+  box-sizing: border-box;
+}
+
+input:focus {
+  outline: none;
+}
+
+input[disabled] {
+  background-color: transparent;
+}
+
+.vue-tags-input {
+  max-width: 450px;
+  position: relative;
+  background-color: #fff;
+}
+
+.vue-tags-input.vue-tags-input.disabled {
+  opacity: 0.5;
+
+  * {
+    cursor: default;
+  }
+}
+
+.input {
+  border: 1px solid #ccc;
+  display: flex;
+  padding: 4px;
+  flex-wrap: wrap;
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.tag {
+  background-color: $primary;
+  color: #fff;
+  border-radius: 2px;
+  display: flex;
+  padding: 3px 5px;
+  margin: 2px;
+  font-size: .85em;
+
+  &:focus {
+    outline: none;
+  }
+
+  .content {
+    display: flex;
+    align-items: center;
+  }
+
+  .tag-center {
+    position: relative;
+  }
+
+  span.hidden {
+    padding-left: 20px;
+    visibility: hidden;
+    height: 0px;
+    white-space: pre;
+  }
+
+  .actions {
+    margin-left: 2px;
+    display: flex;
+    align-items: center;
+    font-size: 1.15em;
+
+    i {
+      cursor: pointer;
+    }
+  }
+
+  &:last-child {
+    margin-right: 4px;
+  }
+
+  &.invalid, &.tag.deletion-mark {
+    background-color: $error;
+  }
+}
+
+.new-tag-input-wrapper {
+  display: flex;
+  flex: 1 0 auto;
+  padding: 3px 5px;
+  margin: 2px;
+  font-size: .85em;
+
+  input {
+    flex: 1 0 auto;
+    min-width: 100px;
+    border: none;
+    padding: 0px;
+    margin: 0px;
+  }
+}
+
+.autocomplete {
+  border: 1px solid #ccc;
+  border-top: none;
+  position: absolute;
+  width: 100%;
+  background-color: #fff;
+  z-index: 20;
+}
+
+.item {
+  > div {
+    cursor: pointer;
+    padding: 3px 6px;
+    width: 100%;
+  }
+}
+
+.selected-item {
+  background-color: $primary;
+  color: #fff;
+}

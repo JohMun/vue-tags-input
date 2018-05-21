@@ -15,7 +15,7 @@
         <li><span class="code">performDelete - function - expect: index</span></li>
         <li><span class="code">performOpenEdit - function - expect: index</span></li>
         <li><span class="code">performCancelEdit - function - expect: index</span></li>
-        <li><span class="code">performSaveEdit - function - expect: index</span></li>
+        <li><span class="code">performSaveTag - function - expect: index</span></li>
       </ul>
       <h2>Slot: (experimental)</h2>
       <span class="code">tagCenter</span>
@@ -29,8 +29,8 @@
         <li><span class="code">performDelete - function - expect: index</span></li>
         <li><span class="code">performOpenEdit - function - expect: index</span></li>
         <li><span class="code">performCancelEdit - function - expect: index</span></li>
-        <li><span class="code">performSaveEdit - function - expect: index</span></li>
-        <li><span class="code">validateTag - function - expect: index</span></li>
+        <li><span class="code">performSaveTag - function - expect: index, event</span></li>
+        <li><span class="code">validateTag - function - expect: index, event</span></li>
         <li><span class="code">cancelEdit - function - expect: index</span></li>
       </ul>
       <!--<p>Explain tag-input component</p>-->

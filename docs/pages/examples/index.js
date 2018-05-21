@@ -1,32 +1,32 @@
-import ExamplesStyling from './examples-styling';
-import ExamplesAutocomplete from './examples-autocomplete';
-import ExamplesValidation from './examples-validation';
-import ExamplesHooks from './examples-hooks';
-import ExamplesTemplates from './examples-templates';
-import ExamplesNuxt from './examples-nuxt';
+import Styling from './styling';
+import Autocomplete from './autocomplete';
+import Validation from './validation';
+import Hooks from './hooks';
+import Templates from './templates';
+import Nuxt from './nuxt';
 
 export default [{
   path: '/examples/styling',
   name: 'examples.styling',
-  component: ExamplesStyling,
+  component: Styling,
 }, {
   path: '/examples/autocomplete',
   name: 'examples.autocomplete',
-  component: ExamplesAutocomplete,
+  component: Autocomplete,
 }, {
   path: '/examples/validation',
   name: 'examples.validation',
-  component: ExamplesValidation,
+  component: Validation,
 }, {
   path: '/examples/hooks',
   name: 'examples.hooks',
-  component: ExamplesHooks,
+  component: Hooks,
 }, {
   path: '/examples/templates',
   name: 'examples.templates',
-  component: ExamplesTemplates,
+  component: Templates,
 }, {
   path: '/examples/nuxt',
   name: 'examples.nuxt',
-  component: ExamplesNuxt,
+  component: Nuxt,
 }];
