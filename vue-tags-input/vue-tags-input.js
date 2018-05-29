@@ -2,7 +2,7 @@
 // data, computed properties, methods, watchers and the component lifecycle
 
 import { createTags, createTag, createClasses } from './create-tags';
-import TagInput from './tag-input';
+import TagInput from './tag-input.vue';
 import props from './vue-tags-input.props';
 
 export default {
@@ -82,6 +82,13 @@ export default {
     performEditTag(index) {
       if (!this.allowEditTags) return;
       if (!this._events['before-editing-tag']) this.editTag(index);
+      /**
+       * Is called before a tag toggles in edit mode
+       * @name before-editing-tag
+       * @property {event}
+       * @returns {Object} Contains the to editing tag and the function editTag.
+         If the function is invoked, the tag toggles to edit mode.
+       */
       this.$emit('before-editing-tag', {
         index,
         tag: this.tagsCopy[index],

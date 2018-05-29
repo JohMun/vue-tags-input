@@ -31,8 +31,12 @@ const createClasses = (text, tags, validation = [], checkFromInside = true) => {
   return classes;
 };
 
-/*
- * @params: tag|object, tags|array, validation|array|optional, checkFromInside|boolean|optional
+/**
+ * @description Create one tag out of a String or attaches vue-tags-input classes to a tag
+ * @property {helper}
+ * @param {Object|String} tag Tag object which needs validation or a text
+ * @param {Array} tagsarray Tags binded to vue-tags-input
+ * @param {Array} [validation=[]] The validation Array is optional (pass if you use one)
  */
 const createTag = (tag, ...rest) => {
   // if text is undefined, a string is passed. let's make a tag out of it
@@ -46,8 +50,11 @@ const createTag = (tag, ...rest) => {
   return t;
 };
 
-/*
- * @params: tags|array, validation|array|optional, checkFromInside|boolean|optional
+/**
+ * @description Create multiple tags out of Strings or attaches vue-tags-input classes to tags
+ * @property {helper}
+ * @param {Array} tagsarray Tags binded to vue-tags-input
+ * @param {Array} [validation=[]] The validation Array is optional (pass if you use one)
  */
 const createTags = (tags, ...rest) => tags.map(t => createTag(t, tags, ...rest));
 

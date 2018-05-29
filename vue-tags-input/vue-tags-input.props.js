@@ -22,11 +22,35 @@ const propValidatorNumeric = value => {
 };
 
 export default {
+  /**
+   * @description The model which is binded to the input.
+     If the user press enter with an valid input,
+     a new tag is created with the value of this model. After creating the tag,
+     the model is cleared.
+   * @property {props}
+   * @required
+   * @type {String}
+   * @model
+   * @default ''
+   */
   value: {
     type: String,
     default: '',
     required: true,
   },
+  /**
+   * @description A tag is an Object with ...
+   * @property {props}
+   * @required
+   * @type {Array}
+   * @default []
+   * @example
+    {
+    &ensp;text: 'My tag value', &#47;* the visible value *&#47;*
+    &ensp;style: 'background-color: #ccc',
+    &ensp;classes: 'custom-css-classes',
+    }
+   */
   tags: {
     type: Array,
     default: () => [],
