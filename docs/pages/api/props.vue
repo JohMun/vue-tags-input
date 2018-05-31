@@ -1,10 +1,12 @@
 <template lang="html">
-  <div class="docs-props">
-    <ul>
-      <div class="docs-item" v-for="(p, index) in props" :key="index">
-        <auto-docs-item :item="p" />
-      </div>
-    </ul>
+  <div class="props page">
+    <div class="content">
+      <ul>
+        <div class="docs-item" v-for="(p, index) in props" :key="index">
+          <auto-docs-item :item="p" />
+        </div>
+      </ul>
+    </div>
   </div>
 </template>
 
@@ -12,7 +14,7 @@
 import AutoDocsItem from '../../components/auto-docs-item';
 
 export default {
-  name: 'DocsProps',
+  name: 'props',
   components: {
     AutoDocsItem,
   },

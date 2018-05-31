@@ -121,7 +121,6 @@ export default {
       }],
       todo: [
         'Animation support',
-        'addOnKey="Some Keycode"',
         'Autocomplete Highlighting',
         'Groups',
       ],
@@ -154,8 +153,7 @@ export default {
 
   .tags li {
     padding: 5px 8px;
-    font-size: 18px;
-    margin:3px;
+    margin:2px;
   }
 
   .tag.dark-font {
@@ -163,17 +161,13 @@ export default {
   }
 
   .item {
-    padding: 6px 10px;
-    font-size: 16px;
+    padding: 2px 3px;
+    // font-size: 16px;
   }
 
   .tag.deletion-mark  {
     background-color: $error !important;
     color: #fff;
-  }
-
-  .actions {
-    min-width: 22px;
   }
 }
 </style>

@@ -3,42 +3,34 @@
     <div class="content">
       <div class="logo">
         <div @click="goHome">
-          <h2>Vue Tags Input</h2>
+          <i class="material-icons">style</i>
+          <span class="tag">vue-tags-input</span>
         </div>
         <i class="material-icons close-nav" @click="$emit('close-nav')">clear</i>
       </div>
       <div class="navigation">
-        <div class="breadcrumbs">
-          <div>
-            <span @click="active = false">All</span>
-            <i v-show="activeLink" class="material-icons">chevron_right</i>
-            <span v-if="activeLink">{{ activeLink.label }}</span>
-          </div>
-          <i
-            v-show="activeLink"
-            @click="active = false"
-            class="material-icons">keyboard_backspace
-          </i>
-        </div>
-        <div class="nav-items" :class="{ 'on-2': active }">
+        <div class="nav-items">
           <ul class="lvl-1">
             <li
-            v-for="(item, index) in links"
-            :key="index"
-            @click="item.disabled ? false : moveTo(item)"
-            :class="{ active: isActive(item), disabled: item.disabled }">
-              <div>
-                <span>{{ item.label }}</span>
-                <i v-show="item.children" class="material-icons">more_horiz</i>
-              </div>
-            </li>
-          </ul>
-          <ul class="lvl-2">
-            <li v-for="(item, index) in childs"
+              v-for="(item, index) in links"
               :key="index"
-              @click="item.disabled ? false : moveTo(item)"
               :class="{ active: isActive(item), disabled: item.disabled }">
-              <div><span>{{ item.label }}</span></div>
+              <div class="label" @click="moveOrOpen(item, index)">
+                <div class="expand">
+                  <i v-if="item.children && linkStatus[index]" class="material-icons">expand_less</i>
+                  <i v-if="item.children && !linkStatus[index]" class="material-icons">expand_more</i>
+                </div>
+                <span>{{ item.label }}</span>
+              </div>
+              <ul class="lvl-2" v-if="linkStatus[index]">
+                <li
+                  v-for="(item, i2) in item.children"
+                  :key="i2"
+                  @click="moveTo(item)"
+                  :class="{ active: isActive(item), disabled: item.disabled }">
+                  <div class="label"><span>{{ item.label }}</span></div>
+                </li>
+              </ul>
             </li>
           </ul>
         </div>
@@ -52,7 +44,7 @@ export default {
   name: 'ElNavbar',
   data() {
     return {
-      active: null,
+      linkStatus: [],
       links: [{
         label: 'Features',
         route: '/',
@@ -106,42 +98,31 @@ export default {
       }],
     };
   },
-  computed: {
-    childs() {
-      return this.activeLink && this.activeLink.children;
-    },
-    activeLink() {
-      return this.links.find(l => l.label === this.active);
-    },
-  },
   methods: {
+    toggleStatus(index) {
+      this.$set(this.linkStatus, index, !this.linkStatus[index]);
+    },
     goHome() {
-      this.$emit('close-nav');
       this.$router.push({ path: '/' });
-      this.active = false;
+      this.$emit('close-nav');
+    },
+    moveOrOpen(item, index) {
+      if (item.disabled) return;
+      if (item.children) return this.toggleStatus(index);
+      this.$router.push({ path: item.route });
+      this.$emit('close-nav');
+    },
+    moveTo(item) {
+      if (item.disabled) return;
+      this.$router.push({ path: item.route });
+      this.$emit('close-nav');
     },
     isActive(item) {
       return item.route === this.$route.path;
     },
-    moveTo(item) {
-      if (!item.children) {
-        this.$emit('close-nav');
-        return this.$router.push({ path: item.route });
-      }
-      this.active = item.label;
-    },
-    setActive() {
-      const active = this.links.find(l => {
-        if (l.children && l.children.find(c => c.route === this.$route.path)) return l;
-      });
-      if (active) this.active = active.label;
-    },
   },
-  watch: {
-    '$route': 'setActive',
-  },
-  mounted() {
-    this.setActive();
+  created() {
+    this.linkStatus = this.links.map(() => false);
   },
 };
 </script>
@@ -150,19 +131,15 @@ export default {
 @import '~colors';
 
   nav {
-    width: 350px;
-    background-color: #F2F2F2;
+    width: 300px;
+    background-color: #606060;
     flex-direction: column;
     flex-shrink: 0;
     display: flex;
     height: 100%;
     overflow-y: auto;
-  }
-
-  @media (max-width: 1280px) {
-    nav {
-      width: 280px;
-    }
+    border-right: 1px solid #e2dede;
+    color: #fafafa;
   }
 
   @media (max-width: 940px) {
@@ -181,19 +158,31 @@ export default {
 
   .logo {
     width: 100%;
-    height: 120px;
+    height: 90px;
     align-items: center;
     justify-content: center;
     display: flex;
     flex-direction: column;
-    color: #848484;
-    cursor: pointer;
     position: relative;
 
     > div {
+      cursor: pointer;
       display: flex;
-      flex-direction: column;
       align-items: center;
+      padding: 6px 12px;
+      border-radius: 2px;
+      background-color: rgba(155, 155, 155, 0.2);
+      color: #fafafa;
+    }
+
+    > div i {
+      font-size: 34px;
+      margin-right: 8px;
+    }
+
+    .tag {
+      font-family: 'Oxygen Mono', monospace;
+      font-size: 14px;
     }
 
     .close-nav {
@@ -209,7 +198,6 @@ export default {
       .close-nav {
         display: block;
       }
-
     }
 
     i {
@@ -226,38 +214,10 @@ export default {
 
   .navigation {
     padding: 0 30px 30px 30px;
-    font-weight: bold;
+    font-weight: 500;
     display: flex;
     flex-direction: column;
     flex: 1 0 auto;
-  }
-
-  .breadcrumbs {
-    height: 18px;
-    color: $primary;
-    font-size: 12px;
-    text-transform: uppercase;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-
-    > div {
-      display: flex;
-      align-items: center;
-
-      span:first-child {
-        cursor: pointer;
-      }
-
-      i {
-        font-size: 18px;
-      }
-    }
-
-    i {
-      font-size: 20px;
-      cursor: pointer;
-    }
   }
 
   .nav-items {
@@ -266,39 +226,37 @@ export default {
     overflow: hidden;
     flex: 1 0 auto;
 
-    ul {
-      transition: transform .2s ease-in-out;
-    }
-
     li {
-      margin-top: 30px;
-      cursor: pointer;
+      margin-top: 18px;
 
       > div {
         display: flex;
-        justify-content: space-between;
       }
 
       > div > span {
         position: relative;
       }
 
-      &.active {
-        color: $primary;
+      .expand {
+        width: 28px;
+        display: flex;
+      }
+
+      .label {
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        transition: color .15s ease-in-out;
       }
 
       &.active > div > span:before {
         position: absolute;
         right: 0px;
         left: 0px;
-        bottom: -5px;
+        bottom: -4px;
         content: '';
         height: 2px;
         background-color: $primary;
-      }
-
-      &:hover:not(.disabled) {
-        color: $primary;
       }
 
       &.disabled {
@@ -308,24 +266,16 @@ export default {
     }
   }
 
-  .on-2 {
-    ul:nth-child(1) {
-      transform: translateX(-100%);
-    }
-    ul:nth-child(2) {
-      transform: translateX(0%);
-    }
-  }
-
-  .lvl-1 {
-    width: 100%;
-    position: absolute;
-    transform: translateX(0%);
+  li:not(.disabled) .label:hover {
+    color: $primary;
   }
 
   .lvl-2 {
-    width: 100%;
-    position: absolute;
-    transform: translateX(100%);
+    margin-left: 42px;
+    font-weight: 400;
+
+    li:nth-child(1) {
+      margin-top: 14px;
+    }
   }
 </style>

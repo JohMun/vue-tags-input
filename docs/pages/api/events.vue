@@ -1,10 +1,12 @@
 <template lang="html">
-  <div class="docs-events">
-    <ul>
-      <div class="docs-item" v-for="(e, index) in events" :key="index">
-        <docs-item :item="e"></docs-item>
-      </div>
-    </ul>
+  <div class="events page">
+    <div class="content">
+      <ul>
+        <div class="docs-item" v-for="(e, index) in events" :key="index">
+          <docs-item :item="e"></docs-item>
+        </div>
+      </ul>
+    </div>
   </div>
 </template>
 
@@ -12,7 +14,7 @@
 import DocsItem from '../../components/docs-item';
 
 export default {
-  name: 'DocsEvents',
+  name: 'Events',
   components: {
     DocsItem,
   },

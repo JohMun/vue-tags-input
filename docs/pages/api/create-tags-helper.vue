@@ -1,12 +1,14 @@
 <template lang="html">
-  <div class="create-tags-helper">
-    import helper functions and VueTagsInput
-    <el-code class="javascript">
-      <code>
+  <div class="create-tags-helper page">
+    <div class="content">
+      import helper functions and VueTagsInput
+      <el-code class="javascript">
+        <code>
 import { VueTagsInput, createTag, createTags } from '@johmun/vue-tags-input';
-      </code>
-    </el-code>
-    <!-- auf $ref und performAddTag hinweisen -->
+        </code>
+      </el-code>
+      <!-- auf $ref und performAddTag hinweisen -->
+    </div>
   </div>
 </template>
 
