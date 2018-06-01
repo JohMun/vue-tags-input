@@ -2,9 +2,9 @@
   <div class="events page">
     <div class="content">
       <ul>
-        <div class="docs-item" v-for="(p, index) in events" :key="index">
+        <li class="docs-item" v-for="(p, index) in events" :key="index">
           <auto-docs-item :item="p" />
-        </div>
+        </li>
       </ul>
     </div>
   </div>

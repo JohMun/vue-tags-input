@@ -91,7 +91,7 @@ export default {
     type: Boolean,
   },
   /**
-   * @description If it's true, the users can add tags only with the autocomplete layer
+   * @description If it's true, the users can add tags only with the autocomplete layer.
    * @property {props}
    * @type {Boolean}
    * @default false
@@ -113,7 +113,7 @@ export default {
   },
   /**
    * @description If it's true, the autocomplete layer is always shown, regardless if
-     an input or an autocomplete items exists
+     an input or an autocomplete items exists.
    * @property {props}
    * @type {Boolean}
    * @default false
@@ -123,7 +123,7 @@ export default {
     default: false,
   },
   /**
-   * @description Property to disable the tags input component
+   * @description Property to disable the tags input component.
    * @property {props}
    * @type {Boolean}
    * @default false
@@ -133,7 +133,7 @@ export default {
     default: false,
   },
   /**
-   * @description The placeholder text which is shown in the input, when it's empty
+   * @description The placeholder text which is shown in the input, when it's empty.
    * @property {props}
    * @type {String}
    * @default Add Tag
@@ -175,7 +175,7 @@ export default {
     type: Number,
   },
   /**
-   * @description The maximum amount of characters the input can hold
+   * @description The maximum amount of characters the input can hold.
    * @property {props}
    * @type {Number}
    */
@@ -255,7 +255,7 @@ export default {
   },
   /**
    * @description If it's true, the user can't add or save a tag,
-     if another exists with the same text value.
+     if another exists, with the same text value.
    * @property {props}
    * @type {Boolean}
    * @default true

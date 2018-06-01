@@ -82,9 +82,6 @@ export default {
           label: 'Events',
           route: '/api/events',
         }, {
-          label: 'Classes',
-          route: '/api/classes',
-        }, {
           label: 'Slots',
           route: '/api/slots',
         }, {

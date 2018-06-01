@@ -2,7 +2,7 @@
   <div class="auto-docs-item">
     <div class="name">
       <!-- <span class="label">Name</span> -->
-      <span class="value code">{{ model ? 'v-model' : kebabCase(item.name) }}</span>
+      <span class="value code">{{ name }}</span>
     </div>
     <p class="description meta" v-if="description">{{ description }}</p>
     <div class="type meta" v-if="type">
@@ -16,6 +16,41 @@
     <div class="required meta" v-if="required">
       <span class="label">Required</span>
       <i class="material-icons">check</i>
+    </div>
+    <div class="params meta" v-if="params.length">
+      <span class="label big">Parameters</span>
+      <ul>
+        <li v-for="(param, index) in params" :key="index">
+          <div>
+            <span class="label">Name</span>
+            <span>{{ param.name }}</span>
+          </div>
+          <div>
+            <span class="label">Description</span>
+            <span>{{ param.description }}</span>
+          </div>
+          <div>
+            <span class="label">Type</span>
+            <template v-if="param.type.elements && param.type.elements.length">
+              <span
+                class="code"
+                v-for="(type, index) in param.type.elements"
+                :key="index">
+                {{ type.name }}
+                <span v-if="param.type.elements.length - 1 > index">|</span>
+              </span>
+            </template>
+            <template v-if="param.type.type === 'OptionalType'">
+              <span class="code">{{ param.type.expression.name }}</span>
+              - Default
+              <span class="code">{{ param.default }}</span>
+            </template>
+            <span v-else class="code">
+              {{ param.type.name }}
+            </span>
+          </div>
+        </li>
+      </ul>
     </div>
     <div class="returns meta" v-if="returnsType">
       <span class="label">Returns</span>
@@ -41,8 +76,20 @@ export default {
   components: {
     ElCode,
   },
-  props: ['item'],
+  props: {
+    item: {
+      type: Object,
+    },
+    kebabName: {
+      type: Boolean,
+      default: true,
+    },
+  },
   computed: {
+    name() {
+      const name = this.model ? 'v-model' : this.item.name;
+      return this.kebabName ? kebabCase(name) : name;
+    },
     model() {
       return this.item.tags.find(t => t.title === 'model');
     },
@@ -77,9 +124,9 @@ export default {
       const item = this.item.tags.find(t => t.title === 'returns');
       return item && item.type && item.type.name;
     },
-  },
-  methods: {
-    kebabCase,
+    params() {
+      return this.item.tags.filter(t => t.title === 'param');
+    },
   },
 };
 </script>
@@ -105,6 +152,10 @@ export default {
   margin-right: 6px;
   color: $primary;
   font-weight: bold;
+
+  &.big {
+    font-size: 1.1em;
+  }
 }
 
 .required, .hook {
@@ -113,6 +164,28 @@ export default {
 
   i {
     margin-top: -4px;
+  }
+}
+
+.params {
+  display: flex;
+  flex-direction: column;
+
+  ul {
+    margin-top: 2px;
+    margin-left: 6px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  ul li {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 6px;
+  }
+
+  ul li .label {
+    color: #868686;
   }
 }
 

@@ -86,7 +86,8 @@ export default {
        * @description Emits before a tag toggles to it's edit mode
        * @name before-editing-tag
        * @property {events} hook
-       * @returns {Object} Contains the to editing tag, the tag's index and the function 'editTag'.
+       * @returns {Object} Contains the to editing tag: 'tag'.
+         The tag's index: 'index'. And a function: 'editTag'.
          If the function is invoked, the tag toggles to it's edit mode.
        */
       this.$emit('before-editing-tag', {
@@ -155,8 +156,8 @@ export default {
        * @description Emits before a tag is deleted
        * @name before-deleting-tag
        * @property {events} hook
-       * @returns {Object} Contains the to editing tag, the tag's index
-         and the function 'deleteTag'. If the function is invoked, the tag is deleted.
+       * @returns {Object} Contains the to editing tag: 'tag'. The tag's index: 'index'
+         And a function: 'deleteTag'. If the function is invoked, the tag is deleted.
        */
       this.$emit('before-deleting-tag', {
         index,
@@ -206,7 +207,7 @@ export default {
          * @description Emits before a tag is added
          * @name before-adding-tag
          * @property {events} hook
-         * @returns {Object} Contains the to editing tag and the function 'addTag'.
+         * @returns {Object} Contains the to editing tag: 'tag'. And a function: 'addTag'.
            If the function is invoked, the tag is added.
          */
         this.$emit('before-adding-tag', {
@@ -225,7 +226,7 @@ export default {
       const maximumReached = this.maxTags && this.maxTags === this.tagsCopy.length;
 
       /**
-       * @description Emits if the maximum is reached, the tags array is allowed to hold.
+       * @description Emits if the maximum, the tags array is allowed to hold, is reached.
          The maximum can be defined by the prop 'max-tags'.
        * @name max-tags-reached
        * @property {events}
@@ -270,7 +271,8 @@ export default {
        * @description Emits before a tag is saved
        * @name before-saving-tag
        * @property {events} hook
-       * @returns {Object} Contains the to editing tag, the tag's index and the function 'saveTag'.
+       * @returns {Object} Contains the to editing tag: 'tag'.
+         The tag's index: 'index'. And a function: 'saveTag'.
          If the function is invoked, the tag is saved.
        */
       this.$emit('before-saving-tag', {
