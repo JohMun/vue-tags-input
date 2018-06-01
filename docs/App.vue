@@ -14,7 +14,7 @@
             </a>
           </div>
         </header>
-        <router-view class="page-content" />
+        <router-view class="main-content" />
       </div>
     </main>
   </div>
@@ -132,9 +132,16 @@ header {
   }
 }
 
-.page-content {
+.main-content {
   flex: 1 0 auto;
   padding: 20px 40px 40px 40px;
+}
+
+@media (max-width: 600px) {
+  .main-content {
+    flex: 1 0 auto;
+    padding: 50px 15px 15px 15px;
+  }
 }
 
 </style>

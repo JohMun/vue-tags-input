@@ -144,9 +144,15 @@ export default {
 
   @media (max-width: 940px) {
     nav {
-      width: 100%;
+      // width: 100%;
       position: absolute;
       z-index: 999;
+    }
+  }
+
+  @media (max-width: 420px) {
+    nav {
+      width: 100%;
     }
   }
 

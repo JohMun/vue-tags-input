@@ -75,49 +75,46 @@ export default {
       tag: '',
       tags: [{
         text: 'No dependencies',
-        style: 'background-color: #f49a3e',
+        style: 'background-color: #364187',
       }, {
         text: 'Custom validation rules',
-        style: 'background-color: #cdede5',
+        style: 'background-color: #D5D9F0',
         classes: 'dark-font',
       }, {
         text: 'Hooks: Before adding, Before deleting ...',
-        style: 'background-color: #3ea489',
+        style: 'background-color: #A7AEDA',
       }, {
         text: 'Edit tags after creation (click me)',
-        style: 'background-color: #F5DA81',
-        classes: 'dark-font',
+        style: 'background-color: #535EA1',
       }, {
         text: 'Fast setup',
         style: 'background-color: #586565',
       }, {
         text: 'Works with Vuex',
-        style: 'background-color:  #f49a3e',
+        style: 'background-color:  #364187',
       }, {
         text: 'Small size: 25kb minified | gzipped 8kb',
-        style: 'background-color: #3ea489',
+        style: 'background-color: #A7AEDA',
       }, {
         text: 'Autocompletion',
-        style: 'background-color: #cdede5',
+        style: 'background-color: #D5D9F0',
         classes: 'dark-font',
       }, {
         text: 'Customization options',
-        style: 'background-color: #F5DA81',
-        classes: 'dark-font',
+        style: 'background-color: #535EA1',
       }, {
         text: 'Own templates',
-        style: 'background-color:  #f49a3e',
+        style: 'background-color:  #364187',
       }, {
         text: 'Delete tags on backslash',
         style: 'background-color: #586565',
       }, {
         text: 'Add tags on paste',
-        style: 'background-color: #cdede5',
+        style: 'background-color: #D5D9F0',
         classes: 'dark-font',
       }, {
         text: 'Examples & Docs',
-        style: 'background-color: #F5DA81',
-        classes: 'dark-font',
+        style: 'background-color: #535EA1',
       }],
       todo: [
         'Animation support',

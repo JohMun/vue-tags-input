@@ -2,8 +2,8 @@
   <div class="events page">
     <div class="content">
       <ul>
-        <div class="docs-item" v-for="(e, index) in events" :key="index">
-          <docs-item :item="e"></docs-item>
+        <div class="docs-item" v-for="(p, index) in events" :key="index">
+          <auto-docs-item :item="p" />
         </div>
       </ul>
     </div>
@@ -11,74 +11,16 @@
 </template>
 
 <script>
-import DocsItem from '../../components/docs-item';
+import AutoDocsItem from '../../components/auto-docs-item';
 
 export default {
   name: 'Events',
   components: {
-    DocsItem,
+    AutoDocsItem,
   },
   data() {
     return {
-      events: [{
-        name: 'tag-clicked',
-        type: 'Event',
-        parameters: [{
-          type: 'Object',
-          name: 'tag',
-        }, {
-          type: 'Number',
-          name: 'index',
-        }],
-      }, {
-        name: 'tags-changed',
-        type: 'Event',
-        parameters: [{
-          type: 'Array',
-          name: 'tags',
-        }],
-      }, {
-        name: 'saving-duplicate',
-        type: 'Event',
-        parameters: [{
-          type: 'Object',
-          name: 'tag',
-        }],
-      }, {
-        name: 'adding-duplicate',
-        type: 'Event',
-      }, {
-        name: 'max-tags-reached',
-        type: 'Event',
-      }, {
-        name: 'before-adding-tag',
-        type: 'Event / Hook',
-        description: 'Lorem ipsum dolor sit amet ...',
-        parameters: [{
-          type: 'Object',
-        }],
-      }, {
-        name: 'before-editing-tag',
-        type: 'Event / Hook',
-        description: 'Lorem ipsum dolor sit amet ...',
-        parameters: [{
-          type: 'Object',
-        }],
-      }, {
-        name: 'before-deleting-tag',
-        type: 'Event / Hook',
-        description: 'Lorem ipsum dolor sit amet ...',
-        parameters: [{
-          type: 'Object',
-        }],
-      }, {
-        name: 'before-saving-tag',
-        type: 'Event / Hook',
-        description: 'Lorem ipsum dolor sit amet ...',
-        parameters: [{
-          type: 'Object',
-        }],
-      }],
+      events: window.docs.events,
     };
   },
 };

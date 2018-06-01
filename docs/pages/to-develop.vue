@@ -9,6 +9,7 @@
         :save-on-key="[188, 38, 13]"
         :allow-edit-tags="true"
         :separators="[',']"
+        :validation="validation"
         :autocomplete-items="autocompleteItems"
         @tags-changed="newTags => tags = newTags">
       </vue-tags-input>
@@ -29,14 +30,14 @@ export default {
     return {
       tag: '',
       tags: [{
-        text: 't1',
         classes: 'test',
+        text: 'uh',
       }, {
         text: 't5',
       }],
       validation: [{
         type: 'min-length',
-        rule: '^.{4,}$',
+        rule: '[0-9]',
       }, {
         type: 'only-numbers',
         rule: '[0-9]',

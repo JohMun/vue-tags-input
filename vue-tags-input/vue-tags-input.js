@@ -83,11 +83,11 @@ export default {
       if (!this.allowEditTags) return;
       if (!this._events['before-editing-tag']) this.editTag(index);
       /**
-       * Is called before a tag toggles in edit mode
+       * @description Emits before a tag toggles to it's edit mode
        * @name before-editing-tag
-       * @property {event}
-       * @returns {Object} Contains the to editing tag and the function editTag.
-         If the function is invoked, the tag toggles to edit mode.
+       * @property {events} hook
+       * @returns {Object} Contains the to editing tag, the tag's index and the function 'editTag'.
+         If the function is invoked, the tag toggles to it's edit mode.
        */
       this.$emit('before-editing-tag', {
         index,
@@ -151,6 +151,13 @@ export default {
     // Method to call to delete a tag
     performDeleteTag(index) {
       if (!this._events['before-deleting-tag']) this.deleteTag(index);
+      /**
+       * @description Emits before a tag is deleted
+       * @name before-deleting-tag
+       * @property {events} hook
+       * @returns {Object} Contains the to editing tag, the tag's index
+         and the function 'deleteTag'. If the function is invoked, the tag is deleted.
+       */
       this.$emit('before-deleting-tag', {
         index,
         tag: this.tagsCopy[index],
@@ -164,6 +171,12 @@ export default {
       // Clears the debounce for the deletion mark and removes the tag
       clearTimeout(this.deletionMarkTime);
       this.tagsCopy.splice(index, 1);
+      /**
+       * @description Emits if the tags array changes
+       * @name tags-changed
+       * @property {events}
+       * @returns {Array} The modified tags array
+       */
       this.$emit('tags-changed', this.tagsCopy);
     },
     // Decides wether the input keyCode is one, which is allowed to modify/add tags
@@ -189,6 +202,13 @@ export default {
       tags.forEach(tag => {
         tag = createTag(tag, this.tags, this.validation, false);
         if (!this._events['before-adding-tag']) this.addTag(tag);
+        /**
+         * @description Emits before a tag is added
+         * @name before-adding-tag
+         * @property {events} hook
+         * @returns {Object} Contains the to editing tag and the function 'addTag'.
+           If the function is invoked, the tag is added.
+         */
         this.$emit('before-adding-tag', {
           tag,
           addTag: () => this.addTag(tag),
@@ -203,11 +223,25 @@ export default {
 
       // Maybe we should not add a tag because the maximum has reached already
       const maximumReached = this.maxTags && this.maxTags === this.tagsCopy.length;
+
+      /**
+       * @description Emits if the maximum is reached, the tags array is allowed to hold.
+         The maximum can be defined by the prop 'max-tags'.
+       * @name max-tags-reached
+       * @property {events}
+       */
       if (maximumReached) return this.$emit('max-tags-reached');
 
       // If we shouldn't add duplicates → stop
       const dup = this.avoidAddingDuplicates &&
         this.tagsCopy.map(t => t.text).indexOf(tag.text) !== -1;
+
+      /**
+       * @description Emits if the user tries to add a duplicate to the tag's array
+         and adding duplicates is prevented by the prop 'avoid-adding-duplicates'
+       * @name adding-duplicate
+       * @property {events}
+       */
       if (dup) return this.$emit('adding-duplicate', tag);
 
       // If the tag is invalid and we find a rule which avoids adding → stop
@@ -232,6 +266,13 @@ export default {
 
       // The basic checks are done → try to save the tag
       if (!this._events['before-saving-tag']) this.saveTag(index, tag);
+      /**
+       * @description Emits before a tag is saved
+       * @name before-saving-tag
+       * @property {events} hook
+       * @returns {Object} Contains the to editing tag, the tag's index and the function 'saveTag'.
+         If the function is invoked, the tag is saved.
+       */
       this.$emit('before-saving-tag', {
         index,
         tag,
@@ -242,6 +283,13 @@ export default {
       // If we shouldn't save duplicates → stop
       const dup = this.avoidAddingDuplicates &&
         this.tagsCopy.filter(t => t.text === tag.text).length > 1;
+
+      /**
+       * @description Emits if the user tries to save a duplicate in the tag's array
+         and saving duplicates is prevented by the prop 'avoid-adding-duplicates'
+       * @name saving-duplicate
+       * @property {events}
+       */
       if (dup) return this.$emit('saving-duplicate', tag);
 
       // If the tag is invalid and we find a rule which avoids saving → stop
