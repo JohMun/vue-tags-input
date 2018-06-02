@@ -59,7 +59,6 @@
                 :perform-delete="performDeleteTag"
                 :perform-cancel-edit="cancelEdit"
                 :validate-tag="createChangedTag"
-                :cancel-edit="cancelEdit"
                 :perform-save-tag="performSaveTag"
                 :perform-open-edit="performEditTag"
                 :deletion-mark="isMarked(index)">

@@ -2,7 +2,7 @@
   <div class="create-tags-helper page">
     <div class="content">
       <h1>
-        Further helper functions
+        Create tags helper
       </h1>
       <p>
         In some cases it can be useful to build tag objects manually.
@@ -26,6 +26,7 @@ import { VueTagsInput, createTag, createTags } from '@johmun/vue-tags-input';
 <script>
 import ElCode from '../../components/el-code';
 import AutoDocsItem from '../../components/auto-docs-item';
+import sortBy from 'lodash/sortBy';
 
 export default {
   name: 'CreateTagsHelper',
@@ -35,7 +36,7 @@ export default {
   },
   data() {
     return {
-      helpers: window.docs.helpers,
+      helpers: sortBy(window.docs.helpers, 'name'),
     };
   },
 };

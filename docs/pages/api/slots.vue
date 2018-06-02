@@ -32,7 +32,6 @@
           <li><span class="code">performCancelEdit - function - expect: index</span></li>
           <li><span class="code">performSaveTag - function - expect: index, event</span></li>
           <li><span class="code">validateTag - function - expect: index, event</span></li>
-          <li><span class="code">cancelEdit - function - expect: index</span></li>
         </ul>
         <!--<p>Explain tag-input component</p>-->
       </section>
