@@ -1,54 +1,56 @@
 const deletionMark = {
   name: 'deletionMark',
-  description: `If the tag should be deleted with backslash and is marked,
-    the property is true for 1 second`,
-  type: Boolean,
+  description: `If the user wants to delete the tag and presses backslash,
+    the property is true for 1 second, because the tag is marked to delete. `,
+  type: 'Boolean',
 };
 
 const tag = {
   name: 'tag',
-  type: Object,
-  description: 'a tag',
-  example: '',
+  type: 'Object',
 };
 
 const index = {
   name: 'index',
   description: 'The tags index',
-  type: Number,
+  type: 'Number',
 };
 
 const edit = {
   name: 'edit',
-  description: 'True if the tag is in edit mode',
-  type: Boolean,
+  description: 'It is true, if the tag is in edit mode',
+  type: 'Boolean',
 };
 
 const performDelete = {
   name: 'performDelete',
-  description: '',
-  type: Function,
+  description: `Call this function and pass an index as parameter
+    to start the deletion process for a tag`,
+  type: 'Function',
   expectedParams: 'index|Number',
 };
 
 const performOpenEdit = {
   name: 'performOpenEdit',
-  description: '',
-  type: Function,
+  description: `Call this function and pass an index as parameter
+    to open the edit mode for a tag`,
+  type: 'Function',
   expectedParams: 'index|Number',
 };
 
 const performCancelEdit = {
   name: 'performCancelEdit',
-  description: '',
-  type: Function,
+  description: `Call this function and pass an index as parameter
+    to cancel the edit mode for a tag`,
+  type: 'Function',
   expectedParams: 'index|Number',
 };
 
 const performSaveTag = {
   name: 'performSaveTag',
-  description: '',
-  type: Function,
+  description: `Call this function and pass an index as parameter
+    to save a modified tag`,
+  type: 'Function',
   expectedParams: 'index|Number',
 };
 
@@ -84,7 +86,7 @@ export default [
   {
     slot: 'tagActions',
     description: `The slot is positioned on the right side.
-      Holds the 'check', 'undo' and 'close' icons`,
+      It holds the 'check', 'undo' and 'close' icons`,
     props: [
       tag,
       index,
@@ -98,11 +100,60 @@ export default [
   },
   {
     slot: 'tagCenter',
-    description: 'Write something ...',
+    description: 'It holds the tags text value and an input to edit the text',
+    props: [
+      tag,
+      index,
+      edit,
+      {
+        name: 'maxlength',
+        type: 'Number',
+        description: 'The maximum amount of characters the input is allowed to hold',
+      },
+      deletionMark,
+      performDelete,
+      performOpenEdit,
+      performCancelEdit,
+      performSaveTag,
+      {
+        name: 'validateTag',
+        description: `Call this function if the input of a tag changes
+          to validate the new value e.g. the function could be binded to @input`,
+        type: 'Function',
+        expectedParams: 'index|Number, inputEvent',
+        example: `
+          @input="props.validateTag(props.index, $event)
+        `,
+      },
+    ],
   },
   {
     slot: 'autocompleteItem',
-    description: 'Slot to create a autocomplete item in the auutocomplete layer',
+    description: 'Slot to create a autocomplete item in the autocomplete layer',
+    props: [
+      {
+        name: 'item',
+        description: 'A autocomplete item, which has the same properties like a tag object',
+        type: 'Object',
+      },
+      {
+        name: 'index',
+        description: 'The items index',
+        type: 'Number',
+      },
+      {
+        name: 'selected',
+        description: 'It is true, if the autocomplete item is selected',
+        type: 'Boolean',
+      },
+      {
+        name: 'performAdd',
+        description: `Call this function and pass an autocomplete item as parameter
+          to add it to the tags array`,
+        type: 'Function',
+        expectedParams: 'item|Object',
+      },
+    ],
   },
   {
     slot: 'between-elements',

@@ -181,7 +181,7 @@ export default {
   ul li {
     display: flex;
     flex-direction: column;
-    margin-bottom: 6px;
+    margin-bottom: 12px;
   }
 
   ul li .label {

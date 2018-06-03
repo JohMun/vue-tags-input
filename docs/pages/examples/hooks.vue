@@ -9,9 +9,9 @@
         Before a tag is added, the function <span class="code">myCallback</span> is invoked
         and gets an object as paramter. The object contains the properties
         <span class="code">tag</span>, which is the to adding tag and a function named
-        <span class="code">addTag</span>. If this funcion is invoked,
+        <span class="code">addTag</span>. If this function is invoked,
         <span class="code">tag</span> will be added.
-        You find more information in the <a @click="$router.push({ path: '/docs/events' })">documentations</a>,
+        You find more information in the <router-link :to="{ path: '/api/events' }">documentations</router-link>,
         how the other hooks work.
       </p>
       <section>

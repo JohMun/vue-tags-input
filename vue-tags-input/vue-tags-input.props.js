@@ -167,7 +167,7 @@ export default {
     validator: propValidatorNumeric,
   },
   /**
-   * @description The maximum amount the tags array can hold.
+   * @description The maximum amount the tags array is allowed to hold.
    * @property {props}
    * @type {Number}
    */
@@ -175,7 +175,7 @@ export default {
     type: Number,
   },
   /**
-   * @description The maximum amount of characters the input can hold.
+   * @description The maximum amount of characters the input is allowed to hold.
    * @property {props}
    * @type {Number}
    */

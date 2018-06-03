@@ -42,7 +42,7 @@
         Via <span class="code">slot-scope</span> we access some properties and helper functions.
         The automcomplete item slot for example, gets the <span class="code">performAdd</span>
         function, which add a new tag to the collection by passing an index.
-        You can read the <a @click="$router.push({ path: '/docs/slots' })">documentations</a>
+        You can read the <router-link :to="{ path: '/api/slots' }">documentations</router-link>
         for further information.
       </p>
       <vue-tags-input

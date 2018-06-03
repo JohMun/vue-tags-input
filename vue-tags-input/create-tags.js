@@ -54,9 +54,11 @@ const createTag = (tag, ...rest) => {
 /**
  * @description Create multiple tags out of Strings or validate existing tags
  * @property {helpers}
- * @param {Array} tagsarray The tags array
+ * @param {Array} tagsarray An Array containing tags or strings. See example below.
  * @param {Array} [validation=[]] The validation Array is optional (pass it if you use one)
  * @returns {Array} An array containing (validated) tags
+ * @example  &#47;* Example to call the function *&#47;
+ createTags(['tag1Text', 'tag2Text'], [{ type: 'min-length', rule: /[0-9]/ }])
  */
 const createTags = (tags, ...rest) => tags.map(t => createTag(t, tags, ...rest));
 

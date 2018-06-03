@@ -19,6 +19,7 @@
 <script>
 import VueTagsInput from '../../vue-tags-input/vue-tags-input.vue';
 import TagInput from '../../vue-tags-input/tag-input.vue';
+import { createTags } from '../../vue-tags-input/create-tags';
 
 export default {
   name: 'ToDevelop',
@@ -90,6 +91,7 @@ export default {
   },
   mounted() {
     this.setAutocompleteItems();
+    console.log(createTags(['test', 'test2'], this.validation));
   },
 };
 </script>
