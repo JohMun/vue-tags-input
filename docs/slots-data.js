@@ -86,7 +86,7 @@ export default [
   {
     slot: 'tagActions',
     description: `The slot is positioned on the right side.
-      It holds the 'check', 'undo' and 'close' icons`,
+      At default, it holds the 'check', 'undo' and 'close' icons`,
     props: [
       tag,
       index,
@@ -100,7 +100,7 @@ export default [
   },
   {
     slot: 'tagCenter',
-    description: 'It holds the tags text value and an input to edit the text',
+    description: 'At default, it holds the tags text value and an input to edit the text',
     props: [
       tag,
       index,
@@ -121,9 +121,7 @@ export default [
           to validate the new value e.g. the function could be binded to @input`,
         type: 'Function',
         expectedParams: 'index|Number, inputEvent',
-        example: `
-          @input="props.validateTag(props.index, $event)
-        `,
+        example: '@input="props.validateTag(props.index, $event)',
       },
     ],
   },

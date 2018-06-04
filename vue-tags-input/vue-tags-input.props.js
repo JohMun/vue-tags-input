@@ -48,9 +48,9 @@ export default {
    * @default []
    * @example
     {
-    &ensp;text: 'My tag value', &#47;* The visible text on display *&#47;
-    &ensp;style: 'background-color: #ccc', &#47;* Adding inline styles is possible *&#47;
-    &ensp;classes: 'custom-class another', &#47;* The value will be added as css classes *&#47;
+    &emsp;text: 'My tag value', &#47;* The visible text on display *&#47;
+    &emsp;style: 'background-color: #ccc', &#47;* Adding inline styles is possible *&#47;
+    &emsp;classes: 'custom-class another', &#47;* The value will be added as css classes *&#47;
     }
    */
   tags: {
@@ -60,7 +60,7 @@ export default {
   },
   /**
    * @description Expects an array containing objects inside. The objects
-    can have the same properties as a tag object, explained above.
+    can have the same properties as a tag object.
    * @property {props}
    * @type {Array}
    * @default []
@@ -91,7 +91,7 @@ export default {
     type: Boolean,
   },
   /**
-   * @description If it's true, the users can add tags only with the autocomplete layer.
+   * @description If it's true, the user can add tags only via the autocomplete layer.
    * @property {props}
    * @type {Boolean}
    * @default false
@@ -123,7 +123,7 @@ export default {
     default: false,
   },
   /**
-   * @description Property to disable the tags input component.
+   * @description Property to disable vue-tags-input.
    * @property {props}
    * @type {Boolean}
    * @default false
@@ -186,7 +186,8 @@ export default {
    * @description Pass an array containing objects like in the example below.
      The property 'type' will be added as css classes, if the property 'rule' matches the text
      of a tag, an autocomplete item or the input. The property 'rule' can be type of
-     RegExp or function.
+     RegExp or function. If the property 'disableAdd' is 'true', the item can't be added
+     to the tags array, if the appropriated rule matches.
    * @property {props}
    * @type {Array}
    * @default []
@@ -198,6 +199,8 @@ export default {
     &ensp;type: 'no-braces', &#47;* css class *&#47;
     &ensp;rule(text) { &#47;* function with text as param *&#47;
     &ensp;&ensp;return text.indexOf('{') !== -1 || text.indexOf('}') !== -1;
+    &ensp;},
+    &ensp;disableAdd: true, &#47;* if the rule matches, the item cannot be added *&#47;,
     },
    */
   validation: {
@@ -240,7 +243,7 @@ export default {
    * @example
      separators: [';', ',']
      input: some; user input, has random; commas, an,d semicolons
-     is split into: some - user input - has random - commas - an - d semicolons
+     will split into: some - user input - has random - commas - an - d semicolons
    */
   separators: {
     type: Array,
@@ -287,7 +290,7 @@ export default {
     default: true,
   },
   /**
-   * @description Defines if it's possible to delete tags when pressing backslash.
+   * @description Defines if it's possible to delete tags by pressing backslash.
      If so and the user wants to delete a tag,
      the tag gets the css class 'deletion-mark' for 1 second.
      If the user presses backslash again in that time period,

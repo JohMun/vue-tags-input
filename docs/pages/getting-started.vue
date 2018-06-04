@@ -50,6 +50,15 @@ export default {
 &lt;/script&gt;
         </code>
       </el-code>
+      <h2>CDN</h2>
+      <p>
+        vue-tags-input can be included via CDN and it registrates itself as a global component.
+      </p>
+      <el-code>
+        <code>
+&lt;script src=&quot;https://unpkg.com/@johmun/vue-tags-input/dist/vue-tags-input.js&quot;&gt;&lt;/script&gt;
+        </code>
+      </el-code>
     </div>
   </div>
 </template>

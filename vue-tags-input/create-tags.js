@@ -1,5 +1,4 @@
 // helper functions
-// they are outside of the main app logic, because maybe the user likes to import them
 
 const validateUserRules = (text, validation) => {
   return validation.filter(val => {
@@ -19,7 +18,7 @@ const createClasses = (text, tags, validation = [], checkFromInside = true) => {
   // create css classes from the user validation array
   const classes = validateUserRules(text, validation);
 
-  // check wether the tag is a duplicate or not
+  // check whether the tag is a duplicate or not
   const duplicate = checkFromInside ? tags.filter(t => t.text === text).length > 1 :
     tags.map(t => t.text).indexOf(text) !== -1;
 

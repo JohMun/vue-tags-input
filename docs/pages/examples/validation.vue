@@ -32,7 +32,7 @@
         </p>
         <p>
           If the rule is valid, the class "valid", or if not, "invalid" is also added.
-          If the tag input component find a duplicate item, the class "duplicate" is appended.
+          If the tag input component finds a duplicate item, the class "duplicate" is appended.
           By default the prop <span class="code">avoid-adding-duplicates</span> is true.
           So in this example it is impossible to add duplicates.
         </p>
@@ -84,9 +84,7 @@ data() {
       disableAdd: true,
     }, {
       type: 'no-braces',
-      rule(text) {
-        return text.indexOf('{') !== -1 || text.indexOf('}') !== -1;
-      },
+      rule: text => text.indexOf('{') !== -1 || text.indexOf('}') !== -1,
     }],
   };
 },
@@ -136,9 +134,7 @@ export default {
         disableAdd: true,
       }, {
         type: 'no-braces',
-        rule(text) {
-          return text.indexOf('{') !== -1 || text.indexOf('}') !== -1;
-        },
+        rule: text => text.indexOf('{') !== -1 || text.indexOf('}') !== -1,
       }],
     };
   },

@@ -61,7 +61,7 @@
       <span class="label">Hook</span>
       <i class="material-icons">check</i>
     </div>
-    <el-code v-if="example">
+    <el-code v-if="example" class="js">
       <code v-html="example"></code>
     </el-code>
   </div>

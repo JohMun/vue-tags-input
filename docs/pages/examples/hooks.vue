@@ -5,9 +5,9 @@
       <p>
         The tags input component provides different hooks.
         A callback function can be registered, to control the behaviour of tags input.
-        For example <span class="code">@before-adding-tag="myCallback"</span>.
+        For example like that: <span class="code">@before-adding-tag="myCallback"</span>.
         Before a tag is added, the function <span class="code">myCallback</span> is invoked
-        and gets an object as paramter. The object contains the properties
+        and gets an object as parameter. The object contains the properties
         <span class="code">tag</span>, which is the to adding tag and a function named
         <span class="code">addTag</span>. If this function is invoked,
         <span class="code">tag</span> will be added.
@@ -77,7 +77,7 @@ methods: {
         <h2>Example 2</h2>
         <p>
           In the <span class="code">checkTag</span> function, which is called
-          by the <span class="code">before-adding-tag</span> hook, a check is executed.
+          by the <span class="code">before-adding-tag</span> hook, some logic is executed.
           If a to adding tag contains the letter "e", an alert box is shown.
         </p>
         <vue-tags-input

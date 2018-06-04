@@ -33,15 +33,15 @@
         <span class="code">tagLeft</span> and
         <span class="code">autocompleteItem</span> to insert
         <a href="https://material.io/icons/" target="_blanc">material icons</a>
-        beside each tag and autocomplete item.
+        on the left of each tag and autocomplete item.
         The property <span class="code">allow-edit-tags</span> is set to <span class="code">true</span>,
         to enable editing tags after creation.
         <!-- erklären welche props in den scope gelangen -->
       </p>
       <p>
         Via <span class="code">slot-scope</span> we access some properties and helper functions.
-        The automcomplete item slot for example, gets the <span class="code">performAdd</span>
-        function, which add a new tag to the collection by passing an index.
+        The autocomplete item slot for example, gets the <span class="code">performAdd</span>
+        function, which adds a new tag to the collection by passing an index.
         You can read the <router-link :to="{ path: '/api/slots' }">documentations</router-link>
         for further information.
       </p>
@@ -235,9 +235,7 @@ computed: {
   items() {
     return this.animals
       .filter(a => new RegExp(this.tag, 'i').test(a))
-      .map(a => {
-        return { text: a };
-      });
+      .map(a => ({ text: a }));
   },
 },
         </code>
@@ -259,7 +257,7 @@ computed: {
         This is the default behaviour of every tag recreated with the slot
         <span class="code">tagCenter</span>.
         The component <span class="code">TagInput</span> is a helper to fastly build
-        the standard text input to enable editing tags after creation.
+        the standard text input, which provides the ability to edit tags after creation.
         The css class <span class="code">hidden</span> is provided by tags input.
         It's a helper class which enlarges a tag while the user is typing.
       </p>
@@ -356,9 +354,7 @@ export default {
     items2() {
       return this.animals
         .filter(a => new RegExp(this.example2.tag, 'i').test(a))
-        .map(a => {
-          return { text: a };
-        });
+        .map(a => ({ text: a }));
     },
   },
 };

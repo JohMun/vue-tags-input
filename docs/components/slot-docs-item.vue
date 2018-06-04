@@ -26,6 +26,9 @@
             <span class="label">Expected Parameters</span>
             <span class="code">{{ prop.expectedParams }}</span>
           </div>
+          <el-code v-if="prop.example" class="js">
+            <code v-html="prop.example"></code>
+          </el-code>
         </li>
       </ul>
     </div>
@@ -33,8 +36,13 @@
 </template>
 
 <script>
+import ElCode from './el-code';
+
 export default {
   name: 'SlotDocsItem',
+  components: {
+    ElCode,
+  },
   props: {
     item: {
       type: Object,

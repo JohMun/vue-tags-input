@@ -38,7 +38,7 @@ export default {
     },
   },
   methods: {
-    // Returns the index which tag should be selected, based on the parameter 'method'
+    // Returns the index which item should be selected, based on the parameter 'method'
     getSelectedIndex(method) {
       const items = this.filteredAutocompleteItems;
       const selectedItem = this.selectedItem;
@@ -217,8 +217,8 @@ export default {
       });
     },
     addTag(tag) {
-      // Check if we only add items from autocomplete and if so,
-      // does the tag exist as an option
+      // Check if we should only add items from autocomplete and if so,
+      // does the tag exists as an option
       const options = this.filteredAutocompleteItems.map(i => i.text);
       if (this.addOnlyFromAutocomplete && options.indexOf(tag.text) === -1) return;
 
@@ -233,7 +233,7 @@ export default {
        */
       if (maximumReached) return this.$emit('max-tags-reached');
 
-      // If we shouldn't add duplicates → stop
+      // If we shouldn't add duplicates and that is one → stop
       const dup = this.avoidAddingDuplicates &&
         this.tagsCopy.map(t => t.text).indexOf(tag.text) !== -1;
 

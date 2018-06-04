@@ -2,9 +2,6 @@
   <div class="slots page">
     <div class="content">
       <h1>Slots</h1>
-      <p>
-        All available slots provided by vue-tags-input.
-      </p>
       <ul>
         <li class="docs-item" v-for="(s, index) in slots" :key="index">
           <slot-docs-item :item="s" />
