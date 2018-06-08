@@ -1,6 +1,8 @@
 <template lang="html">
   <div class="basic-demo">
     <h1>All Demo</h1>
+    <button type="button" name="button" @click="tags.push({ text: 'buh' })">add tag</button>
+    <button type="button" name="button" @click="tags.splice(1, 1)">delete tag</button>
       <vue-tags-input
         class="tags-input"
         v-model="tag"
@@ -11,15 +13,15 @@
         :separators="[',']"
         :validation="validation"
         :autocomplete-items="autocompleteItems"
-        @tags-changed="newTags => tags = newTags">
+        @tags-changed="tagsChanged">
       </vue-tags-input>
+      {{ tags }}
   </div>
 </template>
 
 <script>
 import VueTagsInput from '../../vue-tags-input/vue-tags-input.vue';
 import TagInput from '../../vue-tags-input/tag-input.vue';
-import { createTags } from '../../vue-tags-input/create-tags';
 
 export default {
   name: 'ToDevelop',
@@ -50,6 +52,10 @@ export default {
     };
   },
   methods: {
+    tagsChanged(tags) {
+      console.log('changed');
+      this.tags = tags;
+    },
     tagClicked(obj) {
       console.log(obj);
     },
@@ -89,9 +95,16 @@ export default {
   watch: {
     tag: 'setAutocompleteItems',
   },
+  created() {
+    for (let i = 0; i < 10; i++) {
+      this.tags.push({
+        text: 'tag' + i,
+        [i]: 'test',
+      });
+    }
+  },
   mounted() {
     this.setAutocompleteItems();
-    console.log(createTags(['test', 'test2'], this.validation));
   },
 };
 </script>

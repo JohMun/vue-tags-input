@@ -1,6 +1,8 @@
 // The file contains the main application logic
 // data, computed properties, methods, watchers and the component lifecycle
 
+import equal from 'fast-deep-equal';
+
 import { createTags, createTag, createClasses } from './create-tags';
 import TagInput from './tag-input.vue';
 import props from './vue-tags-input.props';
@@ -302,6 +304,9 @@ export default {
       this.toggleEditMode(index);
       this.$emit('tags-changed', this.tagsCopy);
     },
+    tagsEqual() {
+      return !this.tagsCopy.some((t, i) => !equal(t, this.tags[i]));
+    },
     updateNewTag(ievent) {
       const value = ievent.target.value;
       this.newTag = value;
@@ -311,14 +316,17 @@ export default {
       // We always work with a copy of the "real" tags, to easier edit them
       this.tagsCopy = createTags(this.tags, this.validation);
 
-      // Let's create an array which defines wheter a tag is in edit mode or not
+      // Let's create an array which defines whether a tag is in edit mode or not
       this.tagsEditStatus = this.clone(this.tags).map(() => false);
+
+      // we check if the original and the copied tags are equal. if not → update the parent
+      if (!this.tagsEqual()) this.$emit('tags-changed', this.tagsCopy);
     },
     blurred(e) {
-      // if the click occurs on tagsinput -> don't hide
+      // if the click occurs on tagsinput → don't hide
       if (this.$el.contains(e.target)) return;
 
-      // If we should add tags before blurring -> add tag
+      // If we should add tags before blurring → add tag
       if (this.addOnBlur && this.focused) this.performAddTags(this.newTag);
 
       // Hide autocomplete layer
