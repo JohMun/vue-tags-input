@@ -89,6 +89,9 @@ export default {
           route: '/api/create-tags-helper',
         }],
       }, {
+        label: 'Changelog',
+        route: '/changelog',
+      }, {
         label: 'Caveats',
         disabled: true,
         route: '',
