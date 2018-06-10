@@ -14,7 +14,7 @@
             </a>
           </div>
         </header>
-        <router-view class="page-content" />
+        <router-view class="main-content" />
       </div>
     </main>
   </div>
@@ -54,7 +54,7 @@ export default {
 
 @media (max-width: 940px) {
   .navbar {
-    transition: transform .4s ease-in-out;
+    transition: transform .2s ease-in-out;
     transform: translateX(-100%);
 
     &.visible {
@@ -64,17 +64,11 @@ export default {
 }
 
 main {
-  flex: 1 0 calc(100% - 350px);
+  flex: 1 0 calc(100% - 300px);
   flex-direction: column;
   height: 100%;
   width: 100%;
   overflow-y: scroll;
-}
-
-@media (max-width: 1280px) {
-  main {
-    flex: 1 0 calc(100% - 280px);
-  }
 }
 
 @media (max-width: 940px) {
@@ -91,7 +85,7 @@ main {
 header {
   display: flex;
   justify-content: space-between;
-  height: 120px;
+  height: 90px;
   padding: 0 40px;
   font-size: 14px;
 
@@ -138,9 +132,16 @@ header {
   }
 }
 
-.page-content {
+.main-content {
   flex: 1 0 auto;
   padding: 20px 40px 40px 40px;
+}
+
+@media (max-width: 600px) {
+  .main-content {
+    flex: 1 0 auto;
+    padding: 50px 15px 15px 15px;
+  }
 }
 
 </style>

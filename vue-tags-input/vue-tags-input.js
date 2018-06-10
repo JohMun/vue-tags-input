@@ -1,8 +1,10 @@
 // The file contains the main application logic
 // data, computed properties, methods, watchers and the component lifecycle
 
+import equal from 'fast-deep-equal';
+
 import { createTags, createTag, createClasses } from './create-tags';
-import TagInput from './tag-input';
+import TagInput from './tag-input.vue';
 import props from './vue-tags-input.props';
 
 export default {
@@ -38,7 +40,7 @@ export default {
     },
   },
   methods: {
-    // Returns the index which tag should be selected, based on the parameter 'method'
+    // Returns the index which item should be selected, based on the parameter 'method'
     getSelectedIndex(method) {
       const items = this.filteredAutocompleteItems;
       const selectedItem = this.selectedItem;
@@ -82,6 +84,14 @@ export default {
     performEditTag(index) {
       if (!this.allowEditTags) return;
       if (!this._events['before-editing-tag']) this.editTag(index);
+      /**
+       * @description Emits before a tag toggles to it's edit mode
+       * @name before-editing-tag
+       * @property {events} hook
+       * @returns {Object} Contains the to editing tag: 'tag'.
+         The tag's index: 'index'. And a function: 'editTag'.
+         If the function is invoked, the tag toggles to it's edit mode.
+       */
       this.$emit('before-editing-tag', {
         index,
         tag: this.tagsCopy[index],
@@ -144,6 +154,13 @@ export default {
     // Method to call to delete a tag
     performDeleteTag(index) {
       if (!this._events['before-deleting-tag']) this.deleteTag(index);
+      /**
+       * @description Emits before a tag is deleted
+       * @name before-deleting-tag
+       * @property {events} hook
+       * @returns {Object} Contains the to editing tag: 'tag'. The tag's index: 'index'
+         And a function: 'deleteTag'. If the function is invoked, the tag is deleted.
+       */
       this.$emit('before-deleting-tag', {
         index,
         tag: this.tagsCopy[index],
@@ -157,6 +174,12 @@ export default {
       // Clears the debounce for the deletion mark and removes the tag
       clearTimeout(this.deletionMarkTime);
       this.tagsCopy.splice(index, 1);
+      /**
+       * @description Emits if the tags array changes
+       * @name tags-changed
+       * @property {events}
+       * @returns {Array} The modified tags array
+       */
       this.$emit('tags-changed', this.tagsCopy);
     },
     // Decides wether the input keyCode is one, which is allowed to modify/add tags
@@ -182,6 +205,13 @@ export default {
       tags.forEach(tag => {
         tag = createTag(tag, this.tags, this.validation, false);
         if (!this._events['before-adding-tag']) this.addTag(tag);
+        /**
+         * @description Emits before a tag is added
+         * @name before-adding-tag
+         * @property {events} hook
+         * @returns {Object} Contains the to editing tag: 'tag'. And a function: 'addTag'.
+           If the function is invoked, the tag is added.
+         */
         this.$emit('before-adding-tag', {
           tag,
           addTag: () => this.addTag(tag),
@@ -189,18 +219,32 @@ export default {
       });
     },
     addTag(tag) {
-      // Check if we only add items from autocomplete and if so,
-      // does the tag exist as an option
+      // Check if we should only add items from autocomplete and if so,
+      // does the tag exists as an option
       const options = this.filteredAutocompleteItems.map(i => i.text);
       if (this.addOnlyFromAutocomplete && options.indexOf(tag.text) === -1) return;
 
       // Maybe we should not add a tag because the maximum has reached already
       const maximumReached = this.maxTags && this.maxTags === this.tagsCopy.length;
+
+      /**
+       * @description Emits if the maximum, the tags array is allowed to hold, is reached.
+         The maximum can be defined by the prop 'max-tags'.
+       * @name max-tags-reached
+       * @property {events}
+       */
       if (maximumReached) return this.$emit('max-tags-reached');
 
-      // If we shouldn't add duplicates → stop
+      // If we shouldn't add duplicates and that is one → stop
       const dup = this.avoidAddingDuplicates &&
         this.tagsCopy.map(t => t.text).indexOf(tag.text) !== -1;
+
+      /**
+       * @description Emits if the user tries to add a duplicate to the tag's array
+         and adding duplicates is prevented by the prop 'avoid-adding-duplicates'
+       * @name adding-duplicate
+       * @property {events}
+       */
       if (dup) return this.$emit('adding-duplicate', tag);
 
       // If the tag is invalid and we find a rule which avoids adding → stop
@@ -225,6 +269,14 @@ export default {
 
       // The basic checks are done → try to save the tag
       if (!this._events['before-saving-tag']) this.saveTag(index, tag);
+      /**
+       * @description Emits before a tag is saved
+       * @name before-saving-tag
+       * @property {events} hook
+       * @returns {Object} Contains the to editing tag: 'tag'.
+         The tag's index: 'index'. And a function: 'saveTag'.
+         If the function is invoked, the tag is saved.
+       */
       this.$emit('before-saving-tag', {
         index,
         tag,
@@ -235,6 +287,13 @@ export default {
       // If we shouldn't save duplicates → stop
       const dup = this.avoidAddingDuplicates &&
         this.tagsCopy.filter(t => t.text === tag.text).length > 1;
+
+      /**
+       * @description Emits if the user tries to save a duplicate in the tag's array
+         and saving duplicates is prevented by the prop 'avoid-adding-duplicates'
+       * @name saving-duplicate
+       * @property {events}
+       */
       if (dup) return this.$emit('saving-duplicate', tag);
 
       // If the tag is invalid and we find a rule which avoids saving → stop
@@ -245,6 +304,9 @@ export default {
       this.toggleEditMode(index);
       this.$emit('tags-changed', this.tagsCopy);
     },
+    tagsEqual() {
+      return !this.tagsCopy.some((t, i) => !equal(t, this.tags[i]));
+    },
     updateNewTag(ievent) {
       const value = ievent.target.value;
       this.newTag = value;
@@ -254,14 +316,17 @@ export default {
       // We always work with a copy of the "real" tags, to easier edit them
       this.tagsCopy = createTags(this.tags, this.validation);
 
-      // Let's create an array which defines wheter a tag is in edit mode or not
+      // Let's create an array which defines whether a tag is in edit mode or not
       this.tagsEditStatus = this.clone(this.tags).map(() => false);
+
+      // we check if the original and the copied tags are equal. if not → update the parent
+      if (!this.tagsEqual()) this.$emit('tags-changed', this.tagsCopy);
     },
     blurred(e) {
-      // if the click occurs on tagsinput -> don't hide
+      // if the click occurs on tagsinput → don't hide
       if (this.$el.contains(e.target)) return;
 
-      // If we should add tags before blurring -> add tag
+      // If we should add tags before blurring → add tag
       if (this.addOnBlur && this.focused) this.performAddTags(this.newTag);
 
       // Hide autocomplete layer

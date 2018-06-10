@@ -1,22 +1,23 @@
 <template>
-  <div class="examples-autocomplete">
-    <section>
-      <h1>Simple Autocomplete</h1>
-      <p>
-        The property <span class="code">autocomplete-items</span> expects an array.
-        We pass through the computed property <span class="code">filteredItems</span>, which is a
-        filtered collection based on the string <span class="code">tag</span>
-        and the possible items: Spain, France, USA, Germany and China.
-      </p>
-      <vue-tags-input
-        v-model="example1.tag"
-        :tags="example1.tags"
-        :autocomplete-items="filteredItems1"
-        @tags-changed="newTags => example1.tags = newTags">
-      </vue-tags-input>
-    </section>
-    <el-code>
-      <code>
+  <div class="examples-autocomplete page">
+    <div class="content">
+      <section>
+        <h1>Simple Autocomplete</h1>
+        <p>
+          The property <span class="code">autocomplete-items</span> expects an array.
+          We pass through the computed property <span class="code">filteredItems</span>, which is a
+          filtered collection based on the string <span class="code">tag</span>
+          and the possible items: Spain, France, USA, Germany and China.
+        </p>
+        <vue-tags-input
+          v-model="example1.tag"
+          :tags="example1.tags"
+          :autocomplete-items="filteredItems1"
+          @tags-changed="newTags => example1.tags = newTags">
+        </vue-tags-input>
+      </section>
+      <el-code>
+        <code>
 &lt;template&gt;
   &lt;div&gt;
     &lt;vue-tags-input
@@ -59,31 +60,31 @@ export default {
   },
 };
 &lt;/script&gt;
-      </code>
-    </el-code>
-    <section>
-      <h1>Add only from autocomplete and http</h1>
-      <p>
-        In this example music artists can be found with the autocomplete function.
-        The <a href="https://itunes.apple.com/" target="_blank">iTunes API</a> is requested as data source.
-        As supporting http library, <a href="https://github.com/axios/axios" target="_blank">axios</a> is used.
-        The property <span class="code">add-only-from-autocomplete</span> disables adding tags from input directly.
-        A debounce avoid too much requests when typing.
-      </p>
-      <div class="searchbox">
-        <vue-tags-input
-          class="example-input"
-          v-model="example2.tag"
-          :tags="example2.tags"
-          :autocomplete-items="example2.autocompleteItems"
-          :add-only-from-autocomplete="true"
-          @tags-changed="update">
-        </vue-tags-input>
-        <div class="spinner" v-if="example2.loading">Loading</div>
-      </div>
-    </section>
-    <el-code class="html">
-      <code>
+        </code>
+      </el-code>
+      <section>
+        <h1>Add only from autocomplete and http</h1>
+        <p>
+          In this example music artists can be found with the autocomplete function.
+          The <a href="https://itunes.apple.com/" target="_blank">iTunes API</a> is requested as data source.
+          As supporting http library, <a href="https://github.com/axios/axios" target="_blank">axios</a> is used.
+          The property <span class="code">add-only-from-autocomplete</span> disables adding tags from input directly.
+          A debounce avoid too much requests when typing.
+        </p>
+        <div class="searchbox">
+          <vue-tags-input
+            class="example-input"
+            v-model="example2.tag"
+            :tags="example2.tags"
+            :autocomplete-items="example2.autocompleteItems"
+            :add-only-from-autocomplete="true"
+            @tags-changed="update">
+          </vue-tags-input>
+          <div class="spinner" v-if="example2.loading">Loading</div>
+        </div>
+      </section>
+      <el-code class="html">
+        <code>
 &lt;template&gt;
   &lt;div&gt;
     &lt;vue-tags-input
@@ -95,10 +96,10 @@ export default {
     &lt;/vue-tags-input&gt;
   &lt;/div&gt;
 &lt;/template&gt;
-      </code>
-    </el-code>
-    <el-code class="javascript">
-      <code>
+        </code>
+      </el-code>
+      <el-code class="javascript">
+        <code>
 &lt;script&gt;
 import VueTagsInput from '@johmun/vue-tags-input';
 import axios from 'axios';
@@ -140,8 +141,9 @@ export default {
   },
 };
 &lt;/script&gt;
-      </code>
-    </el-code>
+        </code>
+      </el-code>
+    </div>
   </div>
 </template>
 
@@ -217,12 +219,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.examples-autocomplete {
-  span, p {
-    line-height: 1.5em;
-    max-width: 900px;
-  }
-}
 
 .searchbox {
   margin-top: 15px;

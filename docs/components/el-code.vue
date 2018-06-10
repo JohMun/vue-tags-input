@@ -30,9 +30,13 @@ export default {
 .code-block {
   padding: 15px;
   line-height: 1.5em;
-  background-color: #474949;
-  color: #8abeb7;
-  font-family: monospace, serif;
+  min-height: 54px;
+  background-color: #fafafa;
+  color: #5a7994;
+
+  span {
+    font-family: 'Oxygen Mono', monospace !important;
+  }
 
   pre {
     margin: 10px 0px 20px 0px;

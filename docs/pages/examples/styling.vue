@@ -1,58 +1,59 @@
 <template>
-  <div>
-    <section id="styling-example">
-      <div class="explanation">
-        <h1>Styling Elements</h1>
-        <p>
-          You can add CSS classes to tags, the input element or
-          to autocomplete items, in the following ways:
-        </p>
-        <ul>
-          <li>
-            In a validation item, the value of the property
-            <span class="code">type</span>
-            is added as class, if the rule match.</li>
-          <li>
-            The value of the property <span class="code">classes</span>
-            in a tag or an autocomplete item, is always appended.
-          </li>
-        </ul>
-        <p>
-          CSS Classes which are added from tags input:
-        </p>
-        <ul>
-          <li>
-            The class "duplicate" is added if an element exists twice.
-            Duplicates can't be added by default. To achieve that, The property
-            <span class="code">avoidAddingDuplicates</span> have to be set to
-            <span class="code">false</span>.
-          </li>
-          <li>
-            The class "deletion-mark" is appended for a short time,
-            if the user deletes a tag with backspace.
-          </li>
-          <li>
-            The class "valid" is added if a tag came through the validation,
-            "invalid" if not.
-          </li>
-        </ul>
-        <p>
-          Styles can also be changed with the property
-          <span class="code">style</span> in an autocomplete item or a tag.
-          But be aware that those styles have a high priority,
-          because they will be set inline.
-        </p>
-      </div>
-      <vue-tags-input
-        v-model="tag"
-        :tags="tags"
-        :validation="validation"
-        :autocomplete-items="filteredItems"
-        @tags-changed="newTags => tags = newTags">
-      </vue-tags-input>
-    </section>
-    <el-code class="javascript">
-      <code>
+  <div class="page">
+    <div class="content">
+      <section id="styling-example">
+        <div class="explanation">
+          <h1>Styling Elements</h1>
+          <p>
+            You can add CSS classes to tags, the input element or
+            to autocomplete items, in the following ways:
+          </p>
+          <ul>
+            <li>
+              In a validation item, the value of the property
+              <span class="code">type</span>
+              is added as class, if the rule match.</li>
+            <li>
+              The value of the property <span class="code">classes</span>
+              in a tag or an autocomplete item, is always appended.
+            </li>
+          </ul>
+          <p>
+            CSS Classes which are added from tags input:
+          </p>
+          <ul>
+            <li>
+              The class "duplicate" is added if an element exists twice.
+              Duplicates can't be added by default. To achieve that, The property
+              <span class="code">avoidAddingDuplicates</span> have to be set to
+              <span class="code">false</span>.
+            </li>
+            <li>
+              The class "deletion-mark" is appended for a short time,
+              if the user deletes a tag with backspace.
+            </li>
+            <li>
+              The class "valid" is added if a tag came through the validation,
+              "invalid" if not.
+            </li>
+          </ul>
+          <p>
+            Styles can also be changed with the property
+            <span class="code">style</span> in an autocomplete item or a tag.
+            But be aware that those styles have a high priority,
+            because they will be set inline.
+          </p>
+        </div>
+        <vue-tags-input
+          v-model="tag"
+          :tags="tags"
+          :validation="validation"
+          :autocomplete-items="filteredItems"
+          @tags-changed="newTags => tags = newTags">
+        </vue-tags-input>
+      </section>
+      <el-code class="javascript">
+        <code>
 /* Other stuff before, like template, import tagsinput ... */
 
 data() {
@@ -93,10 +94,10 @@ data() {
 },
 
 /* Computed properties, methods and more ... */
-      </code>
-    </el-code>
-    <el-code class="css">
-      <code>
+        </code>
+      </el-code>
+      <el-code class="css">
+        <code>
 &lt;style lang=&quot;css&quot;&gt;
 
 .vue-tags-input .input {
@@ -158,8 +159,9 @@ data() {
 }
 
 &lt;/style&gt;
-      </code>
-    </el-code>
+        </code>
+      </el-code>
+    </div>
   </div>
 </template>
 
@@ -285,11 +287,6 @@ export default {
 </style>
 
 <style scoped lang="scss">
-span, p {
-  line-height: 1.5em;
-  max-width: 900px;
-}
-
 .explanation {
   ul {
     padding-left: 20px;

@@ -1,40 +1,41 @@
 <template lang="html">
-  <div class="examples-hooks">
-    <h1>Hooks</h1>
-    <p>
-      The tags input component provides different hooks.
-      A callback function can be registered, to control the behaviour of tags input.
-      For example <span class="code">@before-adding-tag="myCallback"</span>.
-      Before a tag is added, the function <span class="code">myCallback</span> is invoked
-      and gets an object as paramter. The object contains the properties
-      <span class="code">tag</span>, which is the to adding tag and a function named
-      <span class="code">addTag</span>. If this funcion is invoked,
-      <span class="code">tag</span> will be added.
-      You find more information in the <a @click="$router.push({ path: '/docs/events' })">documentations</a>,
-      how the other hooks work.
-    </p>
-    <section>
-      <h2>Example 1</h2>
+  <div class="examples-hooks page">
+    <div class="content">
+      <h1>Hooks</h1>
       <p>
-        In this example, we save the <span class="code">addTag</span> function
-        in <span class="code">handler</span>, when the
-        <span class="code">before-adding-tag</span> hook fires.
-        If <span class="code">handler</span> is not <span class="code">null</span>,
-        we show two buttons. The "Add" button invokes the saved function on click
-        and the tag will be added.
+        The tags input component provides different hooks.
+        A callback function can be registered, to control the behaviour of tags input.
+        For example like that: <span class="code">@before-adding-tag="myCallback"</span>.
+        Before a tag is added, the function <span class="code">myCallback</span> is invoked
+        and gets an object as parameter. The object contains the properties
+        <span class="code">tag</span>, which is the to adding tag and a function named
+        <span class="code">addTag</span>. If this function is invoked,
+        <span class="code">tag</span> will be added.
+        You find more information in the <router-link :to="{ path: '/api/events' }">documentations</router-link>,
+        how the other hooks work.
       </p>
-      <vue-tags-input
-         v-model="example1.tag"
-         :tags="example1.tags"
-         @tags-changed="newTags => example1.tags = newTags"
-         @before-adding-tag="obj => example1.handler = obj.addTag"
-      />
-      <div class="actions" v-if="example1.handler">
-        <button @click="cancel1">Cancel</button>
-        <button @click="add1">Add</button>
-      </div>
-      <el-code class="html">
-        <code>
+      <section>
+        <h2>Example 1</h2>
+        <p>
+          In this example, we save the <span class="code">addTag</span> function
+          in <span class="code">handler</span>, when the
+          <span class="code">before-adding-tag</span> hook fires.
+          If <span class="code">handler</span> is not <span class="code">null</span>,
+          we show two buttons. The "Add" button invokes the saved function on click
+          and the tag will be added.
+        </p>
+        <vue-tags-input
+           v-model="example1.tag"
+           :tags="example1.tags"
+           @tags-changed="newTags => example1.tags = newTags"
+           @before-adding-tag="obj => example1.handler = obj.addTag"
+        />
+        <div class="actions" v-if="example1.handler">
+          <button @click="cancel1">Cancel</button>
+          <button @click="add1">Add</button>
+        </div>
+        <el-code class="html">
+          <code>
 &lt;vue-tags-input
   v-model=&quot;tag&quot;
   :tags=&quot;tags&quot;
@@ -45,10 +46,10 @@
   &lt;button @click=&quot;cancel&quot;&gt;Cancel&lt;/button&gt;
   &lt;button @click=&quot;add&quot;&gt;Add&lt;/button&gt;
 &lt;/div&gt;
-        </code>
-      </el-code>
-      <el-code class="javascript">
-        <code>
+          </code>
+        </el-code>
+        <el-code class="javascript">
+          <code>
 /* Other stuff before like import tagsinput ... */
 
 data() {
@@ -69,35 +70,34 @@ methods: {
     this.$nextTick(() => this.handler = null);
   },
 },
-
-        </code>
-      </el-code>
-    </section>
-    <section>
-      <h2>Example 2</h2>
-      <p>
-        In the <span class="code">checkTag</span> function, which is called
-        by the <span class="code">before-adding-tag</span> hook, a check is executed.
-        If a to adding tag contains the letter "e", an alert box is shown.
-      </p>
-      <vue-tags-input
-         v-model="example2.tag"
-         :tags="example2.tags"
-         @tags-changed="newTags => example2.tags = newTags"
-         @before-adding-tag="checkTag"
-       />
-       <el-code class="html">
-         <code>
+          </code>
+        </el-code>
+      </section>
+      <section>
+        <h2>Example 2</h2>
+        <p>
+          In the <span class="code">checkTag</span> function, which is called
+          by the <span class="code">before-adding-tag</span> hook, some logic is executed.
+          If a to adding tag contains the letter "e", an alert box is shown.
+        </p>
+        <vue-tags-input
+           v-model="example2.tag"
+           :tags="example2.tags"
+           @tags-changed="newTags => example2.tags = newTags"
+           @before-adding-tag="checkTag"
+         />
+         <el-code class="html">
+           <code>
 &lt;vue-tags-input
   v-model=&quot;tag&quot;
   :tags=&quot;tags&quot;
   @tags-changed=&quot;newTags =&gt; tags = newTags&quot;
   @before-adding-tag=&quot;checkTag&quot;
 /&gt;
-         </code>
-       </el-code>
-       <el-code class="javascript">
-         <code>
+           </code>
+         </el-code>
+         <el-code class="javascript">
+           <code>
 /* Other stuff before like template, data, import tagsinput ... */
 
  methods: {
@@ -106,9 +106,10 @@ methods: {
      else obj.addTag();
    },
  },
-         </code>
-       </el-code>
-    </section>
+           </code>
+         </el-code>
+      </section>
+    </div>
   </div>
 </template>
 
@@ -154,10 +155,6 @@ export default {
 </script>
 
 <style lang="css" scoped>
-span, p {
-  line-height: 1.5em;
-  max-width: 900px;
-}
 
 a {
   text-decoration: underline;

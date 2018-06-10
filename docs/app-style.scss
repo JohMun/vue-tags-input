@@ -12,11 +12,11 @@ html, body {
 }
 
 body {
-  font-family: 'Raleway', sans-serif;
-  color:#2E2E2E;
+  font-family: 'Roboto', sans-serif;
+  color: #646464;
   overflow-y: hidden;
   box-sizing: border-box;
-  font-size: 1.1em;
+  font-size: 14px;
 }
 
 ul {
@@ -45,12 +45,13 @@ input:focus {
 }
 
 h1, h2, h3, h4 {
-  font-family: 'Montserrat', sans-serif;
+  color: $primary;
+  font-family: 'Roboto', sans-serif;
   font-weight: 500;
 }
 
 h1 {
-  margin-top: 45px;
+  margin-top: 30px;
   margin-bottom: 15px;
 }
 
@@ -60,9 +61,35 @@ h2 {
 }
 
 .code {
-  background-color: #474949;
-  color: #81a2be;
-  font-size: 14px;
+  background-color: #fafafa;
+  color: #5a7994;
+  font-size: 0.9em;
   padding: 3px;
-  font-family: monospace, serif;
+  font-family: 'Oxygen Mono', monospace;
+}
+
+.content {
+  max-width: 900px;
+}
+
+.page span, .page p {
+  line-height: 24px;
+}
+
+@media (max-width: 940px) {
+  body {
+    font-size: 12px;
+  }
+
+  .page span, .page p {
+    line-height: 20px;
+  }
+}
+
+#app .vue-tags-input,
+#app .vue-tags-input .tag span,
+#app .vue-tags-input .tag-input,
+#app .vue-tags-input .new-tag-input,
+#app .vue-tags-input .item span {
+  line-height: 12px;
 }

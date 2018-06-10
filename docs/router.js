@@ -6,6 +6,7 @@ import GettingStarted from './pages/getting-started';
 import api from './pages/api';
 import examples from './pages/examples';
 import e2eSuite from '../e2e/suite/';
+import Changelog from './pages/changelog';
 
 Vue.use(Router);
 
@@ -17,6 +18,11 @@ const routes = [{
   path: '/start',
   name: 'gettingStarted',
   component: GettingStarted,
+},
+{
+  path: '/changelog',
+  name: 'changelog',
+  component: Changelog,
 },
 ...api,
 ...examples,

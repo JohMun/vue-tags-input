@@ -40,7 +40,7 @@ test('test all hooks', async t => {
   // edit tag -> actions should be visible
   const editTag = async () => {
     await t
-      .click(Selector('.hooks .tags li:nth-child(1)'))
+      .click(Selector('.hooks .tags li:nth-child(1) .tag-center'))
       .expect(Selector('.hooks > .actions').exists).eql(true)
       .expect(Selector('.hooks .tags:nth-child(1) .tag-input').exists).eql(false);
   };
@@ -82,7 +82,7 @@ test('test all hooks', async t => {
 
   // perform save
   await t
-    .click(Selector('.hooks .tags li:nth-child(1)'))
+    .click(Selector('.hooks .tags li:nth-child(1) .tag-center'))
     .click(Selector('.actions .perform'));
 
   await saveChanges();

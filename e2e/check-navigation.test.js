@@ -8,9 +8,9 @@ fixture `Check Docs Navigation`
 test('Move to page "Getting Started"', async t => {
   await t
     .resizeWindow(1280, 1024)
-    .click(Selector('.el-navbar .nav-items li').withText('Getting Started'));
+    .click(Selector('.el-navbar .nav-items li .label span').withText('Getting Started'));
 
   await t
-    .expect(Selector('main .page-content h1').innerText).eql('Getting Started')
+    .expect(Selector('main .main-content h1').innerText).eql('Getting Started')
     .expect(getLocation()).contains('start');
 });
