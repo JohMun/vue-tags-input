@@ -6,7 +6,17 @@
       </h1>
       <p>
         In some cases it can be useful to build tag objects manually.
-        For example, if you need those tag objects before vue-tags-input has mounted.
+        For example, if you use the validation feature and pass unvalidated tags
+        to vue-tags-input. It validates the passed tags when mounting
+        and emits <span class="code">@tags-changed</span>, with the new validated
+        tags as parameter, because they have changed.
+      </p>
+      <p>
+        But if you do an API call in your registered callback function,
+        You maybe consider this API call as unnecessary.
+        In this case it's better to pass already validated tags to the component.
+      </p>
+      <p>
         To achieve that, we can import some helper functions from vue-tags-input.
       </p>
       <el-code class="javascript">
