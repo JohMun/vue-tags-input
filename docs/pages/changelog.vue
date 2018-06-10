@@ -21,7 +21,7 @@ export default {
     return {
       log: [
         {
-          version: '1.4.2',
+          version: '1.5.0',
           changes: [
             'Improve documentation.',
             'Add more code comments.',
