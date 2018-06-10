@@ -21,7 +21,7 @@ export default {
     return {
       log: [
         {
-          version: '1.5.2',
+          version: '1.5.3',
           changes: [
             `It doesn't emit '@tags-changed' if the internal and external
             models are not equal. The '.sync' modifier is now available for the tags array
