@@ -57,7 +57,7 @@ const createTag = (tag, ...rest) => {
  * @param {Array} [validation=[]] The validation Array is optional (pass it if you use one)
  * @returns {Array} An array containing (validated) tags
  * @example  &#47;* Example to call the function *&#47;
- createTags(['tag1Text', 'tag2Text'], [{ type: 'min-length', rule: /[0-9]/ }])
+   const validatedTags = createTags(['tag1Text', 'tag2Text'], [{ type: 'length', rule: /[0-9]/ }])
  */
 const createTags = (tags, ...rest) => tags.map(t => createTag(t, tags, ...rest));
 

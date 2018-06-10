@@ -143,6 +143,17 @@ export default {
     default: 'Add Tag',
   },
   /**
+   * @description If the component detects unvalidated tags,
+     '@tags-changed' is emitted with validated tags as parameter.
+   * @property {props}
+   * @type {Boolean}
+   * @default false
+   */
+  syncValidation: {
+    type: Boolean,
+    default: false,
+  },
+  /**
    * @description Custom trigger key codes can be registrated. If the user presses one of these,
      a tag will be generated out of the input value.
    * @property {props}

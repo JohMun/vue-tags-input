@@ -93,6 +93,26 @@ data() {
           </code>
         </el-code>
       </section>
+      <section>
+        <p>
+          You should be aware, that if you use the validation feature,
+          vue-tags-input validates the passed tags and edits/adds the property
+          <span class="code">tiClasses</span>. To get the validated tags,
+          vue-tags-input emits <span class="code">@tags-changed</span>.
+        </p>
+        <p>
+          At default, the event is only emitted, if the user does a action like adding or deleting a tag.
+        </p>
+        <p>
+          If you want updates if vue-tags-input detects unvalidated tags,
+          you can set <span class="code">sync-validation</span> to
+          <span class="code">true</span>.
+        </p>
+        <p>
+          The cleaner way would be to validate tags by yourself and pass them to vue-tags-input, see chapter
+          <router-link :to="{ name: 'api.create-tags-helper' }">Create Tags Helper</router-link>.
+        </p>
+      </section>
     </div>
   </div>
 </template>

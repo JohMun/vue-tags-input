@@ -7,16 +7,15 @@
       <p>
         In some cases it can be useful to build tag objects manually.
         For example, if you use the validation feature and pass unvalidated tags
-        to vue-tags-input. It validates the passed tags when mounting
-        and emits <span class="code">@tags-changed</span>, with the new validated
-        tags as parameter, because they have changed.
+        to vue-tags-input. It validates the passed tags
+        and emits <span class="code">@tags-changed</span>, if the user does a action.
       </p>
       <p>
-        But if you do an API call in your registered callback function,
-        You maybe consider this API call as unnecessary.
-        In this case it's better to pass already validated tags to the component.
+        But for the time between the mounted hook and the user action, the model holds
+        unvalidated tags.
       </p>
       <p>
+        To solve this problem, you can create validated tags by yourself and pass them to vue-tags-input.
         To achieve that, we can import some helper functions from vue-tags-input.
       </p>
       <el-code class="javascript">

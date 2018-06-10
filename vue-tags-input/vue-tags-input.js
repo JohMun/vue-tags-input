@@ -319,8 +319,9 @@ export default {
       // Let's create an array which defines whether a tag is in edit mode or not
       this.tagsEditStatus = this.clone(this.tags).map(() => false);
 
-      // we check if the original and the copied tags are equal. if not → update the parent
-      if (!this.tagsEqual()) this.$emit('tags-changed', this.tagsCopy);
+      // We check if the original and the copied tags are equal →
+      // Update the parent if syncMode is on.
+      if (this.syncValidation && !this.tagsEqual()) this.$emit('tags-changed', this.tagsCopy);
     },
     blurred(e) {
       // if the click occurs on tagsinput → don't hide
