@@ -101,15 +101,15 @@ data() {
           vue-tags-input emits <span class="code">@tags-changed</span>.
         </p>
         <p>
-          At default, the event is only emitted, if the user does a action like adding or deleting a tag.
+          The event is only emitted, if the user does a action like adding, editing or deleting a tag.
         </p>
         <p>
-          If you want updates if vue-tags-input detects unvalidated tags,
-          you can set <span class="code">sync-validation</span> to
-          <span class="code">true</span>.
+          If you want updates, if vue-tags-input detects unvalidated tags,
+          you can use the <span class="code">.sync</span> modifier:
+          <span class="code">:tags.sync="tags"</span>
         </p>
         <p>
-          The cleaner way would be to validate tags by yourself and pass them to vue-tags-input, see chapter
+          Another way would be to validate tags by yourself and pass them to vue-tags-input, see chapter
           <router-link :to="{ name: 'api.create-tags-helper' }">Create Tags Helper</router-link>.
         </p>
       </section>

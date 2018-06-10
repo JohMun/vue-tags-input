@@ -6,7 +6,7 @@
       <vue-tags-input
         class="tags-input"
         v-model="tag"
-        :tags="tags"
+        :tags.sync="tags"
         :add-on-key="[188, 186, 13]"
         :save-on-key="[188, 38, 13]"
         :allow-edit-tags="true"

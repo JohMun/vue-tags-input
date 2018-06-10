@@ -45,6 +45,7 @@ export default {
      properties to a tag object. vue-tags-input won't change the key and value.
    * @property {props}
    * @type {Array}
+   * @sync
    * @default []
    * @example
     {
@@ -141,17 +142,6 @@ export default {
   placeholder: {
     type: String,
     default: 'Add Tag',
-  },
-  /**
-   * @description If the component detects unvalidated tags,
-     '@tags-changed' is emitted with validated tags as parameter.
-   * @property {props}
-   * @type {Boolean}
-   * @default false
-   */
-  syncValidation: {
-    type: Boolean,
-    default: false,
   },
   /**
    * @description Custom trigger key codes can be registrated. If the user presses one of these,

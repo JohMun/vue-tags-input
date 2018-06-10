@@ -17,6 +17,10 @@
       <span class="label">Required</span>
       <i class="material-icons">check</i>
     </div>
+    <div class="required meta" v-if="sync">
+      <span class="label">Sync available</span>
+      <i class="material-icons">check</i>
+    </div>
     <div class="params meta" v-if="params.length">
       <span class="label big">Parameters</span>
       <ul>
@@ -107,6 +111,9 @@ export default {
     },
     required() {
       return !!this.item.tags.find(t => t.title === 'required');
+    },
+    sync() {
+      return !!this.item.tags.find(t => t.title === 'sync');
     },
     type() {
       const item = this.item.tags.find(t => t.title === 'type');

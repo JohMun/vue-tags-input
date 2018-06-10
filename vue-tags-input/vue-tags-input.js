@@ -320,8 +320,10 @@ export default {
       this.tagsEditStatus = this.clone(this.tags).map(() => false);
 
       // We check if the original and the copied tags are equal →
-      // Update the parent if syncMode is on.
-      if (this.syncValidation && !this.tagsEqual()) this.$emit('tags-changed', this.tagsCopy);
+      // Update the parent if not and sync is on.
+      if (this._events['update:tags'] && !this.tagsEqual()) {
+        this.$emit('update:tags', this.tagsCopy);
+      }
     },
     blurred(e) {
       // if the click occurs on tagsinput → don't hide
