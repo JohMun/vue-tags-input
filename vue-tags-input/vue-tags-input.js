@@ -13,7 +13,6 @@ export default {
   props,
   data() {
     return {
-      createClasses,
       newTag: null,
       tagsCopy: null,
       tagsEditStatus: null,
@@ -40,6 +39,7 @@ export default {
     },
   },
   methods: {
+    createClasses,
     // Returns the index which item should be selected, based on the parameter 'method'
     getSelectedIndex(method) {
       const items = this.filteredAutocompleteItems;
@@ -174,6 +174,10 @@ export default {
       // Clears the debounce for the deletion mark and removes the tag
       clearTimeout(this.deletionMarkTime);
       this.tagsCopy.splice(index, 1);
+
+      // Special update for the parent if .sync is on
+      if (this._events['update:tags']) this.$emit('update:tags', this.tagsCopy);
+
       /**
        * @description Emits if the tags array changes
        * @name tags-changed
@@ -254,6 +258,10 @@ export default {
       this.$nextTick(() => {
         this.$emit('input', '');
         this.tagsCopy.push(tag);
+
+        // Special update for the parent if .sync is on
+        if (this._events['update:tags']) this.$emit('update:tags', this.tagsCopy);
+
         this.$emit('tags-changed', this.tagsCopy);
       });
     },
@@ -302,6 +310,10 @@ export default {
       // Everything is okay → save the tag
       this.$set(this.tagsCopy, index, tag);
       this.toggleEditMode(index);
+
+      // Special update for the parent if .sync is on
+      if (this._events['update:tags']) this.$emit('update:tags', this.tagsCopy);
+
       this.$emit('tags-changed', this.tagsCopy);
     },
     tagsEqual() {

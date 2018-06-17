@@ -53,8 +53,7 @@ export default {
   },
   methods: {
     tagsChanged(tags) {
-      console.log('changed');
-      this.tags = tags;
+      console.log('changed', tags);
     },
     tagClicked(obj) {
       console.log(obj);

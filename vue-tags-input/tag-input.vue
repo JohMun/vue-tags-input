@@ -33,6 +33,7 @@ export default {
   top: 0px;
   position: absolute;
   width: 100%;
+  line-height: inherit;
 }
 
 .tag-input::-ms-clear {

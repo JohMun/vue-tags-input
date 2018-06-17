@@ -104,8 +104,12 @@ input[disabled] {
     position: relative;
   }
 
+  span {
+    line-height: inherit;
+  }
+
   span.hidden {
-    padding-left: 20px;
+    padding-left: 14px;
     visibility: hidden;
     height: 0px;
     white-space: pre;
@@ -145,6 +149,10 @@ input[disabled] {
     padding: 0px;
     margin: 0px;
   }
+}
+
+.new-tag-input {
+  line-height: inherit;
 }
 
 .autocomplete {
