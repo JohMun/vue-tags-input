@@ -124,6 +124,17 @@ export default {
     default: false,
   },
   /**
+   * @description If it's true, the autocomplete layer is always shown when the input is being focused, regardless if
+     an input or an autocomplete items exists.
+   * @property {props}
+   * @type {Boolean}
+   * @default false
+   */
+  autocompleteAlwaysOpenOnFocus: {
+    type: Boolean,
+    default: false,
+  },
+  /**
    * @description Property to disable vue-tags-input.
    * @property {props}
    * @type {Boolean}
