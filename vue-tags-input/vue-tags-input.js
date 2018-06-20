@@ -26,6 +26,8 @@ export default {
     // Property which calculates if the autocomplete should be opened or not
     autocompleteOpen() {
       if (this.autocompleteAlwaysOpen) return true;
+      if (this.autocompleteAlwaysOpenOnFocus && this.focused) return true;
+      
       return this.newTag !== null
         && this.newTag.length >= this.autocompleteMinLength
         && this.filteredAutocompleteItems.length > 0
