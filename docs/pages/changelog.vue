@@ -21,6 +21,13 @@ export default {
     return {
       log: [
         {
+          version: '1.5.5',
+          changes: [
+            `The :max-tags limitation cannot be circumvented, when adding multiple
+            tags divided by separators.`,
+          ],
+        },
+        {
           version: '1.5.3',
           changes: [
             `It doesn't emit '@tags-changed' if the internal and external

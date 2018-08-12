@@ -58,9 +58,6 @@ export default {
     tagClicked(obj) {
       console.log(obj);
     },
-    test(i) {
-      console.log(i);
-    },
     foundDuplicate(tag) {
       console.log(tag);
     },

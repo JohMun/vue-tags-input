@@ -228,34 +228,37 @@ export default {
       const options = this.filteredAutocompleteItems.map(i => i.text);
       if (this.addOnlyFromAutocomplete && options.indexOf(tag.text) === -1) return;
 
-      // Maybe we should not add a tag because the maximum has reached already
-      const maximumReached = this.maxTags && this.maxTags === this.tagsCopy.length;
-
-      /**
-       * @description Emits if the maximum, the tags array is allowed to hold, is reached.
-         The maximum can be defined by the prop 'max-tags'.
-       * @name max-tags-reached
-       * @property {events}
-       */
-      if (maximumReached) return this.$emit('max-tags-reached');
-
-      // If we shouldn't add duplicates and that is one → stop
-      const dup = this.avoidAddingDuplicates &&
-        this.tagsCopy.map(t => t.text).indexOf(tag.text) !== -1;
-
-      /**
-       * @description Emits if the user tries to add a duplicate to the tag's array
-         and adding duplicates is prevented by the prop 'avoid-adding-duplicates'
-       * @name adding-duplicate
-       * @property {events}
-       */
-      if (dup) return this.$emit('adding-duplicate', tag);
-
-      // If the tag is invalid and we find a rule which avoids adding → stop
-      if (!tag.valid && this.hasForbiddingAddRule(tag.tiClasses)) return;
-
-      // Everything is okay → add the tag
+      // We use $nextTick here, because this.tagsCopy.length would be wrong if tags are added fast
+      // like in a loop. With $nextTick we get the correct length value
       this.$nextTick(() => {
+        // Maybe we should not add a tag because the maximum has reached already
+        const maximumReached = this.maxTags && this.maxTags <= this.tagsCopy.length;
+
+        /**
+         * @description Emits if the maximum, the tags array is allowed to hold, is reached.
+           The maximum can be defined by the prop 'max-tags'.
+         * @name max-tags-reached
+         * @property {events}
+         * @returns {Object} The 'tag' which could not be added because of the length limitation.
+         */
+        if (maximumReached) return this.$emit('max-tags-reached', tag);
+
+        // If we shouldn't add duplicates and that is one → stop
+        const dup = this.avoidAddingDuplicates &&
+          this.tagsCopy.map(t => t.text).indexOf(tag.text) !== -1;
+
+        /**
+         * @description Emits if the user tries to add a duplicate to the tag's array
+           and adding duplicates is prevented by the prop 'avoid-adding-duplicates'
+         * @name adding-duplicate
+         * @property {events}
+         */
+        if (dup) return this.$emit('adding-duplicate', tag);
+
+        // If the tag is invalid and we find a rule which avoids adding → stop
+        if (!tag.valid && this.hasForbiddingAddRule(tag.tiClasses)) return;
+
+        // Everything is okay → add the tag
         this.$emit('input', '');
         this.tagsCopy.push(tag);
 
