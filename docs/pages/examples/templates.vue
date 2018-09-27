@@ -292,6 +292,69 @@ export default {
   }
         </code>
       </el-code>
+
+      <h2>Slot: autocomplete-header & autocompete-footer</h2>
+      <vue-tags-input
+        placeholder="Type somthing"
+        class="tags-input-3"
+        v-model="example3.tag"
+        :tags="example3.tags"
+        :allow-edit-tags="true"
+        :add-only-from-autocomplete="true"
+        @tags-changed="newTags => example3.tags = newTags"
+        :autocomplete-items="bikeMakers">
+        <template slot="autocomplete-header">
+          <strong>Select your favorite bike maker ↓</strong>
+        </template>
+        <template slot="autocomplete-footer">
+          <small>
+            <em>Or keep going with your worlds...</em>
+          </small>
+        </template>
+      </vue-tags-input>
+      <el-code class="html">
+        <code>
+&lt;vue-tags-input
+  v-model=&quot;tag&quot;
+  :tags=&quot;tags&quot;
+  @tags-changed=&quot;newTags =&gt; tags = newTags&quot;
+  :autocomplete-items=&quot;bikeMakers&quot;&gt;
+  &lt;template slot=&quot;autocomplete-header&quot;&gt;
+    &lt;strong&gt;Select your favorite bike maker ↓&lt;/strong&gt;
+  &lt;/template&gt;
+  &lt;template slot=&quot;autocomplete-footer&quot;&gt;
+    &lt;small&gt;
+      &lt;em&gt;Or keep going with your worlds...&lt;/em&gt;
+    &lt;/small&gt;
+  &lt;/template&gt;
+&lt;/vue-tags-input&gt;
+        </code>
+      </el-code>
+      <el-code class="javascript">
+        <code>
+data() {
+  return {
+    tag: '',
+    tags: [],
+    bikeMakers: [{
+      text: 'Honda',
+    }, {
+      text: 'Yamaha',
+    }, {
+      text: 'Suzuki',
+    }, {
+      text: 'Triumph',
+    }, {
+      text: 'Kawasaki',
+    }, {
+      text: 'Triumph',
+    }, {
+      text: 'husqvarna',
+    }],
+  };
+},
+        </code>
+      </el-code>
     </div>
   </div>
 </template>
@@ -313,6 +376,21 @@ export default {
       animals: [
         'Lion', 'Turtle', 'Rabbit', 'Frog', 'Squirrel', 'Owl', 'Bee',
       ],
+      bikeMakers: [{
+        text: 'Honda',
+      }, {
+        text: 'Yamaha',
+      }, {
+        text: 'Suzuki',
+      }, {
+        text: 'Triumph',
+      }, {
+        text: 'Kawasaki',
+      }, {
+        text: 'Triumph',
+      }, {
+        text: 'husqvarna',
+      }],
       icons: [{
         text: 'done',
         iconColor: '#086A87',
@@ -342,6 +420,11 @@ export default {
       example2: {
         tagText: '{{ props.tag.text }}',
         animal: '{{ animal }}',
+        tag: '',
+        tags: [],
+      },
+      example3: {
+        tagText: '{{ props.tag.text }}',
         tag: '',
         tags: [],
       },
