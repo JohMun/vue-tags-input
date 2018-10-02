@@ -14,7 +14,12 @@
           class="tag"
           @click="$emit('tag-clicked', { tag, index })"
           :style="tag.style"
-          :class="[tag.tiClasses, tag.classes, { 'deletion-mark': isMarked(index) }]">
+          :class="[
+            { editing: tagsEditStatus[index] },
+            tag.tiClasses,
+            tag.classes,
+            { 'deletion-mark': isMarked(index) }
+          ]">
           <div class="content">
             <div
               class="tag-left"
@@ -111,7 +116,7 @@
         <li class="new-tag-input-wrapper">
           <input
             class="new-tag-input"
-            :class="[createClasses(newTag, tags, validation, false)]"
+            :class="[createClasses(newTag, tags, validation, isDuplicate)]"
             v-bind="$attrs"
             type="text"
             size="1"
@@ -129,7 +134,7 @@
             @input="updateNewTag"
             @blur="$emit('blur', $event)"
             @focus="focused = true; $emit('focus', $event)"
-            @click="addOnlyFromAutocomplete ? false: selectedItem = null"
+            @click="addOnlyFromAutocomplete ? false : selectedItem = null"
             :disabled="disabled"
           />
         </li>

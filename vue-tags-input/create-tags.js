@@ -14,13 +14,23 @@ const validateUserRules = (text, validation) => {
   }).map(val => val.type);
 };
 
-const createClasses = (text, tags, validation = [], checkFromInside = true) => {
+const clone = node => JSON.parse(JSON.stringify(node));
+
+const createClasses = (tag, tags, validation = [], customDuplicateFn) => {
+  if (tag.text === undefined) tag = { text: tag };
+
   // create css classes from the user validation array
-  const classes = validateUserRules(text, validation);
+  const classes = validateUserRules(tag.text, validation);
+
+  // if we find the tag, it's an exsting one which is edited.
+  // in this case we must splice it out
+  const index = tags.findIndex(t => t === tag);
+  const tagsDiff = clone(tags);
+  const inputTag = index !== -1 ? tagsDiff.splice(index, 1)[0] : clone(tag);
 
   // check whether the tag is a duplicate or not
-  const duplicate = checkFromInside ? tags.filter(t => t.text === text).length > 1 :
-    tags.map(t => t.text).indexOf(text) !== -1;
+  const duplicate = customDuplicateFn ? customDuplicateFn(tagsDiff, inputTag) :
+    tagsDiff.map(t => t.text).indexOf(inputTag.text) !== -1;
 
   // if it's a duplicate, push the class duplicate to the array
   if (duplicate) classes.push('duplicate');
@@ -43,10 +53,10 @@ const createTag = (tag, ...rest) => {
   if (tag.text === undefined) tag = { text: tag };
 
   // we better make a clone to not getting reference trouble
-  const t = JSON.parse(JSON.stringify(tag));
+  const t = clone(tag);
 
   // create the validation classes
-  t.tiClasses = createClasses(t.text, ...rest);
+  t.tiClasses = createClasses(tag, ...rest);
   return t;
 };
 
@@ -61,4 +71,4 @@ const createTag = (tag, ...rest) => {
  */
 const createTags = (tags, ...rest) => tags.map(t => createTag(t, tags, ...rest));
 
-export { createClasses, createTag, createTags };
+export { createClasses, createTag, createTags, clone };
