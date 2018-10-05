@@ -280,6 +280,23 @@ export default {
     default: true,
   },
   /**
+   * @description Custom function to detect duplicates. If the function returns 'true',
+    the tag will be marked as duplicate.
+   * @property {props}
+   * @type {Function}
+   * @param {Array} tagsarray The Array of tags minus the one which is edited/created.
+   * @param {Object} tag The tag which is edited or should be added to the tags array.
+   * @example
+     // The duplicate function to recreate the default behaviour, would look like this:
+     isDuplicate(tags, tag) {
+     &ensp;return tags.map(t => t.text).indexOf(tag.text) !== -1;
+    }
+   */
+  isDuplicate: {
+    type: Function,
+    default: null,
+  },
+  /**
    * @description If it's true, the user can paste into the input element and
      vue-tags-input will create tags out of the incoming text.
    * @property {props}

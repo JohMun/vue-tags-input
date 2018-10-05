@@ -12,10 +12,11 @@
         :allow-edit-tags="true"
         :separators="[',']"
         :validation="validation"
+        :is-duplicate="isDuplicate"
+        :avoid-adding-duplicates="false"
         :autocomplete-items="autocompleteItems"
         @tags-changed="tagsChanged">
       </vue-tags-input>
-      {{ tags }}
   </div>
 </template>
 
@@ -52,8 +53,11 @@ export default {
     };
   },
   methods: {
-    tagsChanged(tags) {
-      console.log('changed', tags);
+    isDuplicate(tags, tag) {
+      return tags.map(t => t.text).indexOf(tag.text) !== -1;
+    },
+    tagsChanged() {
+      // console.log('changed', tags);
     },
     tagClicked(obj) {
       console.log(obj);
@@ -91,14 +95,6 @@ export default {
   watch: {
     tag: 'setAutocompleteItems',
   },
-  created() {
-    for (let i = 0; i < 10; i++) {
-      this.tags.push({
-        text: 'tag' + i,
-        [i]: 'test',
-      });
-    }
-  },
   mounted() {
     this.setAutocompleteItems();
   },
@@ -108,8 +104,8 @@ export default {
 <style lang="scss">
 @import '~colors';
 
-.basic-demo .tag.duplicate {
-  background-color: #141f2d;
+.basic-demo .duplicate {
+  color: blue !important;
 }
 
 .basic-demo .tag.invalid.only-numbers {
@@ -123,4 +119,10 @@ export default {
 .basic-demo .new-tag-input.invalid.only-numbers {
   color: $warn;
 }
+
+.basic-demo .autocomplete.autocomplete {
+  bottom: 33px;
+  border-top: 1px solid #ccc;
+}
+
 </style>

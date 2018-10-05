@@ -3,7 +3,7 @@
 
 import equal from 'fast-deep-equal';
 
-import { createTags, createTag, createClasses } from './create-tags';
+import { createTags, createTag, createClasses, clone } from './create-tags';
 import TagInput from './tag-input.vue';
 import props from './vue-tags-input.props';
 
@@ -33,7 +33,9 @@ export default {
     },
     // Returns validated autocomplete items. Maybe duplicates are filtered out
     filteredAutocompleteItems() {
-      const is = this.autocompleteItems.map(i => createTag(i, this.tags, this.validation, false));
+      const is = this.autocompleteItems.map(i => {
+        return createTag(i, this.tags, this.validation, this.isDuplicate);
+      });
       if (!this.autocompleteFilterDuplicates) return is;
       return is.filter(i => !this.tagsCopy.find(t => t.text === i.text));
     },
@@ -109,9 +111,6 @@ export default {
       if (!this.allowEditTags || this.disabled) return;
       this.$set(this.tagsEditStatus, index, !this.tagsEditStatus[index]);
     },
-    clone(items) {
-      return JSON.parse(JSON.stringify(items));
-    },
     // only called by the @input event from TagInput.
     // Creates a new tag model and applys it to this.tagsCopy[index]
     createChangedTag(index, event) {
@@ -121,7 +120,9 @@ export default {
       // yes, this sucks ...
       const tag = this.tagsCopy[index];
       tag.text = event ? event.target.value : this.tagsCopy[index].text;
-      this.$set(this.tagsCopy, index, createTag(tag, this.tagsCopy, this.validation));
+      this.$set(this.tagsCopy, index,
+        createTag(tag, this.tagsCopy, this.validation, this.isDuplicate)
+      );
     },
     // Focuses the input of a tag
     focus(index) {
@@ -136,7 +137,9 @@ export default {
     // Cancels the edit mode for a tag → resets the tag to it's original model!
     cancelEdit(index) {
       if (!this.tags[index]) return;
-      this.tagsCopy[index] = this.clone(createTag(this.tags[index], this.tags, this.validation));
+      this.tagsCopy[index] = clone(
+        createTag(this.tags[index], this.tags, this.validation, this.isDuplicate)
+      );
       this.$set(this.tagsEditStatus, index, false);
     },
     hasForbiddingAddRule(tiClasses) {
@@ -207,7 +210,7 @@ export default {
 
       // The basic checks are done → try to add all tags
       tags.forEach(tag => {
-        tag = createTag(tag, this.tags, this.validation, false);
+        tag = createTag(tag, this.tags, this.validation, this.isDuplicate);
         if (!this._events['before-adding-tag']) this.addTag(tag);
         /**
          * @description Emits before a tag is added
@@ -329,10 +332,10 @@ export default {
     },
     initTags() {
       // We always work with a copy of the "real" tags, to easier edit them
-      this.tagsCopy = createTags(this.tags, this.validation);
+      this.tagsCopy = createTags(this.tags, this.validation, this.isDuplicate);
 
       // Let's create an array which defines whether a tag is in edit mode or not
-      this.tagsEditStatus = this.clone(this.tags).map(() => false);
+      this.tagsEditStatus = clone(this.tags).map(() => false);
 
       // We check if the original and the copied tags are equal →
       // Update the parent if not and sync is on.
