@@ -21,6 +21,13 @@ export default {
     return {
       log: [
         {
+          version: '1.5.6',
+          changes: [
+            `Add prop to use a custom function, which determines if a tag
+            is a duplicate or not.`,
+          ],
+        },
+        {
           version: '1.5.5',
           changes: [
             `The :max-tags limitation cannot be circumvented, when adding multiple
