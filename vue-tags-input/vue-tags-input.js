@@ -36,8 +36,12 @@ export default {
       const is = this.autocompleteItems.map(i => {
         return createTag(i, this.tags, this.validation, this.isDuplicate);
       });
+
       if (!this.autocompleteFilterDuplicates) return is;
-      return is.filter(i => !this.tagsCopy.find(t => t.text === i.text));
+      const filtering = tag => this.isDuplicate
+        ? !this.isDuplicate(this.tagsCopy, tag)
+        : !this.tagsCopy.find(t => t.text === tag.text);
+      return is.filter(filtering);
     },
   },
   methods: {

@@ -13,10 +13,12 @@
         :separators="[',']"
         :validation="validation"
         :is-duplicate="isDuplicate"
+        :autocomplete-filter-duplicates="false"
         :avoid-adding-duplicates="false"
         :autocomplete-items="autocompleteItems"
         @tags-changed="tagsChanged">
       </vue-tags-input>
+      {{ tags }}
   </div>
 </template>
 
@@ -46,15 +48,25 @@ export default {
         type: 'only-numbers',
         rule: '[0-9]',
       }],
-      countries: [
-        'Germany', 'Holland', 'France', '09879', 't1', 't1',
-      ],
-      autocompleteItems: [],
+      autocompleteItems: [{
+        text: 'ben',
+        from: 'Stuttgart',
+      }, {
+        text: 'ben',
+        from: 'Munich',
+      }, {
+        text: 'ben',
+        from: 'Munich',
+      }, {
+        text: 'Bibu',
+        from: 'Stuttgart',
+      }],
     };
   },
   methods: {
     isDuplicate(tags, tag) {
-      return tags.map(t => t.text).indexOf(tag.text) !== -1;
+      const categoryTags = tags.filter(({ from }) => from === tag.from);
+      return categoryTags.map(({ text }) => text).indexOf(tag.text) !== -1;
     },
     tagsChanged() {
       // console.log('changed', tags);
@@ -80,23 +92,9 @@ export default {
     addInvalidOnPurpose(tag) {
       this.tags.push(tag);
     },
-    setAutocompleteItems() {
-      // if (this.tag.length === 0) return this.autocompleteItems = [];
-      this.autocompleteItems = this.countries
-        .filter(c => c.toLowerCase().indexOf(this.tag.toLowerCase()) !== -1)
-        .map(text => {
-          return { text, test: 'nlub' };
-        });
-    },
     addTag() {
       this.tags.push({ text: ('hu') });
     },
-  },
-  watch: {
-    tag: 'setAutocompleteItems',
-  },
-  mounted() {
-    this.setAutocompleteItems();
   },
 };
 </script>
