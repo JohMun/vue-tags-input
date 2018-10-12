@@ -38,10 +38,7 @@ export default {
       });
 
       if (!this.autocompleteFilterDuplicates) return is;
-      const filtering = tag => this.isDuplicate
-        ? !this.isDuplicate(this.tagsCopy, tag)
-        : !this.tagsCopy.find(t => t.text === tag.text);
-      return is.filter(filtering);
+      return is.filter(this.duplicateFilter);
     },
   },
   methods: {
@@ -229,6 +226,11 @@ export default {
         });
       });
     },
+    duplicateFilter(tag) {
+      return this.isDuplicate
+        ? !this.isDuplicate(this.tagsCopy, tag)
+        : !this.tagsCopy.find(t => t.text === tag.text);
+    },
     addTag(tag) {
       // Check if we should only add items from autocomplete and if so,
       // does the tag exists as an option
@@ -251,9 +253,7 @@ export default {
         if (maximumReached) return this.$emit('max-tags-reached', tag);
 
         // If we shouldn't add duplicates and that is one → stop
-        const dup = this.avoidAddingDuplicates &&
-          this.tagsCopy.map(t => t.text).indexOf(tag.text) !== -1;
-
+        const dup = this.avoidAddingDuplicates && !this.duplicateFilter(tag);
         /**
          * @description Emits if the user tries to add a duplicate to the tag's array
            and adding duplicates is prevented by the prop 'avoid-adding-duplicates'
@@ -303,16 +303,21 @@ export default {
     },
     saveTag(index, tag) {
       // If we shouldn't save duplicates → stop
-      const dup = this.avoidAddingDuplicates &&
-        this.tagsCopy.filter(t => t.text === tag.text).length > 1;
+      if (this.avoidAddingDuplicates) {
+        const tagsDiff = clone(this.tagsCopy);
+        const inputTag = tagsDiff.splice(index, 1)[0];
+        const dup = this.isDuplicate ?
+          this.isDuplicate(tagsDiff, inputTag) :
+          tagsDiff.map(t => t.text).indexOf(inputTag.text) !== -1;
 
-      /**
-       * @description Emits if the user tries to save a duplicate in the tag's array
-         and saving duplicates is prevented by the prop 'avoid-adding-duplicates'
-       * @name saving-duplicate
-       * @property {events}
-       */
-      if (dup) return this.$emit('saving-duplicate', tag);
+        /**
+         * @description Emits if the user tries to save a duplicate in the tag's array
+           and saving duplicates is prevented by the prop 'avoid-adding-duplicates'
+         * @name saving-duplicate
+         * @property {events}
+         */
+        if (dup) return this.$emit('saving-duplicate', tag);
+      }
 
       // If the tag is invalid and we find a rule which avoids saving → stop
       if (!tag.valid && this.hasForbiddingAddRule(tag.tiClasses)) return;
