@@ -21,6 +21,12 @@ export default {
     return {
       log: [
         {
+          version: '1.5.7',
+          changes: [
+            'The automcoplete filtering consider the custom duplicate check function',
+          ],
+        },
+        {
           version: '1.5.6',
           changes: [
             `Add prop to use a custom function, which determines if a tag
