@@ -295,7 +295,7 @@ export default {
 
       <h2>Slot: autocompleteHeader & autocompeteFooter</h2>
       <vue-tags-input
-        placeholder="Type somthing"
+        placeholder="Type something"
         class="tags-input-3"
         v-model="example3.tag"
         :tags="example3.tags"
