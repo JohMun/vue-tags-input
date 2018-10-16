@@ -293,7 +293,7 @@ export default {
         </code>
       </el-code>
 
-      <h2>Slot: autocomplete-header & autocompete-footer</h2>
+      <h2>Slot: autocompleteHeader & autocompeteFooter</h2>
       <vue-tags-input
         placeholder="Type somthing"
         class="tags-input-3"
@@ -303,10 +303,10 @@ export default {
         :add-only-from-autocomplete="true"
         @tags-changed="newTags => example3.tags = newTags"
         :autocomplete-items="bikeMakers">
-        <template slot="autocomplete-header">
+        <template slot="autocompleteHeader">
           <strong>Select your favorite bike maker ↓</strong>
         </template>
-        <template slot="autocomplete-footer">
+        <template slot="autocompleteFooter">
           <small>
             <em>Or keep going with your worlds...</em>
           </small>
@@ -319,10 +319,10 @@ export default {
   :tags=&quot;tags&quot;
   @tags-changed=&quot;newTags =&gt; tags = newTags&quot;
   :autocomplete-items=&quot;bikeMakers&quot;&gt;
-  &lt;template slot=&quot;autocomplete-header&quot;&gt;
+  &lt;template slot=&quot;autocompleteHeader&quot;&gt;
     &lt;strong&gt;Select your favorite bike maker ↓&lt;/strong&gt;
   &lt;/template&gt;
-  &lt;template slot=&quot;autocomplete-footer&quot;&gt;
+  &lt;template slot=&quot;autocompleteFooter&quot;&gt;
     &lt;small&gt;
       &lt;em&gt;Or keep going with your worlds...&lt;/em&gt;
     &lt;/small&gt;
