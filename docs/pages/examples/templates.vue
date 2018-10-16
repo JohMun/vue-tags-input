@@ -424,7 +424,6 @@ export default {
         tags: [],
       },
       example3: {
-        tagText: '{{ props.tag.text }}',
         tag: '',
         tags: [],
       },
