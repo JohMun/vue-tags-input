@@ -192,7 +192,8 @@ export default {
     },
     // Decides wether the input keyCode is one, which is allowed to modify/add tags
     noTriggerKey(event, category) {
-      const triggerKey = this[category].indexOf(event.keyCode) !== -1;
+      const triggerKey = this[category].indexOf(event.keyCode) !== -1
+        || this[category].indexOf(event.key) !== -1;
       if (triggerKey) event.preventDefault();
       return !triggerKey;
     },

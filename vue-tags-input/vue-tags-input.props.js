@@ -13,6 +13,23 @@ const propValidatorTag = value => {
   });
 };
 
+const propValidatorStringNumeric = value => {
+  return !value.some(v => {
+    if (typeof v === 'number') {
+      const numeric = isFinite(v) && Math.floor(v) === v;
+      if (!numeric) console.warn('Only numerics are allowed for this prop. Found:', v);
+      return !numeric;
+    } else if (typeof v === 'string') {
+      const string = /[a-zA-Z]+/.test(v);
+      if (!string) console.warn('Only alpha strings are allowed for this prop. Found:', v);
+      return !string;
+    } else {
+      console.warn('Only numeric and string values are allowed. Found:', v);
+      return false;
+    }
+  });
+};
+
 const propValidatorNumeric = value => {
   return !value.some(v => {
     const numeric = typeof v === 'number' && isFinite(v) && Math.floor(v) === v;
@@ -145,7 +162,8 @@ export default {
   },
   /**
    * @description Custom trigger key codes can be registrated. If the user presses one of these,
-     a tag will be generated out of the input value.
+     a tag will be generated out of the input value. Can be either a numeric keyCode or the key
+     as a string ([13, ':', ';']).
    * @property {props}
    * @type {Array}
    * @default [13]
@@ -153,7 +171,7 @@ export default {
   addOnKey: {
     type: Array,
     default: () => [13],
-    validator: propValidatorNumeric,
+    validator: propValidatorStringNumeric,
   },
   /**
    * @description Custom trigger key codes can be registrated. If the user edits a tag
