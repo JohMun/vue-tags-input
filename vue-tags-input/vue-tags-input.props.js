@@ -20,7 +20,13 @@ const propValidatorStringNumeric = value => {
       if (!numeric) console.warn('Only numerics are allowed for this prop. Found:', v);
       return !numeric;
     } else if (typeof v === 'string') {
-      const string = /[a-zA-Z]+/.test(v);
+      /**
+       * Regex: || Not totally fool-proof yet, still matches "0a" and such
+       * - allow non-word characters (aka symbols e.g. ;, :, ' etc)
+       * - allow alpha characters
+       * - deny numbers
+       */
+      const string = /\W|[a-z]|!\d/i.test(v);
       if (!string) console.warn('Only alpha strings are allowed for this prop. Found:', v);
       return !string;
     } else {
