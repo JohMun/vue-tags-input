@@ -145,6 +145,7 @@
       class="autocomplete"
       @mouseout="selectedItem = null"
       v-if="autocompleteOpen">
+      <slot name="autocompleteHeader"></slot>
       <ul>
         <li
           v-for="(item, index) in filteredAutocompleteItems"
@@ -171,6 +172,7 @@
           </slot>
         </li>
       </ul>
+      <slot name="autocompleteFooter"></slot>
     </div>
   </div>
 </template>
