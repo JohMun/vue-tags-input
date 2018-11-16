@@ -16,6 +16,15 @@ const validateUserRules = (text, validation) => {
 
 const clone = node => JSON.parse(JSON.stringify(node));
 
+const findIndex = (arr, callback) => {
+  let index = 0;
+  while (index < arr.length) {
+    if (callback(arr[index], index, arr)) return index;
+    index++;
+  }
+  return -1;
+};
+
 const createClasses = (tag, tags, validation = [], customDuplicateFn) => {
   if (tag.text === undefined) tag = { text: tag };
 
@@ -24,7 +33,7 @@ const createClasses = (tag, tags, validation = [], customDuplicateFn) => {
 
   // if we find the tag, it's an exsting one which is edited.
   // in this case we must splice it out
-  const index = tags.findIndex(t => t === tag);
+  const index = findIndex(tags, t => t === tag);
   const tagsDiff = clone(tags);
   const inputTag = index !== -1 ? tagsDiff.splice(index, 1)[0] : clone(tag);
 

@@ -21,6 +21,13 @@ export default {
     return {
       log: [
         {
+          version: '1.5.10',
+          changes: [
+            'Fix findIndex for IE11',
+            'Add new slots autocompleteHeader & autocompeteFooter',
+          ],
+        },
+        {
           version: '1.5.7',
           changes: [
             'The automcoplete filtering consider the custom duplicate check function',
