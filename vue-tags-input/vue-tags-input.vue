@@ -4,7 +4,7 @@
 -->
 
 <template>
-  <div class="vue-tags-input" :class="{ disabled }">
+  <div class="vue-tags-input" :class="[{ disabled }, { 'ti-focus': focused }]">
     <div class="input">
       <ul class="tags" v-if="tagsCopy">
         <li
@@ -159,14 +159,14 @@
             { 'selected-item': isSelected(index) }
           ]">
           <div
-            @click="performAddTags(item)"
+            @click="performAddTags(item, undefined, 'autocomplete')"
             v-if="!$scopedSlots.autocompleteItem">{{ item.text }}
           </div>
           <slot
             v-else
             :item="item"
             :index="index"
-            :perform-add="performAddTags"
+            :perform-add="item => performAddTags(item, undefined, 'autocomplete')"
             :selected="isSelected(index)"
             name="autocompleteItem">
           </slot>

@@ -103,7 +103,13 @@ data() {
 .vue-tags-input .input {
   padding: 4px 10px;
   border: none;
+  transition: border-bottom 100ms ease;
   border-bottom: 1px solid #ccc;
+}
+
+/* change border-color on focus */
+.vue-tags-input.ti-focus .input {
+  border-bottom: 1px solid #333;
 }
 
 .tag {
@@ -227,7 +233,12 @@ export default {
   .vue-tags-input .input {
     padding: 4px 10px;
     border: none;
+    transition: border-bottom 100ms ease;
     border-bottom: 1px solid #ccc;
+  }
+
+  .vue-tags-input.ti-focus .input {
+    border-bottom: 1px solid #333;
   }
 
   .tag.valid {
