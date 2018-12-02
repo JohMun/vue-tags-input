@@ -42,10 +42,10 @@ const createClasses = (tag, tags, validation = [], customDuplicateFn) => {
     tagsDiff.map(t => t.text).indexOf(inputTag.text) !== -1;
 
   // if it's a duplicate, push the class duplicate to the array
-  if (duplicate) classes.push('duplicate');
+  if (duplicate) classes.push('ti-duplicate');
 
   // if we find no classes, the tag is valid → push the class valid
-  classes.length === 0 ? classes.push('valid') : classes.push('invalid');
+  classes.length === 0 ? classes.push('ti-valid') : classes.push('ti-invalid');
   return classes;
 };
 

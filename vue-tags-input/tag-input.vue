@@ -2,7 +2,7 @@
 
 <template>
   <input type="text"
-    class="tag-input"
+    class="ti-tag-input"
     v-model="scope.tag.text"
     v-if="scope.edit"
     :maxlength="scope.maxlength"
@@ -23,7 +23,7 @@ export default {
 </script>
 
 <style lang="css" scoped>
-.tag-input {
+.ti-tag-input {
   background-color: transparent;
   color: inherit;
   border: none;
@@ -36,7 +36,7 @@ export default {
   line-height: inherit;
 }
 
-.tag-input::-ms-clear {
+.ti-tag-input::-ms-clear {
   display: none;
 }
 

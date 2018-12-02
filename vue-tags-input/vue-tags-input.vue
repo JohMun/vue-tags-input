@@ -4,25 +4,31 @@
 -->
 
 <template>
+<<<<<<< HEAD
   <div class="vue-tags-input" :class="[{ disabled }, { 'ti-focus': focused }]">
     <div class="input">
       <ul class="tags" v-if="tagsCopy">
+=======
+  <div class="vue-tags-input" :class="{ 'ti-disabled': disabled }">
+    <div class="ti-input">
+      <ul class="ti-tags" v-if="tagsCopy">
+>>>>>>> prefix css classes in code
         <li
           :tabindex="index + 1"
           v-for="(tag, index) in tagsCopy"
           :key="index"
-          class="tag"
+          class="ti-tag"
           @click="$emit('tag-clicked', { tag, index })"
           :style="tag.style"
           :class="[
-            { editing: tagsEditStatus[index] },
+            { 'ti-editing': tagsEditStatus[index] },
             tag.tiClasses,
             tag.classes,
-            { 'deletion-mark': isMarked(index) }
+            { 'ti-deletion-mark': isMarked(index) }
           ]">
-          <div class="content">
+          <div class="ti-content">
             <div
-              class="tag-left"
+              class="ti-tag-left"
               v-if="$scopedSlots.tagLeft">
               <slot
                 name="tagLeft"
@@ -36,11 +42,11 @@
                 :deletion-mark="isMarked(index)">
               </slot>
             </div>
-            <div class="tag-center" ref="tagCenter">
+            <div class="ti-tag-center" ref="tagCenter">
               <span
                 @click="performEditTag(index)"
                 v-if="!$scopedSlots.tagCenter"
-                :class="{ hidden: tagsEditStatus[index] }">{{ tag.text }}</span>
+                :class="{ 'ti-hidden': tagsEditStatus[index] }">{{ tag.text }}</span>
               <tag-input
                 v-if="!$scopedSlots.tagCenter"
                 :scope="{
@@ -54,7 +60,6 @@
                 }">
               </tag-input>
               <slot
-                class="tag-center-slot"
                 name="tagCenter"
                 :tag="tag"
                 :index="index"
@@ -71,7 +76,7 @@
             </div>
             <div
               v-if="$scopedSlots.tagRight"
-              class="tag-right">
+              class="ti-tag-right">
               <slot
                 name="tagRight"
                 :tag="tag"
@@ -85,19 +90,19 @@
               </slot>
             </div>
           </div>
-          <div class="actions">
-            <!-- dont use v-if and v-else here -> different event calling when click -->
+          <div class="ti-actions">
+            <!-- dont use v-if and v-else here -> different event calling on click?! -->
             <i
               @click="cancelEdit(index)"
               v-if="!$scopedSlots.tagActions"
               v-show="tagsEditStatus[index]"
-              class="icon-undo">
+              class="ti-icon-undo">
             </i>
             <i
               @click="performDeleteTag(index)"
               v-if="!$scopedSlots.tagActions"
               v-show="!tagsEditStatus[index]"
-              class="icon-close">
+              class="ti-icon-close">
             </i>
             <slot
               v-if="$scopedSlots.tagActions"
@@ -113,9 +118,9 @@
             </slot>
           </div>
         </li>
-        <li class="new-tag-input-wrapper">
+        <li class="ti-new-tag-input-wrapper">
           <input
-            class="new-tag-input"
+            class="ti-new-tag-input"
             :class="[createClasses(newTag, tags, validation, isDuplicate)]"
             v-bind="$attrs"
             type="text"
@@ -140,23 +145,23 @@
         </li>
       </ul>
     </div>
-    <slot name="between-elements"></slot>
+    <slot name="between-elements" />
     <div
-      class="autocomplete"
+      class="ti-autocomplete"
       @mouseout="selectedItem = null"
       v-if="autocompleteOpen">
-      <slot name="autocompleteHeader"></slot>
+      <slot name="autocompleteHeader" />
       <ul>
         <li
           v-for="(item, index) in filteredAutocompleteItems"
           :key="index"
-          class="item"
+          class="ti-item"
           @mouseover="disabled ? false : selectedItem = index"
           :style="item.style"
           :class="[
             item.tiClasses,
             item.classes,
-            { 'selected-item': isSelected(index) }
+            { 'ti-selected-item': isSelected(index) }
           ]">
           <div
             @click="performAddTags(item, undefined, 'autocomplete')"
@@ -172,7 +177,7 @@
           </slot>
         </li>
       </ul>
-      <slot name="autocompleteFooter"></slot>
+      <slot name="autocompleteFooter" />
     </div>
   </div>
 </template>

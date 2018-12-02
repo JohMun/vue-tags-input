@@ -128,7 +128,7 @@ export default {
     // Focuses the input of a tag
     focus(index) {
       this.$nextTick(() => {
-        const el = this.$refs.tagCenter[index].querySelector('input.tag-input');
+        const el = this.$refs.tagCenter[index].querySelector('input.ti-tag-input');
         if (el) el.focus();
       });
     },
