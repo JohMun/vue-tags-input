@@ -123,4 +123,8 @@ export default {
   border-top: 1px solid #ccc;
 }
 
+.basic-demo .ti-focus .input {
+  border: 1px solid blue;
+}
+
 </style>

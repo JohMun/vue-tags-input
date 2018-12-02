@@ -198,7 +198,7 @@ export default {
       return !triggerKey;
     },
     // Method to call to add a tag
-    performAddTags(tag, event) {
+    performAddTags(tag, event, source) {
       // If the input is disabled or the function was invoked by no trigger key → stop
       if (this.disabled || event && this.noTriggerKey(event, 'addOnKey')) return;
 
@@ -213,7 +213,7 @@ export default {
       // The basic checks are done → try to add all tags
       tags.forEach(tag => {
         tag = createTag(tag, this.tags, this.validation, this.isDuplicate);
-        if (!this._events['before-adding-tag']) this.addTag(tag);
+        if (!this._events['before-adding-tag']) this.addTag(tag, source);
         /**
          * @description Emits before a tag is added
          * @name before-adding-tag
@@ -223,7 +223,7 @@ export default {
          */
         this.$emit('before-adding-tag', {
           tag,
-          addTag: () => this.addTag(tag),
+          addTag: () => this.addTag(tag, source),
         });
       });
     },
@@ -232,7 +232,7 @@ export default {
         ? !this.isDuplicate(this.tagsCopy, tag)
         : !this.tagsCopy.find(t => t.text === tag.text);
     },
-    addTag(tag) {
+    addTag(tag, source = 'new-tag-input') {
       // Check if we should only add items from autocomplete and if so,
       // does the tag exists as an option
       const options = this.filteredAutocompleteItems.map(i => i.text);
@@ -272,6 +272,9 @@ export default {
 
         // Special update for the parent if .sync is on
         if (this._events['update:tags']) this.$emit('update:tags', this.tagsCopy);
+
+        // if the tag was added by autocomplete, focus the input
+        if (source === 'autocomplete') this.$refs.newTagInput.focus();
 
         this.$emit('tags-changed', this.tagsCopy);
       });
