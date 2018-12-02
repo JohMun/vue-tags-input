@@ -16,7 +16,8 @@ body {
   color: #646464;
   overflow-y: hidden;
   box-sizing: border-box;
-  font-size: 14px;
+  font-size: 15px;
+  line-height: 22px;
 }
 
 ul {
@@ -69,19 +70,12 @@ h2 {
 }
 
 .content {
-  max-width: 900px;
-}
-
-.page span, .page p {
-  line-height: 24px;
+  max-width: 960px;
 }
 
 @media (max-width: 940px) {
   body {
-    font-size: 12px;
-  }
-
-  .page span, .page p {
+    font-size: 13px;
     line-height: 20px;
   }
 }

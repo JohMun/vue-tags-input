@@ -4,15 +4,9 @@
 -->
 
 <template>
-<<<<<<< HEAD
-  <div class="vue-tags-input" :class="[{ disabled }, { 'ti-focus': focused }]">
-    <div class="input">
-      <ul class="tags" v-if="tagsCopy">
-=======
-  <div class="vue-tags-input" :class="{ 'ti-disabled': disabled }">
+  <div class="vue-tags-input" :class="[{ 'ti-disabled': disabled }, { 'ti-focus': focused }]">
     <div class="ti-input">
       <ul class="ti-tags" v-if="tagsCopy">
->>>>>>> prefix css classes in code
         <li
           :tabindex="index + 1"
           v-for="(tag, index) in tagsCopy"

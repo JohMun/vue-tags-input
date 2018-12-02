@@ -102,28 +102,28 @@ export default {
 <style lang="scss">
 @import '~colors';
 
-.basic-demo .duplicate {
+.basic-demo .ti-duplicate {
   color: blue !important;
 }
 
-.basic-demo .tag.invalid.only-numbers {
+.basic-demo .ti-tag.ti-invalid.only-numbers {
   background-color: $warn;
 }
 
-.basic-demo .new-tag-input.invalid.min-length {
+.basic-demo .ti-new-tag-input.ti-invalid.min-length {
   color: $error;
 }
 
-.basic-demo .new-tag-input.invalid.only-numbers {
+.basic-demo .ti-new-tag-input.ti-invalid.only-numbers {
   color: $warn;
 }
 
-.basic-demo .autocomplete.autocomplete {
+.basic-demo .ti-autocomplete.ti-autocomplete {
   bottom: 33px;
   border-top: 1px solid #ccc;
 }
 
-.basic-demo .ti-focus .input {
+.basic-demo .ti-focus .ti-input {
   border: 1px solid blue;
 }
 

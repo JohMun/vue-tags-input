@@ -31,8 +31,8 @@
           we will see how to use these css classes in detail.
         </p>
         <p>
-          If the rule is valid, the class "valid", or if not, "invalid" is also added.
-          If the tag input component finds a duplicate item, the class "duplicate" is appended.
+          If the rule is valid, the class "ti-valid", or if not, "ti-invalid" is also added.
+          If the tag input component finds a duplicate item, the class "ti-duplicate" is appended.
           By default the prop <span class="code">avoid-adding-duplicates</span> is true.
           So in this example it is impossible to add duplicates.
         </p>

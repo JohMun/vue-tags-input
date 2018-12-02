@@ -4,6 +4,13 @@
       <section id="styling-example">
         <div class="explanation">
           <h1>Styling Elements</h1>
+          <breaking-changes :current-version="2">
+            All css classes vue-tags-input is using, are prefixed with 'ti'.
+            <ul>
+              <li>Version 1: 'duplicate' or 'item'</li>
+              <li>Version 2: 'ti-duplicate' or 'ti-item'</li>
+            </ul>
+          </breaking-changes>
           <p>
             You can add CSS classes to tags, the input element or
             to autocomplete items, in the following ways:
@@ -23,18 +30,18 @@
           </p>
           <ul>
             <li>
-              The class "duplicate" is added if an element exists twice.
+              The class "ti-duplicate" is added if an element exists twice.
               Duplicates can't be added by default. To achieve that, The property
               <span class="code">avoidAddingDuplicates</span> have to be set to
               <span class="code">false</span>.
             </li>
             <li>
-              The class "deletion-mark" is appended for a short time,
+              The class "ti-deletion-mark" is appended for a short time,
               if the user deletes a tag with backspace.
             </li>
             <li>
-              The class "valid" is added if a tag came through the validation,
-              "invalid" if not.
+              The class "ti-valid" is added if a tag came through the validation,
+              "ti-invalid" if not.
             </li>
           </ul>
           <p>
@@ -100,7 +107,7 @@ data() {
         <code>
 &lt;style lang=&quot;css&quot;&gt;
 
-.vue-tags-input .input {
+.vue-tags-input .ti-input {
   padding: 4px 10px;
   border: none;
   transition: border-bottom 100ms ease;
@@ -108,19 +115,19 @@ data() {
 }
 
 /* change border-color on focus */
-.vue-tags-input.ti-focus .input {
+.vue-tags-input.ti-focus .ti-input {
   border-bottom: 1px solid #333;
 }
 
-.tag {
+.ti-tag {
   position: relative;
 }
 
-.tag.valid {
+.ti-tag.ti-valid {
   background-color: #04B404;
 }
 
-.tag.custom-class {
+.ti-tag.custom-class {
   background-color: #fff;
   color: rgba(100 ,100, 100, 1);
   font-weight: bold;
@@ -132,23 +139,23 @@ data() {
   font-size: 13px;
 }
 
-.tag.no-numbers {
+.ti-tag.no-numbers {
   background-color: #FE9A2E;
 }
 
-.duplicate {
+.ti-duplicate {
   text-decoration: line-through;
 }
 
-.new-tag-input.invalid, .item.invalid {
+.ti-new-tag-input.ti-invalid, .ti-item.ti-invalid {
   color: #e54d42;
 }
 
-.new-tag-input.no-numbers, .item.no-numbers {
+.ti-new-tag-input.no-numbers, .ti-item.no-numbers {
   color: #FE9A2E;
 }
 
-.tag:after {
+.ti-tag:after {
   transition: transform .2s;
   position: absolute;
   content: '';
@@ -160,7 +167,7 @@ data() {
   transform: scaleX(0);
 }
 
-.deletion-mark :after {
+.ti-deletion-mark :after {
   transform: scaleX(1);
 }
 
@@ -174,12 +181,14 @@ data() {
 <script>
 import VueTagsInput from '../../../vue-tags-input/vue-tags-input.vue';
 import ElCode from '../../components/el-code';
+import BreakingChanges from '../../components/breaking-changes';
 
 export default {
   name: 'ExamplesStyling',
   components: {
     VueTagsInput,
     ElCode,
+    BreakingChanges,
   },
   data() {
     return {
@@ -230,22 +239,22 @@ export default {
 <style lang="scss">
 
 #styling-example {
-  .vue-tags-input .input {
+  .vue-tags-input .ti-input {
     padding: 4px 10px;
     border: none;
     transition: border-bottom 100ms ease;
     border-bottom: 1px solid #ccc;
   }
 
-  .vue-tags-input.ti-focus .input {
+  .vue-tags-input.ti-focus .ti-input {
     border-bottom: 1px solid #333;
   }
 
-  .tag.valid {
+  .ti-tag.ti-valid {
     background-color: #04B404;
   }
 
-  .tag.custom-class {
+  .ti-tag.custom-class {
     background-color: #fff;
     color: rgba(100,100,100,1);
     font-weight: bold;
@@ -257,23 +266,23 @@ export default {
     font-size: 13px;
   }
 
-  .tag.no-numbers {
+  .ti-tag.no-numbers {
     background-color: #FE9A2E;
   }
 
-  .duplicate {
+  .ti-duplicate {
     text-decoration: line-through;
   }
 
-  .new-tag-input.invalid, .item.invalid {
+  .ti-new-tag-input.ti-invalid, .ti-item.ti-invalid {
     color: #e54d42;
   }
 
-  .new-tag-input.no-numbers, .item.no-numbers {
+  .ti-new-tag-input.no-numbers, .ti-item.no-numbers {
     color: #FE9A2E;
   }
 
-  .tag {
+  .ti-tag {
     position: relative;
 
     &:after {
@@ -289,7 +298,7 @@ export default {
     }
   }
 
-  .deletion-mark {
+  .ti-deletion-mark {
     &:after {
       transform: scaleX(1);
     }

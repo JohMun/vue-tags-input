@@ -80,6 +80,7 @@ div.vue-tags-input.disabled {
   display: flex;
   flex-wrap: wrap;
   width: 100%;
+  line-height: initial;
 }
 
 .ti-tag {
@@ -105,7 +106,7 @@ div.vue-tags-input.disabled {
   }
 
   span {
-    line-height: inherit;
+    line-height: .85em;
   }
 
   span.ti-hidden {

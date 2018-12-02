@@ -36,7 +36,6 @@
         on the left of each tag and autocomplete item.
         The property <span class="code">allow-edit-tags</span> is set to <span class="code">true</span>,
         to enable editing tags after creation.
-        <!-- erklären welche props in den scope gelangen -->
       </p>
       <p>
         Via <span class="code">slot-scope</span> we access some properties and helper functions.
@@ -142,16 +141,18 @@ computed: {
       </el-code>
       <el-code class="css">
         <code>
-.tags-input .input {
-  min-height: 44px;
+.tags-input .ti-input {
+  min-height: 46px;
 }
 
-.tags-input .tag.tag {
+.tags-input li.ti-tag {
   background-color: #F2F2F2;
   color: #000;
+  border-radius: 12px;
+  padding: 4px 8px;
 }
 
-.tags-input .tag-left {
+.tags-input .ti-tag-left {
   margin-right: 2px;
   width: 24px;
 }
@@ -165,7 +166,7 @@ computed: {
   margin-right: 5px;
 }
 
-.tags-input .deletion-mark {
+.tags-input .ti-deletion-mark {
   background-color: #e54d42;
 }
         </code>
@@ -463,16 +464,18 @@ export default {
   }
 
   .tags-input-1 {
-    .input {
-      min-height: 44px;
+    .ti-input {
+      min-height: 46px;
     }
 
-    .tag.tag {
+    li.ti-tag {
       background-color: #E6E6E6;
       color: #000;
+      border-radius: 12px;
+      padding: 4px 8px;
     }
 
-    .tag-left {
+    .ti-tag-left {
       margin-right: 2px;
       width: 24px;
     }
@@ -486,7 +489,7 @@ export default {
       margin-right: 5px;
     }
 
-    .deletion-mark {
+    .ti-deletion-mark {
       background-color: $error;
     }
   }

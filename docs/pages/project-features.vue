@@ -142,27 +142,26 @@ export default {
   width: 100%;
   max-width: none;
 
-  .input {
+  .ti-input {
     border: none;
     border-bottom: 1px solid #ccc;
     padding: 4px 12px;
   }
 
-  .tags li {
+  .ti-tags li {
     padding: 5px 8px;
     margin:2px;
   }
 
-  .tag.dark-font {
+  .ti-tag.dark-font {
     color: #333;
   }
 
-  .item {
+  .ti-item {
     padding: 2px 3px;
-    // font-size: 16px;
   }
 
-  .tag.deletion-mark  {
+  .ti-tag.ti-deletion-mark  {
     background-color: $error !important;
     color: #fff;
   }
