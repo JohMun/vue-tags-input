@@ -21,6 +21,14 @@ export default {
     return {
       log: [
         {
+          version: '1.6.0',
+          changes: [
+            'Focus the input after adding a tag via autocomplete',
+            'Add "ti-focus" class to vue-tags-input if necessary',
+            'Allow key strings in the array which is assigned to addOnKey and saveOnKey',
+          ],
+        },
+        {
           version: '1.5.10',
           changes: [
             'Fix findIndex for IE11',
