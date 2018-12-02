@@ -214,7 +214,7 @@ export default {
   computed: {
     filteredItems() {
       return this.autocompleteItems.filter(i => {
-        return new RegExp(this.tag, 'i').test(i.text);
+        return i.text.toLowerCase().indexOf(this.tag.toLowerCase()) !== -1;
       });
     },
   },

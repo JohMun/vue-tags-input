@@ -160,7 +160,9 @@ export default {
   },
   computed: {
     filteredItems() {
-      return this.autocompleteItems.filter(i => new RegExp(this.tag, 'i').test(i.text));
+      return this.autocompleteItems.filter(i => {
+        return i.text.toLowerCase().indexOf(this.tag.toLowerCase()) !== -1;
+      });
     },
   },
 };

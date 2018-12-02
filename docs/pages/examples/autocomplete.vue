@@ -54,9 +54,9 @@ export default {
     };
   },
   computed: {
-    filteredItems() {
-      return this.autocompleteItems.filter(i =&gt; new RegExp(this.tag, 'i').test(i.text));
-    },
+    return this.autocompleteItems.filter(i => {
+      return i.text.toLowerCase().indexOf(this.tag.toLowerCase()) !== -1;
+    });
   },
 };
 &lt;/script&gt;
@@ -208,7 +208,7 @@ export default {
   computed: {
     filteredItems1() {
       return this.example1.autocompleteItems.filter(i => {
-        return new RegExp(this.example1.tag, 'i').test(i.text);
+        return i.text.toLowerCase().indexOf(this.example1.tag.toLowerCase()) !== -1;
       });
     },
   },

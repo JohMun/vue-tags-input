@@ -133,7 +133,9 @@ data() {
 },
 computed: {
   items() {
-    return this.icons.filter(i => new RegExp(this.tag, 'i').test(i.text));
+    return this.icons.filter(i => {
+      return i.text.toLowerCase().indexOf(this.tag.toLowerCase()) !== -1;
+    });
   },
 },
         </code>
@@ -234,8 +236,9 @@ data() {
 computed: {
   items() {
     return this.animals
-      .filter(a => new RegExp(this.tag, 'i').test(a))
-      .map(a => ({ text: a }));
+      .filter(a => {
+        return a.toLowerCase().indexOf(this.tag.toLowerCase()) !== -1;
+      }).map(a => ({ text: a }));
   },
 },
         </code>
@@ -431,11 +434,15 @@ export default {
   },
   computed: {
     items1() {
-      return this.icons.filter(i => new RegExp(this.example1.tag, 'i').test(i.text));
+      return this.icons.filter(i => {
+        return i.text.toLowerCase().indexOf(this.example1.tag.toLowerCase()) !== -1;
+      });
     },
     items2() {
       return this.animals
-        .filter(a => new RegExp(this.example2.tag, 'i').test(a))
+        .filter(a => {
+          return a.toLowerCase().indexOf(this.example2.tag.toLowerCase()) !== -1;
+        })
         .map(a => ({ text: a }));
     },
   },
