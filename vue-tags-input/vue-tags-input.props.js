@@ -204,7 +204,7 @@ export default {
   },
   /**
    * @description Pass an array containing objects like in the example below.
-     The property 'type' will be added as css classes, if the property 'rule' matches the text
+     The property 'classes' will be added as css classes, if the property 'rule' matches the text
      of a tag, an autocomplete item or the input. The property 'rule' can be type of
      RegExp or function. If the property 'disableAdd' is 'true', the item can't be added
      to the tags array, if the appropriated rule matches.
@@ -213,10 +213,10 @@ export default {
    * @default []
    * @example
     {
-    &ensp;type: 'class', &#47;* css class *&#47;
+    &ensp;classes: 'class', &#47;* css class *&#47;
     &ensp;rule: /^([^0-9]*)$/, &#47;* RegExp *&#47;
     }, {
-    &ensp;type: 'no-braces', &#47;* css class *&#47;
+    &ensp;classes: 'no-braces', &#47;* css class *&#47;
     &ensp;rule(text) { &#47;* function with text as param *&#47;
     &ensp;&ensp;return text.indexOf('{') !== -1 || text.indexOf('}') !== -1;
     &ensp;},

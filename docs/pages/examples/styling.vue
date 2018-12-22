@@ -18,8 +18,8 @@
           <ul>
             <li>
               In a validation item, the value of the property
-              <span class="code">type</span>
-              is added as class, if the rule match.</li>
+              <span class="code">classes</span>
+              is added as class, if the rule matches.</li>
             <li>
               The value of the property <span class="code">classes</span>
               in a tag or an autocomplete item, is always appended.
@@ -179,9 +179,9 @@ data() {
 </template>
 
 <script>
-import VueTagsInput from '../../../vue-tags-input/vue-tags-input.vue';
-import ElCode from '../../components/el-code';
-import BreakingChanges from '../../components/breaking-changes';
+import VueTagsInput from '@johmun/vue-tags-input';
+import ElCode from '@components/el-code';
+import BreakingChanges from '@components/breaking-changes';
 
 export default {
   name: 'ExamplesStyling',

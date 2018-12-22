@@ -53,7 +53,7 @@ build: {
 </template>
 
 <script>
-import ElCode from '../../components/el-code';
+import ElCode from '@components/el-code';
 
 export default {
   name: 'ExamplesNuxt',

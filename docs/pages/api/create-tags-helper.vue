@@ -33,8 +33,8 @@ import { VueTagsInput, createTag, createTags } from '@johmun/vue-tags-input';
 </template>
 
 <script>
-import ElCode from '../../components/el-code';
-import AutoDocsItem from '../../components/auto-docs-item';
+import ElCode from '@components/el-code';
+import AutoDocsItem from '@components/auto-docs-item';
 import sortBy from 'lodash/sortBy';
 
 export default {

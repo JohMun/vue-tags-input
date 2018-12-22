@@ -23,8 +23,8 @@
 </template>
 
 <script>
-import VueTagsInput from '../../vue-tags-input/vue-tags-input.vue';
-import TagInput from '../../vue-tags-input/tag-input.vue';
+import VueTagsInput from '@johmun/vue-tags-input';
+import TagInput from '@tag-input';
 
 export default {
   name: 'ToDevelop',

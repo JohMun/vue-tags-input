@@ -3,6 +3,10 @@
     <div class="content">
       <section>
         <h1>Validation</h1>
+        <breaking-changes :current-version="2">
+          The key <span class="code">type</span> in a validation item,
+          has changed to <span class="code">classes</span>.
+        </breaking-changes>
         <p>
           To validate tags, autocomplete items or the user input, a validation array
           can be passed to the tags input component. In this example, a tag has to be
@@ -24,9 +28,9 @@
         </div>
         <p>
           Each item in the validation array must contain the properties
-          <span class="code">type</span> and <span class="code">rule</span>.
-          <span class="code">type</span> will be added as a css class, if the appropriated
-          <span class="code">rule</span> match a tag, the user input or an autocomplete item.
+          <span class="code">classes</span> and <span class="code">rule</span>.
+          <span class="code">classes</span> will be added as css class, if the related
+          <span class="code">rule</span> matches a tag, the user input or an autocomplete item.
           The rule can by type of RegExp or function. In chapter <router-link :to="{ path: '/examples/styling'}">Styling</router-link>
           we will see how to use these css classes in detail.
         </p>
@@ -118,14 +122,16 @@ data() {
 </template>
 
 <script>
-import VueTagsInput from '../../../vue-tags-input/vue-tags-input.vue';
-import ElCode from '../../components/el-code';
+import VueTagsInput from '@johmun/vue-tags-input';
+import ElCode from '@components/el-code';
+import BreakingChanges from '@components/breaking-changes';
 
 export default {
   name: 'examplesValidation',
   components: {
     VueTagsInput,
     ElCode,
+    BreakingChanges,
   },
   data() {
     return {

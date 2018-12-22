@@ -4,7 +4,7 @@
     <vue-tags-input
       v-model="tag"
       :tags="tags"
-      :add-on-key="[188, 32]"
+      :add-on-key="[',', 32]"
       :save-on-key="[188, 32]"
       :allow-edit-tags="true"
       :autocomplete-items="autocompleteItems"
@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import VueTagsInput from '../../vue-tags-input/vue-tags-input';
+import VueTagsInput from '@johmun/vue-tags-input';
 
 export default {
   name: 'AddSaveOnKey',

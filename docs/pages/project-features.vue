@@ -63,7 +63,7 @@
 </template>
 
 <script>
-import VueTagsInput from '../../vue-tags-input/vue-tags-input.vue';
+import VueTagsInput from '@johmun/vue-tags-input';
 
 export default {
   name: 'ProjectFeatures',

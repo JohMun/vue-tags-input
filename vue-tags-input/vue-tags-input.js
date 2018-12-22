@@ -146,7 +146,7 @@ export default {
     hasForbiddingAddRule(tiClasses) {
       // Does the tag has a rule, defined by the user, which prohibits adding?
       return tiClasses.some(type => {
-        const rule = this.validation.find(rule => type === rule.type);
+        const rule = this.validation.find(rule => type === rule.classes);
         return rule ? rule.disableAdd : false;
       });
     },

@@ -13,7 +13,7 @@
 
 <script>
 import sortBy from 'lodash/sortBy';
-import SlotDocsItem from '../../components/slot-docs-item';
+import SlotDocsItem from '@components/slot-docs-item';
 
 export default {
   name: 'Slots',

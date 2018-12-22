@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import AutoDocsItem from '../../components/auto-docs-item';
+import AutoDocsItem from '@components/auto-docs-item';
 import sortBy from 'lodash/sortBy';
 
 export default {

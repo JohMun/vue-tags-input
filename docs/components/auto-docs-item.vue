@@ -139,7 +139,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '~colors';
+@import 'colors';
 
 .auto-docs-item {
   margin: 35px 0;

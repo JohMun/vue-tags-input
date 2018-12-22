@@ -1,36 +1,36 @@
 <template>
   <div class="e2e-suite autocomplete">
     <vue-tags-input
-      class="input-0"
       v-model="tag"
+      class="input-0"
       :tags="tags"
       :autocomplete-items="autocompleteItems"
-      @tags-changed="newTags => tags = newTags">
-    </vue-tags-input>
+      @tags-changed="newTags => tags = newTags"
+    />
     <vue-tags-input
-      class="input-1"
       v-model="tag"
+      class="input-1"
       :tags="tags"
       :add-only-from-autocomplete="true"
       :autocomplete-min-length="0"
       :autocomplete-items="autocompleteItems"
-      @tags-changed="newTags => tags = newTags">
-    </vue-tags-input>
+      @tags-changed="newTags => tags = newTags"
+    />
     <vue-tags-input
-      class="input-2"
       v-model="tag"
+      class="input-2"
       :tags="tags"
       :avoid-adding-duplicates="false"
       :autocomplete-filter-duplicates="false"
       :autocomplete-always-open="true"
       :autocomplete-items="autocompleteItems"
-      @tags-changed="newTags => tags = newTags">
-    </vue-tags-input>
+      @tags-changed="newTags => tags = newTags"
+    />
   </div>
 </template>
 
 <script>
-import VueTagsInput from '../../vue-tags-input/vue-tags-input';
+import VueTagsInput from '@johmun/vue-tags-input';
 
 export default {
   name: 'Autocomplete',

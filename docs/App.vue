@@ -22,7 +22,7 @@
 
 <script>
 import './app-style.scss';
-import ElNavbar from './components/el-navbar';
+import ElNavbar from '@components/el-navbar';
 
 export default {
   name: 'app',
