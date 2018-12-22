@@ -28,7 +28,7 @@
     "precommit": "lint-staged",
     "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
     "lint-fix": "eslint --fix --ignore-path .gitignore .",
-    "e2e": "testcafe all e2e/*test* --app \"npm run dev\" --app-init-delay 10000 -S -s screenshots"
+    "e2e": "testcafe chrome e2e/*test* --app \"npm run dev\" --app-init-delay 10000 -S -s screenshots"
   },
   "lint-staged": {
     "*.js": "eslint",

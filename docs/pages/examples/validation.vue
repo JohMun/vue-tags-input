@@ -73,17 +73,17 @@ data() {
       text: 'Invalid cause of "{"',
     }],
     validation: [{
-      type: 'min-length',
+      classes: 'min-length',
       rule: /^.{8,}$/,
     }, {
-      type: 'no-numbers',
+      classes: 'no-numbers',
       rule: /^([^0-9]*)$/,
     }, {
-      type: 'avoid-item',
+      classes: 'avoid-item',
       rule: /^(?!Cannot).*$/,
       disableAdd: true,
     }, {
-      type: 'no-braces',
+      classes: 'no-braces',
       rule: text => text.indexOf('{') !== -1 || text.indexOf('}') !== -1,
     }],
   };
@@ -143,17 +143,17 @@ export default {
         text: 'Invalid cause of "{"',
       }],
       validation: [{
-        type: 'min-length',
+        classes: 'min-length',
         rule: /^.{8,}$/,
       }, {
-        type: 'no-numbers',
+        classes: 'no-numbers',
         rule: '^([^0-9]*)$',
       }, {
-        type: 'avoid-item',
+        classes: 'avoid-item',
         rule: /^(?!Cannot).*$/,
         disableAdd: true,
       }, {
-        type: 'no-braces',
+        classes: 'no-braces',
         rule: text => text.indexOf('{') !== -1 || text.indexOf('}') !== -1,
       }],
     };

@@ -91,10 +91,10 @@ data() {
       text: 'valid item',
     }],
     validation: [{
-      type: 'min-length',
+      classes: 'min-length',
       rule: '^.{8,}$',
     }, {
-      type: 'no-numbers',
+      classes: 'no-numbers',
       rule: '^([^0-9]*)$',
     }],
   };
@@ -218,10 +218,10 @@ export default {
         text: 'valid item',
       }],
       validation: [{
-        type: 'min-length',
+        classes: 'min-length',
         rule: '^.{8,}$',
       }, {
-        type: 'no-numbers',
+        classes: 'no-numbers',
         rule: '^([^0-9]*)$',
       }],
     };

@@ -244,13 +244,13 @@ export default {
           );
         }
 
-        const missingType = !v.type;
-        if (missingType) console.warn('Property "type" is missing', v);
+        const missingClasses = !v.classes;
+        if (missingClasses) console.warn('Property "classes" is missing', v);
 
         const invalidType = v.type && typeof v.type !== 'string';
         if (invalidType) console.warn('Property "type" must be type of string. Found:', v);
 
-        return !validRule || missingRule || missingType || invalidType;
+        return !validRule || missingRule || missingClasses || invalidType;
       });
     },
   },

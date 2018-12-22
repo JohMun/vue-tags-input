@@ -11,7 +11,7 @@ const validateUserRules = (text, validation) => {
     const isFunction = {}.toString.call(val.rule) === '[object Function]';
     if (isFunction) return val.rule(text);
 
-  }).map(val => val.type);
+  }).map(val => val.classes);
 };
 
 const clone = node => JSON.parse(JSON.stringify(node));
