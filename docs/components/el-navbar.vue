@@ -89,6 +89,9 @@ export default {
           route: '/api/create-tags-helper',
         }],
       }, {
+        label: 'Migration V1 → V2',
+        route: '/migration',
+      }, {
         label: 'Changelog',
         route: '/changelog',
       }, {
