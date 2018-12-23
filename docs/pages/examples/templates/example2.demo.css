@@ -1,0 +1,8 @@
+.tags-input .inputs {
+  display: flex;
+}
+
+.tags-input .inputs i {
+  font-size: 20px;
+  cursor: pointer;
+}

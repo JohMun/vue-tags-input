@@ -1,0 +1,7 @@
+<vue-tags-input
+  v-model="tag"
+  :tags="tags"
+  :validation="validation"
+  :autocomplete-items="filteredItems"
+  @tags-changed="newTags => tags = newTags"
+/>

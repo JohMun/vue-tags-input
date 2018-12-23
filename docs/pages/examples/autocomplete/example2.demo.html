@@ -1,0 +1,53 @@
+<template>
+  <div>
+    <vue-tags-input
+      v-model="tag"
+      :tags="tags"
+      :autocomplete-items="autocompleteItems"
+      :add-only-from-autocomplete="true"
+      @tags-changed="update"
+    />
+  </div>
+</template>
+
+<script>
+import VueTagsInput from '@johmun/vue-tags-input';
+import axios from 'axios';
+
+export default {
+  components: {
+    VueTagsInput,
+  },
+  data() {
+    return {
+      tag: '',
+      tags: [],
+      autocompleteItems: [],
+      debounce: null,
+    };
+  },
+  watch: {
+    'tag': 'initItems',
+  },
+  methods: {
+    update(newTags) {
+      this.autocompleteItems = [];
+      this.tags = newTags;
+    },
+    initItems() {
+      if (this.tag.length < 2) return;
+      const url = `https://itunes.apple.com/search?term=
+        ${this.tag}&entity=allArtist&attribute=allArtistTerm&limit=6`;
+
+      clearTimeout(this.debounce);
+      this.debounce = setTimeout(() => {
+        axios.get(url).then(response => {
+          this.autocompleteItems = response.data.results.map(a => {
+            return { text: a.artistName };
+          });
+        }).catch(() => console.warn('Oh. Something went wrong'));
+      }, 600);
+    },
+  },
+};
+</script>

@@ -1,0 +1,121 @@
+<template lang="html">
+  <div class="examples-templates page">
+    <div class="content">
+      <h1>Templating</h1>
+      <h2>Slot: tagLeft & autocompleteItem</h2>
+      <div class="tag-picture">
+        <div class="tag">
+          <div class="tag-left">
+            <span class="code">tagLeft</span>
+          </div>
+          <div class="tag-center">
+            <span class="code">tagCenter</span>
+            <span>Contains: text & input</span>
+            <span>| experimental |</span>
+          </div>
+          <div class="tag-right">
+            <span class="code">tagRight</span>
+          </div>
+          <div class="tag-actions">
+            <span class="code">tagActions</span>
+            <span>
+              Contains:
+              <i class="material-icons">undo</i>
+              <i class="material-icons">clear</i>
+            </span>
+          </div>
+        </div>
+        <div class="description">All possible slots in a tag</div>
+      </div>
+      <example1 />
+      <example2 />
+      <example3 />
+      <example4 />
+    </div>
+  </div>
+</template>
+
+<script>
+import VueTagsInput from '@johmun/vue-tags-input';
+import ElCode from '@components/el-code';
+import TagInput from '@tag-input';
+import Example1 from './example1';
+import Example2 from './example2';
+import Example3 from './example3';
+import Example4 from './example4';
+
+export default {
+  name: 'ExamplesTemplates',
+  components: {
+    VueTagsInput,
+    ElCode,
+    TagInput,
+    Example2,
+    Example1,
+    Example3,
+    Example4,
+  },
+};
+</script>
+
+<style lang="scss" scoped>
+a {
+  text-decoration: underline;
+}
+
+.tag-picture {
+  max-width: 600px;
+  display: flex;
+  flex-direction: column;
+
+  .tag {
+    display: flex;
+    border-radius: 12px;
+    height: 120px;
+    background-color: rgba(92, 107, 192, 0.6);
+    margin-bottom: 10px;
+
+    > div {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+    }
+
+    span {
+      margin: 2px;
+      font-size: 0.8em;
+    }
+
+    span:not(.code) {
+      color: #fff;
+      display: flex;
+      align-items: center;
+    }
+
+    i {
+      padding-left: 3px;
+      font-size: 18px;
+    }
+  }
+
+  .description {
+    font-style: italic;
+    font-size: 0.9em;
+  }
+
+  .tag-left, .tag-right, .tag-actions {
+    width: 120px;
+  }
+
+  .tag-center {
+    border-left: 1px solid #fff;
+    border-right: 1px solid #fff;
+    flex: 1;
+  }
+
+  .tag-actions {
+    border-left: 1px solid #fff;
+  }
+}
+</style>

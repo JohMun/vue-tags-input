@@ -1,0 +1,67 @@
+<style lang="css">
+  .vue-tags-input .ti-input {
+    padding: 4px 10px;
+    border: none;
+    transition: border-bottom 100ms ease;
+    border-bottom: 1px solid #ccc;
+  }
+
+  /* change border-color on focus */
+  .vue-tags-input.ti-focus .ti-input {
+    border-bottom: 1px solid #333;
+  }
+
+  .vue-tags-input. ti-tag {
+    position: relative;
+  }
+
+  .vue-tags-input .ti-tag.ti-valid {
+    background-color: #04B404;
+  }
+
+  .vue-tags-input .ti-tag.custom-class {
+    background-color: #fff;
+    color: rgba(100 ,100, 100, 1);
+    font-weight: bold;
+    text-transform: uppercase;
+    box-shadow: 2px 2px 0px 0px rgba(100, 100, 100, 1);
+    margin-right: 4px;
+    border: 1px solid rgba(100, 100, 100, 1);
+    border-radius: 0px;
+    font-size: 13px;
+  }
+
+  .vue-tags-input .ti-tag.no-numbers {
+    background-color: #FE9A2E;
+  }
+
+  .vue-tags-input .ti-duplicate {
+    text-decoration: line-through;
+  }
+
+  .vue-tags-input .ti-new-tag-input.ti-invalid,
+  .vue-tags-input .ti-item.ti-invalid {
+    color: #e54d42;
+  }
+
+  .vue-tags-input .ti-new-tag-input.no-numbers,
+  .vue-tags-input .ti-item.no-numbers {
+    color: #FE9A2E;
+  }
+
+  .vue-tags-input .ti-tag:after {
+    transition: transform .2s;
+    position: absolute;
+    content: '';
+    height: 2px;
+    width: 108%;
+    left: -4%;
+    top: calc(50% - 1px);
+    background-color: #000;
+    transform: scaleX(0);
+  }
+
+  .vue-tags-input .ti-deletion-mark :after {
+    transform: scaleX(1);
+  }
+</style>

@@ -5,7 +5,7 @@
 <script>
 export default {
   name: 'ElCode',
-  props: ['code'],
+  props: ['code', 'lang'],
   data() {
     return {
       content: null,
@@ -13,7 +13,7 @@ export default {
   },
   methods: {
     initHs() {
-      this.content = window.hljs.highlight('javascript', JSON.stringify(this.code)).value;
+      this.content = window.hljs.highlight(this.lang || 'javascript', this.code).value;
     },
   },
   watch: {

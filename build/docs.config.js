@@ -22,16 +22,21 @@ module.exports = {
   module: {
     rules: [
       {
+        test: /\.demo\./,
+        use: 'raw-loader',
+      },
+      {
         test: /\.vue$/,
         loader: 'vue-loader',
       },
       {
         test: /\.js$/,
         loader: 'babel-loader',
-        exclude: /(node_modules)/,
+        exclude: /(node_modules|\.demo\.)/,
       },
       {
         test: /\.(scss|css)$/,
+        exclude: /\.demo\./,
         use: [
           'vue-style-loader',
           {
@@ -110,7 +115,7 @@ module.exports = {
     port,
     public: 'localhost:' + port,
     host: '0.0.0.0',
-    async after() {
+    after() {
       console.log('\nServing on: ', 'localhost:' + port);
       console.log('IP: ', `${ip.address()}:${port}`);
     },

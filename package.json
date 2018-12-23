@@ -62,12 +62,13 @@
     "html-webpack-plugin": "^3.2.0",
     "http-server": "^0.11.1",
     "husky": "^1.1.2",
-    "lint-staged": "^8.1.0",
     "image-webpack-loader": "^4.6.0",
     "ip": "^1.1.5",
+    "lint-staged": "^8.1.0",
     "node-sass": "^4.8.1",
     "normalize-css": "^2.3.1",
     "postcss-loader": "^3.0.0",
+    "raw-loader": "^1.0.0",
     "sass-loader": "^7.1.0",
     "testcafe": "^0.23.3",
     "testcafe-vue-selectors": "^3.0.0",
@@ -105,7 +106,8 @@
       "vue/max-attributes-per-line": "off",
       "vue/no-use-v-if-with-v-for": "off",
       "vue/no-unused-components": "off",
-      "vue/component-name-in-template-casing": "off"
+      "vue/component-name-in-template-casing": "off",
+      "vue/singleline-html-element-content-newline": "off"
     }
   },
   "browserslist": [
