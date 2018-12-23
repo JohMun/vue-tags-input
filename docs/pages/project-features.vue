@@ -12,8 +12,8 @@
     <!-- todo: cool video with features-->
     <div class="features">
       <vue-tags-input
-        class="tags-input"
         v-model="tag"
+        class="tags-input"
         :tags="tags"
         :autocomplete-items="items"
         :allow-edit-tags="true"
@@ -24,40 +24,42 @@
     <h3>Browser support</h3>
     <div class="browser-support">
       <div>
-        <img src="https://cdnjs.cloudflare.com/ajax/libs/browser-logos/45.1.0/archive/internet-explorer-tile_10-11/internet-explorer-tile_10-11_48x48.png" />
+        <img src="https://cdnjs.cloudflare.com/ajax/libs/browser-logos/45.1.0/archive/internet-explorer-tile_10-11/internet-explorer-tile_10-11_48x48.png">
         <span>IE 10 +</span>
       </div>
       <div>
-        <img src="../assets/img/apple-logo.png" />
+        <img src="../assets/img/apple-logo.png">
         <span>iPhone 9 +</span>
       </div>
       <div>
-        <img src="https://cdnjs.cloudflare.com/ajax/libs/browser-logos/45.1.0/safari-ios/safari-ios_48x48.png" />
+        <img src="https://cdnjs.cloudflare.com/ajax/libs/browser-logos/45.1.0/safari-ios/safari-ios_48x48.png">
         <span>Safari 9.1 +</span>
       </div>
       <div>
-        <img src="../assets/img/android-logo.png" />
+        <img src="../assets/img/android-logo.png">
         <span>Android 4.4 +</span>
       </div>
       <div>
-        <img src="https://cdnjs.cloudflare.com/ajax/libs/browser-logos/45.2.0/chrome/chrome_48x48.png" />
+        <img src="https://cdnjs.cloudflare.com/ajax/libs/browser-logos/45.2.0/chrome/chrome_48x48.png">
         <span>Chrome <i class="material-icons">check</i></span>
       </div>
       <div>
-        <img src="https://cdnjs.cloudflare.com/ajax/libs/browser-logos/45.1.0/firefox/firefox_48x48.png" />
+        <img src="https://cdnjs.cloudflare.com/ajax/libs/browser-logos/45.1.0/firefox/firefox_48x48.png">
         <span>Firefox <i class="material-icons">check</i></span>
       </div>
       <div>
-        <img src="https://cdnjs.cloudflare.com/ajax/libs/browser-logos/45.1.0/archive/opera_10-14/opera_10-14_48x48.png" />
+        <img src="https://cdnjs.cloudflare.com/ajax/libs/browser-logos/45.1.0/archive/opera_10-14/opera_10-14_48x48.png">
         <span>Opera 35+</span>
       </div>
       <div>
-        <img src="https://cdnjs.cloudflare.com/ajax/libs/browser-logos/45.1.0/edge/edge_48x48.png" />
+        <img src="https://cdnjs.cloudflare.com/ajax/libs/browser-logos/45.1.0/edge/edge_48x48.png">
         <span>Edge 12+</span>
       </div>
     </div>
-    <p class="license">License:
-      <a href="https://opensource.org/licenses/MIT" target="_blank">MIT</a></p>
+    <p class="license">
+      License:
+      <a href="https://opensource.org/licenses/MIT" target="_blank">MIT</a>
+    </p>
     <p>Copyright (c) 2018 Johannes Munari</p>
   </div>
 </template>

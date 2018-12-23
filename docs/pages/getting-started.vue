@@ -6,7 +6,7 @@
       <vue-tags-input
         v-model="tag"
         :tags="tags"
-        :tagsFilterDuplicates="false"
+        :tags-filte-duplicates="false"
         @tags-changed="newTags => tags = newTags"
       />
       <div class="data">

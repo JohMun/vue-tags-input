@@ -1,20 +1,25 @@
 <template>
-  <pre class="code-block"><slot v-if="$slots.default"></slot><code v-html="content"></code></pre>
+  <div class="code-block" :class="lang">
+    <slot><code v-html="content" /></slot>
+  </div>
 </template>
 
 <script>
 export default {
   name: 'ElCode',
-  props: ['code', 'lang'],
+  props: {
+    code: {
+      type: String,
+    },
+    lang: {
+      type: String,
+      default: 'javascript',
+    },
+  },
   data() {
     return {
       content: null,
     };
-  },
-  methods: {
-    initHs() {
-      this.content = window.hljs.highlight(this.lang || 'javascript', this.code).value;
-    },
   },
   watch: {
     code: 'initHs',
@@ -23,23 +28,29 @@ export default {
     if (this.$slots.default) window.hljs.highlightBlock(this.$el);
     else this.initHs();
   },
+  methods: {
+    initHs() {
+      this.content = window.hljs.highlight(this.lang, this.code).value;
+    },
+  },
 };
 </script>
 
 <style lang="scss">
 .code-block {
-  padding: 15px;
+  margin-top: 15px;
+  padding: 20px 15px 0px 15px;
   line-height: 1.5em;
   min-height: 54px;
-  background-color: #fafafa;
+  background-color: #f1f0f0;
   color: #5a7994;
 
   span {
     font-family: 'Oxygen Mono', monospace !important;
   }
 
-  pre {
-    margin: 10px 0px 20px 0px;
+  code {
+    white-space: pre-wrap;
   }
 
   .nohighlight {

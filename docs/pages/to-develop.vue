@@ -3,22 +3,22 @@
     <h1>All Demo</h1>
     <button type="button" name="button" @click="tags.push({ text: 'buh' })">add tag</button>
     <button type="button" name="button" @click="tags.splice(1, 1)">delete tag</button>
-      <vue-tags-input
-        class="tags-input"
-        v-model="tag"
-        :tags.sync="tags"
-        :add-on-key="[',', '#', 13]"
-        :save-on-key="[',', '#', 13]"
-        :allow-edit-tags="true"
-        :separators="[',']"
-        :validation="validation"
-        :is-duplicate="isDuplicate"
-        :autocomplete-filter-duplicates="false"
-        :avoid-adding-duplicates="false"
-        :autocomplete-items="autocompleteItems"
-        @tags-changed="tagsChanged">
-      </vue-tags-input>
-      {{ tags }}
+    <vue-tags-input
+      v-model="tag"
+      class="tags-input"
+      :tags.sync="tags"
+      :add-on-key="[',', '#', 13]"
+      :save-on-key="[',', '#', 13]"
+      :allow-edit-tags="true"
+      :separators="[',']"
+      :validation="validation"
+      :is-duplicate="isDuplicate"
+      :autocomplete-filter-duplicates="false"
+      :avoid-adding-duplicates="false"
+      :autocomplete-items="autocompleteItems"
+      @tags-changed="tagsChanged"
+    />
+    {{ tags }}
   </div>
 </template>
 

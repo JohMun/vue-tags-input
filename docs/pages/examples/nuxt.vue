@@ -8,8 +8,7 @@
       </p>
 
       <el-code class="javascript">
-        <code>
-import Vue from 'vue';
+        <code>import Vue from 'vue';
 import VueTagsInput from '@johmun/vue-tags-input';
 
 Vue.use(VueTagsInput);
@@ -22,8 +21,7 @@ Vue.use(VueTagsInput);
       </p>
 
       <el-code class="javascript">
-        <code>
-plugins: [{ src: '~/plugins/vue-tags-input', ssr: false }],
+        <code>plugins: [{ src: '~/plugins/vue-tags-input', ssr: false }],
 build: {
 vendor: ['@johmun/vue-tags-input'],
 // more config
@@ -48,8 +46,7 @@ export default {
   components: { ElCode },
   data() {
     return {
-      html: `
-<template>
+      html: `<template>
   <no-ssr>
     <vue-tags-input
       v-model="tag"

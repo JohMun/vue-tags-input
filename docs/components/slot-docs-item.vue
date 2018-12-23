@@ -3,10 +3,10 @@
     <div class="name">
       <span class="value code">{{ item.slot }}</span>
     </div>
-    <p class="description meta" v-if="item.description">
+    <p v-if="item.description" class="description meta">
       {{ item.description }}
     </p>
-    <div class="slot-scope meta" v-if="item.props && item.props.length">
+    <div v-if="item.props && item.props.length" class="slot-scope meta">
       <span class="label big">Slot Scope</span>
       <ul>
         <li v-for="(prop, index) in item.props" :key="index">
@@ -15,7 +15,7 @@
             <span class="code">{{ prop.name }}</span>
           </div>
           <div>
-            <span class="label" v-if="prop.description">Description</span>
+            <span v-if="prop.description" class="label">Description</span>
             <span>{{ prop.description }}</span>
           </div>
           <div>
@@ -27,7 +27,7 @@
             <span class="code">{{ prop.expectedParams }}</span>
           </div>
           <el-code v-if="prop.example" class="js">
-            <code v-html="prop.example"></code>
+            <code v-html="prop.example" />
           </el-code>
         </li>
       </ul>

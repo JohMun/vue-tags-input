@@ -26,6 +26,10 @@ export default {
             'Changed the property key "type" to "classes" in a validation item',
             `All css classes vue-tags-input uses are prefixed with 'ti'.
             For example: 'ti-tag', 'ti-valid' or 'ti-item'`,
+            'Better build setup',
+            'More linting',
+            'Simplify examples code',
+            'Rebuild docs if the props file change',
           ],
         },
         {

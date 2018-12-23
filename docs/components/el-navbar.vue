@@ -14,21 +14,32 @@
             <li
               v-for="(item, index) in links"
               :key="index"
-              :class="{ active: isActive(item), disabled: item.disabled }">
+              :class="{ active: isActive(item), disabled: item.disabled }"
+            >
               <div class="label" @click="moveOrOpen(item, index)">
                 <div class="expand">
-                  <i v-if="item.children && linkStatus[index]" class="material-icons">expand_less</i>
-                  <i v-if="item.children && !linkStatus[index]" class="material-icons">expand_more</i>
+                  <i
+                    v-if="item.children && linkStatus[index]"
+                    class="material-icons"
+                  >
+                    expand_less
+                  </i>
+                  <i
+                    v-if="item.children && !linkStatus[index]" class="material-icons"
+                  >
+                    expand_more
+                  </i>
                 </div>
                 <span>{{ item.label }}</span>
               </div>
-              <ul class="lvl-2" v-if="linkStatus[index]">
+              <ul v-if="linkStatus[index]" class="lvl-2">
                 <li
-                  v-for="(item, i2) in item.children"
+                  v-for="(child, i2) in item.children"
                   :key="i2"
-                  @click="moveTo(item)"
-                  :class="{ active: isActive(item), disabled: item.disabled }">
-                  <div class="label"><span>{{ item.label }}</span></div>
+                  :class="{ active: isActive(child), disabled: child.disabled }"
+                  @click="moveTo(child)"
+                >
+                  <div class="label"><span>{{ child.label }}</span></div>
                 </li>
               </ul>
             </li>
@@ -101,6 +112,9 @@ export default {
       }],
     };
   },
+  created() {
+    this.linkStatus = this.links.map(() => false);
+  },
   methods: {
     toggleStatus(index) {
       this.$set(this.linkStatus, index, !this.linkStatus[index]);
@@ -123,9 +137,6 @@ export default {
     isActive(item) {
       return item.route === this.$route.path;
     },
-  },
-  created() {
-    this.linkStatus = this.links.map(() => false);
   },
 };
 </script>

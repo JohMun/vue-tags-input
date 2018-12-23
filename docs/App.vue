@@ -1,6 +1,10 @@
 <template>
-  <div ref="app" id="app">
-    <el-navbar @close-nav="navVisible = false" class="navbar" :class="{visible: navVisible }" />
+  <div id="app" ref="app">
+    <el-navbar
+      :class="{visible: navVisible }"
+      class="navbar"
+      @close-nav="navVisible = false"
+    />
     <main ref="scrollArea">
       <div class="content">
         <header>
@@ -9,7 +13,7 @@
           </div>
           <div>
             <a class="gt-link" href="https://github.com/JohMun/vue-tags-input" target="_blank">
-              <img src="./assets/img/github.png" alt="github logo" />
+              <img src="./assets/img/github.png" alt="github logo">
               <span>Visit On Github</span>
             </a>
           </div>
@@ -25,7 +29,7 @@ import './app-style.scss';
 import ElNavbar from '@components/el-navbar';
 
 export default {
-  name: 'app',
+  name: 'App',
   components: {
     ElNavbar,
   },
@@ -34,13 +38,13 @@ export default {
       navVisible: false,
     };
   },
+  watch: {
+    '$route': 'scrollTop',
+  },
   methods: {
     scrollTop() {
       setTimeout(() => this.$refs.scrollArea.scrollTop = 0, 10);
     },
-  },
-  watch: {
-    '$route': 'scrollTop',
   },
 };
 </script>

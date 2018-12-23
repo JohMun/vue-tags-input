@@ -4,24 +4,24 @@
       <!-- <span class="label">Name</span> -->
       <span class="value code">{{ name }}</span>
     </div>
-    <p class="description meta" v-if="description">{{ description }}</p>
-    <div class="type meta" v-if="type">
+    <p v-if="description" class="description meta">{{ description }}</p>
+    <div v-if="type" class="type meta">
       <span class="label">Type</span>
       <span class="value code">{{ type }}</span>
     </div>
-    <div class="default meta" v-if="defaultValue">
+    <div v-if="defaultValue" class="default meta">
       <span class="label">Default</span>
       <span class="value code">{{ defaultValue }}</span>
     </div>
-    <div class="required meta" v-if="required">
+    <div v-if="required" class="required meta">
       <span class="label">Required</span>
       <i class="material-icons">check</i>
     </div>
-    <div class="required meta" v-if="sync">
+    <div v-if="sync" class="required meta">
       <span class="label">Sync available</span>
       <i class="material-icons">check</i>
     </div>
-    <div class="params meta" v-if="params.length">
+    <div v-if="params.length" class="params meta">
       <span class="label big">Parameters</span>
       <ul>
         <li v-for="(param, index) in params" :key="index">
@@ -37,11 +37,12 @@
             <span class="label">Type</span>
             <template v-if="param.type.elements && param.type.elements.length">
               <span
+                v-for="(type2, index2) in param.type.elements"
+                :key="index2"
                 class="code"
-                v-for="(type, index) in param.type.elements"
-                :key="index">
-                {{ type.name }}
-                <span v-if="param.type.elements.length - 1 > index">|</span>
+              >
+                {{ type2.name }}
+                <span v-if="param.type.elements.length - 1 > index2">|</span>
               </span>
             </template>
             <template v-if="param.type.type === 'OptionalType'">
@@ -56,17 +57,17 @@
         </li>
       </ul>
     </div>
-    <div class="returns meta" v-if="returnsType">
+    <div v-if="returnsType" class="returns meta">
       <span class="label">Returns</span>
       <div><span class="value code">{{ returnsType }}</span></div>
       <span class="value text">{{ returnsDescription }}</span>
     </div>
-    <div class="hook meta" v-if="hook">
+    <div v-if="hook" class="hook meta">
       <span class="label">Hook</span>
       <i class="material-icons">check</i>
     </div>
     <el-code v-if="example" class="js">
-      <code v-html="example"></code>
+      <code v-html="example" />
     </el-code>
   </div>
 </template>
