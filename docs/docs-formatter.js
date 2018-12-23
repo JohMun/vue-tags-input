@@ -4,7 +4,14 @@ import mapKeys from 'lodash/mapKeys';
 import mapValues from 'lodash/mapValues';
 import slots from './slots-data';
 
-const docsFormatter = unformatted => {
+export const mergeDocs = (docA, docB) => {
+  return docB.map(entry => {
+    const replace = docA.find(aEntry => aEntry.name === entry.name);
+    return replace ? replace : entry;
+  });
+};
+
+export const format = unformatted => {
   const types = uniq(flatten(
     unformatted.map(i => i.tags.find(t => t.title === 'property').type.name))
   );
@@ -16,5 +23,3 @@ const docsFormatter = unformatted => {
 
   return { ...formatted, slots };
 };
-
-export default docsFormatter;
