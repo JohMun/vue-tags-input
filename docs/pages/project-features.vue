@@ -95,7 +95,7 @@ export default {
         text: 'Works with Vuex',
         style: 'background-color:  #364187',
       }, {
-        text: 'Small size: 25kb minified | gzipped 8kb',
+        text: 'Small size: 34kb minified | gzipped 9kb',
         style: 'background-color: #A7AEDA',
       }, {
         text: 'Autocompletion',

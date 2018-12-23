@@ -12,7 +12,7 @@ A tags input component for VueJS with autocompletion, custom validation, templat
 * Edit tags after creation
 * Fast setup
 * Works with Vuex
-* Small size: 35kb minified (css included) | gzipped 10kb
+* Small size: 34kb minified (css included) | gzipped 9kb
 * Autocompletion
 * Many customization options
 * Own templates
