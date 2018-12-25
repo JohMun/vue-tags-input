@@ -1,4 +1,4 @@
-<!-- A helper component used by VueTagsInput and can be put into the tagCenter slot -->
+<!-- A helper component used by VueTagsInput and can be put into the tag-center slot -->
 
 <template>
   <input

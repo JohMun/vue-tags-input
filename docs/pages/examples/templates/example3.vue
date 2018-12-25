@@ -1,9 +1,9 @@
 <template lang="html">
   <section>
-    <h2>Slot: tagCenter (experimental) with input helper</h2>
+    <h2>Slot: tag-center (experimental) with input helper</h2>
     <p>
       This is the default behaviour of every tag recreated with the slot
-      <span class="code">tagCenter</span>.
+      <span class="code">tag-center</span>.
       The component <span class="code">TagInput</span> is a helper to fastly build
       the standard text input, which provides the ability to edit tags after creation.
       The css class <span class="code">hidden</span> is provided by tags input.

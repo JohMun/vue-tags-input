@@ -1,6 +1,6 @@
 <template lang="html">
   <section>
-    <h2>Slot: autocompleteHeader & autocompleteFooter</h2>
+    <h2>Slot: autocomplete-header & autocomplete-footer</h2>
     <vue-tags-input
       v-model="tag"
       placeholder="Type something"
@@ -11,10 +11,10 @@
       class="tags-input"
       @tags-changed="newTags => tags = newTags"
     >
-      <template slot="autocompleteHeader">
+      <template slot="autocomplete-header">
         <strong>Select your favorite bike maker ↓</strong>
       </template>
-      <template slot="autocompleteFooter">
+      <template slot="autocomplete-footer">
         <small>
           <em>Or keep going with your worlds...</em>
         </small>

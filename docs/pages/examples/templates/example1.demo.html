@@ -7,7 +7,7 @@
   @tags-changed="newTags => tags = newTags"
 >
   <div
-    slot="autocompleteItem"
+    slot="autocomplete-item"
     slot-scope="props"
     class="my-item"
     @click="props.performAdd(props.item)"
@@ -20,7 +20,7 @@
     </i>{{ props.item.text }}
   </div>
   <div
-    slot="tagLeft"
+    slot="tag-left"
     slot-scope="props"
     class="my-tag-left"
     @click="props.performOpenEdit(props.index)"

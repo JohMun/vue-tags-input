@@ -2,22 +2,22 @@
   <div class="examples-templates page">
     <div class="content">
       <h1>Templating</h1>
-      <h2>Slot: tagLeft & autocompleteItem</h2>
+      <h2>Slot: tag-left & autocomplete-item</h2>
       <div class="tag-picture">
         <div class="tag">
           <div class="tag-left">
-            <span class="code">tagLeft</span>
+            <span class="code">tag-left</span>
           </div>
           <div class="tag-center">
-            <span class="code">tagCenter</span>
+            <span class="code">tag-center</span>
             <span>Contains: text & input</span>
             <span>| experimental |</span>
           </div>
           <div class="tag-right">
-            <span class="code">tagRight</span>
+            <span class="code">tag-right</span>
           </div>
           <div class="tag-actions">
-            <span class="code">tagActions</span>
+            <span class="code">tag-actions</span>
             <span>
               Contains:
               <i class="material-icons">undo</i>

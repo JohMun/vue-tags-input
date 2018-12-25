@@ -4,12 +4,13 @@
     - validation-item: type is now called classes
     - the prop 'delete-on-backslash' is now called 'delete-on-backspace'
     - The function 'perform-save-tag', provided in a slot, is now called 'perform-save-edit'
+    - all slot names are now in kebab-case e.g. 'tag-left'
   </div>
 </template>
 
 <script>
 export default {
-  name: 'Mirgration',
+  name: 'Migration',
 };
 </script>
 

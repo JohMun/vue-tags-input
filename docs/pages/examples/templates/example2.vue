@@ -1,6 +1,6 @@
 <template>
   <section class="template-example-2">
-    <h2>Slot: tagCenter (experimental) with select</h2>
+    <h2>Slot: tag-center (experimental) with select</h2>
     <vue-tags-input
       v-model="tag"
       :tags="tags"
@@ -10,7 +10,7 @@
       class="tags-input"
       @tags-changed="newTags => tags = newTags"
     >
-      <div slot="tagCenter" slot-scope="props">
+      <div slot="tag-center" slot-scope="props">
         <span
           v-if="!props.edit"
           @click="props.performOpenEdit(props.index)"

@@ -56,7 +56,7 @@ const performSaveEdit = {
 
 export default [
   {
-    slot: 'tagLeft',
+    slot: 'tag-left',
     description: 'The slot is positioned on the left of the text value',
     props: [
       tag,
@@ -70,7 +70,7 @@ export default [
     ],
   },
   {
-    slot: 'tagRight',
+    slot: 'tag-right',
     description: 'The slot is positioned between the text value and the actions',
     props: [
       tag,
@@ -84,7 +84,7 @@ export default [
     ],
   },
   {
-    slot: 'tagActions',
+    slot: 'tag-actions',
     description: `The slot is positioned on the right side.
       At default, it holds the 'check', 'undo' and 'close' icons`,
     props: [
@@ -99,7 +99,7 @@ export default [
     ],
   },
   {
-    slot: 'tagCenter',
+    slot: 'tag-center',
     description: 'At default, it holds the tags text value and an input to edit the text',
     props: [
       tag,
@@ -126,7 +126,7 @@ export default [
     ],
   },
   {
-    slot: 'autocompleteItem',
+    slot: 'autocomplete-item',
     description: 'Slot to create a autocomplete item in the autocomplete layer',
     props: [
       {
@@ -154,11 +154,11 @@ export default [
     ],
   },
   {
-    slot: 'autocompleteHeader',
+    slot: 'autocomplete-header',
     description: 'The slot is at the top of the autocomplete layer.',
   },
   {
-    slot: 'autocompleteFooter',
+    slot: 'autocomplete-footer',
     description: 'The slot is at the bottom of the autocomplete layer.',
   },
   {

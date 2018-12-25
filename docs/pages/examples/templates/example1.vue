@@ -3,7 +3,7 @@
     <p>
       Templates are a powerful tool to customize tags input even more.
       In this example we use the slots
-      <span class="code">tagLeft</span> and
+      <span class="code">tag-left</span> and
       <span class="code">autocompleteItem</span> to insert
       <a href="https://material.io/icons/" target="_blanc">material icons</a>
       on the left of each tag and autocomplete item. The property
@@ -21,12 +21,12 @@
       v-model="tag"
       :tags="tags"
       :allow-edit-tags="true"
-      class="tags-input"
       :autocomplete-items="items"
+      class="tags-input"
       @tags-changed="newTags => tags = newTags"
     >
       <div
-        slot="autocompleteItem"
+        slot="autocomplete-item"
         slot-scope="props"
         class="my-item"
         @click="props.performAdd(props.item)"
@@ -36,7 +36,7 @@
         </i>{{ props.item.text }}
       </div>
       <div
-        slot="tagLeft"
+        slot="tag-left"
         slot-scope="props"
         class="my-tag-left"
         @click="props.performOpenEdit(props.index)"
