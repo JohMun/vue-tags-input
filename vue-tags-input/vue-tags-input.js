@@ -202,13 +202,13 @@ export default {
       // If the input is disabled or the function was invoked by no trigger key → stop
       if (this.disabled || event && this.noTriggerKey(event, 'addOnKey')) return;
 
-      // If the tag has no content → stop
-      if (typeof tag === 'string' && tag.trim().length === 0) return;
-
       // Convert the string or object into a tags array
       let tags = [];
       if (typeof tag === 'object') tags = [tag];
       if (typeof tag === 'string') tags = this.createTagTexts(tag);
+
+      // Filter out the tags with no content
+      tags = tags.filter(tag => tag.text.trim().length > 0);
 
       // The basic checks are done → try to add all tags
       tags.forEach(tag => {

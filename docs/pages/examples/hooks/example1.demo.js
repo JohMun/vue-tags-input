@@ -9,11 +9,11 @@ data() {
 methods: {
   cancel() {
     // for some reason we need nextTick here
-    this.$nextTick(() => this.handler = null);
+    this.$nextTick(() => this.handlers = []);
     this.tag = '';
   },
   add() {
-    this.handler();
-    this.$nextTick(() => this.handler = null);
+    this.handlers.forEach(h => h());
+    this.$nextTick(() => this.handlers = []);
   },
 },

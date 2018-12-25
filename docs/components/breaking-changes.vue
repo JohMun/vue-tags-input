@@ -5,9 +5,9 @@
       <slot />
     </p>
     <span>
-      If you like to read more,
-      about how the versions distinguish to each other,
-      check out the <router-link :to="{ path: '/changelog'}">changelog</router-link>
+      Please checkout out the
+      <router-link :to="{ path: '/migration'}">migration page</router-link>
+      for further information
     </span>
   </div>
 </template>

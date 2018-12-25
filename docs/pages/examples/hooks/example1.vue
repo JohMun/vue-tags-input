@@ -2,20 +2,29 @@
   <section>
     <h2>Example 1</h2>
     <p>
-      In this example, we save the <span class="code">addTag</span> function
-      in <span class="code">handler</span>, when the
+      In this example, we push the <span class="code">addTag</span> function
+      in <span class="code">handlers</span>, if the
       <span class="code">before-adding-tag</span> hook fires.
-      If <span class="code">handler</span> is not <span class="code">null</span>,
-      we show two buttons. The "Add" button invokes the saved function on click
-      and the tag will be added.
+    </p>
+    <p>
+      Its might be suprising that we are using an array here. That's because we can have mulitple
+      <span class="code">addTag</span> functions. If we are using seperators
+      vue-tags-input will emit
+      <span class="code">@before-adding-tag</span> multiple times in a row,
+      if it has to split the input string into multiple tags.
+    </p>
+    <p>
+      If the <span class="code">handlers</span> array is not <span class="code">null</span>,
+      we show two buttons. The "Add" button invokes the saved functions on click
+      and the tag/s will be added.
     </p>
     <vue-tags-input
       v-model="tag"
       :tags="tags"
       @tags-changed="newTags => tags = newTags"
-      @before-adding-tag="obj => handler = obj.addTag"
+      @before-adding-tag="obj => handlers.push(obj.addTag)"
     />
-    <div v-if="handler" class="actions">
+    <div v-if="handlers.length" class="actions">
       <button @click="cancel">Cancel</button>
       <button @click="add">Add</button>
     </div>
@@ -37,17 +46,17 @@ export default {
     return {
       tag: '',
       tags: [],
-      handler: null,
+      handlers: [],
     };
   },
   methods: {
     cancel() {
-      this.$nextTick(() => this.handler = null);
+      this.$nextTick(() => this.handlers = []);
       this.tag = '';
     },
     add() {
-      this.handler();
-      this.$nextTick(() => this.handler = null);
+      this.handlers.forEach(h => h());
+      this.$nextTick(() => this.handlers = []);
     },
   },
 };
