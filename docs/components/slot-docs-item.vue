@@ -74,7 +74,7 @@ export default {
   font-weight: bold;
 
   &.big {
-    font-size: 1.1em;
+    font-size: 0.925em;
   }
 }
 

@@ -154,6 +154,14 @@ export default [
     ],
   },
   {
+    slot: 'autocompleteHeader',
+    description: 'The slot is at the top of the autocomplete layer.',
+  },
+  {
+    slot: 'autocompleteFooter',
+    description: 'The slot is at the bottom of the autocomplete layer.',
+  },
+  {
     slot: 'between-elements',
     description: `The slot is positioned between the tags and the autocomplete layer.
       Maybe someone needs it.`,
