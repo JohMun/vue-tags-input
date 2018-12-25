@@ -1,14 +1,17 @@
 <template lang="html">
   <div class="breaking-changes">
-    <span class="title">Breaking changes</span>
-    <p>
-      <slot />
-    </p>
-    <span>
-      Please checkout out the
-      <router-link :to="{ path: '/migration'}">migration page</router-link>
-      for further information
-    </span>
+    <i class="material-icons">info</i>
+    <div class="content">
+      <span class="title">Breaking changes</span>
+      <p>
+        <slot />
+      </p>
+      <span class="further-info">
+        Please check out out the
+        <router-link :to="{ path: '/migration'}">migration page</router-link>
+        for further information
+      </span>
+    </div>
   </div>
 </template>
 
@@ -22,16 +25,32 @@ export default {
 </script>
 
 <style scoped lang="scss">
+@import 'colors';
+
 .breaking-changes {
-  background: #fffcdd;
-  border: 1px solid #fffac1;
-  padding: 6px 12px;
-  font-size: 0.9em;
-  color: #826328;
+  padding: 12px;
+  display: flex;
+  align-items: center;
+  border: 1px solid $grey;
+  border-radius: 12px;
+
+  > i {
+    font-size: 34px;
+  }
+}
+
+.content {
+  margin-left: 15px;
 }
 
 .title {
-  font-weight: bold;
+  font-weight: 500;
+}
+
+.further-info {
+  margin-top: 5px;
+  font-size: 0.85em;
+  color: $grey;
 }
 
 p {
@@ -40,6 +59,6 @@ p {
 }
 
 a {
-  font-weight: 400;
+  font-weight: 500;
 }
 </style>

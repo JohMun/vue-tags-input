@@ -159,7 +159,7 @@ export default {
 .label {
   margin-right: 6px;
   color: $primary;
-  font-weight: bold;
+  font-weight: 500;
 
   &.big {
     font-size: 0.925em;

@@ -5,7 +5,7 @@
         <h1>Validation</h1>
         <breaking-changes :current-version="2">
           The key <span class="code">type</span> in a validation item,
-          has changed to <span class="code">classes</span>.
+          has been renamed to <span class="code">classes</span>.
         </breaking-changes>
         <p>
           To validate tags, autocomplete items or the user input, a validation array

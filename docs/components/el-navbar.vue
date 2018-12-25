@@ -3,8 +3,8 @@
     <div class="content">
       <div class="logo">
         <div @click="goHome">
-          <i class="material-icons">style</i>
-          <span class="tag">vue-tags-input</span>
+          <span class="title">Vue Tags Input</span>
+          <span class="sub">A Generic UI Component</span>
         </div>
         <i class="material-icons close-nav" @click="$emit('close-nav')">clear</i>
       </div>
@@ -146,21 +146,21 @@ export default {
 
   nav {
     width: 300px;
-    background-color: #606060;
+    background-color: $darker;
     flex-direction: column;
     flex-shrink: 0;
     display: flex;
     height: 100%;
     overflow-y: auto;
-    border-right: 1px solid #e2dede;
-    color: #fafafa;
+    box-shadow: 0 0 6px rgba(0,0,0,.3);
+    color: $lightGrey;
   }
 
   @media (max-width: 940px) {
     nav {
-      // width: 100%;
       position: absolute;
       z-index: 999;
+      box-shadow: 0 0 30px rgba(0,0,0,.3);
     }
   }
 
@@ -177,32 +177,29 @@ export default {
   }
 
   .logo {
+    padding: 45px 24px 22px 24px;
     width: 100%;
-    height: 90px;
-    align-items: center;
-    justify-content: center;
-    display: flex;
-    flex-direction: column;
     position: relative;
 
     > div {
       cursor: pointer;
-      display: flex;
-      align-items: center;
       padding: 6px 12px;
-      border-radius: 2px;
-      background-color: rgba(155, 155, 155, 0.2);
-      color: #fafafa;
+      display: flex;
+      flex-direction: column;
     }
 
-    > div i {
-      font-size: 34px;
-      margin-right: 8px;
+    .title {
+      line-height: 28px;
+      font-size: 23px;
+      font-weight: bold;
+      font-family: 'Raleway', sans-serif;
+      color: #fff;
     }
 
-    .tag {
-      font-family: 'Oxygen Mono', monospace;
-      font-size: 14px;
+    .sub {
+      color: $grey;
+      letter-spacing: 1.3px;
+      font-size: 12px;
     }
 
     .close-nav {
@@ -223,18 +220,10 @@ export default {
     i {
       font-size: 26px;
     }
-
-    h2 {
-      margin-top: 8px;
-      font-size: 12px;
-      font-weight: 400;
-      text-transform: uppercase;
-    }
   }
 
   .navigation {
-    padding: 0 30px 30px 30px;
-    font-weight: 500;
+    padding: 0 24px 30px 24px;
     display: flex;
     flex-direction: column;
     flex: 1 0 auto;
@@ -255,6 +244,17 @@ export default {
 
       > div > span {
         position: relative;
+
+        &:before {
+          background: transparent;
+          transition: background-color 300ms ease;
+          position: absolute;
+          right: 0px;
+          left: 0px;
+          bottom: -4px;
+          content: '';
+          height: 2px;
+        }
       }
 
       .expand {
@@ -269,13 +269,12 @@ export default {
         transition: color .15s ease-in-out;
       }
 
+      &.active {
+        color: #fff;
+        font-weight: 500;
+      }
+
       &.active > div > span:before {
-        position: absolute;
-        right: 0px;
-        left: 0px;
-        bottom: -4px;
-        content: '';
-        height: 2px;
         background-color: $primary;
       }
 
@@ -287,7 +286,7 @@ export default {
   }
 
   li:not(.disabled) .label:hover {
-    color: $primary;
+    color: #fff;
   }
 
   .lvl-2 {

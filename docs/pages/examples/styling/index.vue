@@ -5,10 +5,10 @@
         <div class="explanation">
           <h1>Styling Elements</h1>
           <breaking-changes :current-version="2">
-            All css classes vue-tags-input is using, are prefixed with 'ti'.
+            All css classes vue-tags-input is using, are prefixed with 'ti-'. For example:
             <ul>
-              <li>Version 1: 'duplicate' or 'item'</li>
-              <li>Version 2: 'ti-duplicate' or 'ti-item'</li>
+              <li>V1: 'duplicate' or 'item'</li>
+              <li>V2: 'ti-duplicate' or 'ti-item'</li>
             </ul>
           </breaking-changes>
           <p>

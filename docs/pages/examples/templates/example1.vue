@@ -98,7 +98,7 @@ export default {
 
 <style lang="scss">
 @import 'colors';
-.template-example-1 .tags-input {
+#app .template-example-1 .tags-input {
   margin-top: 15px;
 
   .ti-input {
@@ -110,6 +110,10 @@ export default {
     color: #000;
     border-radius: 12px;
     padding: 4px 8px;
+  }
+
+  .ti-tag input {
+    color: #000;
   }
 
   .ti-tag-left {

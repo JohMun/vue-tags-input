@@ -37,13 +37,18 @@ export default {
 </script>
 
 <style lang="scss">
+@import 'colors';
+
 .code-block {
   margin-top: 15px;
-  padding: 20px 15px 0px 15px;
+  margin-bottom: 15px;
+  padding: 15px;
   line-height: 1.5em;
   min-height: 54px;
-  background-color: #f1f0f0;
-  color: #5a7994;
+  font-size: 0.925em;
+  background-color: $middle;
+  color: $lightGrey;
+  border-radius: 3px;
 
   span {
     font-family: 'Oxygen Mono', monospace !important;

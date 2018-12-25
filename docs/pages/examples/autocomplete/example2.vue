@@ -82,7 +82,7 @@ export default {
   }
 
   .spinner {
-    padding: 8px;
+    padding-left: 8px;
   }
 }
 </style>

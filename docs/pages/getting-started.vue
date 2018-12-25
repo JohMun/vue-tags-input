@@ -10,14 +10,14 @@
         @tags-changed="newTags => tags = newTags"
       />
       <div class="data">
-        <span>tag</span>
+        <span class="label">tag</span>
         <el-code :code="tagString" />
-        <span>tags</span>
+        <span class="label">tags</span>
         <el-code :code="tagsString" />
       </div>
       <h2>Install</h2>
       <span>Install vue-tags-input with npm</span>
-      <el-code class="bash">
+      <el-code>
         <code>npm install @johmun/vue-tags-input --save</code>
       </el-code>
       <h2>Usage</h2>
@@ -26,7 +26,7 @@
       <p>
         vue-tags-input can be included via CDN and it registrates itself as a global component.
       </p>
-      <el-code>
+      <el-code lang="html">
         <code>&lt;script src=&quot;{{ cdnUrl }}&quot;&gt;&lt;/script&gt;</code>
       </el-code>
     </div>

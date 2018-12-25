@@ -1,15 +1,7 @@
 <template lang="html">
   <div id="project-features">
-    <div class="basic">
-      <div class="logo">
-        <h2>Vue Tags Input</h2>
-      </div>
-      <p>
-        A tags input component for VueJs with autocompletion, custom validation,
-        templating and much more
-      </p>
-    </div>
-    <!-- todo: cool video with features-->
+    <h1 class="title">Vue Tags Input</h1>
+    <p>A generic UI component to input tags, with a couple of features</p>
     <div class="features">
       <vue-tags-input
         v-model="tag"
@@ -17,107 +9,93 @@
         :tags="tags"
         :autocomplete-items="items"
         :allow-edit-tags="true"
-        :placeholder="'Add Feature'"
+        :placeholder="'Add a feature'"
         @tags-changed="newTags => tags = newTags"
       />
     </div>
     <h3>Browser support</h3>
     <div class="browser-support">
       <div>
-        <img src="https://cdnjs.cloudflare.com/ajax/libs/browser-logos/45.1.0/archive/internet-explorer-tile_10-11/internet-explorer-tile_10-11_48x48.png">
-        <span>IE 10 +</span>
+        <ie class="icon" />
+        <span>IE 10 &lt;=</span>
       </div>
       <div>
-        <img src="../assets/img/apple-logo.png">
-        <span>iPhone 9 +</span>
+        <safari class="icon" />
+        <span>iPhone 9 &lt;=</span>
       </div>
       <div>
-        <img src="https://cdnjs.cloudflare.com/ajax/libs/browser-logos/45.1.0/safari-ios/safari-ios_48x48.png">
-        <span>Safari 9.1 +</span>
-      </div>
-      <div>
-        <img src="../assets/img/android-logo.png">
-        <span>Android 4.4 +</span>
-      </div>
-      <div>
-        <img src="https://cdnjs.cloudflare.com/ajax/libs/browser-logos/45.2.0/chrome/chrome_48x48.png">
+        <chrome class="icon" />
         <span>Chrome <i class="material-icons">check</i></span>
       </div>
       <div>
-        <img src="https://cdnjs.cloudflare.com/ajax/libs/browser-logos/45.1.0/firefox/firefox_48x48.png">
+        <firefox class="icon" />
         <span>Firefox <i class="material-icons">check</i></span>
       </div>
       <div>
-        <img src="https://cdnjs.cloudflare.com/ajax/libs/browser-logos/45.1.0/archive/opera_10-14/opera_10-14_48x48.png">
-        <span>Opera 35+</span>
+        <opera class="icon" />
+        <span>Opera 35 &lt;=</span>
       </div>
       <div>
-        <img src="https://cdnjs.cloudflare.com/ajax/libs/browser-logos/45.1.0/edge/edge_48x48.png">
-        <span>Edge 12+</span>
+        <safari class="icon" />
+        <span>Safari 9.1 &lt;=</span>
+      </div>
+      <div>
+        <chrome class="icon" />
+        <span>Android 4.4 &lt;=</span>
+      </div>
+      <div>
+        <edge class="icon" />
+        <span>Edge 12 &lt;=</span>
       </div>
     </div>
     <p class="license">
       License:
       <a href="https://opensource.org/licenses/MIT" target="_blank">MIT</a>
     </p>
-    <p>Copyright (c) 2018 Johannes Munari</p>
+    <p class="date">Copyright (c) 2019 Johannes Munari</p>
   </div>
 </template>
 
 <script>
 import VueTagsInput from '@johmun/vue-tags-input';
+import Ie from '@components/icons/ie';
+import Safari from '@components/icons/safari';
+import Edge from '@components/icons/edge';
+import Chrome from '@components/icons/chrome';
+import Opera from '@components/icons/opera';
+import Firefox from '@components/icons/firefox';
 
 export default {
   name: 'ProjectFeatures',
   components: {
     VueTagsInput,
+    Ie,
+    Safari,
+    Edge,
+    Chrome,
+    Opera,
+    Firefox,
   },
   data() {
     return {
       tag: '',
-      tags: [{
-        text: 'No dependencies',
-        style: 'background-color: #364187',
-      }, {
-        text: 'Custom validation rules',
-        style: 'background-color: #D5D9F0',
-        classes: 'dark-font',
-      }, {
-        text: 'Hooks: Before adding, Before deleting ...',
-        style: 'background-color: #A7AEDA',
-      }, {
-        text: 'Edit tags after creation (click me)',
-        style: 'background-color: #535EA1',
-      }, {
-        text: 'Fast setup',
-        style: 'background-color: #586565',
-      }, {
-        text: 'Works with Vuex',
-        style: 'background-color:  #364187',
-      }, {
-        text: 'Small size: 34kb minified | gzipped 9kb',
-        style: 'background-color: #A7AEDA',
-      }, {
-        text: 'Autocompletion',
-        style: 'background-color: #D5D9F0',
-        classes: 'dark-font',
-      }, {
-        text: 'Customization options',
-        style: 'background-color: #535EA1',
-      }, {
-        text: 'Own templates',
-        style: 'background-color:  #364187',
-      }, {
-        text: 'Delete tags on backspace',
-        style: 'background-color: #586565',
-      }, {
-        text: 'Add tags on paste',
-        style: 'background-color: #D5D9F0',
-        classes: 'dark-font',
-      }, {
-        text: 'Examples & Docs',
-        style: 'background-color: #535EA1',
-      }],
+      tags: [],
+      features: [
+        'No dependencies',
+        'Custom validation rules',
+        'Hooks: Before adding, Before deleting ...',
+        'Edit tags after creation (click me)',
+        'Fast setup',
+        'Works with Vuex',
+        'Small size: 34kb minified (css included) | gzipped 9kb',
+        'Autocompletion',
+        'Customization options',
+        'Templating',
+        'Delete tags on backspace',
+        'Add tags on paste',
+        'Examples & Docs',
+        'More ...',
+      ],
       todo: [
         'Animation support',
         'Autocomplete Highlighting',
@@ -134,20 +112,32 @@ export default {
         });
     },
   },
+  created() {
+    this.tags = this.features.map(text => ({ text }));
+  },
 };
 </script>
 
 <style lang="scss">
 @import '~colors';
 
-#project-features .tags-input {
+#app #project-features .tags-input {
   width: 100%;
   max-width: none;
 
   .ti-input {
     border: none;
-    border-bottom: 1px solid #ccc;
+    border-bottom: 1px solid $lightGrey;
     padding: 4px 12px;
+  }
+
+  .ti-tag input {
+    color: $darker;
+  }
+
+  .ti-tag, .ti-item.ti-selected-item {
+    background-color: $primary;
+    color: $darker;
   }
 
   .ti-tags li {
@@ -168,51 +158,38 @@ export default {
     color: #fff;
   }
 }
+
+#project-features .browser-support .icon {
+  width: 100%;
+  height: auto;
+  padding: 16px;
+
+  > * {
+    fill: #b7c4c9;
+  }
+}
 </style>
 
 <style lang="scss" scoped>
-#project-features {
-  max-width: 900px;
-}
+@import 'colors';
 
-span, p {
-  line-height: 1.5em;
-  max-width: 900px;
-}
-
-.basic {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  text-align: center;
-  margin-bottom: 10px;
-
-  .logo {
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    text-transform: uppercase;
-
-    h2 {
-      margin-top: 10px;
-    }
-  }
+.title {
+  line-height: 28px;
+  font-size: 23px;
+  font-weight: bold;
+  font-family: 'Raleway', sans-serif;
+  color: #fff;
+  margin-bottom: 20px
 }
 
 .features {
   display: flex;
   margin-bottom:40px;
   flex-direction: column;
-
-  h2 {
-    text-align: center;
-  }
 }
 
 .browser-support {
   display: flex;
-  background-color: #FAFAFA;
   flex-wrap: wrap;
 
   > div {
@@ -223,25 +200,27 @@ span, p {
     font-size: 14px;
     min-width: 85px;
     margin: 8px;
-  }
-
-  img {
-    width: 26px;
-    margin-bottom: 3px;
+    max-width: 94px;
   }
 
   span {
     display: flex;
-    align-items: center;
+    margin-top: 0px;
+    font-weight: 500;
 
     i {
       margin-left: 3px;
-      font-size: 15px;
+      font-size: 20px;
     }
   }
 }
 
 .license {
   margin-top: 40px;
+  font-size: 0.85em;
+}
+
+.date {
+  font-size: 0.85em;
 }
 </style>
