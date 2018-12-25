@@ -80,7 +80,7 @@ div.vue-tags-input.disabled {
   display: flex;
   flex-wrap: wrap;
   width: 100%;
-  line-height: initial;
+  line-height: 1em;
 }
 
 .ti-tag {
@@ -153,7 +153,7 @@ div.vue-tags-input.disabled {
 }
 
 .ti-new-tag-input {
-  line-height: inherit;
+  line-height: .85em;
 }
 
 .ti-autocomplete {

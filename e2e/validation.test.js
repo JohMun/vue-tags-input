@@ -14,7 +14,7 @@ test('Test validation', async t => {
 
   await t
     .typeText(Selector('.tags-input-1 .ti-new-tag-input'), 'i')
-    /* does the autocomplete show corect amount of items */
+    /* does the autocomplete show the correct amount of items */
     .expect(Selector('.tags-input-1 .ti-autocomplete li').count).eql(3);
 
   await t
