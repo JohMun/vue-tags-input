@@ -108,7 +108,7 @@ export default {
         text: 'Own templates',
         style: 'background-color:  #364187',
       }, {
-        text: 'Delete tags on backslash',
+        text: 'Delete tags on backspace',
         style: 'background-color: #586565',
       }, {
         text: 'Add tags on paste',

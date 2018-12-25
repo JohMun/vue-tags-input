@@ -30,6 +30,7 @@ export default {
             'More linting',
             'Simplify examples code',
             'Rebuild docs if the props file change',
+            'Changing the prop\'s name from "delete-on-backslash" to "delete-on-backspace"',
           ],
         },
         {

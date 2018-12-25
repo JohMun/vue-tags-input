@@ -36,7 +36,7 @@ test('test basic functions', async t => {
     .expect(Selector('.getting-started .vue-tags-input .ti-tag:nth-child(2) span')
       .innerText).eql('e2eTag 3');
 
-  // delete last tag on backslash
+  // delete last tag on backsspace
   await t
     .click(Selector('.getting-started .vue-tags-input .ti-new-tag-input'))
     .pressKey('backspace')

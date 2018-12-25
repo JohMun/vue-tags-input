@@ -327,16 +327,16 @@ export default {
     default: true,
   },
   /**
-   * @description Defines if it's possible to delete tags by pressing backslash.
+   * @description Defines if it's possible to delete tags by pressing backsspace.
      If so and the user wants to delete a tag,
      the tag gets the css class 'deletion-mark' for 1 second.
-     If the user presses backslash again in that time period,
+     If the user presses backspace again in that time period,
      the tag is removed from the tags array and the view.
    * @property {props}
    * @type {Boolean}
    * @default true
    */
-  deleteOnBackslash: {
+  deleteOnBackspace: {
     default: true,
     type: Boolean,
   },

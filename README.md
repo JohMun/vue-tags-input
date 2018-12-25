@@ -16,7 +16,7 @@ A tags input component for VueJS with autocompletion, custom validation, templat
 * Autocompletion
 * Many customization options
 * Own templates
-* Delete tags on backslash
+* Delete tags on backspace
 * Add tags on paste
 * Examples & Docs
 

@@ -71,8 +71,8 @@ export default {
     },
     // Method which is called when the user presses backspace → remove the last tag
     invokeDelete() {
-      // If we shouldn't delete tags on backslash or we have some characters in the input → stop
-      if (!this.deleteOnBackslash || this.newTag.length > 0) return;
+      // If we shouldn't delete tags on backspace or we have some characters in the input → stop
+      if (!this.deleteOnBackspace || this.newTag.length > 0) return;
       const lastIndex = this.tagsCopy.length - 1;
       if (this.deletionMark === null) {
         this.deletionMarkTime = setTimeout(() => this.deletionMark = null, 1000);

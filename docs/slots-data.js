@@ -1,6 +1,6 @@
 const deletionMark = {
   name: 'deletionMark',
-  description: `If the user wants to delete the tag and presses backslash,
+  description: `If the user wants to delete the tag and presses backspace,
     the property is true for 1 second, because the tag is marked to delete. `,
   type: 'Boolean',
 };

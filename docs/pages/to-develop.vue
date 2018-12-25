@@ -11,6 +11,7 @@
       :save-on-key="[',', '#', 13]"
       :allow-edit-tags="true"
       :separators="[',']"
+      :delete-on-backspace="true"
       :validation="validation"
       :is-duplicate="isDuplicate"
       :autocomplete-filter-duplicates="false"
@@ -42,10 +43,10 @@ export default {
         text: 't5',
       }],
       validation: [{
-        type: 'min-length',
+        classes: 'min-length',
         rule: '[0-9]',
       }, {
-        type: 'only-numbers',
+        classes: 'only-numbers',
         rule: '[0-9]',
       }],
       autocompleteItems: [{
