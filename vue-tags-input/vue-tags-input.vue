@@ -46,9 +46,7 @@
                 v-if="!$scopedSlots.tagCenter"
                 :class="{ 'ti-hidden': tagsEditStatus[index] }"
                 @click="performEditTag(index)"
-              >
-                {{ tag.text }}
-              </span>
+              >{{ tag.text }}</span>
               <tag-input
                 v-if="!$scopedSlots.tagCenter"
                 :scope="{

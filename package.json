@@ -97,7 +97,8 @@
       "vue/singleline-html-element-content-newline": "off",
       "vue/no-v-html": "off",
       "vue/require-default-prop": "off",
-      "vue/use-v-on-exact": "off"
+      "vue/use-v-on-exact": "off",
+      "vue/multiline-html-element-content-newline": "off"
     }
   },
   "browserslist": [
