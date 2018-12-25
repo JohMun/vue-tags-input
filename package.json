@@ -26,8 +26,8 @@
     "analyze": "cross-env ANALYZE=true npm run build-docs",
     "build-lib": "webpack --config ./build/lib.config.js --hide-modules",
     "precommit": "lint-staged",
-    "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
-    "lint-fix": "eslint --fix --ignore-path .gitignore --ext .js,.vue .",
+    "lint": "eslint --ext .js,.vue --ignore-path .gitignore . --ignore-pattern *.demo.*",
+    "lint-fix": "eslint --fix --ignore-path .gitignore --ext .js,.vue . --ignore-pattern *.demo.*",
     "e2e": "testcafe all e2e/*test* --app \"npm run dev\" --app-init-delay 10000 -S -s screenshots"
   },
   "lint-staged": {
@@ -96,7 +96,8 @@
       "vue/component-name-in-template-casing": "off",
       "vue/singleline-html-element-content-newline": "off",
       "vue/no-v-html": "off",
-      "vue/require-default-prop": "off"
+      "vue/require-default-prop": "off",
+      "vue/use-v-on-exact": "off"
     }
   },
   "browserslist": [

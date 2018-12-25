@@ -19,7 +19,8 @@
             <li>
               In a validation item, the value of the property
               <span class="code">classes</span>
-              is added as class, if the rule matches.</li>
+              is added as class, if the rule matches.
+            </li>
             <li>
               The value of the property <span class="code">classes</span>
               in a tag or an autocomplete item, is always appended.
@@ -56,7 +57,8 @@
           :tags="tags"
           :validation="validation"
           :autocomplete-items="filteredItems"
-          @tags-changed="newTags => tags = newTags" />
+          @tags-changed="newTags => tags = newTags"
+        />
       </section>
       <el-code :code="require('./example1.demo')" />
       <el-code lang="html" :code="require('./example1.demo.html')" />

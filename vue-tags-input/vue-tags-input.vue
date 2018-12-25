@@ -4,26 +4,31 @@
 -->
 
 <template>
-  <div class="vue-tags-input" :class="[{ 'ti-disabled': disabled }, { 'ti-focus': focused }]">
+  <div
+    class="vue-tags-input"
+    :class="[{ 'ti-disabled': disabled }, { 'ti-focus': focused }]"
+  >
     <div class="ti-input">
-      <ul class="ti-tags" v-if="tagsCopy">
+      <ul v-if="tagsCopy" class="ti-tags">
         <li
-          :tabindex="index + 1"
           v-for="(tag, index) in tagsCopy"
           :key="index"
-          class="ti-tag"
-          @click="$emit('tag-clicked', { tag, index })"
+          :tabindex="index + 1"
           :style="tag.style"
           :class="[
             { 'ti-editing': tagsEditStatus[index] },
             tag.tiClasses,
             tag.classes,
             { 'ti-deletion-mark': isMarked(index) }
-          ]">
+          ]"
+          class="ti-tag"
+          @click="$emit('tag-clicked', { tag, index })"
+        >
           <div class="ti-content">
             <div
+              v-if="$scopedSlots.tagLeft"
               class="ti-tag-left"
-              v-if="$scopedSlots.tagLeft">
+            >
               <slot
                 name="tagLeft"
                 :tag="tag"
@@ -33,14 +38,17 @@
                 :perform-delete="performDeleteTag"
                 :perform-cancel-edit="cancelEdit"
                 :perform-open-edit="performEditTag"
-                :deletion-mark="isMarked(index)">
-              </slot>
+                :deletion-mark="isMarked(index)"
+              />
             </div>
-            <div class="ti-tag-center" ref="tagCenter">
+            <div ref="tagCenter" class="ti-tag-center">
               <span
-                @click="performEditTag(index)"
                 v-if="!$scopedSlots.tagCenter"
-                :class="{ 'ti-hidden': tagsEditStatus[index] }">{{ tag.text }}</span>
+                :class="{ 'ti-hidden': tagsEditStatus[index] }"
+                @click="performEditTag(index)"
+              >
+                {{ tag.text }}
+              </span>
               <tag-input
                 v-if="!$scopedSlots.tagCenter"
                 :scope="{
@@ -51,8 +59,8 @@
                   validateTag: createChangedTag,
                   cancelEdit,
                   performSaveTag,
-                }">
-              </tag-input>
+                }"
+              />
               <slot
                 name="tagCenter"
                 :tag="tag"
@@ -63,14 +71,14 @@
                 :perform-delete="performDeleteTag"
                 :perform-cancel-edit="cancelEdit"
                 :validate-tag="createChangedTag"
-                :perform-save-tag="performSaveTag"
                 :perform-open-edit="performEditTag"
-                :deletion-mark="isMarked(index)">
-              </slot>
+                :deletion-mark="isMarked(index)"
+              />
             </div>
             <div
               v-if="$scopedSlots.tagRight"
-              class="ti-tag-right">
+              class="ti-tag-right"
+            >
               <slot
                 name="tagRight"
                 :tag="tag"
@@ -80,24 +88,24 @@
                 :perform-delete="performDeleteTag"
                 :perform-cancel-edit="cancelEdit"
                 :perform-open-edit="performEditTag"
-                :deletion-mark="isMarked(index)">
-              </slot>
+                :deletion-mark="isMarked(index)"
+              />
             </div>
           </div>
           <div class="ti-actions">
             <!-- dont use v-if and v-else here -> different event calling on click?! -->
             <i
-              @click="cancelEdit(index)"
               v-if="!$scopedSlots.tagActions"
               v-show="tagsEditStatus[index]"
-              class="ti-icon-undo">
-            </i>
+              class="ti-icon-undo"
+              @click="cancelEdit(index)"
+            />
             <i
-              @click="performDeleteTag(index)"
               v-if="!$scopedSlots.tagActions"
               v-show="!tagsEditStatus[index]"
-              class="ti-icon-close">
-            </i>
+              class="ti-icon-close"
+              @click="performDeleteTag(index)"
+            />
             <slot
               v-if="$scopedSlots.tagActions"
               :tag="tag"
@@ -108,25 +116,26 @@
               :perform-cancel-edit="cancelEdit"
               :perform-open-edit="performEditTag"
               :deletion-mark="isMarked(index)"
-              name="tagActions">
-            </slot>
+              name="tagActions"
+            />
           </div>
         </li>
         <li class="ti-new-tag-input-wrapper">
           <input
-            class="ti-new-tag-input"
-            :class="[createClasses(newTag, tags, validation, isDuplicate)]"
-            v-bind="$attrs"
-            type="text"
-            size="1"
             ref="newTagInput"
-            @paste="addTagsFromPaste"
+            v-bind="$attrs"
+            :class="[createClasses(newTag, tags, validation, isDuplicate)]"
             :placeholder="placeholder"
             :value="newTag"
             :maxlength="maxlength"
+            :disabled="disabled"
+            type="text"
+            size="1"
+            class="ti-new-tag-input"
             @keydown="performAddTags(
               filteredAutocompleteItems[selectedItem] || newTag, $event
             )"
+            @paste="addTagsFromPaste"
             @keydown.8="invokeDelete"
             @keydown.38="selectItem($event, 'before')"
             @keydown.40="selectItem($event, 'after')"
@@ -134,32 +143,35 @@
             @blur="$emit('blur', $event)"
             @focus="focused = true; $emit('focus', $event)"
             @click="addOnlyFromAutocomplete ? false : selectedItem = null"
-            :disabled="disabled"
-          />
+          >
         </li>
       </ul>
     </div>
     <slot name="between-elements" />
     <div
+      v-if="autocompleteOpen"
       class="ti-autocomplete"
       @mouseout="selectedItem = null"
-      v-if="autocompleteOpen">
+    >
       <slot name="autocompleteHeader" />
       <ul>
         <li
           v-for="(item, index) in filteredAutocompleteItems"
           :key="index"
-          class="ti-item"
-          @mouseover="disabled ? false : selectedItem = index"
           :style="item.style"
           :class="[
             item.tiClasses,
             item.classes,
             { 'ti-selected-item': isSelected(index) }
-          ]">
+          ]"
+          class="ti-item"
+          @mouseover="disabled ? false : selectedItem = index"
+        >
           <div
+            v-if="!$scopedSlots.autocompleteItem"
             @click="performAddTags(item, undefined, 'autocomplete')"
-            v-if="!$scopedSlots.autocompleteItem">{{ item.text }}
+          >
+            {{ item.text }}
           </div>
           <slot
             v-else
@@ -167,8 +179,8 @@
             :index="index"
             :perform-add="item => performAddTags(item, undefined, 'autocomplete')"
             :selected="isSelected(index)"
-            name="autocompleteItem">
-          </slot>
+            name="autocompleteItem"
+          />
         </li>
       </ul>
       <slot name="autocompleteFooter" />

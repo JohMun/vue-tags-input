@@ -27,7 +27,7 @@
         vue-tags-input can be included via CDN and it registrates itself as a global component.
       </p>
       <el-code>
-        <code>&lt;script src=&quot;{{cdnUrl}}&quot;&gt;&lt;/script&gt;</code>
+        <code>&lt;script src=&quot;{{ cdnUrl }}&quot;&gt;&lt;/script&gt;</code>
       </el-code>
     </div>
   </div>

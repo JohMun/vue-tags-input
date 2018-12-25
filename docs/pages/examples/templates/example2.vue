@@ -24,7 +24,7 @@
           >
             <option v-for="(animal, index) in animals" :key="index">{{ animal }}</option>
           </select>
-          <i class="material-icons" @click="props.performSaveTag(props.index)">check</i>
+          <i class="material-icons" @click="props.performSaveEdit(props.index)">check</i>
         </div>
       </div>
     </vue-tags-input>

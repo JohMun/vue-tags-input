@@ -1,23 +1,28 @@
 <!-- A helper component used by VueTagsInput and can be put into the tagCenter slot -->
 
 <template>
-  <input type="text"
-    class="ti-tag-input"
-    v-model="scope.tag.text"
+  <input
     v-if="scope.edit"
+    v-model="scope.tag.text"
     :maxlength="scope.maxlength"
+    type="text"
+    class="ti-tag-input"
     size="1"
     @input="scope.validateTag(scope.index, $event)"
     @blur="scope.cancelEdit(scope.index)"
     @keydown="scope.performSaveTag(scope.index, $event)"
-  />
+  >
 </template>
 
 <script>
 
 export default {
   name: 'TagInput',
-  props: ['scope'],
+  props: {
+    scope: {
+      type: Object,
+    },
+  },
 };
 
 </script>

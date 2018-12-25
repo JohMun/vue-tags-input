@@ -46,8 +46,8 @@ const performCancelEdit = {
   expectedParams: 'index|Number',
 };
 
-const performSaveTag = {
-  name: 'performSaveTag',
+const performSaveEdit = {
+  name: 'performSaveEdit',
   description: `Call this function and pass an index as parameter
     to save a modified tag`,
   type: 'Function',
@@ -66,7 +66,7 @@ export default [
       performDelete,
       performOpenEdit,
       performCancelEdit,
-      performSaveTag,
+      performSaveEdit,
     ],
   },
   {
@@ -80,7 +80,7 @@ export default [
       performDelete,
       performOpenEdit,
       performCancelEdit,
-      performSaveTag,
+      performSaveEdit,
     ],
   },
   {
@@ -95,7 +95,7 @@ export default [
       performDelete,
       performOpenEdit,
       performCancelEdit,
-      performSaveTag,
+      performSaveEdit,
     ],
   },
   {
@@ -114,7 +114,7 @@ export default [
       performDelete,
       performOpenEdit,
       performCancelEdit,
-      performSaveTag,
+      performSaveEdit,
       {
         name: 'validateTag',
         description: `Call this function if the input of a tag changes
