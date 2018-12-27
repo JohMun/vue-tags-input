@@ -6,7 +6,7 @@
       <span class="code">tag-center</span>.
       The component <span class="code">TagInput</span> is a helper to fastly build
       the standard text input, which provides the ability to edit tags after creation.
-      The css class <span class="code">hidden</span> is provided by tags input.
+      The css class <span class="code">ti-hidden</span> is provided by tags input.
       It's a helper class which enlarges a tag while the user is typing.
     </p>
     <el-code :code="require('./example3.demo.html')" lang="html" />

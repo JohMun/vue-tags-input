@@ -19,6 +19,7 @@ export default {
   data() {
     return {
       content: null,
+      scrollbar: false,
     };
   },
   watch: {
@@ -40,6 +41,7 @@ export default {
 @import 'colors';
 
 .code-block {
+  overflow-x: auto;
   margin-top: 15px;
   margin-bottom: 15px;
   padding: 15px;

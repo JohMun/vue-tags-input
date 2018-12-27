@@ -2,6 +2,19 @@
   <div class="examples-templates page">
     <div class="content">
       <h1>Templating</h1>
+      <breaking-changes :current-version="2">
+        <p>
+          All slot names are now in kebab-case.
+          <ul>
+            <li>V1: <span class="code">tagLeft</span></li>
+            <li>V2: <span class="code">tag-left</span></li>
+          </ul>
+        </p>
+        <p>
+          The function <span class="code">performSaveTag</span>,
+          provided via slot-scope, is now called <span class="code">performSaveEdit</span>
+        </p>
+      </breaking-changes>
       <div class="tag-picture">
         <div class="tag">
           <div class="tag-left">
@@ -40,6 +53,7 @@
 </template>
 
 <script>
+import BreakingChanges from '@components/breaking-changes';
 import VueTagsInput from '@johmun/vue-tags-input';
 import ElCode from '@components/el-code';
 import TagInput from '@tag-input';
@@ -53,6 +67,7 @@ export default {
   components: {
     VueTagsInput,
     ElCode,
+    BreakingChanges,
     TagInput,
     Example2,
     Example1,
@@ -70,6 +85,7 @@ a {
 }
 
 .tag-picture {
+  margin-top: 18px;
   max-width: 600px;
   display: flex;
   flex-direction: column;

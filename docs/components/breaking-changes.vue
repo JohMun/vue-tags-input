@@ -44,6 +44,7 @@ export default {
 }
 
 .title {
+  color: $primary;
   font-weight: 500;
 }
 

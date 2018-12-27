@@ -19,6 +19,13 @@
               <div class="label" @click="moveOrOpen(item, index)">
                 <div class="expand">
                   <i
+                    v-if="item.icon && !item.children"
+                    class="material-icons"
+                    :style="item.icon.style"
+                  >
+                    {{ item.icon.type }}
+                  </i>
+                  <i
                     v-if="item.children && linkStatus[index]"
                     class="material-icons"
                   >
@@ -102,13 +109,13 @@ export default {
       }, {
         label: 'Migration V1 → V2',
         route: '/migration',
+        icon: {
+          type: 'info',
+          style: [{ color: '#ebde6e' }, { 'font-size': '20px' }],
+        },
       }, {
         label: 'Changelog',
         route: '/changelog',
-      }, {
-        label: 'Caveats',
-        disabled: true,
-        route: '',
       }],
     };
   },

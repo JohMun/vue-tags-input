@@ -9,8 +9,8 @@
     class="ti-tag-input"
     size="1"
     @input="scope.validateTag(scope.index, $event)"
-    @blur="scope.cancelEdit(scope.index)"
-    @keydown="scope.performSaveTag(scope.index, $event)"
+    @blur="scope.performCancelEdit(scope.index)"
+    @keydown="scope.performSaveEdit(scope.index, $event)"
   >
 </template>
 

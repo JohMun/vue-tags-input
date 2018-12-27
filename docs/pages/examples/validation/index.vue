@@ -6,11 +6,12 @@
         <breaking-changes :current-version="2">
           <ul>
             <li>
-              The key <span class="code">type</span> in a validation item,
+              The key <span>type</span> in a validation item,
               has been renamed to <span class="code">classes</span>.
             </li>
             <li>
-              The rule function in a validation item, gets the complete tag as parameter
+              The function <span class="code">rule</span> in a validation item,
+              gets the complete tag as parameter.
             </li>
           </ul>
         </breaking-changes>

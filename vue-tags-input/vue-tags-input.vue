@@ -55,8 +55,8 @@
                   tag,
                   index,
                   validateTag: createChangedTag,
-                  cancelEdit,
-                  performSaveTag,
+                  performCancelEdit: cancelEdit,
+                  performSaveEdit: performSaveTag,
                 }"
               />
               <slot

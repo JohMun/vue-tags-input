@@ -5,10 +5,17 @@
         <div class="explanation">
           <h1>Styling Elements</h1>
           <breaking-changes :current-version="2">
-            All css classes vue-tags-input is using, are prefixed with 'ti-'. For example:
+            All css classes vue-tags-input is using,
+            are prefixed with <span class="code">ti-</span>. For example:
             <ul>
-              <li>V1: 'duplicate' or 'item'</li>
-              <li>V2: 'ti-duplicate' or 'ti-item'</li>
+              <li>
+                V1: <span class="code">duplicate</span> or
+                <span class="code">item</span>
+              </li>
+              <li>
+                V2: <span class="code">ti-duplicate</span> or
+                <span class="code">ti-item</span>
+              </li>
             </ul>
           </breaking-changes>
           <p>
@@ -53,11 +60,11 @@
           </p>
         </div>
         <vue-tags-input
-          class="light"
           v-model="tag"
           :tags="tags"
           :validation="validation"
           :autocomplete-items="filteredItems"
+          class="light"
           @tags-changed="newTags => tags = newTags"
         />
       </section>
@@ -209,7 +216,6 @@ export default {
     text-decoration: line-through;
   }
 
-  /* if the user presses backspace, the complete tag should be crossed out, to mark it for deletion */
   .vue-tags-input .ti-tag:after {
     transition: transform .2s;
     position: absolute;

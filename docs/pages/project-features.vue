@@ -52,7 +52,7 @@
       License:
       <a href="https://opensource.org/licenses/MIT" target="_blank">MIT</a>
     </p>
-    <p class="date">Copyright (c) 2019 Johannes Munari</p>
+    <p class="date">Copyright (c) {{ new Date().getFullYear() }} Johannes Munari</p>
   </div>
 </template>
 

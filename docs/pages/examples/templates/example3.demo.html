@@ -11,7 +11,7 @@
         slot-scope="props"
       >
         <span
-          :class="{ hidden: props.edit }"
+          :class="{ 'ti-hidden': props.edit }"
           @click="props.performOpenEdit(props.index)"
         >
           {{ props.tag.text }}
