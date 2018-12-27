@@ -24,7 +24,7 @@ A tags input component for VueJS with autocompletion, custom validation, templat
 
 NPM
 ```
-npm install @johmun/vue-tags-input --save
+npm install @johmun/vue-tags-input
 ```
 
 CDN

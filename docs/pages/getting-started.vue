@@ -18,7 +18,7 @@
       <h2>Install</h2>
       <span>Install vue-tags-input with npm</span>
       <el-code>
-        <code>npm install @johmun/vue-tags-input --save</code>
+        <code>npm install @johmun/vue-tags-input</code>
       </el-code>
       <h2>Usage</h2>
       <el-code lang="html" :code="require('./getting-started.demo.html')" />
