@@ -51,10 +51,7 @@ export default {
   background-color: $middle;
   color: $lightGrey;
   border-radius: 3px;
-
-  span {
-    font-family: 'Oxygen Mono', monospace !important;
-  }
+  font-family: 'Oxygen Mono', monospace !important;
 
   code {
     white-space: pre-wrap;

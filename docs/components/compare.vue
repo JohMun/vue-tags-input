@@ -49,12 +49,12 @@ export default {
 
   article:nth-child(1) {
     margin-right: 7px;
-    flex: 1;
+    flex: 1 0 auto;
   }
 
   article:nth-child(2) {
     margin-left: 7px;
-    flex: 1;
+    flex: 1 0 auto;
   }
 
   .el-code {
