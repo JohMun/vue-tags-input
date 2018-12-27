@@ -34,6 +34,7 @@ export default {
             `The function "perform-save-tag", provided in a slot,
               is now called "perform-save-edit"`,
             'All slots names are now in kebab-case',
+            'New styling for the documentation',
           ],
         },
         {

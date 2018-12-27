@@ -53,6 +53,7 @@
           </p>
         </div>
         <vue-tags-input
+          class="light"
           v-model="tag"
           :tags="tags"
           :validation="validation"
@@ -89,14 +90,12 @@ export default {
       }, {
         text: 'toShort',
       }, {
-        text: '8 is invalid',
-      }, {
         text: 'duplicate',
       }, {
         text: 'duplicate',
       }, {
-        text: 'Inline style',
-        style: 'color: #000; background-color: transparent; border: 1px solid #ccc',
+        text: 'Inline styled tag',
+        style: 'color: #56c1da; background-color: transparent; border: 1px solid #56c1da',
       }],
       autocompleteItems: [{
         text: 'invalid',
@@ -126,70 +125,105 @@ export default {
 
 <style lang="scss">
 
-#styling-example {
+#app #styling-example {
+  /* style the background and the text color of the input ... */
+  .vue-tags-input {
+    background: #283944;
+  }
+
+  .vue-tags-input .ti-new-tag-input {
+    background: transparent;
+    color: #b7c4c9;
+  }
+
   .vue-tags-input .ti-input {
     padding: 4px 10px;
-    border: none;
-    transition: border-bottom 100ms ease;
-    border-bottom: 1px solid #ccc;
+    transition: border-bottom 200ms ease;
   }
 
+  /* we cange the border color if the user focuses the input */
   .vue-tags-input.ti-focus .ti-input {
-    border-bottom: 1px solid #333;
+    border: 1px solid #ebde6e;
   }
 
-  .ti-tag.ti-valid {
-    background-color: #04B404;
+  /* some stylings for the autocomplete layer */
+  .vue-tags-input .ti-autocomplete {
+    background: #283944;
+    border: 1px solid #8b9396;
+    border-top: none;
   }
 
-  .ti-tag.custom-class {
-    background-color: #fff;
-    color: rgba(100,100,100,1);
-    font-weight: bold;
-    text-transform: uppercase;
-    box-shadow: 2px 2px 0px 0px rgba(100,100,100,1);
+  /* the selected item in the autocomplete layer, should be highlighted */
+  .vue-tags-input .ti-item.ti-selected-item {
+    background: #ebde6e;
+    color: #283944;
+  }
+
+  /* style the placeholders color across all browser */
+  .vue-tags-input ::-webkit-input-placeholder {
+    color: #a4b1b6;
+  }
+
+  .vue-tags-input ::-moz-placeholder {
+    color: #a4b1b6;
+  }
+
+  .vue-tags-input :-ms-input-placeholder {
+    color: #a4b1b6;
+  }
+
+  .vue-tags-input :-moz-placeholder {
+    color: #a4b1b6;
+  }
+
+  /* default styles for all the tags */
+  .vue-tags-input .ti-tag {
+    position: relative;
+    background: #ebde6e;
+    color: #283944;
+  }
+
+  /* we defined a custom css class in the data model, now we are using it to style the tag */
+  .vue-tags-input .ti-tag.custom-class {
+    background: transparent;
+    border: 1px solid #ebde6e;
+    color: #ebde6e;
     margin-right: 4px;
-    border: 1px solid rgba(100,100,100,1);
     border-radius: 0px;
     font-size: 13px;
   }
 
-  .ti-tag.no-numbers {
-    background-color: #FE9A2E;
+  /* the styles if a tag is invalid */
+  .vue-tags-input .ti-tag.ti-invalid {
+    background-color: #e88a74;
   }
 
-  .ti-duplicate {
+  /* if the user input is invalid, the input color should be red */
+  .vue-tags-input .ti-new-tag-input.ti-invalid {
+    color: #e88a74;
+  }
+
+  /* if a tag or the user input is a duplicate, it should be crossed out */
+  .vue-tags-input .ti-duplicate span,
+  .vue-tags-input .ti-new-tag-input.ti-duplicate {
     text-decoration: line-through;
   }
 
-  .ti-new-tag-input.ti-invalid, .ti-item.ti-invalid {
-    color: #e54d42;
+  /* if the user presses backspace, the complete tag should be crossed out, to mark it for deletion */
+  .vue-tags-input .ti-tag:after {
+    transition: transform .2s;
+    position: absolute;
+    content: '';
+    height: 2px;
+    width: 108%;
+    left: -4%;
+    top: calc(50% - 1px);
+    background-color: #000;
+    transform: scaleX(0);
   }
 
-  .ti-new-tag-input.no-numbers, .ti-item.no-numbers {
-    color: #FE9A2E;
-  }
-
-  .ti-tag {
-    position: relative;
-
-    &:after {
-      transition: transform .2s;
-      position: absolute;
-      content: '';
-      height: 2px;
-      width: 108%;
-      left: -4%;
-      top: calc(50% - 1px);
-      background-color: #000;
-      transform: scaleX(0);
-    }
-  }
-
-  .ti-deletion-mark {
-    &:after {
-      transform: scaleX(1);
-    }
+  .vue-tags-input .ti-deletion-mark:after {
+    transform: scaleX(1);
   }
 }
 </style>

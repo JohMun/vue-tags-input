@@ -1,5 +1,6 @@
 <template lang="html">
   <section class="template-example-1">
+    <h2>Slot: tag-left & autocomplete-item</h2>
     <p>
       Templates are a powerful tool to customize tags input even more.
       In this example we use the slots

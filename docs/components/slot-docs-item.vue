@@ -63,7 +63,7 @@ export default {
 }
 
 .name {
-  font-size: 17px;
+  font-size: 1.15em;
   padding-bottom: 6px;
   border-bottom: 1px solid #ccc;
 }
@@ -74,7 +74,7 @@ export default {
   font-weight: 500;
 
   &.big {
-    font-size: 0.925em;
+    font-size: 1em;
   }
 }
 
@@ -92,11 +92,11 @@ export default {
   ul li {
     display: flex;
     flex-direction: column;
-    margin-bottom: 12px;
+    margin-bottom: 14px;
   }
 
   ul li .label {
-    color: #868686;
+    color: #fff;
   }
 }
 </style>

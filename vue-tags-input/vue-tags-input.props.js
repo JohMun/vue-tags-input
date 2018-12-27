@@ -327,7 +327,7 @@ export default {
     default: true,
   },
   /**
-   * @description Defines if it's possible to delete tags by pressing backsspace.
+   * @description Defines if it's possible to delete tags by pressing backspace.
      If so and the user wants to delete a tag,
      the tag gets the css class 'deletion-mark' for 1 second.
      If the user presses backspace again in that time period,

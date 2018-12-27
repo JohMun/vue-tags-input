@@ -13,7 +13,16 @@ export const mergeDocs = (docA, docB) => {
 
 export const format = unformatted => {
   const types = uniq(flatten(
-    unformatted.map(i => i.tags.find(t => t.title === 'property').type.name))
+    unformatted.map(i => {
+      const property = i.tags.find(t => t.title === 'property');
+      if (!property) {
+        console.log('Missing property at:', i);
+        throw `Expected @property to be set for documentation purposes.
+          Possible values are: [props|events|helpers] e.g. @property {props}.
+          If your comment should not show up in the documentation, avoid JSDoc syntax`;
+      }
+      return property.type.name;
+    }))
   );
 
   const keyed = mapKeys(types, t => t);

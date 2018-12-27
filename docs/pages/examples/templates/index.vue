@@ -2,19 +2,22 @@
   <div class="examples-templates page">
     <div class="content">
       <h1>Templating</h1>
-      <h2>Slot: tag-left & autocomplete-item</h2>
       <div class="tag-picture">
         <div class="tag">
           <div class="tag-left">
             <span class="code">tag-left</span>
+            <span>&nbsp;</span>
+            <span>&nbsp;</span>
           </div>
           <div class="tag-center">
             <span class="code">tag-center</span>
             <span>Contains: text & input</span>
-            <span>| experimental |</span>
+            <span class="experimental">(experimental)</span>
           </div>
           <div class="tag-right">
             <span class="code">tag-right</span>
+            <span>&nbsp;</span>
+            <span>&nbsp;</span>
           </div>
           <div class="tag-actions">
             <span class="code">tag-actions</span>
@@ -23,6 +26,7 @@
               <i class="material-icons">undo</i>
               <i class="material-icons">clear</i>
             </span>
+            <span>&nbsp;</span>
           </div>
         </div>
         <div class="description">All possible slots in a tag</div>
@@ -59,6 +63,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import 'colors';
+
 a {
   text-decoration: underline;
 }
@@ -72,7 +78,7 @@ a {
     display: flex;
     border-radius: 12px;
     height: 120px;
-    background-color: rgba(92, 107, 192, 0.6);
+    background-color: #324652;
     margin-bottom: 10px;
 
     > div {
@@ -97,9 +103,14 @@ a {
       padding-left: 3px;
       font-size: 18px;
     }
+
+    span.experimental {
+      color: $grey;
+    }
   }
 
   .description {
+    color: $grey;
     font-style: italic;
     font-size: 0.9em;
   }
@@ -109,13 +120,14 @@ a {
   }
 
   .tag-center {
-    border-left: 1px solid #fff;
-    border-right: 1px solid #fff;
+    border-left: 1px solid #283944;
+    border-right: 1px solid #283944;
     flex: 1;
   }
 
   .tag-actions {
-    border-left: 1px solid #fff;
+    border-left: 1px solid #283944;
   }
+
 }
 </style>

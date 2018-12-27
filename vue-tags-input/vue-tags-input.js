@@ -263,8 +263,8 @@ export default {
          */
         if (dup) return this.$emit('adding-duplicate', tag);
 
-        // If the tag is invalid and we find a rule which avoids adding → stop
-        if (!tag.valid && this.hasForbiddingAddRule(tag.tiClasses)) return;
+        // If we find a rule which avoids that the tag is added → stop
+        if (this.hasForbiddingAddRule(tag.tiClasses)) return;
 
         // Everything is okay → add the tag
         this.$emit('input', '');
@@ -323,8 +323,8 @@ export default {
         if (dup) return this.$emit('saving-duplicate', tag);
       }
 
-      // If the tag is invalid and we find a rule which avoids saving → stop
-      if (!tag.valid && this.hasForbiddingAddRule(tag.tiClasses)) return;
+      // If we find a rule which avoids that the tag is added → stop
+      if (this.hasForbiddingAddRule(tag.tiClasses)) return;
 
       // Everything is okay → save the tag
       this.$set(this.tagsCopy, index, tag);
@@ -350,7 +350,7 @@ export default {
       // Let's create an array which defines whether a tag is in edit mode or not
       this.tagsEditStatus = clone(this.tags).map(() => false);
 
-      // We check if the original and the copied tags are equal →
+      // We check if the original and the copied and validated tags are equal →
       // Update the parent if not and sync is on.
       if (this._events['update:tags'] && !this.tagsEqual()) {
         this.$emit('update:tags', this.tagsCopy);

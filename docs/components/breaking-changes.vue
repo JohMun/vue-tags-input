@@ -7,7 +7,7 @@
         <slot />
       </p>
       <span class="further-info">
-        Please check out out the
+        Please check out the
         <router-link :to="{ path: '/migration'}">migration page</router-link>
         for further information
       </span>

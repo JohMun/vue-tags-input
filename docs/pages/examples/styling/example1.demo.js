@@ -17,8 +17,8 @@ data() {
     }, {
       text: 'duplicate',
     }, {
-      text: 'Inline style',
-      style: 'color: #000; background-color: transparent; border: 1px solid #ccc',
+      text: 'Inline styled tag',
+      style: 'color: #56c1da; background-color: transparent; border: 1px solid #56c1da',
     }],
     autocompleteItems: [{
       text: 'invalid',
