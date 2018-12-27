@@ -6,66 +6,36 @@
       <vue-tags-input
         v-model="tag"
         :tags="tags"
-        :tagsFilterDuplicates="false"
-        @tags-changed="newTags => tags = newTags">
-      </vue-tags-input>
+        :tags-filte-duplicates="false"
+        @tags-changed="newTags => tags = newTags"
+      />
       <div class="data">
-        <span>tag</span>
-        <el-code :code="tag"></el-code>
-        <span>tags</span>
-        <el-code :code="tags"></el-code>
+        <span class="label">tag</span>
+        <el-code :code="tagString" />
+        <span class="label">tags</span>
+        <el-code :code="tagsString" />
       </div>
       <h2>Install</h2>
       <span>Install vue-tags-input with npm</span>
-      <el-code class="bash">
+      <el-code>
         <code>npm install @johmun/vue-tags-input --save</code>
       </el-code>
       <h2>Usage</h2>
-      <el-code>
-        <code>
-&lt;template&gt;
-  &lt;div&gt;
-    &lt;vue-tags-input
-      v-model=&quot;tag&quot;
-      :tags=&quot;tags&quot;
-      @tags-changed=&quot;newTags =&gt; tags = newTags&quot;
-    /&gt;
-  &lt;/div&gt;
-&lt;/template&gt;
-
-&lt;script&gt;
-import VueTagsInput from '@johmun/vue-tags-input';
-
-export default {
-  components: {
-    VueTagsInput,
-  },
-  data() {
-    return {
-      tag: '',
-      tags: [],
-    };
-  },
-};
-&lt;/script&gt;
-        </code>
-      </el-code>
+      <el-code lang="html" :code="require('./getting-started.demo.html')" />
       <h2>CDN</h2>
       <p>
         vue-tags-input can be included via CDN and it registrates itself as a global component.
       </p>
-      <el-code>
-        <code>
-&lt;script src=&quot;https://unpkg.com/@johmun/vue-tags-input/dist/vue-tags-input.js&quot;&gt;&lt;/script&gt;
-        </code>
+      <el-code lang="html">
+        <code>&lt;script src=&quot;{{ cdnUrl }}&quot;&gt;&lt;/script&gt;</code>
       </el-code>
     </div>
   </div>
 </template>
 
 <script>
-import VueTagsInput from '../../vue-tags-input/vue-tags-input.vue';
-import ElCode from '../components/el-code';
+import VueTagsInput from '@johmun/vue-tags-input';
+import ElCode from '@components/el-code';
 
 export default {
   name: 'GettingStarted',
@@ -77,7 +47,16 @@ export default {
     return {
       tag: '',
       tags: [],
+      cdnUrl: 'https://unpkg.com/@johmun/vue-tags-input/dist/vue-tags-input.js',
     };
+  },
+  computed: {
+    tagString() {
+      return JSON.stringify(this.tag);
+    },
+    tagsString() {
+      return JSON.stringify(this.tags);
+    },
   },
 };
 </script>

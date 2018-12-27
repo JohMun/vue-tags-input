@@ -3,28 +3,27 @@
     <h1>All Demo</h1>
     <button type="button" name="button" @click="tags.push({ text: 'buh' })">add tag</button>
     <button type="button" name="button" @click="tags.splice(1, 1)">delete tag</button>
-      <vue-tags-input
-        class="tags-input"
-        v-model="tag"
-        :tags.sync="tags"
-        :add-on-key="[',', '#', 13]"
-        :save-on-key="[',', '#', 13]"
-        :allow-edit-tags="true"
-        :separators="[',']"
-        :validation="validation"
-        :is-duplicate="isDuplicate"
-        :autocomplete-filter-duplicates="false"
-        :avoid-adding-duplicates="false"
-        :autocomplete-items="autocompleteItems"
-        @tags-changed="tagsChanged">
-      </vue-tags-input>
-      {{ tags }}
+    <vue-tags-input
+      v-model="tag"
+      class="tags-input"
+      :tags.sync="tags"
+      :allow-edit-tags="true"
+      :separators="[',', ',']"
+      :delete-on-backspace="true"
+      :validation="validation"
+      :is-duplicate="isDuplicate"
+      :autocomplete-filter-duplicates="false"
+      :avoid-adding-duplicates="false"
+      :autocomplete-items="autocompleteItems"
+      @tags-changed="tagsChanged"
+    />
+    {{ tags }}
   </div>
 </template>
 
 <script>
-import VueTagsInput from '../../vue-tags-input/vue-tags-input.vue';
-import TagInput from '../../vue-tags-input/tag-input.vue';
+import VueTagsInput from '@johmun/vue-tags-input';
+import TagInput from '@tag-input';
 
 export default {
   name: 'ToDevelop',
@@ -42,10 +41,10 @@ export default {
         text: 't5',
       }],
       validation: [{
-        type: 'min-length',
+        classes: 'min-length',
         rule: '[0-9]',
       }, {
-        type: 'only-numbers',
+        classes: 'only-numbers',
         rule: '[0-9]',
       }],
       autocompleteItems: [{
@@ -102,28 +101,28 @@ export default {
 <style lang="scss">
 @import '~colors';
 
-.basic-demo .duplicate {
+.basic-demo .ti-duplicate {
   color: blue !important;
 }
 
-.basic-demo .tag.invalid.only-numbers {
+.basic-demo .ti-tag.ti-invalid.only-numbers {
   background-color: $warn;
 }
 
-.basic-demo .new-tag-input.invalid.min-length {
+.basic-demo .ti-new-tag-input.ti-invalid.min-length {
   color: $error;
 }
 
-.basic-demo .new-tag-input.invalid.only-numbers {
+.basic-demo .ti-new-tag-input.ti-invalid.only-numbers {
   color: $warn;
 }
 
-.basic-demo .autocomplete.autocomplete {
+.basic-demo .ti-autocomplete.ti-autocomplete {
   bottom: 33px;
   border-top: 1px solid #ccc;
 }
 
-.basic-demo .ti-focus .input {
+.basic-demo .ti-focus .ti-input {
   border: 1px solid blue;
 }
 

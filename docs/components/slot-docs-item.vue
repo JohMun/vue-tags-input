@@ -3,10 +3,10 @@
     <div class="name">
       <span class="value code">{{ item.slot }}</span>
     </div>
-    <p class="description meta" v-if="item.description">
+    <p v-if="item.description" class="description meta">
       {{ item.description }}
     </p>
-    <div class="slot-scope meta" v-if="item.props && item.props.length">
+    <div v-if="item.props && item.props.length" class="slot-scope meta">
       <span class="label big">Slot Scope</span>
       <ul>
         <li v-for="(prop, index) in item.props" :key="index">
@@ -15,7 +15,7 @@
             <span class="code">{{ prop.name }}</span>
           </div>
           <div>
-            <span class="label" v-if="prop.description">Description</span>
+            <span v-if="prop.description" class="label">Description</span>
             <span>{{ prop.description }}</span>
           </div>
           <div>
@@ -27,7 +27,7 @@
             <span class="code">{{ prop.expectedParams }}</span>
           </div>
           <el-code v-if="prop.example" class="js">
-            <code v-html="prop.example"></code>
+            <code v-html="prop.example" />
           </el-code>
         </li>
       </ul>
@@ -63,7 +63,7 @@ export default {
 }
 
 .name {
-  font-size: 17px;
+  font-size: 1.15em;
   padding-bottom: 6px;
   border-bottom: 1px solid #ccc;
 }
@@ -71,10 +71,10 @@ export default {
 .label {
   margin-right: 6px;
   color: $primary;
-  font-weight: bold;
+  font-weight: 500;
 
   &.big {
-    font-size: 1.1em;
+    font-size: 1em;
   }
 }
 
@@ -92,11 +92,11 @@ export default {
   ul li {
     display: flex;
     flex-direction: column;
-    margin-bottom: 12px;
+    margin-bottom: 14px;
   }
 
   ul li .label {
-    color: #868686;
+    color: #fff;
   }
 }
 </style>

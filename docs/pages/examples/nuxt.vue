@@ -8,8 +8,7 @@
       </p>
 
       <el-code class="javascript">
-        <code>
-import Vue from 'vue';
+        <code>import Vue from 'vue';
 import VueTagsInput from '@johmun/vue-tags-input';
 
 Vue.use(VueTagsInput);
@@ -22,11 +21,10 @@ Vue.use(VueTagsInput);
       </p>
 
       <el-code class="javascript">
-        <code>
-plugins: [{ src: '~/plugins/vue-tags-input', ssr: false }],
+        <code>plugins: [{ src: '~/plugins/vue-tags-input', ssr: false }],
 build: {
-  vendor: ['@johmun/vue-tags-input'],
-  // more config
+vendor: ['@johmun/vue-tags-input'],
+// more config
 }
         </code>
       </el-code>
@@ -35,28 +33,30 @@ build: {
         Now you can use <span class="code">VueTagsInput</span> like this:
       </p>
 
-      <el-code class="html">
-        <code>
-&lt;template&gt;
-  &lt;no-ssr&gt;
-    &lt;vue-tags-input
-      v-model=&quot;tag&quot;
-      :tags=&quot;tags&quot;
-      @tags-changed=&quot;newTags =&gt; tags = newTags&quot;
-    /&gt;
-  &lt;/no-ssr&gt;
-&lt;/template&gt;
-        </code>
-      </el-code>
+      <el-code lang="html" :code="html" />
     </div>
   </div>
 </template>
 
 <script>
-import ElCode from '../../components/el-code';
+import ElCode from '@components/el-code';
 
 export default {
   name: 'ExamplesNuxt',
   components: { ElCode },
+  data() {
+    return {
+      html: `<template>
+  <no-ssr>
+    <vue-tags-input
+      v-model="tag"
+      :tags="tags"
+      @tags-changed="newTags => tags = newTags"
+    />
+  </no-ssr>
+</template>
+      `,
+    };
+  },
 };
 </script>

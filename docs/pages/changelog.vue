@@ -21,6 +21,25 @@ export default {
     return {
       log: [
         {
+          version: '2.0.0',
+          changes: [
+            'Changed the property key "type" to "classes" in a validation item',
+            `All css classes vue-tags-input uses are prefixed with 'ti'.
+              For example: 'ti-tag', 'ti-valid' or 'ti-item'`,
+            'Better build setup',
+            'More linting',
+            'Simplify examples code',
+            'Rebuild docs if the props file change',
+            'Changing the prop\'s name from "delete-on-backslash" to "delete-on-backspace"',
+            `The function "perform-save-tag", provided in a slot,
+              is now called "perform-save-edit"`,
+            'All slots names are now in kebab-case',
+            'New styling for the documentation',
+            'The rule function in a validation item, gets the complete tag as parameter',
+            'Migration page',
+          ],
+        },
+        {
           version: '1.6.0',
           changes: [
             'Focus the input after adding a tag via autocomplete',
@@ -32,7 +51,7 @@ export default {
           version: '1.5.10',
           changes: [
             'Fix findIndex for IE11',
-            'Add new slots autocompleteHeader & autocompeteFooter',
+            'Add new slots autocomplete-header & autocompete-footer',
           ],
         },
         {

@@ -204,7 +204,7 @@ export default {
   },
   /**
    * @description Pass an array containing objects like in the example below.
-     The property 'type' will be added as css classes, if the property 'rule' matches the text
+     The property 'classes' will be added as css classes, if the property 'rule' matches the text
      of a tag, an autocomplete item or the input. The property 'rule' can be type of
      RegExp or function. If the property 'disableAdd' is 'true', the item can't be added
      to the tags array, if the appropriated rule matches.
@@ -213,10 +213,10 @@ export default {
    * @default []
    * @example
     {
-    &ensp;type: 'class', &#47;* css class *&#47;
+    &ensp;classes: 'class', &#47;* css class *&#47;
     &ensp;rule: /^([^0-9]*)$/, &#47;* RegExp *&#47;
     }, {
-    &ensp;type: 'no-braces', &#47;* css class *&#47;
+    &ensp;classes: 'no-braces', &#47;* css class *&#47;
     &ensp;rule(text) { &#47;* function with text as param *&#47;
     &ensp;&ensp;return text.indexOf('{') !== -1 || text.indexOf('}') !== -1;
     &ensp;},
@@ -244,13 +244,13 @@ export default {
           );
         }
 
-        const missingType = !v.type;
-        if (missingType) console.warn('Property "type" is missing', v);
+        const missingClasses = !v.classes;
+        if (missingClasses) console.warn('Property "classes" is missing', v);
 
         const invalidType = v.type && typeof v.type !== 'string';
         if (invalidType) console.warn('Property "type" must be type of string. Found:', v);
 
-        return !validRule || missingRule || missingType || invalidType;
+        return !validRule || missingRule || missingClasses || invalidType;
       });
     },
   },
@@ -327,16 +327,16 @@ export default {
     default: true,
   },
   /**
-   * @description Defines if it's possible to delete tags by pressing backslash.
+   * @description Defines if it's possible to delete tags by pressing backspace.
      If so and the user wants to delete a tag,
      the tag gets the css class 'deletion-mark' for 1 second.
-     If the user presses backslash again in that time period,
+     If the user presses backspace again in that time period,
      the tag is removed from the tags array and the view.
    * @property {props}
    * @type {Boolean}
    * @default true
    */
-  deleteOnBackslash: {
+  deleteOnBackspace: {
     default: true,
     type: Boolean,
   },

@@ -1,0 +1,35 @@
+<vue-tags-input
+  v-model="tag"
+  :tags="tags"
+  :allow-edit-tags="true"
+  :autocomplete-items="items"
+  class="tags-input"
+  @tags-changed="newTags => tags = newTags"
+>
+  <div
+    slot="autocomplete-item"
+    slot-scope="props"
+    class="my-item"
+    @click="props.performAdd(props.item)"
+  >
+    <i
+      :style="{ color: props.item.iconColor }"
+      class="material-icons"
+    >
+      {{ props.item.text }}
+    </i>{{ props.item.text }}
+  </div>
+  <div
+    slot="tag-left"
+    slot-scope="props"
+    class="my-tag-left"
+    @click="props.performOpenEdit(props.index)"
+  >
+    <i
+      :style="{ color: props.tag.iconColor }"
+      class="material-icons"
+    >
+      {{ props.tag.text }}
+    </i>
+  </div>
+</vue-tags-input>

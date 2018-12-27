@@ -3,6 +3,18 @@
     <div class="content">
       <section>
         <h1>Validation</h1>
+        <breaking-changes :current-version="2">
+          <ul>
+            <li>
+              The key <span>type</span> in a validation item,
+              has been renamed to <span class="code">classes</span>.
+            </li>
+            <li>
+              The function <span class="code">rule</span> in a validation item,
+              gets the complete tag as parameter.
+            </li>
+          </ul>
+        </breaking-changes>
         <p>
           To validate tags, autocomplete items or the user input, a validation array
           can be passed to the tags input component. In this example, a tag has to be
@@ -14,25 +26,26 @@
           :tags="tags"
           :validation="validation"
           :autocomplete-items="filteredItems"
-          @tags-changed="newTags => tags = newTags">
-        </vue-tags-input>
+          @tags-changed="newTags => tags = newTags"
+        />
         <div class="data">
           <span>tag</span>
-          <el-code :code="tag"></el-code>
+          <el-code :code="tagString" />
           <span>tags</span>
-          <el-code :code="tags"></el-code>
+          <el-code :code="tagsString" />
         </div>
         <p>
           Each item in the validation array must contain the properties
-          <span class="code">type</span> and <span class="code">rule</span>.
-          <span class="code">type</span> will be added as a css class, if the appropriated
-          <span class="code">rule</span> match a tag, the user input or an autocomplete item.
-          The rule can by type of RegExp or function. In chapter <router-link :to="{ path: '/examples/styling'}">Styling</router-link>
+          <span class="code">classes</span> and <span class="code">rule</span>.
+          <span class="code">classes</span> will be added as css class, if the related
+          <span class="code">rule</span> matches a tag, the user input or an autocomplete item.
+          The rule can by type of RegExp or function.
+          In chapter <router-link :to="{ path: '/examples/styling'}">Styling</router-link>
           we will see how to use these css classes in detail.
         </p>
         <p>
-          If the rule is valid, the class "valid", or if not, "invalid" is also added.
-          If the tag input component finds a duplicate item, the class "duplicate" is appended.
+          If the rule is valid, the class "ti-valid", or if not, "ti-invalid" is also added.
+          If the tag input component finds a duplicate item, the class "ti-duplicate" is appended.
           By default the prop <span class="code">avoid-adding-duplicates</span> is true.
           So in this example it is impossible to add duplicates.
         </p>
@@ -42,56 +55,8 @@
           In this case, the tag can't be added to the tags array.
           Like every tag which starts with "Cannot" in this example.
         </p>
-        <el-code class="html">
-          <code>
-&lt;vue-tags-input
-  v-model=&quot;tag&quot;
-  :tags=&quot;tags&quot;
-  :validation=&quot;validation&quot;
-  :autocomplete-items=&quot;filteredItems&quot;
-  @tags-changed=&quot;newTags =&gt; tags = newTags&quot;&gt;
-&lt;/vue-tags-input&gt;
-          </code>
-        </el-code>
-        <el-code class="javascript">
-          <code>
-/* Other stuff like import tagsinput ... */
-
-data() {
-  return {
-    tag: '',
-    tags: [],
-    autocompleteItems: [{
-      text: 'Invalid because of "8"',
-    }, {
-      text: 'toShort',
-    }, {
-      text: 'I am valid',
-    }, {
-      text: 'Cannot be added',
-    }, {
-      text: 'Invalid cause of "{"',
-    }],
-    validation: [{
-      type: 'min-length',
-      rule: /^.{8,}$/,
-    }, {
-      type: 'no-numbers',
-      rule: /^([^0-9]*)$/,
-    }, {
-      type: 'avoid-item',
-      rule: /^(?!Cannot).*$/,
-      disableAdd: true,
-    }, {
-      type: 'no-braces',
-      rule: text => text.indexOf('{') !== -1 || text.indexOf('}') !== -1,
-    }],
-  };
-},
-
-/* Computed properties, methods and more ... */
-          </code>
-        </el-code>
+        <el-code lang="html" :code="require('./example1.demo.html')" />
+        <el-code :code="require('./example1.demo.js')" />
       </section>
       <section>
         <p>
@@ -101,7 +66,8 @@ data() {
           vue-tags-input emits <span class="code">@tags-changed</span>.
         </p>
         <p>
-          The event is only emitted, if the user does a action like adding, editing or deleting a tag.
+          The event is only emitted,
+          if the user does a action like adding, editing or deleting a tag.
         </p>
         <p>
           If you want updates, if vue-tags-input detects unvalidated tags,
@@ -109,7 +75,8 @@ data() {
           <span class="code">:tags.sync="tags"</span>
         </p>
         <p>
-          Another way would be to validate tags by yourself and pass them to vue-tags-input, see chapter
+          Another way would be to validate tags by yourself
+          and pass them to vue-tags-input, see chapter
           <router-link :to="{ name: 'api.create-tags-helper' }">Create Tags Helper</router-link>.
         </p>
       </section>
@@ -118,14 +85,16 @@ data() {
 </template>
 
 <script>
-import VueTagsInput from '../../../vue-tags-input/vue-tags-input.vue';
-import ElCode from '../../components/el-code';
+import VueTagsInput from '@johmun/vue-tags-input';
+import ElCode from '@components/el-code';
+import BreakingChanges from '@components/breaking-changes';
 
 export default {
-  name: 'examplesValidation',
+  name: 'ExamplesValidation',
   components: {
     VueTagsInput,
     ElCode,
+    BreakingChanges,
   },
   data() {
     return {
@@ -143,22 +112,28 @@ export default {
         text: 'Invalid cause of "{"',
       }],
       validation: [{
-        type: 'min-length',
-        rule: /^.{8,}$/,
+        classes: 'min-length',
+        rule: tag => tag.text.length < 8,
       }, {
-        type: 'no-numbers',
+        classes: 'no-numbers',
         rule: '^([^0-9]*)$',
       }, {
-        type: 'avoid-item',
+        classes: 'avoid-item',
         rule: /^(?!Cannot).*$/,
         disableAdd: true,
       }, {
-        type: 'no-braces',
-        rule: text => text.indexOf('{') !== -1 || text.indexOf('}') !== -1,
+        classes: 'no-braces',
+        rule: ({ text }) => text.indexOf('{') !== -1 || text.indexOf('}') !== -1,
       }],
     };
   },
   computed: {
+    tagString() {
+      return JSON.stringify(this.tag);
+    },
+    tagsString() {
+      return JSON.stringify(this.tags);
+    },
     filteredItems() {
       return this.autocompleteItems.filter(i => {
         return i.text.toLowerCase().indexOf(this.tag.toLowerCase()) !== -1;

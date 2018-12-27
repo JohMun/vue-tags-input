@@ -1,8 +1,8 @@
-import Styling from './styling';
-import Autocomplete from './autocomplete';
-import Validation from './validation';
-import Hooks from './hooks';
-import Templates from './templates';
+import Styling from './styling/';
+import Autocomplete from './autocomplete/';
+import Validation from './validation/';
+import Hooks from './hooks/';
+import Templates from './templates/';
 import Nuxt from './nuxt';
 
 export default [{

@@ -1,0 +1,40 @@
+@import 'colors';
+
+#app .vue-tags-input:not(.light) {
+  background: transparent;
+
+  input {
+    background: transparent;
+    color: $lightestGrey;
+  }
+
+  .ti-tag input {
+    color: #fff;
+  }
+
+  .ti-input {
+    border: 1px solid $grey;
+  }
+
+  ::-webkit-input-placeholder {
+    color: $lightGrey;
+  }
+
+  ::-moz-placeholder {
+    color: $lightGrey;
+  }
+
+  :-ms-input-placeholder {
+    color: $lightGrey;
+  }
+
+  :-moz-placeholder {
+    color: $lightGrey;
+  }
+
+  .ti-autocomplete {
+    background: $dark;
+    border: 1px solid $grey;
+    border-top: none;
+  }
+}

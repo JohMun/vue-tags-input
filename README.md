@@ -1,6 +1,6 @@
 # vue-tags-input
 
-A tags input component for VueJs with autocompletion, custom validation, templating and much more
+A tags input component for VueJS with autocompletion, custom validation, templating and much more
 
 [Demo & Docs](http://www.vue-tags-input.com)
 
@@ -12,11 +12,11 @@ A tags input component for VueJs with autocompletion, custom validation, templat
 * Edit tags after creation
 * Fast setup
 * Works with Vuex
-* Small size: 26kb minified | gzipped 9kb
+* Small size: 34kb minified (css included) | gzipped 9kb
 * Autocompletion
 * Many customization options
 * Own templates
-* Delete tags on backslash
+* Delete tags on backspace
 * Add tags on paste
 * Examples & Docs
 
@@ -68,4 +68,4 @@ export default {
 
 [MIT](https://opensource.org/licenses/MIT)
 
-Copyright (c) 2018 Johannes Munari
+Copyright (c) 2019 Johannes Munari

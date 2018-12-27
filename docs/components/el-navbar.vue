@@ -3,8 +3,8 @@
     <div class="content">
       <div class="logo">
         <div @click="goHome">
-          <i class="material-icons">style</i>
-          <span class="tag">vue-tags-input</span>
+          <span class="title">Vue Tags Input</span>
+          <span class="sub">A Generic UI Component</span>
         </div>
         <i class="material-icons close-nav" @click="$emit('close-nav')">clear</i>
       </div>
@@ -14,21 +14,39 @@
             <li
               v-for="(item, index) in links"
               :key="index"
-              :class="{ active: isActive(item), disabled: item.disabled }">
+              :class="{ active: isActive(item), disabled: item.disabled }"
+            >
               <div class="label" @click="moveOrOpen(item, index)">
                 <div class="expand">
-                  <i v-if="item.children && linkStatus[index]" class="material-icons">expand_less</i>
-                  <i v-if="item.children && !linkStatus[index]" class="material-icons">expand_more</i>
+                  <i
+                    v-if="item.icon && !item.children"
+                    class="material-icons"
+                    :style="item.icon.style"
+                  >
+                    {{ item.icon.type }}
+                  </i>
+                  <i
+                    v-if="item.children && linkStatus[index]"
+                    class="material-icons"
+                  >
+                    expand_less
+                  </i>
+                  <i
+                    v-if="item.children && !linkStatus[index]" class="material-icons"
+                  >
+                    expand_more
+                  </i>
                 </div>
                 <span>{{ item.label }}</span>
               </div>
-              <ul class="lvl-2" v-if="linkStatus[index]">
+              <ul v-if="linkStatus[index]" class="lvl-2">
                 <li
-                  v-for="(item, i2) in item.children"
+                  v-for="(child, i2) in item.children"
                   :key="i2"
-                  @click="moveTo(item)"
-                  :class="{ active: isActive(item), disabled: item.disabled }">
-                  <div class="label"><span>{{ item.label }}</span></div>
+                  :class="{ active: isActive(child), disabled: child.disabled }"
+                  @click="moveTo(child)"
+                >
+                  <div class="label"><span>{{ child.label }}</span></div>
                 </li>
               </ul>
             </li>
@@ -89,14 +107,20 @@ export default {
           route: '/api/create-tags-helper',
         }],
       }, {
+        label: 'Migration V1 → V2',
+        route: '/migration',
+        icon: {
+          type: 'info',
+          style: [{ color: '#ebde6e' }, { 'font-size': '20px' }],
+        },
+      }, {
         label: 'Changelog',
         route: '/changelog',
-      }, {
-        label: 'Caveats',
-        disabled: true,
-        route: '',
       }],
     };
+  },
+  created() {
+    this.linkStatus = this.links.map(() => false);
   },
   methods: {
     toggleStatus(index) {
@@ -121,9 +145,6 @@ export default {
       return item.route === this.$route.path;
     },
   },
-  created() {
-    this.linkStatus = this.links.map(() => false);
-  },
 };
 </script>
 
@@ -132,21 +153,21 @@ export default {
 
   nav {
     width: 300px;
-    background-color: #606060;
+    background-color: $darker;
     flex-direction: column;
     flex-shrink: 0;
     display: flex;
     height: 100%;
     overflow-y: auto;
-    border-right: 1px solid #e2dede;
-    color: #fafafa;
+    box-shadow: 0 0 6px rgba(0,0,0,.3);
+    color: $lightGrey;
   }
 
   @media (max-width: 940px) {
     nav {
-      // width: 100%;
       position: absolute;
       z-index: 999;
+      box-shadow: 0 0 30px rgba(0,0,0,.3);
     }
   }
 
@@ -163,32 +184,29 @@ export default {
   }
 
   .logo {
+    padding: 45px 24px 22px 24px;
     width: 100%;
-    height: 90px;
-    align-items: center;
-    justify-content: center;
-    display: flex;
-    flex-direction: column;
     position: relative;
 
     > div {
       cursor: pointer;
-      display: flex;
-      align-items: center;
       padding: 6px 12px;
-      border-radius: 2px;
-      background-color: rgba(155, 155, 155, 0.2);
-      color: #fafafa;
+      display: flex;
+      flex-direction: column;
     }
 
-    > div i {
-      font-size: 34px;
-      margin-right: 8px;
+    .title {
+      line-height: 28px;
+      font-size: 23px;
+      font-weight: bold;
+      font-family: 'Raleway', sans-serif;
+      color: #fff;
     }
 
-    .tag {
-      font-family: 'Oxygen Mono', monospace;
-      font-size: 14px;
+    .sub {
+      color: $grey;
+      letter-spacing: 1.3px;
+      font-size: 12px;
     }
 
     .close-nav {
@@ -209,18 +227,10 @@ export default {
     i {
       font-size: 26px;
     }
-
-    h2 {
-      margin-top: 8px;
-      font-size: 12px;
-      font-weight: 400;
-      text-transform: uppercase;
-    }
   }
 
   .navigation {
-    padding: 0 30px 30px 30px;
-    font-weight: 500;
+    padding: 0 24px 30px 24px;
     display: flex;
     flex-direction: column;
     flex: 1 0 auto;
@@ -241,6 +251,17 @@ export default {
 
       > div > span {
         position: relative;
+
+        &:before {
+          background: transparent;
+          transition: background-color 300ms ease;
+          position: absolute;
+          right: 0px;
+          left: 0px;
+          bottom: -4px;
+          content: '';
+          height: 2px;
+        }
       }
 
       .expand {
@@ -255,13 +276,12 @@ export default {
         transition: color .15s ease-in-out;
       }
 
+      &.active {
+        color: #fff;
+        font-weight: 500;
+      }
+
       &.active > div > span:before {
-        position: absolute;
-        right: 0px;
-        left: 0px;
-        bottom: -4px;
-        content: '';
-        height: 2px;
         background-color: $primary;
       }
 
@@ -273,7 +293,7 @@ export default {
   }
 
   li:not(.disabled) .label:hover {
-    color: $primary;
+    color: #fff;
   }
 
   .lvl-2 {
