@@ -4,8 +4,15 @@
       <section>
         <h1>Validation</h1>
         <breaking-changes :current-version="2">
-          The key <span class="code">type</span> in a validation item,
-          has been renamed to <span class="code">classes</span>.
+          <ul>
+            <li>
+              The key <span class="code">type</span> in a validation item,
+              has been renamed to <span class="code">classes</span>.
+            </li>
+            <li>
+              The rule function in a validation item, gets the complete tag as parameter
+            </li>
+          </ul>
         </breaking-changes>
         <p>
           To validate tags, autocomplete items or the user input, a validation array
@@ -105,7 +112,7 @@ export default {
       }],
       validation: [{
         classes: 'min-length',
-        rule: /^.{8,}$/,
+        rule: tag => tag.text.length < 8,
       }, {
         classes: 'no-numbers',
         rule: '^([^0-9]*)$',
@@ -115,7 +122,7 @@ export default {
         disableAdd: true,
       }, {
         classes: 'no-braces',
-        rule: text => text.indexOf('{') !== -1 || text.indexOf('}') !== -1,
+        rule: ({ text }) => text.indexOf('{') !== -1 || text.indexOf('}') !== -1,
       }],
     };
   },

@@ -5,6 +5,7 @@
     - the prop 'delete-on-backslash' is now called 'delete-on-backspace'
     - The function 'perform-save-tag', provided in a slot, is now called 'perform-save-edit'
     - all slot names are now in kebab-case e.g. 'tag-left'
+    - The validation function in a validation item, gets the complete tag as parameter
   </div>
 </template>
 

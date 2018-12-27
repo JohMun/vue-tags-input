@@ -48,7 +48,7 @@ export default {
         disableAdd: true,
       }, {
         classes: 'no-braces',
-        rule(text) {
+        rule({ text }) {
           return text.indexOf('{') !== -1 || text.indexOf('}') !== -1;
         },
       }],

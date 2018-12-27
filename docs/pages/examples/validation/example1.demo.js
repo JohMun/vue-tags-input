@@ -17,7 +17,7 @@ data() {
     }],
     validation: [{
       classes: 'min-length',
-      rule: /^.{8,}$/,
+      rule: tag => tag.text.length < 8,
     }, {
       classes: 'no-numbers',
       rule: /^([^0-9]*)$/,
@@ -27,7 +27,7 @@ data() {
       disableAdd: true,
     }, {
       classes: 'no-braces',
-      rule: text => text.indexOf('{') !== -1 || text.indexOf('}') !== -1,
+      rule: ({ text }) => text.indexOf('{') !== -1 || text.indexOf('}') !== -1,
     }],
   };
 },

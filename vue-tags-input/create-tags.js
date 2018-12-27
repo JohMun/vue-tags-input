@@ -1,7 +1,8 @@
 // helper functions
 
-const validateUserRules = (text, validation) => {
+const validateUserRules = (tag, validation) => {
   return validation.filter(val => {
+    const { text } = tag;
     // if the rule is a string, we convert it to RegExp
     if (typeof val.rule === 'string') return !new RegExp(val.rule).test(text);
 
@@ -9,7 +10,7 @@ const validateUserRules = (text, validation) => {
 
     // if we deal with a function, invoke it
     const isFunction = {}.toString.call(val.rule) === '[object Function]';
-    if (isFunction) return val.rule(text);
+    if (isFunction) return val.rule(tag);
 
   }).map(val => val.classes);
 };
@@ -29,7 +30,7 @@ const createClasses = (tag, tags, validation = [], customDuplicateFn) => {
   if (tag.text === undefined) tag = { text: tag };
 
   // create css classes from the user validation array
-  const classes = validateUserRules(tag.text, validation);
+  const classes = validateUserRules(tag, validation);
 
   // if we find the tag, it's an exsting one which is edited.
   // in this case we must splice it out

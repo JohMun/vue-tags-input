@@ -35,6 +35,7 @@ export default {
               is now called "perform-save-edit"`,
             'All slots names are now in kebab-case',
             'New styling for the documentation',
+            'The rule function in a validation item, gets the complete tag as parameter',
           ],
         },
         {
