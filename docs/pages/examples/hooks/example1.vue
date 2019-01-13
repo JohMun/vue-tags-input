@@ -8,7 +8,10 @@
     </p>
     <p>
       Its might be suprising that we are using an array here. That's because we can have mulitple
-      <span class="code">addTag</span> functions. If we are using seperators
+      <span class="code">addTag</span> functions. If we are using separators (see prop
+      <router-link :to="{ path: '/api/props'}">
+        <span class="code">separators</span>
+      </router-link>)
       vue-tags-input will emit
       <span class="code">@before-adding-tag</span> multiple times in a row,
       if it has to split the input string into multiple tags.

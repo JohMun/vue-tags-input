@@ -3,7 +3,7 @@ data() {
   return {
     tag: '',
     tags: [],
-    handler: null,
+    handlers: [],
   };
 },
 methods: {
