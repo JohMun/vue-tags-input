@@ -13,7 +13,6 @@
         <li
           v-for="(tag, index) in tagsCopy"
           :key="index"
-          :tabindex="index + 1"
           :style="tag.style"
           :class="[
             { 'ti-editing': tagsEditStatus[index] },
@@ -21,6 +20,7 @@
             tag.classes,
             { 'ti-deletion-mark': isMarked(index) }
           ]"
+          tabindex="0"
           class="ti-tag"
           @click="$emit('tag-clicked', { tag, index })"
         >
