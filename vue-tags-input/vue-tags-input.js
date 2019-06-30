@@ -358,7 +358,7 @@ export default {
     },
     blurred(e) {
       // if the click occurs on tagsinput → don't hide
-      if (this.$el.contains(e.target)) return;
+      if (this.$el.contains(document.activeElement)) return;
 
       // If we should add tags before blurring → add tag
       if (this.addOnBlur && this.focused) this.performAddTags(this.newTag);
