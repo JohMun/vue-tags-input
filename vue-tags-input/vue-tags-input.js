@@ -356,10 +356,12 @@ export default {
         this.$emit('update:tags', this.tagsCopy);
       }
     },
-    blurred(e) {
+    blurredOnClick(e) {
       // if the click occurs on tagsinput → don't hide
       if (this.$el.contains(e.target) || this.$el.contains(document.activeElement)) return;
-
+      this.performBlur(e);
+    },
+    performBlur() {
       // If we should add tags before blurring → add tag
       if (this.addOnBlur && this.focused) this.performAddTags(this.newTag);
 
@@ -391,9 +393,9 @@ export default {
     this.selectDefaultItem();
 
     // We add a event listener to hide autocomplete on blur
-    document.addEventListener('click', this.blurred);
+    document.addEventListener('click', this.blurredOnClick);
   },
   destroyed() {
-    document.removeEventListener('click', this.blurred);
+    document.removeEventListener('click', this.blurredOnClick);
   },
 };

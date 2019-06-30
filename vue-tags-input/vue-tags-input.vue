@@ -135,6 +135,7 @@
             )"
             @paste="addTagsFromPaste"
             @keydown.8="invokeDelete"
+            @keydown.9="performBlur"
             @keydown.38="selectItem($event, 'before')"
             @keydown.40="selectItem($event, 'after')"
             @input="updateNewTag"
