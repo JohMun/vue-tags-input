@@ -118,7 +118,8 @@ export default {
   },
   /**
    * @description The minimum character length which is required
-     until the autocomplete layer is shown.
+     until the autocomplete layer is shown. If set to 0,
+     then it'll be shown on focus.
    * @property {props}
    * @type {Number}
    * @default 1
