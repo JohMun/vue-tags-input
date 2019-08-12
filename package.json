@@ -80,7 +80,8 @@
     "webpack": "^4.28.1",
     "webpack-bundle-analyzer": "^3.0.3",
     "webpack-cli": "^3.1.2",
-    "webpack-dev-server": "^3.1.10"
+    "webpack-dev-server": "^3.1.10",
+    "vuedraggable": "^2.20.0"
   },
   "eslintConfig": {
     "parserOptions": {

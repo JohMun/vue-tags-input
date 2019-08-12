@@ -6,10 +6,11 @@ import equal from 'fast-deep-equal';
 import { createTags, createTag, createClasses, clone } from './create-tags';
 import TagInput from './tag-input.vue';
 import props from './vue-tags-input.props';
+import draggable from 'vuedraggable';
 
 export default {
   name: 'VueTagsInput',
-  components: { TagInput },
+  components: { TagInput, draggable },
   props,
   data() {
     return {
@@ -367,6 +368,10 @@ export default {
 
       // Hide autocomplete layer
       this.focused = false;
+    },
+    tagOrderChanged() {
+      // Emit new tag order.
+      this.$emit('tag-order-changed', this.tagsCopy);
     },
   },
   watch: {
