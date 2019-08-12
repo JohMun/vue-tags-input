@@ -9,10 +9,16 @@
     :class="[{ 'ti-disabled': disabled }, { 'ti-focus': focused }]"
   >
     <div class="ti-input">
-      <component :is="isDraggable ? 'draggable' : 'ul'" v-if="tagsCopy"
-        v-model="tagsCopy" group="tags" class="ti-tags" draggable=".item" :handle="draggableHandle ? '.handle' : ''"
-        ghost-class="ghost-tag" drag-class="drag-tag" tag="ul"
-        @start="drag=true" @end="drag=false; tagOrderChanged()"
+      <component 
+        :is="isDraggable ? 'draggable' : 'ul'" v-if="tagsCopy"
+        v-model="tagsCopy" group="tags" class="ti-tags"
+        tag="ul"
+        draggable=".item" 
+        :handle="draggableHandle ? '.handle' : ''" 
+        ghost-class="ghost-tag"
+        drag-class="drag-tag"
+        @start="drag=true"
+        @end="drag=false; tagOrderChanged()"
       >
         <li
           v-for="(tag, index) in tagsCopy"
