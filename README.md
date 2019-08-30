@@ -25,9 +25,13 @@ A tags input component for VueJS with autocompletion, custom validation, templat
 
 NPM
 ```
-npm install https://github.com/VojtechLanka/vue-tags-input/
+npm install @johmun/vue-tags-input
 ```
-For now needs to be build after install. Use `npm install` and `npm build-lib` in \vue-tags-input. 
+
+CDN
+```
+<script src="https://unpkg.com/@johmun/vue-tags-input/dist/vue-tags-input.js"></script>
+```
 
 ## Usage with draggable
 
@@ -53,7 +57,7 @@ On drop `tag-order-changed` is emitted with array of tags in new order. Use this
 
 ```javascript
 <script>
-import VueTagsInput from '@vojtechlanka/vue-tags-input';
+import VueTagsInput from '@johmun/vue-tags-input';
 
 export default {
   components: {
@@ -68,6 +72,7 @@ export default {
 };
 </script>
 ```
+
 ## License
 
 [MIT](https://opensource.org/licenses/MIT)
