@@ -131,32 +131,32 @@
             />
           </div>
         </li>
-      <li slot="footer" class="ti-new-tag-input-wrapper">
-        <input
-          ref="newTagInput"
-          v-bind="$attrs"
-          :class="[createClasses(newTag, tags, validation, isDuplicate)]"
-          :placeholder="placeholder"
-          :value="newTag"
-          :maxlength="maxlength"
-          :disabled="disabled"
-          type="text"
-          size="1"
-          class="ti-new-tag-input"
-          @keydown="performAddTags(
-            filteredAutocompleteItems[selectedItem] || newTag, $event
-          )"
-          @paste="addTagsFromPaste"
-          @keydown.8="invokeDelete"
-          @keydown.9="performBlur"
-          @keydown.38="selectItem($event, 'before')"
-          @keydown.40="selectItem($event, 'after')"
-          @input="updateNewTag"
-          @blur="$emit('blur', $event)"
-          @focus="focused = true; $emit('focus', $event)"
-          @click="addOnlyFromAutocomplete ? false : selectedItem = null"
-        >
-      </li>
+        <li slot="footer" class="ti-new-tag-input-wrapper">
+          <input
+            ref="newTagInput"
+            v-bind="$attrs"
+            :class="[createClasses(newTag, tags, validation, isDuplicate)]"
+            :placeholder="placeholder"
+            :value="newTag"
+            :maxlength="maxlength"
+            :disabled="disabled"
+            type="text"
+            size="1"
+            class="ti-new-tag-input"
+            @keydown="performAddTags(
+              filteredAutocompleteItems[selectedItem] || newTag, $event
+            )"
+            @paste="addTagsFromPaste"
+            @keydown.8="invokeDelete"
+            @keydown.9="performBlur"
+            @keydown.38="selectItem($event, 'before')"
+            @keydown.40="selectItem($event, 'after')"
+            @input="updateNewTag"
+            @blur="$emit('blur', $event)"
+            @focus="focused = true; $emit('focus', $event)"
+            @click="addOnlyFromAutocomplete ? false : selectedItem = null"
+          >
+        </li>
       </component>
     </div>
     <slot name="between-elements" />
