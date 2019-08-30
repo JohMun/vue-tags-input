@@ -10,8 +10,10 @@
   >
     <div class="ti-input">
       <component 
-        :is="isDraggable ? 'draggable' : 'ul'" v-if="tagsCopy"
-        v-model="tagsCopy" group="tags" class="ti-tags"
+        :is="isDraggable ? 'draggable' : 'ul'"
+        v-if="tagsCopy"
+        v-model="tagsCopy" group="tags"
+        class="ti-tags"
         tag="ul"
         draggable=".item" 
         :handle="draggableHandle ? '.handle' : ''" 
