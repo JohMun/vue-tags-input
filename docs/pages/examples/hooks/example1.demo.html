@@ -1,0 +1,10 @@
+<vue-tags-input
+  v-model="tag"
+  :tags="tags"
+  @tags-changed="newTags => tags = newTags"
+  @before-adding-tag="obj => handlers.push(obj.addTag)"
+/>
+<div v-if="handlers.length">
+  <button @click="cancel">Cancel</button>
+  <button @click="add">Add</button>
+</div>

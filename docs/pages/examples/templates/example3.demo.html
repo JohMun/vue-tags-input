@@ -1,0 +1,40 @@
+<template>
+  <div>
+    <vue-tags-input
+      v-model="tag"
+      :tags="tags"
+      :allow-edit-tags="true"
+      @tags-changed="newTags => tags = newTags"
+    >
+      <template
+        slot="tag-center"
+        slot-scope="props"
+      >
+        <span
+          :class="{ 'ti-hidden': props.edit }"
+          @click="props.performOpenEdit(props.index)"
+        >
+          {{ props.tag.text }}
+        </span>
+        <tag-input :scope="props" />
+      </template>
+    </vue-tags-input>
+  </div>
+</template>
+
+<script>
+import { VueTagsInput, TagInput } from '@johmun/vue-tags-input';
+
+export default {
+  components: {
+    VueTagsInput,
+    TagInput,
+  },
+  data() {
+    return {
+      tag: '',
+      tags: [],
+    };
+  },
+};
+</script>

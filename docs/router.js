@@ -7,6 +7,7 @@ import api from './pages/api';
 import examples from './pages/examples';
 import e2eSuite from '../e2e/suite/';
 import Changelog from './pages/changelog';
+import Migration from './pages/migration';
 
 Vue.use(Router);
 
@@ -18,6 +19,11 @@ const routes = [{
   path: '/start',
   name: 'gettingStarted',
   component: GettingStarted,
+},
+{
+  path: '/migration',
+  name: 'migration',
+  component: Migration,
 },
 {
   path: '/changelog',

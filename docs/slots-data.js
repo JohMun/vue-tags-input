@@ -1,6 +1,6 @@
 const deletionMark = {
   name: 'deletionMark',
-  description: `If the user wants to delete the tag and presses backslash,
+  description: `If the user wants to delete the tag and presses backspace,
     the property is true for 1 second, because the tag is marked to delete. `,
   type: 'Boolean',
 };
@@ -46,8 +46,8 @@ const performCancelEdit = {
   expectedParams: 'index|Number',
 };
 
-const performSaveTag = {
-  name: 'performSaveTag',
+const performSaveEdit = {
+  name: 'performSaveEdit',
   description: `Call this function and pass an index as parameter
     to save a modified tag`,
   type: 'Function',
@@ -56,7 +56,7 @@ const performSaveTag = {
 
 export default [
   {
-    slot: 'tagLeft',
+    slot: 'tag-left',
     description: 'The slot is positioned on the left of the text value',
     props: [
       tag,
@@ -66,11 +66,11 @@ export default [
       performDelete,
       performOpenEdit,
       performCancelEdit,
-      performSaveTag,
+      performSaveEdit,
     ],
   },
   {
-    slot: 'tagRight',
+    slot: 'tag-right',
     description: 'The slot is positioned between the text value and the actions',
     props: [
       tag,
@@ -80,11 +80,11 @@ export default [
       performDelete,
       performOpenEdit,
       performCancelEdit,
-      performSaveTag,
+      performSaveEdit,
     ],
   },
   {
-    slot: 'tagActions',
+    slot: 'tag-actions',
     description: `The slot is positioned on the right side.
       At default, it holds the 'check', 'undo' and 'close' icons`,
     props: [
@@ -95,11 +95,11 @@ export default [
       performDelete,
       performOpenEdit,
       performCancelEdit,
-      performSaveTag,
+      performSaveEdit,
     ],
   },
   {
-    slot: 'tagCenter',
+    slot: 'tag-center',
     description: 'At default, it holds the tags text value and an input to edit the text',
     props: [
       tag,
@@ -114,7 +114,7 @@ export default [
       performDelete,
       performOpenEdit,
       performCancelEdit,
-      performSaveTag,
+      performSaveEdit,
       {
         name: 'validateTag',
         description: `Call this function if the input of a tag changes
@@ -126,7 +126,7 @@ export default [
     ],
   },
   {
-    slot: 'autocompleteItem',
+    slot: 'autocomplete-item',
     description: 'Slot to create a autocomplete item in the autocomplete layer',
     props: [
       {
@@ -152,6 +152,14 @@ export default [
         expectedParams: 'item|Object',
       },
     ],
+  },
+  {
+    slot: 'autocomplete-header',
+    description: 'The slot is at the top of the autocomplete layer.',
+  },
+  {
+    slot: 'autocomplete-footer',
+    description: 'The slot is at the bottom of the autocomplete layer.',
   },
   {
     slot: 'between-elements',

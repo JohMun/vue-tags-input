@@ -20,7 +20,7 @@ const propValidatorStringNumeric = value => {
       if (!numeric) console.warn('Only numerics are allowed for this prop. Found:', v);
       return !numeric;
     } else if (typeof v === 'string') {
-      /**
+      /*
        * Regex: || Not totally fool-proof yet, still matches "0a" and such
        * - allow non-word characters (aka symbols e.g. ;, :, ' etc)
        * - allow alpha characters
@@ -33,14 +33,6 @@ const propValidatorStringNumeric = value => {
       console.warn('Only numeric and string values are allowed. Found:', v);
       return false;
     }
-  });
-};
-
-const propValidatorNumeric = value => {
-  return !value.some(v => {
-    const numeric = typeof v === 'number' && isFinite(v) && Math.floor(v) === v;
-    if (!numeric) console.warn('Only numerics are allowed for this prop. Found:', v);
-    return !numeric;
   });
 };
 
@@ -126,7 +118,8 @@ export default {
   },
   /**
    * @description The minimum character length which is required
-     until the autocomplete layer is shown.
+     until the autocomplete layer is shown. If set to 0,
+     then it'll be shown on focus.
    * @property {props}
    * @type {Number}
    * @default 1
@@ -169,10 +162,11 @@ export default {
   /**
    * @description Custom trigger key codes can be registrated. If the user presses one of these,
      a tag will be generated out of the input value. Can be either a numeric keyCode or the key
-     as a string ([13, ':', ';']).
+     as a string.
    * @property {props}
    * @type {Array}
    * @default [13]
+   * @example add-on-key="[13, ':', ';']"
    */
   addOnKey: {
     type: Array,
@@ -182,14 +176,16 @@ export default {
   /**
    * @description Custom trigger key codes can be registrated. If the user edits a tag
      and presses one of these, the edited tag will be saved.
+     Can be either a numeric keyCode or the key as a string.
    * @property {props}
    * @type {Array}
    * @default [13]
+   * @example save-on-key="[13, ':', ';']"
    */
   saveOnKey: {
     type: Array,
     default: () => [13],
-    validator: propValidatorNumeric,
+    validator: propValidatorStringNumeric,
   },
   /**
    * @description The maximum amount the tags array is allowed to hold.
@@ -209,7 +205,7 @@ export default {
   },
   /**
    * @description Pass an array containing objects like in the example below.
-     The property 'type' will be added as css classes, if the property 'rule' matches the text
+     The property 'classes' will be added as css classes, if the property 'rule' matches the text
      of a tag, an autocomplete item or the input. The property 'rule' can be type of
      RegExp or function. If the property 'disableAdd' is 'true', the item can't be added
      to the tags array, if the appropriated rule matches.
@@ -218,10 +214,10 @@ export default {
    * @default []
    * @example
     {
-    &ensp;type: 'class', &#47;* css class *&#47;
+    &ensp;classes: 'class', &#47;* css class *&#47;
     &ensp;rule: /^([^0-9]*)$/, &#47;* RegExp *&#47;
     }, {
-    &ensp;type: 'no-braces', &#47;* css class *&#47;
+    &ensp;classes: 'no-braces', &#47;* css class *&#47;
     &ensp;rule(text) { &#47;* function with text as param *&#47;
     &ensp;&ensp;return text.indexOf('{') !== -1 || text.indexOf('}') !== -1;
     &ensp;},
@@ -249,13 +245,13 @@ export default {
           );
         }
 
-        const missingType = !v.type;
-        if (missingType) console.warn('Property "type" is missing', v);
+        const missingClasses = !v.classes;
+        if (missingClasses) console.warn('Property "classes" is missing', v);
 
         const invalidType = v.type && typeof v.type !== 'string';
         if (invalidType) console.warn('Property "type" must be type of string. Found:', v);
 
-        return !validRule || missingRule || missingType || invalidType;
+        return !validRule || missingRule || missingClasses || invalidType;
       });
     },
   },
@@ -332,16 +328,16 @@ export default {
     default: true,
   },
   /**
-   * @description Defines if it's possible to delete tags by pressing backslash.
+   * @description Defines if it's possible to delete tags by pressing backspace.
      If so and the user wants to delete a tag,
      the tag gets the css class 'deletion-mark' for 1 second.
-     If the user presses backslash again in that time period,
+     If the user presses backspace again in that time period,
      the tag is removed from the tags array and the view.
    * @property {props}
    * @type {Boolean}
    * @default true
    */
-  deleteOnBackslash: {
+  deleteOnBackspace: {
     default: true,
     type: Boolean,
   },

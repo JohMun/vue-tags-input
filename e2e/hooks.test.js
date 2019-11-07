@@ -11,11 +11,11 @@ test('test all hooks', async t => {
   // enter tag -> actions should be visible
   const enterTag = async () => {
     await t
-      .typeText(Selector('.hooks .new-tag-input'), 'tag')
+      .typeText(Selector('.hooks .ti-new-tag-input'), 'tag')
       .pressKey('enter')
       .expect(Selector('.hooks > .actions').exists).eql(true)
-      .expect(Selector('.hooks .tags').count).eql(1)
-      .expect(Selector('.hooks .new-tag-input').value).eql('tag');
+      .expect(Selector('.hooks .ti-tags').count).eql(1)
+      .expect(Selector('.hooks .ti-new-tag-input').value).eql('tag');
   };
 
   // cancel adding -> input shouldnt be a tag
@@ -23,16 +23,16 @@ test('test all hooks', async t => {
   await t
     .click(Selector('.actions .cancel'))
     .expect(Selector('.hooks > .actions').exists).eql(false)
-    .expect(Selector('.hooks .tags').count).eql(1)
-    .expect(Selector('.hooks .new-tag-input').value).eql('');
+    .expect(Selector('.hooks .ti-tags').count).eql(1)
+    .expect(Selector('.hooks .ti-new-tag-input').value).eql('');
 
   // perform adding -> input should become a tags
   await enterTag();
   await t
     .click(Selector('.actions .perform'))
     .expect(Selector('.hooks > .actions').exists).eql(false)
-    .expect(Selector('.hooks .tags li').count).eql(2)
-    .expect(Selector('.hooks .new-tag-input').value).eql('');
+    .expect(Selector('.hooks .ti-tags li').count).eql(2)
+    .expect(Selector('.hooks .ti-new-tag-input').value).eql('');
 
 
   /*** check before-editing-tag hook ***/
@@ -40,9 +40,9 @@ test('test all hooks', async t => {
   // edit tag -> actions should be visible
   const editTag = async () => {
     await t
-      .click(Selector('.hooks .tags li:nth-child(1) .tag-center'))
+      .click(Selector('.hooks .ti-tags li:nth-child(1) .ti-tag-center'))
       .expect(Selector('.hooks > .actions').exists).eql(true)
-      .expect(Selector('.hooks .tags:nth-child(1) .tag-input').exists).eql(false);
+      .expect(Selector('.hooks .ti-tags:nth-child(1) .ti-tag-input').exists).eql(false);
   };
 
   // cancel edit
@@ -50,14 +50,14 @@ test('test all hooks', async t => {
   await t
     .click(Selector('.actions .cancel'))
     .expect(Selector('.hooks > .actions').exists).eql(false)
-    .expect(Selector('.hooks .tags li:nth-child(1) .tag-input').exists).eql(false);
+    .expect(Selector('.hooks .ti-tags li:nth-child(1) .ti-tag-input').exists).eql(false);
 
   // perform edit
   await editTag();
   await t
     .click(Selector('.actions .perform'))
     .expect(Selector('.hooks > .actions').exists).eql(false)
-    .expect(Selector('.hooks .tags li:nth-child(1) .tag-input').exists).eql(true);
+    .expect(Selector('.hooks .ti-tags li:nth-child(1) .ti-tag-input').exists).eql(true);
 
 
   /*** check before-saving-tag hook ***/
@@ -66,9 +66,9 @@ test('test all hooks', async t => {
   const saveChanges = async () => {
     await t
       .pressKey('ctrl+a delete')
-      .typeText(Selector('.hooks .tags li:nth-child(1)'), 'changed')
+      .typeText(Selector('.hooks .ti-tags li:nth-child(1)'), 'changed')
       .pressKey('enter')
-      .expect(Selector('.hooks .tags li:nth-child(1) .tag-input').exists).eql(true)
+      .expect(Selector('.hooks .ti-tags li:nth-child(1) .ti-tag-input').exists).eql(true)
       .expect(Selector('.hooks > .actions').exists).eql(true);
   };
 
@@ -76,41 +76,41 @@ test('test all hooks', async t => {
   await saveChanges();
   await t
     .click(Selector('.actions .cancel'))
-    .expect(Selector('.hooks .tags li:nth-child(1) span').textContent).eql('tag')
+    .expect(Selector('.hooks .ti-tags li:nth-child(1) span').textContent).eql('tag')
     .expect(Selector('.hooks > .actions').exists).eql(false)
-    .expect(Selector('.hooks .tags li:nth-child(1) .tag-input').exists).eql(false);
+    .expect(Selector('.hooks .ti-tags li:nth-child(1) .ti-tag-input').exists).eql(false);
 
   // perform save
   await t
-    .click(Selector('.hooks .tags li:nth-child(1) .tag-center'))
+    .click(Selector('.hooks .ti-tags li:nth-child(1) .ti-tag-center'))
     .click(Selector('.actions .perform'));
 
   await saveChanges();
   await t
     .click(Selector('.actions .perform'))
-    .expect(Selector('.hooks .tags li:nth-child(1) span').textContent).eql('changed')
+    .expect(Selector('.hooks .ti-tags li:nth-child(1) span').textContent).eql('changed')
     .expect(Selector('.hooks > .actions').exists).eql(false)
-    .expect(Selector('.hooks .tags li:nth-child(1) .tag-input').exists).eql(false);
+    .expect(Selector('.hooks .ti-tags li:nth-child(1) .ti-tag-input').exists).eql(false);
 
 
   /*** check before-deleting-tag hook ***/
   const deleteTag = async () => {
     await t
-      .click(Selector('.hooks .tags li:nth-child(1) .icon-close'))
-      .expect(Selector('.hooks .tags li').count).eql(2);
+      .click(Selector('.hooks .ti-tags li:nth-child(1) .ti-icon-close'))
+      .expect(Selector('.hooks .ti-tags li').count).eql(2);
   };
 
   // cancel delete
   await deleteTag();
   await t
     .click(Selector('.actions .cancel'))
-    .expect(Selector('.hooks .tags li').count).eql(2)
+    .expect(Selector('.hooks .ti-tags li').count).eql(2)
     .expect(Selector('.hooks > .actions').exists).eql(false);
 
   // perform delete
   await deleteTag();
   await t
     .click(Selector('.actions .perform'))
-    .expect(Selector('.hooks .tags li').count).eql(1)
+    .expect(Selector('.hooks .ti-tags li').count).eql(1)
     .expect(Selector('.hooks > .actions').exists).eql(false);
 });

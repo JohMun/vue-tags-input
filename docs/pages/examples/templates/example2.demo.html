@@ -1,0 +1,38 @@
+<vue-tags-input
+  v-model="tag"
+  :tags="tags"
+  :allow-edit-tags="true"
+  :add-only-from-autocomplete="true"
+  :autocomplete-items="items"
+  class="tags-input"
+  @tags-changed="newTags => tags = newTags"
+>
+  <div
+    slot="tag-center"
+    slot-scope="props"
+  >
+    <span
+      v-if="!props.edit"
+      @click="props.performOpenEdit(props.index)"
+    >
+      {{ props.tag.text }}
+    </span>
+    <div
+      v-else
+      class="inputs"
+    >
+      <select
+        v-model="props.tag.text"
+        @change="props.validateTag(props.index)"
+      >
+        <option v-for="(animal, index) in animals" :key="index">{{ animal }}</option>
+      </select>
+      <i
+        class="material-icons"
+        @click="props.performSaveEdit(props.index)"
+      >
+        check
+      </i>
+    </div>
+  </div>
+</vue-tags-input>

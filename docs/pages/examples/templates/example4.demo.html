@@ -1,0 +1,15 @@
+<vue-tags-input
+  v-model="tag"
+  :tags="tags"
+  :autocomplete-items="bikeMakers"
+  @tags-changed="newTags => tags = newTags"
+>
+  <template slot="autocomplete-header">
+    <strong>Select your favorite bike maker ↓</strong>
+  </template>
+  <template slot="autocomplete-footer">
+    <small>
+      <em>Or keep going with your worlds...</em>
+    </small>
+  </template>
+</vue-tags-input>

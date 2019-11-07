@@ -1,0 +1,6 @@
+<vue-tags-input
+  v-model="tag"
+  :tags="tags"
+  @tags-changed="newTags => tags = newTags"
+  @before-adding-tag="checkTag"
+/>

@@ -1,6 +1,10 @@
 <template>
-  <div ref="app" id="app">
-    <el-navbar @close-nav="navVisible = false" class="navbar" :class="{visible: navVisible }" />
+  <div id="app" ref="app">
+    <el-navbar
+      :class="{visible: navVisible }"
+      class="navbar"
+      @close-nav="navVisible = false"
+    />
     <main ref="scrollArea">
       <div class="content">
         <header>
@@ -9,12 +13,15 @@
           </div>
           <div>
             <a class="gt-link" href="https://github.com/JohMun/vue-tags-input" target="_blank">
-              <img src="./assets/img/github.png" alt="github logo" />
-              <span>Visit On Github</span>
+              <github-icon />
+              <span>{{ stars }}</span>
+              <i class="material-icons">star</i>
             </a>
           </div>
         </header>
-        <router-view class="main-content" />
+        <transition name="fade" mode="out-in">
+          <router-view class="main-content" />
+        </transition>
       </div>
     </main>
   </div>
@@ -22,39 +29,64 @@
 
 <script>
 import './app-style.scss';
-import ElNavbar from './components/el-navbar';
+import './vue-tags-input-dark.scss';
+import ElNavbar from '@components/el-navbar';
+import axois from 'axios';
+import GithubIcon from '@components/icons/github';
 
 export default {
-  name: 'app',
+  name: 'App',
   components: {
     ElNavbar,
+    GithubIcon,
   },
   data() {
     return {
       navVisible: false,
+      stars: null,
     };
-  },
-  methods: {
-    scrollTop() {
-      setTimeout(() => this.$refs.scrollArea.scrollTop = 0, 10);
-    },
   },
   watch: {
     '$route': 'scrollTop',
+  },
+  mounted() {
+    axois.get('http://api.github.com/repos/johmun/vue-tags-input').then(r => {
+      this.stars = r.data.stargazers_count;
+    }).catch(e => e);
+  },
+  methods: {
+    scrollTop() {
+      setTimeout(() => this.$refs.scrollArea.scrollTop = 0, 160);
+    },
   },
 };
 </script>
 
 <style lang="scss" scoped>
+@import 'colors';
+
 #app {
   width: 100%;
   display: flex;
   height: 100%;
+  position: relative;
+  padding-top: 5px;
+}
+
+#app:before {
+  content: '';
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  height: 5px;
+  width: 100%;
+  z-index: 999;
+  background: $primary;
 }
 
 @media (max-width: 940px) {
   .navbar {
-    transition: transform .2s ease-in-out;
+    transition: transform 160ms ease-in-out;
     transform: translateX(-100%);
 
     &.visible {
@@ -111,9 +143,10 @@ header {
 @media (max-width: 600px) {
   header {
     position:fixed;
-    background-color: #fff;
+    background-color: $darker;
     width: 100%;
     height: 50px;
+    padding: 0 20px;
     z-index: 2;
   }
 }
@@ -122,13 +155,45 @@ header {
   display: flex;
   align-items: center;
   font-size: 14px;
+  background: $middle;
+  border-radius: 20px;
+  padding-right: 14px;
+  text-decoration: none;
+  font-weight: 500;
 
-  img {
-    width: 24px;
+  span, i {
+    transition: color 200ms ease;
+  }
+
+  svg {
+    width: 36px;
+    height: 36px;
+
+    > * {
+      transition: fill 200ms ease;
+      fill: $lightestGrey;
+    }
   }
 
   span {
-    margin-left: 6px;
+    text-align: right;
+    min-width: 34px;
+    color: $lightestGrey;
+    margin-right: 3px;
+  }
+
+  &:hover {
+    span, i {
+      color: #fff;
+    }
+    svg > * {
+      fill: #fff;
+    }
+  }
+
+  i {
+    font-size: 16px;
+    margin-top: -3px;
   }
 }
 
@@ -144,4 +209,32 @@ header {
   }
 }
 
+.fade-enter-active, .fade-leave-active {
+  transition: opacity 160ms;
+}
+.fade-enter, .fade-leave-to {
+  opacity: 0;
+}
+
+</style>
+
+<style lang="scss">
+@import 'colors';
+
+.gt-link {
+
+  svg {
+    width: 36px;
+    height: 36px;
+
+    > * {
+      transition: fill 200ms ease;
+      fill: $lightestGrey;
+    }
+  }
+
+  &:hover svg > * {
+    fill: #fff;
+  }
+}
 </style>

@@ -13,7 +13,7 @@ $warn: #ffb648;
   font-style: normal;
 }
 
-[class^="icon-"], [class*=" icon-"] {
+[class^="ti-icon-"], [class*=" ti-icon-"] {
   font-family: 'icomoon' !important;
   speak: none;
   font-style: normal;
@@ -25,15 +25,15 @@ $warn: #ffb648;
   -moz-osx-font-smoothing: grayscale;
 }
 
-.icon-check:before {
+.ti-icon-check:before {
   content: "\e902";
 }
 
-.icon-close:before {
+.ti-icon-close:before {
   content: "\e901";
 }
 
-.icon-undo:before {
+.ti-icon-undo:before {
   content: "\e900";
 }
 
@@ -61,7 +61,7 @@ input[disabled] {
   background-color: #fff;
 }
 
-.vue-tags-input.vue-tags-input.disabled {
+div.vue-tags-input.disabled {
   opacity: 0.5;
 
   * {
@@ -69,20 +69,21 @@ input[disabled] {
   }
 }
 
-.input {
+.ti-input {
   border: 1px solid #ccc;
   display: flex;
   padding: 4px;
   flex-wrap: wrap;
 }
 
-.tags {
+.ti-tags {
   display: flex;
   flex-wrap: wrap;
   width: 100%;
+  line-height: 1em;
 }
 
-.tag {
+.ti-tag {
   background-color: $primary;
   color: #fff;
   border-radius: 2px;
@@ -95,27 +96,27 @@ input[disabled] {
     outline: none;
   }
 
-  .content {
+  .ti-content {
     display: flex;
     align-items: center;
   }
 
-  .tag-center {
+  .ti-tag-center {
     position: relative;
   }
 
   span {
-    line-height: inherit;
+    line-height: .85em;
   }
 
-  span.hidden {
+  span.ti-hidden {
     padding-left: 14px;
     visibility: hidden;
     height: 0px;
     white-space: pre;
   }
 
-  .actions {
+  .ti-actions {
     margin-left: 2px;
     display: flex;
     align-items: center;
@@ -130,12 +131,12 @@ input[disabled] {
     margin-right: 4px;
   }
 
-  &.invalid, &.tag.deletion-mark {
+  &.ti-invalid, &.ti-tag.ti-deletion-mark {
     background-color: $error;
   }
 }
 
-.new-tag-input-wrapper {
+.ti-new-tag-input-wrapper {
   display: flex;
   flex: 1 0 auto;
   padding: 3px 5px;
@@ -151,11 +152,11 @@ input[disabled] {
   }
 }
 
-.new-tag-input {
-  line-height: inherit;
+.ti-new-tag-input {
+  line-height: initial;
 }
 
-.autocomplete {
+.ti-autocomplete {
   border: 1px solid #ccc;
   border-top: none;
   position: absolute;
@@ -164,15 +165,13 @@ input[disabled] {
   z-index: 20;
 }
 
-.item {
-  > div {
-    cursor: pointer;
-    padding: 3px 6px;
-    width: 100%;
-  }
+.ti-item > div {
+  cursor: pointer;
+  padding: 3px 6px;
+  width: 100%;
 }
 
-.selected-item {
+.ti-selected-item {
   background-color: $primary;
   color: #fff;
 }

@@ -15,16 +15,15 @@
         unvalidated tags.
       </p>
       <p>
-        To solve this problem, you can create validated tags by yourself and pass them to vue-tags-input.
+        To solve this problem, you can create validated tags
+        by yourself and pass them to vue-tags-input.
         To achieve that, we can import some helper functions from vue-tags-input.
       </p>
-      <el-code class="javascript">
-        <code>
-import { VueTagsInput, createTag, createTags } from '@johmun/vue-tags-input';
-        </code>
-      </el-code>
+      <el-code
+        code="import { VueTagsInput, createTag, createTags } from '@johmun/vue-tags-input';"
+      />
       <ul>
-        <li class="docs-item" v-for="(p, index) in helpers" :key="index">
+        <li v-for="(p, index) in helpers" :key="index" class="docs-item">
           <auto-docs-item :item="p" :kebab-name="false" />
         </li>
       </ul>
@@ -33,8 +32,8 @@ import { VueTagsInput, createTag, createTags } from '@johmun/vue-tags-input';
 </template>
 
 <script>
-import ElCode from '../../components/el-code';
-import AutoDocsItem from '../../components/auto-docs-item';
+import ElCode from '@components/el-code';
+import AutoDocsItem from '@components/auto-docs-item';
 import sortBy from 'lodash/sortBy';
 
 export default {

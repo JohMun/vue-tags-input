@@ -1,22 +1,20 @@
-import Props from './props';
-import Events from './events';
-import Slots from './slots';
 import CreateTagsHelper from './create-tags-helper';
+import GenericApiPage from '@components/generic-api-page';
 
-export default [{
-  path: '/api/props',
-  name: 'api.props',
-  component: Props,
-}, {
-  path: '/api/events',
-  name: 'api.events',
-  component: Events,
-}, {
-  path: '/api/slots',
-  name: 'api.slots',
-  component: Slots,
-}, {
-  path: '/api/create-tags-helper',
-  name: 'api.create-tags-helper',
-  component: CreateTagsHelper,
-}];
+const apiRoutes = ['events', 'props', 'slots'].map(type => {
+  return {
+    path: `/api/${type}`,
+    name: `api.${type}`,
+    component: GenericApiPage,
+    meta: { type },
+  };
+});
+
+export default [
+  ...apiRoutes,
+  {
+    path: '/api/create-tags-helper',
+    name: 'api.create-tags-helper',
+    component: CreateTagsHelper,
+  },
+];

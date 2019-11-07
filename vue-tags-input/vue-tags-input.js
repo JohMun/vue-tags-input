@@ -71,8 +71,8 @@ export default {
     },
     // Method which is called when the user presses backspace → remove the last tag
     invokeDelete() {
-      // If we shouldn't delete tags on backslash or we have some characters in the input → stop
-      if (!this.deleteOnBackslash || this.newTag.length > 0) return;
+      // If we shouldn't delete tags on backspace or we have some characters in the input → stop
+      if (!this.deleteOnBackspace || this.newTag.length > 0) return;
       const lastIndex = this.tagsCopy.length - 1;
       if (this.deletionMark === null) {
         this.deletionMarkTime = setTimeout(() => this.deletionMark = null, 1000);
@@ -128,7 +128,7 @@ export default {
     // Focuses the input of a tag
     focus(index) {
       this.$nextTick(() => {
-        const el = this.$refs.tagCenter[index].querySelector('input.tag-input');
+        const el = this.$refs.tagCenter[index].querySelector('input.ti-tag-input');
         if (el) el.focus();
       });
     },
@@ -146,7 +146,7 @@ export default {
     hasForbiddingAddRule(tiClasses) {
       // Does the tag has a rule, defined by the user, which prohibits adding?
       return tiClasses.some(type => {
-        const rule = this.validation.find(rule => type === rule.type);
+        const rule = this.validation.find(rule => type === rule.classes);
         return rule ? rule.disableAdd : false;
       });
     },
@@ -198,22 +198,22 @@ export default {
       return !triggerKey;
     },
     // Method to call to add a tag
-    performAddTags(tag, event) {
+    performAddTags(tag, event, source) {
       // If the input is disabled or the function was invoked by no trigger key → stop
       if (this.disabled || event && this.noTriggerKey(event, 'addOnKey')) return;
-
-      // If the tag has no content → stop
-      if (typeof tag === 'string' && tag.trim().length === 0) return;
 
       // Convert the string or object into a tags array
       let tags = [];
       if (typeof tag === 'object') tags = [tag];
       if (typeof tag === 'string') tags = this.createTagTexts(tag);
 
+      // Filter out the tags with no content
+      tags = tags.filter(tag => tag.text.trim().length > 0);
+
       // The basic checks are done → try to add all tags
       tags.forEach(tag => {
         tag = createTag(tag, this.tags, this.validation, this.isDuplicate);
-        if (!this._events['before-adding-tag']) this.addTag(tag);
+        if (!this._events['before-adding-tag']) this.addTag(tag, source);
         /**
          * @description Emits before a tag is added
          * @name before-adding-tag
@@ -223,7 +223,7 @@ export default {
          */
         this.$emit('before-adding-tag', {
           tag,
-          addTag: () => this.addTag(tag),
+          addTag: () => this.addTag(tag, source),
         });
       });
     },
@@ -232,7 +232,7 @@ export default {
         ? !this.isDuplicate(this.tagsCopy, tag)
         : !this.tagsCopy.find(t => t.text === tag.text);
     },
-    addTag(tag) {
+    addTag(tag, source = 'new-tag-input') {
       // Check if we should only add items from autocomplete and if so,
       // does the tag exists as an option
       const options = this.filteredAutocompleteItems.map(i => i.text);
@@ -263,8 +263,8 @@ export default {
          */
         if (dup) return this.$emit('adding-duplicate', tag);
 
-        // If the tag is invalid and we find a rule which avoids adding → stop
-        if (!tag.valid && this.hasForbiddingAddRule(tag.tiClasses)) return;
+        // If we find a rule which avoids that the tag is added → stop
+        if (this.hasForbiddingAddRule(tag.tiClasses)) return;
 
         // Everything is okay → add the tag
         this.$emit('input', '');
@@ -272,6 +272,9 @@ export default {
 
         // Special update for the parent if .sync is on
         if (this._events['update:tags']) this.$emit('update:tags', this.tagsCopy);
+
+        // if the tag was added by autocomplete, focus the input
+        if (source === 'autocomplete') this.$refs.newTagInput.focus();
 
         this.$emit('tags-changed', this.tagsCopy);
       });
@@ -320,8 +323,8 @@ export default {
         if (dup) return this.$emit('saving-duplicate', tag);
       }
 
-      // If the tag is invalid and we find a rule which avoids saving → stop
-      if (!tag.valid && this.hasForbiddingAddRule(tag.tiClasses)) return;
+      // If we find a rule which avoids that the tag is added → stop
+      if (this.hasForbiddingAddRule(tag.tiClasses)) return;
 
       // Everything is okay → save the tag
       this.$set(this.tagsCopy, index, tag);
@@ -347,16 +350,18 @@ export default {
       // Let's create an array which defines whether a tag is in edit mode or not
       this.tagsEditStatus = clone(this.tags).map(() => false);
 
-      // We check if the original and the copied tags are equal →
+      // We check if the original and the copied and validated tags are equal →
       // Update the parent if not and sync is on.
       if (this._events['update:tags'] && !this.tagsEqual()) {
         this.$emit('update:tags', this.tagsCopy);
       }
     },
-    blurred(e) {
+    blurredOnClick(e) {
       // if the click occurs on tagsinput → don't hide
-      if (this.$el.contains(e.target)) return;
-
+      if (this.$el.contains(e.target) || this.$el.contains(document.activeElement)) return;
+      this.performBlur(e);
+    },
+    performBlur() {
       // If we should add tags before blurring → add tag
       if (this.addOnBlur && this.focused) this.performAddTags(this.newTag);
 
@@ -388,9 +393,9 @@ export default {
     this.selectDefaultItem();
 
     // We add a event listener to hide autocomplete on blur
-    document.addEventListener('click', this.blurred);
+    document.addEventListener('click', this.blurredOnClick);
   },
   destroyed() {
-    document.removeEventListener('click', this.blurred);
+    document.removeEventListener('click', this.blurredOnClick);
   },
 };
