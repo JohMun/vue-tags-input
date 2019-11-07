@@ -1,16 +1,3 @@
-### Forked copy
-This is a forked copy of the original [vue-tags-input](https://github.com/JohMun/vue-tags-input) created by [JohMun](https://github.com/JohMun).
-
-#### Install
-NPM
-```
-npm install @kurbar/vue-tags-input --save
-```
-
-#### Changes
-* Support event.key strings in addOnKey prop. PR open [vue-tags-input#47](https://github.com/JohMun/vue-tags-input/pull/47)
-* ...
-
 # vue-tags-input
 
 A tags input component for VueJS with autocompletion, custom validation, templating and much more
