@@ -1,23 +1,25 @@
 {
-  "name": "@johmun/vue-tags-input",
-  "version": "2.1.0",
-  "author": "Johannes Munari <johannesm@hotmail.de>",
-  "license": "MIT",
-  "description": "A tags input component for VueJS with autocompletion, custom validation, templating and much more",
-  "homepage": "http://www.vue-tags-input.com",
-  "private": false,
+  "name": "@vojtechlanka/vue-tags-input",
+  "version": "2.1.0-draggable",
+  "description": "A tags input component for VueJS from @johmun with added drag and drop support.",
   "keywords": [
     "javascript",
     "vue",
     "tags",
     "vue-tags-input",
     "vue-component",
-    "autocomplete"
+    "autocomplete",
+    "draggable"
   ],
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/JohMun/vue-tags-input.git"
+  "homepage": "https://github.com/VojtechLanka/vue-tags-input#readme",
+  "bugs": {
+    "url": "https://github.com/VojtechLanka/vue-tags-input/issues"
   },
+  "license": "MIT",
+  "author": "Johannes Munari <johannesm@hotmail.de>",
+  "contributors": [
+    "Vojtěch Laňka <vojta.lanka@gmail.com>"
+  ],
   "main": "dist/vue-tags-input.js",
   "scripts": {
     "dev": "npm run docs",
@@ -30,9 +32,9 @@
     "lint-fix": "eslint --fix --ignore-path .gitignore --ext .js,.vue . --ignore-pattern *.demo.*",
     "e2e": "testcafe all e2e/*test* --app \"npm run dev\" --app-init-delay 10000 -S -s screenshots"
   },
-  "lint-staged": {
-    "*.js": "eslint",
-    "*.vue": "eslint"
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/VojtechLanka/vue-tags-input.git"
   },
   "peerDependencies": {
     "vue": "2.x"
@@ -82,6 +84,10 @@
     "webpack-cli": "^3.1.2",
     "webpack-dev-server": "^3.1.10",
     "vuedraggable": "^2.20.0"
+  },
+  "lint-staged": {
+    "*.js": "eslint",
+    "*.vue": "eslint"
   },
   "eslintConfig": {
     "parserOptions": {
