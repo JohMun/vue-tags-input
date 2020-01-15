@@ -122,7 +122,7 @@
           <input
             ref="newTagInput"
             v-bind="$attrs"
-            v-show="maxTags > tags.length"
+            v-show="!maxTags || maxTags > tags.length"
             :class="[createClasses(newTag, tags, validation, isDuplicate)]"
             :placeholder="placeholder"
             :value="newTag"
