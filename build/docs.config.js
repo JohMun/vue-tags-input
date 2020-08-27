@@ -94,7 +94,7 @@ module.exports = {
   },
   plugins: [
     new VueLoaderPlugin(),
-    new CopyPlugin({ patterns: [{from: resolve('../docs/.htaccess'), to: '../docs-dist'}] }),
+    new CopyPlugin({ patterns: [{ from: resolve('../docs/.htaccess'), to: '../docs-dist' }] }),
     new CleanPlugin(['../docs-dist'], { allowExternal: true }),
     new HtmlWebpackPlugin({
       template: resolve('../docs/index.html'),

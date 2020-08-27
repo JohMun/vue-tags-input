@@ -9,9 +9,9 @@
 
       <el-code class="javascript">
         <code>import Vue from 'vue';
-import VueTagsInput from '@johmun/vue-tags-input';
+          import VueTagsInput from '@johmun/vue-tags-input';
 
-Vue.use(VueTagsInput);
+          Vue.use(VueTagsInput);
         </code>
       </el-code>
 
@@ -22,10 +22,10 @@ Vue.use(VueTagsInput);
 
       <el-code class="javascript">
         <code>plugins: [{ src: '~/plugins/vue-tags-input', ssr: false }],
-build: {
-vendor: ['@johmun/vue-tags-input'],
-// more config
-}
+          build: {
+          vendor: ['@johmun/vue-tags-input'],
+          // more config
+          }
         </code>
       </el-code>
 
