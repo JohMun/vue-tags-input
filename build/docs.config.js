@@ -129,7 +129,7 @@ module.exports = {
   performance: {
     hints: false,
   },
-  devtool: '#eval-source-map',
+  devtool: 'eval-source-map',
   optimization: {
     splitChunks: {
       cacheGroups: {
@@ -144,7 +144,7 @@ module.exports = {
 };
 
 if (mode === 'production') {
-  module.exports.devtool = '#source-map';
+  module.exports.devtool = 'nosources-source-map';
   module.exports.plugins = (module.exports.plugins || []).concat([
     new webpack.LoaderOptionsPlugin({ minimize: true }),
   ]);
