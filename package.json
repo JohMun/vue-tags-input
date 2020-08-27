@@ -1,7 +1,7 @@
 {
-  "name": "@johmun/vue-tags-input",
-  "version": "2.1.0",
-  "author": "Johannes Munari <johannesm@hotmail.de>",
+  "name": "@fschroiff/vue-tags-input-new",
+  "version": "2.2.0",
+  "author": "Johannes Munari <johannesm@hotmail.de>, Florian Schroiff",
   "license": "MIT",
   "description": "A tags input component for VueJS with autocompletion, custom validation, templating and much more",
   "homepage": "http://www.vue-tags-input.com",
