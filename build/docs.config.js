@@ -3,7 +3,7 @@ const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanPlugin = require('clean-webpack-plugin');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
+const CopyPlugin = require('copy-webpack-plugin');
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
 const ip = require('ip');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
@@ -94,7 +94,7 @@ module.exports = {
   },
   plugins: [
     new VueLoaderPlugin(),
-    new CopyWebpackPlugin([{ from: resolve('../docs/.htaccess') }]),
+    new CopyPlugin({ patterns: [{from: resolve('../docs/.htaccess'), to: '../docs-dist'}] }),
     new CleanPlugin(['../docs-dist'], { allowExternal: true }),
     new HtmlWebpackPlugin({
       template: resolve('../docs/index.html'),
