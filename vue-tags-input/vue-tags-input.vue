@@ -9,14 +9,14 @@
     :class="[{ 'ti-disabled': disabled }, { 'ti-focus': focused }]"
   >
     <div class="ti-input">
-      <component 
+      <component
         :is="isDraggable ? 'draggable' : 'ul'"
         v-if="tagsCopy"
         v-model="tagsCopy" group="tags"
         class="ti-tags"
         tag="ul"
-        draggable=".item" 
-        :handle="draggableHandle ? '.handle' : ''" 
+        draggable=".item"
+        :handle="draggableHandle ? '.handle' : ''"
         ghost-class="ghost-tag"
         drag-class="drag-tag"
         @start="drag=true"
