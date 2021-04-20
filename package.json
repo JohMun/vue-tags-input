@@ -1,6 +1,6 @@
 {
   "name": "@vojtechlanka/vue-tags-input",
-  "version": "2.1.0-draggable",
+  "version": "2.1.1-draggable",
   "description": "A tags input component for VueJS from @johmun with added drag and drop support.",
   "keywords": [
     "javascript",
