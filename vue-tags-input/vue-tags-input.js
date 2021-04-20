@@ -373,6 +373,15 @@ export default {
       // Emit new tag order.
       this.$emit('tag-order-changed', this.tagsCopy);
     },
+    performClick(event) {
+      if (this.addOnlyFromAutocomplete) {
+        this.$emit('click', event);
+        return false;
+      }
+
+      this.selectedItem = null;
+      this.$emit('click', event);
+    },
   },
   watch: {
     value(newValue){
