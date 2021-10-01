@@ -1,6 +1,6 @@
 {
-  "name": "@vojtechlanka/vue-tags-input",
-  "version": "2.1.1-draggable",
+  "name": "@igorstasiuk/vue-tags-input",
+  "version": "2.1.2",
   "description": "A tags input component for VueJS from @johmun with added drag and drop support.",
   "keywords": [
     "javascript",
@@ -11,14 +11,15 @@
     "autocomplete",
     "draggable"
   ],
-  "homepage": "https://github.com/VojtechLanka/vue-tags-input#readme",
+  "homepage": "https://github.com/igorstasiuk/vue-tags-input#readme",
   "bugs": {
-    "url": "https://github.com/VojtechLanka/vue-tags-input/issues"
+    "url": "https://github.com/igorstasiuk/vue-tags-input/issues"
   },
   "license": "MIT",
   "author": "Johannes Munari <johannesm@hotmail.de>",
   "contributors": [
-    "Vojtěch Laňka <vojta.lanka@gmail.com>"
+    "Vojtěch Laňka <vojta.lanka@gmail.com>",
+    "Igor Stasiuk <obvilion08@gmail.com>"
   ],
   "main": "dist/vue-tags-input.js",
   "scripts": {
@@ -27,7 +28,6 @@
     "build-docs": "cross-env NODE_ENV=production webpack --config ./build/docs.config.js --hide-modules",
     "analyze": "cross-env ANALYZE=true npm run build-docs",
     "build-lib": "webpack --config ./build/lib.config.js --hide-modules",
-    "precommit": "lint-staged",
     "lint": "eslint --ext .js,.vue --ignore-path .gitignore . --ignore-pattern *.demo.*",
     "lint-fix": "eslint --fix --ignore-path .gitignore --ext .js,.vue . --ignore-pattern *.demo.*",
     "e2e": "testcafe all e2e/*test* --app \"npm run dev\" --app-init-delay 10000 -S -s screenshots"
@@ -40,23 +40,23 @@
     "vue": "2.x"
   },
   "dependencies": {
-    "vue": "^2.6.11"
+    "vue": "^2.6.12"
   },
   "devDependencies": {
-    "@babel/core": "^7.8.6",
-    "@babel/plugin-proposal-object-rest-spread": "^7.8.3",
-    "@babel/polyfill": "^7.8.3",
-    "@babel/preset-env": "^7.13.15",
+    "@babel/core": "^7.11.4",
+    "@babel/plugin-proposal-object-rest-spread": "^7.11.0",
+    "@babel/polyfill": "^7.10.4",
+    "@babel/preset-env": "^7.11.0",
     "@hydrant/eslint-config": "^2.1.3",
-    "autoprefixer": "^9.7.4",
-    "axios": "^0.21.1",
+    "autoprefixer": "^9.8.6",
+    "axios": "^0.18.1",
     "babel-eslint": "^10.1.0",
-    "babel-loader": "^8.0.6",
+    "babel-loader": "^8.1.0",
     "clean-webpack-plugin": "^1.0.1",
-    "copy-webpack-plugin": "^4.5.1",
+    "copy-webpack-plugin": "^6.0.3",
     "cross-env": "^5.2.1",
     "css-loader": "^2.1.1",
-    "documentation": "^9.3.1",
+    "documentation": "^13.0.2",
     "eslint": "^5.16.0",
     "eslint-plugin-vue": "^5.2.3",
     "fast-deep-equal": "^2.0.1",
@@ -67,23 +67,24 @@
     "image-webpack-loader": "^4.6.0",
     "ip": "^1.1.5",
     "lint-staged": "^8.2.1",
-    "node-sass": "^4.13.1",
+    "node-sass": "^4.14.1",
     "normalize-css": "^2.3.1",
     "postcss-loader": "^3.0.0",
     "raw-loader": "^1.0.0",
     "sass-loader": "^7.3.1",
-    "testcafe": "^0.23.3",
+    "terser-webpack-plugin": "^4.1.0",
+    "testcafe": "^15.1.317922",
     "testcafe-vue-selectors": "^3.1.0",
     "url-loader": "^1.1.2",
-    "vue-loader": "^15.9.0",
-    "vue-router": "^3.1.6",
+    "vue-loader": "^15.9.3",
+    "vue-router": "^3.4.3",
     "vue-style-loader": "^4.1.2",
-    "vue-template-compiler": "^2.6.11",
+    "vue-template-compiler": "^2.6.12",
     "vuedraggable": "^2.23.2",
-    "webpack": "^4.42.0",
-    "webpack-bundle-analyzer": "^3.6.0",
-    "webpack-cli": "^3.3.11",
-    "webpack-dev-server": "^3.11.2"
+    "webpack": "^4.44.1",
+    "webpack-bundle-analyzer": "^3.8.0",
+    "webpack-cli": "^3.3.12",
+    "webpack-dev-server": "^3.11.0"
   },
   "lint-staged": {
     "*.js": "eslint",
@@ -117,6 +118,11 @@
   "postcss": {
     "plugins": {
       "autoprefixer": {}
+    }
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
     }
   }
 }

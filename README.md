@@ -22,7 +22,7 @@ This is forked component from https://github.com/JohMun/vue-tags-input with adde
 
 NPM
 ```
-npm i @vojtechlanka/vue-tags-input
+npm i @igorstasiuk/vue-tags-input
 ```
 
 ## Usage with draggable
@@ -47,7 +47,7 @@ On drop `tag-order-changed` is emitted with array of tags in new order. Use this
 
 ```javascript
 <script>
-import VueTagsInput from '@vojtechlanka/vue-tags-input';
+import VueTagsInput from '@igorstasiuk/vue-tags-input';
 
 export default {
   components: {

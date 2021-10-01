@@ -11,7 +11,7 @@ test('test to edit a tag', async t => {
   // the text of the tag should be 'a tag'
   await t.expect(Selector('.edit-tag .ti-tags li span').textContent).eql('a tag');
 
-  const changeTag = async (text) => {
+  const changeTag = async text => {
     await t
       .click(Selector('.edit-tag .ti-tags li:nth-child(1)'))
       .pressKey('ctrl+a delete')

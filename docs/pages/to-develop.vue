@@ -17,7 +17,7 @@
       :autocomplete-items="autocompleteItems"
       @tags-changed="tagsChanged"
     />
-    <input type="text" />
+    <input type="text">
     {{ tags }}
   </div>
 </template>

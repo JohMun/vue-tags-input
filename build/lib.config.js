@@ -1,6 +1,7 @@
 'use strict';
 const path = require('path');
 const CleanPlugin = require('clean-webpack-plugin');
+const TerserJsPlugin = require('terser-webpack-plugin');
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
 
 const resolve = src => path.resolve(__dirname, src);
@@ -31,7 +32,7 @@ module.exports = {
           loader: 'babel-loader',
           options: {
             plugins: ['@babel/plugin-proposal-object-rest-spread'],
-            presets: ['@babel/preset-env']
+            presets: ['@babel/preset-env'],
           },
         },
       },
@@ -77,8 +78,11 @@ module.exports = {
       'vue$': 'vue/dist/vue.esm.js',
     },
   },
-  devtool: '#source-map',
+  devtool: 'nosources-source-map',
   optimization: {
     minimize: true,
+    minimizer: [new TerserJsPlugin({
+      sourceMap: true,
+    })],
   },
 };

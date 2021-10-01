@@ -60,14 +60,12 @@ export default {
 }`,
         v2: `.ti-new-tag-input {
   color: #b7c4c9;
-}`
-      },
+}`,},
       validationItem: {
         v1: `validation: [{
   type: 'min-length',
   rule: text => text.length < 8,
-}],
-        `,
+}],`,
         v2: `validation: [{
   classes: 'min-length',
   rule: tag => tag.text.length < 8,
