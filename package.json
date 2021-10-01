@@ -34,7 +34,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/VojtechLanka/vue-tags-input.git"
+    "url": "git+https://github.com/igorstasiuk/vue-tags-input.git"
   },
   "peerDependencies": {
     "vue": "2.x"
