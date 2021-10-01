@@ -9,7 +9,19 @@
     :class="[{ 'ti-disabled': disabled }, { 'ti-focus': focused }]"
   >
     <div class="ti-input">
-      <ul v-if="tagsCopy" class="ti-tags">
+      <component
+        :is="isDraggable ? 'draggable' : 'ul'"
+        v-if="tagsCopy"
+        v-model="tagsCopy" group="tags"
+        class="ti-tags"
+        tag="ul"
+        draggable=".item"
+        :handle="draggableHandle ? '.handle' : ''"
+        ghost-class="ghost-tag"
+        drag-class="drag-tag"
+        @start="drag=true"
+        @end="drag=false; tagOrderChanged()"
+      >
         <li
           v-for="(tag, index) in tagsCopy"
           :key="index"
@@ -21,10 +33,11 @@
             { 'ti-deletion-mark': isMarked(index) }
           ]"
           tabindex="0"
-          class="ti-tag"
+          class="ti-tag item"
           @click="$emit('tag-clicked', { tag, index })"
         >
           <div class="ti-content">
+            <span v-if="draggableHandle" class="handle">::</span>
             <div
               v-if="$scopedSlots['tag-left']"
               class="ti-tag-left"
@@ -118,7 +131,7 @@
             />
           </div>
         </li>
-        <li class="ti-new-tag-input-wrapper">
+        <li slot="footer" class="ti-new-tag-input-wrapper">
           <input
             ref="newTagInput"
             v-bind="$attrs"
@@ -141,10 +154,10 @@
             @input="updateNewTag"
             @blur="$emit('blur', $event)"
             @focus="focused = true; $emit('focus', $event)"
-            @click="addOnlyFromAutocomplete ? false : selectedItem = null"
+            @click="performClick($event)"
           >
         </li>
-      </ul>
+      </component>
     </div>
     <slot name="between-elements" />
     <div
