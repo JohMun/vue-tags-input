@@ -18,7 +18,7 @@
     "type": "git",
     "url": "https://github.com/JohMun/vue-tags-input.git"
   },
-  "main": "dist/vue-tags-input.js",
+  "main": "vue-tags-input/vue-tags-input.vue",
   "scripts": {
     "dev": "npm run docs",
     "docs": "cross-env NODE_ENV=development webpack-dev-server --hot --config ./build/docs.config.js",
