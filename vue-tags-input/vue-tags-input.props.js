@@ -341,4 +341,23 @@ export default {
     default: true,
     type: Boolean,
   },
+  /**
+   * @description Show link <a>{{ placeholder }}</a> instead of <input :value="instead"> when input is unfocused
+   * @type {Boolean}
+   * @default false
+   */
+  linkInsteadOfUnfocusedInput: {
+    default: false,
+    type: Boolean,
+  },
+
+  /**
+   * @description Prevent adding new tags
+   * @type {Boolean}
+   * @default false
+   */
+  preventAdd: {
+    default: false,
+    type: Boolean,
+  },
 };
