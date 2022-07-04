@@ -377,10 +377,14 @@ export default {
         this.$emit('prevent-add');
         return;
       }
+      
+      console.log(1)
 
       setTimeout(() => {
         this.focused = true;
+        console.log(2, focus)
         focus && setTimeout(() => {
+          console.log(3)
           this.focus();
         });
       })
