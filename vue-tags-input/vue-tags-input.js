@@ -379,11 +379,8 @@ export default {
       }
 
       setTimeout(() => {
-        console.log('open', 1)
         this.focused = true;
-        console.log(2)
         focus && setTimeout(() => {
-          console.log(3)
           this.focus();
         });
       })
