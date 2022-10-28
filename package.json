@@ -47,7 +47,7 @@
     "@babel/preset-env": "^7.1.0",
     "@hydrant/eslint-config": "^2.0.1",
     "autoprefixer": "^9.4.3",
-    "axios": "^0.18.0",
+    "axios": "^0.21.2",
     "babel-eslint": "^10.0.1",
     "babel-loader": "^8.0.4",
     "clean-webpack-plugin": "^1.0.0",
