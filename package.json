@@ -70,7 +70,7 @@
     "raw-loader": "^1.0.0",
     "sass": "^1.55.0",
     "sass-loader": "^8.0.2",
-    "testcafe": "^0.23.3",
+    "testcafe": "^2.0.1",
     "testcafe-vue-selectors": "^3.0.0",
     "url-loader": "^1.1.2",
     "vue-loader": "^15.4.2",
