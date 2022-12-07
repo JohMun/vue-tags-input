@@ -64,7 +64,7 @@
     "husky": "^1.1.2",
     "image-webpack-loader": "^4.6.0",
     "ip": "^1.1.5",
-    "lint-staged": "^8.1.0",
+    "lint-staged": "^13.1.0",
     "normalize-css": "^2.3.1",
     "postcss-loader": "^3.0.0",
     "raw-loader": "^1.0.0",
