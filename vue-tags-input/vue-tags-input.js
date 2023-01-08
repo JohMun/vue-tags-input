@@ -20,6 +20,7 @@ export default {
       deletionMarkTime: null,
       selectedItem: null,
       focused: null,
+      mouseOverWorkingPlace: false,
     };
   },
   computed: {
@@ -128,8 +129,9 @@ export default {
     // Focuses the input of a tag
     focus(index) {
       this.$nextTick(() => {
-        const el = this.$refs.tagCenter[index].querySelector('input.ti-tag-input');
-        if (el) el.focus();
+        // const el = this.$refs.tagCenter[index].querySelector('input.ti-tag-input');
+        // if (el) el.focus();
+        this.$refs.newTagInput.focus();
       });
     },
     quote(regex) {
@@ -366,8 +368,42 @@ export default {
       if (this.addOnBlur && this.focused) this.performAddTags(this.newTag);
 
       // Hide autocomplete layer
+      this.close();
+    },
+
+
+    open(focus=true) {
+      if (this.preventAdd) {
+        this.$emit('prevent-add');
+        return;
+      }
+      
+      console.log(1)
+
+      setTimeout(() => {
+        this.focused = true;
+        console.log(2, focus)
+        focus && setTimeout(() => {
+          console.log(3)
+          this.focus();
+        });
+      })
+      
+    },
+
+
+    close() {
       this.focused = false;
     },
+
+
+    closeIfMouseOut() {
+      if (this.mouseOverWorkingPlace) {
+        return;
+      }
+      this.close();
+    },
+
   },
   watch: {
     value(newValue){

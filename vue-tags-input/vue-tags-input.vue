@@ -7,9 +7,12 @@
   <div
     class="vue-tags-input"
     :class="[{ 'ti-disabled': disabled }, { 'ti-focus': focused }]"
+    @mousedown="closeIfMouseOut"
   >
     <div class="ti-input">
       <ul v-if="tagsCopy" class="ti-tags">
+
+        <!-- Tag -->
         <li
           v-for="(tag, index) in tagsCopy"
           :key="index"
@@ -118,8 +121,20 @@
             />
           </div>
         </li>
+
+
+
+        <!-- Input -->
         <li class="ti-new-tag-input-wrapper">
+
+          <button
+            v-if="linkInsteadOfUnfocusedInput && !focused"
+            @click="open(true)"
+            class="ti-new-tab-button"
+          >{{ placeholder }}</button>
+
           <input
+            v-else
             ref="newTagInput"
             v-bind="$attrs"
             :class="[createClasses(newTag, tags, validation, isDuplicate)]"
@@ -142,15 +157,23 @@
             @blur="$emit('blur', $event)"
             @focus="focused = true; $emit('focus', $event)"
             @click="addOnlyFromAutocomplete ? false : selectedItem = null"
-          >
+            @mouseenter="mouseOverWorkingPlace = true"
+            @mouseleave="mouseOverWorkingPlace = false"
+          />
+
         </li>
       </ul>
     </div>
+
     <slot name="between-elements" />
+
+    <!-- Autocompletion -->
     <div
       v-if="autocompleteOpen"
       class="ti-autocomplete"
       @mouseout="selectedItem = null"
+      @mouseenter="mouseOverWorkingPlace = true"
+      @mouseleave="mouseOverWorkingPlace = false"
     >
       <slot name="autocomplete-header" />
       <ul>
