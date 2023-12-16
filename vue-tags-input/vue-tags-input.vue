@@ -129,7 +129,7 @@
 
           <button
             v-if="linkInsteadOfUnfocusedInput && !focused"
-            @click="open"
+            @click="open(true)"
             class="ti-new-tab-button"
           >{{ placeholder }}</button>
 
